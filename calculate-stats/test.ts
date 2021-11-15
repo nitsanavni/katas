@@ -15,10 +15,10 @@ import test from "ava";
 
 type Sequence = number[];
 type Stats = {
-    minimumValue: number;
-    maximumValue: number;
+    minimumValue: number | undefined;
+    maximumValue: number | undefined;
     numberOfElementsInTheSequence: number;
-    averageValue: number;
+    averageValue: number | undefined;
 };
 
 const sum = ({ sequence }: { sequence: Sequence }) => {
@@ -34,14 +34,33 @@ const sum = ({ sequence }: { sequence: Sequence }) => {
 const average = ({ sequence }: { sequence: Sequence }) =>
     +(sum({ sequence }) / sequence.length).toFixed(6);
 
+const emptySequenceStats = (): Stats =>
+    ({
+        minimumValue: undefined,
+        maximumValue: undefined,
+        numberOfElementsInTheSequence: 0,
+        averageValue: undefined,
+    } as const);
+
 const caculateStatsFor = ({ sequence }: { sequence: Sequence }): Stats => {
-    return {
-        minimumValue: Math.min(...sequence),
-        maximumValue: Math.max(...sequence),
-        numberOfElementsInTheSequence: sequence.length,
-        averageValue: average({ sequence }),
-    };
+    return sequence.length === 0
+        ? emptySequenceStats()
+        : {
+              minimumValue: Math.min(...sequence),
+              maximumValue: Math.max(...sequence),
+              numberOfElementsInTheSequence: sequence.length,
+              averageValue: average({ sequence }),
+          };
 };
+
+test("empty sequence", (t) => {
+    t.deepEqual(caculateStatsFor({ sequence: [] }), {
+        minimumValue: undefined,
+        maximumValue: undefined,
+        numberOfElementsInTheSequence: 0,
+        averageValue: undefined,
+    });
+});
 
 test("example", (t) => {
     t.deepEqual(caculateStatsFor({ sequence: [6, 9, 15, -2, 92, 11] }), {
