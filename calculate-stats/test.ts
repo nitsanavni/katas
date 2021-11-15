@@ -21,16 +21,26 @@ type Stats = {
     averageValue: number;
 };
 
+const sum = ({ sequence }: { sequence: Sequence }) => {
+    let ret = 0;
+
+    for (const n of sequence) {
+        ret += n;
+    }
+
+    return ret;
+};
+
+const average = ({ sequence }: { sequence: Sequence }) =>
+    +(sum({ sequence }) / sequence.length).toFixed(6);
+
 const caculateStatsFor = ({ sequence }: { sequence: Sequence }): Stats => {
-    return (
-        caculateStatsFor({ sequence: [6, 9, 15, -2, 92, 11] }),
-        {
-            minimumValue: -2,
-            maximumValue: 92,
-            numberOfElementsInTheSequence: 6,
-            averageValue: 21.833333,
-        }
-    );
+    return {
+        minimumValue: Math.min(...sequence),
+        maximumValue: Math.max(...sequence),
+        numberOfElementsInTheSequence: sequence.length,
+        averageValue: average({ sequence }),
+    };
 };
 
 test("example", (t) => {
