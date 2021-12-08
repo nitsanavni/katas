@@ -1,5 +1,7 @@
 import test from "ava";
 
-test("should fail", (t) => {
-    t.fail("fail!")
+import { isSquare } from "./is-square";
+
+test("1 is square", (t) => {
+    t.is(isSquare(1), true);
 })
