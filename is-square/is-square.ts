@@ -1,16 +1,31 @@
-const squares: { root: number, square: number }[] = [];
 
-const last = <T>(arr: T[]): T => arr[arr.length - 1];
+export const last = <T>(arr: T[]): T | undefined => arr.length == 0 ? undefined : arr[arr.length - 1];
 
-const inKnownRange = (n: number): boolean => {
+const inKnownRange = ({ squares, n }: { squares: { root: number, square: number }[], n: number }): boolean => {
     if (n < 0 || squares.length == 0) {
         return false;
     }
 
-    return n <= last(squares).square;
+    return n <= last(squares)!.square;
 }
 
-const isKnown = (n: number): boolean => {
+export const build = ({ squares, upTo }: { squares: { root: number, square: number }[], upTo: number }): { root: number, square: number }[] => {
+    if (upTo < 0) {
+        return [...squares];
+    }
+
+    const from = last(squares);
+
+    const toAdd: { root: number, square: number }[] = [];
+
+    for (let root = from ? from.root + 1 : 0; (root * root) <= upTo; root++) {
+        toAdd.push({ root, square: (root * root) })
+    }
+
+    return [...squares, ...toAdd]
+}
+
+export const isKnown = ({ squares, n }: { squares: { root: number, square: number }[], n: number }): boolean => {
     if (squares.length == 0) {
         return false;
     }
@@ -19,16 +34,27 @@ const isKnown = (n: number): boolean => {
     let e = squares.length - 1;
     let m = e >> 1;
 
+    if (squares[e].square == n) {
+        return true;
+    }
+
     while (e - s > 0) {
         const mid = squares[m].square;
+        // console.log({ s, e, m, mid, n })
 
         if (mid == n) {
             return true;
         }
 
-        if (mid < n) {
+        if (n < mid) {
+            if (e == m) {
+                return false;
+            }
             e = m;
         } else {
+            if (s == m) {
+                return false;
+            }
             s = m;
         }
 
@@ -38,14 +64,18 @@ const isKnown = (n: number): boolean => {
     return false;
 }
 
-export const isSquare = (n: number): boolean => {
-    if (n < 0) {
-        return false;
-    }
+export const isSquare = (() => {
+    let squares: { root: number, square: number }[] = [];
 
-    if (inKnownRange(n)) {
-        return isKnown(n);
-    }
+    return (n: number): boolean => {
+        if (n < 0) {
+            return false;
+        }
 
-    return true;
-}
+        if (!inKnownRange({ squares, n })) {
+            squares = build({ squares, upTo: n })
+        }
+
+        return isKnown({ squares, n });
+    }
+})()
