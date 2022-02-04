@@ -1,0 +1,18 @@
+{
+  "name": "closest-to-zero",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ava": "^4.0.1",
+    "fast-check": "^2.21.0",
+    "prettier": "^2.5.1",
+    "typescipt": "^1.0.0"
+  }
+}
