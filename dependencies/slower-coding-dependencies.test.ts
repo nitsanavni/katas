@@ -1,5 +1,6 @@
 import test from "ava";
 import { inspect } from "util";
+import fc from "fast-check";
 
 type Deps = [number, number][];
 type Index = number;
@@ -161,3 +162,96 @@ test("circular", (t) => {
     t.is(circular(deps), expected, inspect({ deps, expected }))
   );
 });
+
+const not =
+  <P>(f: (p: P) => boolean) =>
+  (p: P) =>
+    !f(p);
+
+const uniq = <T>(arr: T[]): T[] =>
+  arr.reduce<T[]>((acc, e) => [...acc, ...(acc.includes(e) ? [] : [e])], []);
+
+test("uniq", (t) => {
+  const specs: [number[], number[]][] = [
+    [[1, 1], [1]],
+    [
+      [1, 2],
+      [1, 2],
+    ],
+    [
+      [1, 2, 2, 2],
+      [1, 2],
+    ],
+    [[1], [1]],
+  ];
+
+  specs.forEach(([arr, u]) => t.deepEqual(uniq(arr), u));
+});
+
+const clone = <T>(arr: T): T =>
+  (arr as unknown as unknown[]).map
+    ? (arr as unknown as unknown[]).map(clone)
+    : (arr as any);
+
+test("clone", (t) => {
+  const { failed } = fc.check(
+    fc.property(
+      fc.oneof(
+        fc.array(fc.integer()),
+        fc.array(fc.oneof(fc.integer(), fc.array(fc.integer()))),
+        fc.array(
+          fc.oneof(
+            fc.integer(),
+            fc.array(fc.oneof(fc.integer(), fc.array(fc.integer())))
+          )
+        )
+      ),
+      (arr) => clone(arr).flat(3).length == arr.flat(3).length
+    )
+  );
+
+  t.false(failed);
+});
+
+const resolve = (deps: Deps): number[] => {
+  return uniq(deps.flat());
+};
+
+const depsArbitrary = () =>
+  fc.array(
+    fc.tuple(fc.integer({ min: 0, max: 10 }), fc.integer({ min: 0, max: 10 }))
+  );
+
+const nonCircularDepsArbitrary = () => depsArbitrary().filter(not(circular));
+
+const specs: [
+  description: string,
+  makeDepsArbitrary: typeof depsArbitrary,
+  property: (deps: Deps, res: number[]) => boolean
+][] = [
+  [
+    "elements in the solution are ordered according to dependencies",
+    nonCircularDepsArbitrary,
+    (deps, res) => deps.every(([a, b]) => res.indexOf(a) > res.indexOf(b)),
+  ],
+  [
+    "no dups in the solution",
+    nonCircularDepsArbitrary,
+    (_, res) => res.length == uniq(res).length,
+  ],
+  [
+    "all elements are in the solution",
+    nonCircularDepsArbitrary,
+    (deps, res) => deps.flat().every((e) => res.includes(e)),
+  ],
+];
+
+specs.forEach(([desc, makeArbitrary, prop]) =>
+  test(desc, (t) => {
+    const { failed, counterexample } = fc.check(
+      fc.property(makeArbitrary(), (deps) => prop(deps, resolve(deps)))
+    );
+
+    t.false(failed, inspect(counterexample));
+  })
+);
