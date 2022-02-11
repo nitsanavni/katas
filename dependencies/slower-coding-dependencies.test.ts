@@ -266,46 +266,8 @@ property<[number[], number[]], number[]>([
   ([a, b], d) => a.every((x) => b.includes(x) || d.includes(x)),
 ]);
 
-const resolved = (deps: Deps): number[] => deps.flat();
-
-const resolvedSpecs: [
-  desc: string,
-  property: (deps: Deps, res: number[]) => boolean
-][] = [
-  [
-    `resolved -
-  yes on the right, not on the left
-  iow - things depend on it, but it doesn't depend on anything else`,
-    (deps, res) =>
-      res.every(
-        (r) => deps.find(([_, b]) => b == r) && !deps.find(([a]) => a == r)
-      ),
-  ],
-];
-
-resolvedSpecs.forEach(([desc, prop]) =>
-  test(desc, (t) => {
-    const { failed, counterexample } = fc.check(
-      fc.property(nonCircularDepsArbitrary(), (deps) =>
-        prop(deps, resolved(deps))
-      )
-    );
-
-    t.false(failed, inspect(counterexample));
-  })
-);
-
-const resolve = (deps: Deps): number[] => {
-  const depsCopy = clone(deps);
-
-  const ret = [];
-
-  // while (depsCopy.length > 0) {
-  //   ret.push(...resolved(depsCopy));
-  // }
-
-  return uniq(deps.flat());
-};
+const resolved = (deps: IntermediateDeps): number[] =>
+  uniq(difference([deps.map(([_, b]) => b), deps.map(([a]) => a)])) as number[];
 
 const depsArbitrary = () =>
   fc.array(
@@ -313,12 +275,80 @@ const depsArbitrary = () =>
   );
 
 const nonCircularDepsArbitrary = () => depsArbitrary().filter(not(circular));
+const circularDepsArbitrary = () => depsArbitrary().filter(circular);
+
+property([
+  "resolved - yes on the right, not on the left",
+  nonCircularDepsArbitrary,
+  resolved,
+  (deps, res) =>
+    res.every(
+      (r) => deps.find(([_, b]) => b == r) && !deps.find(([a]) => a == r)
+    ),
+]);
+
+property([
+  "resolved - no dups",
+  nonCircularDepsArbitrary,
+  resolved,
+  (_, res) => res.every((r) => res.filter((x) => x == r).length == 1),
+]);
+
+type IntermediateDeps = [number | undefined, number][];
+
+const clear = (deps: IntermediateDeps, res: number[]): IntermediateDeps =>
+  res.reduce<IntermediateDeps>(
+    (acc, r) =>
+      acc
+        .filter(([a, b]) => !(a == undefined && b == r))
+        .map(([a, b]) => (b == r && a != undefined ? [undefined, a] : [a, b])),
+    deps
+  );
+
+test("clear - shifts right", (t) => {
+  const specs: [i: IntermediateDeps, r: number[], o: IntermediateDeps][] = [
+    [[[0, 1]], [1], [[undefined, 0]]],
+    [
+      [
+        [1, 0],
+        [undefined, 0],
+      ],
+      [0],
+      [[undefined, 1]],
+    ],
+    [[[undefined, 0]], [0], []],
+  ];
+
+  specs.forEach(([i, r, o]) => t.deepEqual(clear(i, r), o));
+});
+
+const resolve = (deps: Deps): number[] => {
+  const ret = [];
+
+  let _deps: IntermediateDeps = deps;
+
+  while (_deps.length > 0) {
+    const res = resolved(_deps);
+
+    const circular = res.length == 0;
+
+    if (circular) {
+      return [];
+    }
+
+    ret.push(...res);
+    _deps = clear(_deps, res);
+  }
+
+  return ret;
+};
 
 const specs: [
   description: string,
   makeDepsArbitrary: typeof depsArbitrary,
   property: (deps: Deps, res: number[]) => boolean
 ][] = [
+  ["circular deps -> []", circularDepsArbitrary, (_, res) => res.length == 0],
   [
     "elements in the solution are ordered according to dependencies",
     nonCircularDepsArbitrary,
@@ -328,6 +358,11 @@ const specs: [
     "no dups in the solution",
     nonCircularDepsArbitrary,
     (_, res) => res.length == uniq(res).length,
+  ],
+  [
+    "no excess elements in the solution",
+    nonCircularDepsArbitrary,
+    (deps, res) => res.every((r) => deps.flat().includes(r)),
   ],
   [
     "all elements are in the solution",
