@@ -6,13 +6,13 @@ type Deps = [number, number][];
 type Index = number;
 
 const resolve = (deps: IntermediateDeps): number[] | "circular" => {
-  if (deps.length == 0) {
+  if (empty(deps)) {
     return [];
   }
 
   const res = resolved(deps);
 
-  if (res.length == 0) {
+  if (empty(res)) {
     return "circular";
   }
 
@@ -26,6 +26,8 @@ const resolve = (deps: IntermediateDeps): number[] | "circular" => {
 };
 
 type IntermediateDeps = [number | undefined, number][];
+
+const empty = (a: any) => a?.length == 0;
 
 const resolved = (deps: IntermediateDeps): number[] =>
   uniq(difference([deps.map(([_, b]) => b), deps.map(([a]) => a)])) as number[];
@@ -241,6 +243,7 @@ const property = <I, O>([description, arbitraryMaker, fn, prop]: [
 
     if (!failed) {
       t.pass();
+
       return;
     }
 
@@ -325,7 +328,7 @@ const specs: [
   property: (deps: Deps, res: number[] | "circular") => boolean
 ][] = [
   [
-    "resolve - circular deps -> []",
+    'resolve - circular deps -> "circular"',
     circularDepsArbitrary,
     (_, res) => res == "circular",
   ],
