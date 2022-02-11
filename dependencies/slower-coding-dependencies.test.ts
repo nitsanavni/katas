@@ -5,6 +5,55 @@ import fc from "fast-check";
 type Deps = [number, number][];
 type Index = number;
 
+const resolve = (deps: Deps): number[] => {
+  const ret = [];
+
+  let _deps: IntermediateDeps = deps;
+
+  while (_deps.length > 0) {
+    const res = resolved(_deps);
+
+    const circular = res.length == 0;
+
+    if (circular) {
+      return [];
+    }
+
+    ret.push(...res);
+    _deps = clear(_deps, res);
+  }
+
+  return ret;
+};
+
+type IntermediateDeps = [number | undefined, number][];
+
+const resolved = (deps: IntermediateDeps): number[] =>
+  uniq(difference([deps.map(([_, b]) => b), deps.map(([a]) => a)])) as number[];
+
+const clear = (deps: IntermediateDeps, res: number[]): IntermediateDeps =>
+  res.reduce<IntermediateDeps>(
+    (acc, r) =>
+      acc
+        .filter(([a, b]) => !(a == undefined && b == r))
+        .map(([a, b]) => (b == r && a != undefined ? [undefined, a] : [a, b])),
+    deps
+  );
+
+const uniq = <T>(arr: T[]): T[] =>
+  arr.reduce<T[]>((acc, e) => [...acc, ...(acc.includes(e) ? [] : [e])], []);
+
+// names taken from https://www.mathsisfun.com/definitions/difference.html
+const difference = <T>([a, b]: [minuend: T[], subtrahend: T[]]): T[] =>
+  a.filter(not(b.includes.bind(b)));
+
+const not =
+  <P>(f: (p: P) => boolean) =>
+  (p: P) =>
+    !f(p);
+
+// === tests ===
+
 const next =
   (deps: Deps) =>
   (is: Index[]): Index[] =>
@@ -163,14 +212,6 @@ test("circular", (t) => {
   );
 });
 
-const not =
-  <P>(f: (p: P) => boolean) =>
-  (p: P) =>
-    !f(p);
-
-const uniq = <T>(arr: T[]): T[] =>
-  arr.reduce<T[]>((acc, e) => [...acc, ...(acc.includes(e) ? [] : [e])], []);
-
 test("uniq", (t) => {
   const specs: [number[], number[]][] = [
     [[1, 1], [1]],
@@ -186,31 +227,6 @@ test("uniq", (t) => {
   ];
 
   specs.forEach(([arr, u]) => t.deepEqual(uniq(arr), u));
-});
-
-const clone = <T>(arr: T): T =>
-  (arr as unknown as unknown[]).map
-    ? (arr as unknown as unknown[]).map(clone)
-    : (arr as any);
-
-test("clone", (t) => {
-  const { failed } = fc.check(
-    fc.property(
-      fc.oneof(
-        fc.array(fc.integer()),
-        fc.array(fc.oneof(fc.integer(), fc.array(fc.integer()))),
-        fc.array(
-          fc.oneof(
-            fc.integer(),
-            fc.array(fc.oneof(fc.integer(), fc.array(fc.integer())))
-          )
-        )
-      ),
-      (arr) => clone(arr).flat(3).length == arr.flat(3).length
-    )
-  );
-
-  t.false(failed);
 });
 
 const property = <I, O>([description, arbitraryMaker, fn, prop]: [
@@ -233,10 +249,6 @@ const property = <I, O>([description, arbitraryMaker, fn, prop]: [
 
     t.fail(inspect({ i, o: fn(i) }));
   });
-
-// names taken from https://www.mathsisfun.com/definitions/difference.html
-const difference = <T>([a, b]: [minuend: T[], subtrahend: T[]]): T[] =>
-  a.filter(not(b.includes.bind(b)));
 
 property<[number[], number[]], number[]>([
   "difference - diff is shorter than minuend",
@@ -266,9 +278,6 @@ property<[number[], number[]], number[]>([
   ([a, b], d) => a.every((x) => b.includes(x) || d.includes(x)),
 ]);
 
-const resolved = (deps: IntermediateDeps): number[] =>
-  uniq(difference([deps.map(([_, b]) => b), deps.map(([a]) => a)])) as number[];
-
 const depsArbitrary = () =>
   fc.array(
     fc.tuple(fc.integer({ min: 0, max: 10 }), fc.integer({ min: 0, max: 10 }))
@@ -294,17 +303,6 @@ property([
   (_, res) => res.every((r) => res.filter((x) => x == r).length == 1),
 ]);
 
-type IntermediateDeps = [number | undefined, number][];
-
-const clear = (deps: IntermediateDeps, res: number[]): IntermediateDeps =>
-  res.reduce<IntermediateDeps>(
-    (acc, r) =>
-      acc
-        .filter(([a, b]) => !(a == undefined && b == r))
-        .map(([a, b]) => (b == r && a != undefined ? [undefined, a] : [a, b])),
-    deps
-  );
-
 test("clear - shifts right", (t) => {
   const specs: [i: IntermediateDeps, r: number[], o: IntermediateDeps][] = [
     [[[0, 1]], [1], [[undefined, 0]]],
@@ -321,27 +319,6 @@ test("clear - shifts right", (t) => {
 
   specs.forEach(([i, r, o]) => t.deepEqual(clear(i, r), o));
 });
-
-const resolve = (deps: Deps): number[] => {
-  const ret = [];
-
-  let _deps: IntermediateDeps = deps;
-
-  while (_deps.length > 0) {
-    const res = resolved(_deps);
-
-    const circular = res.length == 0;
-
-    if (circular) {
-      return [];
-    }
-
-    ret.push(...res);
-    _deps = clear(_deps, res);
-  }
-
-  return ret;
-};
 
 const specs: [
   description: string,
