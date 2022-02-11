@@ -2,9 +2,12 @@ import test from "ava";
 import { inspect } from "util";
 import fc from "fast-check";
 
-type Deps = [number, number][];
-type Index = number;
+// a depends on b
+type Deps = [a: number, b: number][];
 
+// resolving dependencies means ordering the items such that if a *depends on* b
+// then b will be *before* a
+// iow iso "a depends on b" one can say "a should be after b"
 const resolve = (deps: IntermediateDeps): number[] | "circular" => {
   if (empty(deps)) {
     return [];
@@ -54,6 +57,8 @@ const not =
     !f(p);
 
 // === tests ===
+
+type Index = number;
 
 const next =
   (deps: Deps) =>
@@ -282,7 +287,7 @@ property<[number[], number[]], number[]>([
 
 const depsArbitrary = () =>
   fc.array(
-    fc.tuple(fc.integer({ min: 0, max: 10 }), fc.integer({ min: 0, max: 10 }))
+    fc.tuple(fc.integer({ min: 0, max: 15 }), fc.integer({ min: 0, max: 15 }))
   );
 
 const nonCircularDepsArbitrary = () => depsArbitrary().filter(not(circular));
@@ -325,35 +330,39 @@ test("clear - shifts right", (t) => {
 const specs: [
   description: string,
   makeDepsArbitrary: typeof depsArbitrary,
-  property: (deps: Deps, res: number[] | "circular") => boolean
+  property: (deps: Deps, solution: number[] | "circular") => boolean
 ][] = [
   [
     'resolve - circular deps -> "circular"',
     circularDepsArbitrary,
-    (_, res) => res == "circular",
+    (_, solution) => solution == "circular",
   ],
   [
-    "resolve - elements in the solution are ordered according to dependencies",
+    `resolve - elements in the solution are ordered according to dependencies:
+               if 'a' depends on 'b' then 'a' should be after 'b' in the solution`,
     nonCircularDepsArbitrary,
-    (deps, res) =>
+    (deps, solution) =>
       deps.every(
-        ([a, b]) => (res as number[]).indexOf(a) > (res as number[]).indexOf(b)
+        ([a, b]) =>
+          (solution as number[]).indexOf(a) > (solution as number[]).indexOf(b)
       ),
   ],
   [
     "resolve - no dups in the solution",
     nonCircularDepsArbitrary,
-    (_, res) => res.length == uniq(res as number[]).length,
+    (_, solution) => solution.length == uniq(solution as number[]).length,
   ],
   [
     "resolve - no excess elements in the solution",
     nonCircularDepsArbitrary,
-    (deps, res) => (res as number[]).every((r) => deps.flat().includes(r)),
+    (deps, solution) =>
+      (solution as number[]).every((r) => deps.flat().includes(r)),
   ],
   [
     "resolve - all elements are in the solution",
     nonCircularDepsArbitrary,
-    (deps, res) => deps.flat().every((e) => (res as number[]).includes(e)),
+    (deps, solution) =>
+      deps.flat().every((e) => (solution as number[]).includes(e)),
   ],
 ];
 
