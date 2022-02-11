@@ -5,25 +5,24 @@ import fc from "fast-check";
 type Deps = [number, number][];
 type Index = number;
 
-const resolve = (deps: Deps): number[] => {
-  const ret = [];
-
-  let _deps: IntermediateDeps = deps;
-
-  while (_deps.length > 0) {
-    const res = resolved(_deps);
-
-    const circular = res.length == 0;
-
-    if (circular) {
-      return [];
-    }
-
-    ret.push(...res);
-    _deps = clear(_deps, res);
+const resolve = (deps: IntermediateDeps): number[] | "circular" => {
+  if (deps.length == 0) {
+    return [];
   }
 
-  return ret;
+  const res = resolved(deps);
+
+  if (res.length == 0) {
+    return "circular";
+  }
+
+  const nextRes = resolve(clear(deps, res));
+
+  if (nextRes == "circular") {
+    return "circular";
+  }
+
+  return [...res, ...nextRes];
 };
 
 type IntermediateDeps = [number | undefined, number][];
@@ -323,28 +322,35 @@ test("clear - shifts right", (t) => {
 const specs: [
   description: string,
   makeDepsArbitrary: typeof depsArbitrary,
-  property: (deps: Deps, res: number[]) => boolean
+  property: (deps: Deps, res: number[] | "circular") => boolean
 ][] = [
-  ["circular deps -> []", circularDepsArbitrary, (_, res) => res.length == 0],
   [
-    "elements in the solution are ordered according to dependencies",
-    nonCircularDepsArbitrary,
-    (deps, res) => deps.every(([a, b]) => res.indexOf(a) > res.indexOf(b)),
+    "resolve - circular deps -> []",
+    circularDepsArbitrary,
+    (_, res) => res == "circular",
   ],
   [
-    "no dups in the solution",
+    "resolve - elements in the solution are ordered according to dependencies",
     nonCircularDepsArbitrary,
-    (_, res) => res.length == uniq(res).length,
+    (deps, res) =>
+      deps.every(
+        ([a, b]) => (res as number[]).indexOf(a) > (res as number[]).indexOf(b)
+      ),
   ],
   [
-    "no excess elements in the solution",
+    "resolve - no dups in the solution",
     nonCircularDepsArbitrary,
-    (deps, res) => res.every((r) => deps.flat().includes(r)),
+    (_, res) => res.length == uniq(res as number[]).length,
   ],
   [
-    "all elements are in the solution",
+    "resolve - no excess elements in the solution",
     nonCircularDepsArbitrary,
-    (deps, res) => deps.flat().every((e) => res.includes(e)),
+    (deps, res) => (res as number[]).every((r) => deps.flat().includes(r)),
+  ],
+  [
+    "resolve - all elements are in the solution",
+    nonCircularDepsArbitrary,
+    (deps, res) => deps.flat().every((e) => (res as number[]).includes(e)),
   ],
 ];
 
