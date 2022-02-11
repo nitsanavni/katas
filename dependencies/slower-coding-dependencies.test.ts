@@ -213,7 +213,97 @@ test("clone", (t) => {
   t.false(failed);
 });
 
+const property = <I, O>([description, arbitraryMaker, fn, prop]: [
+  description: string,
+  arbitraryMaker: () => fc.Arbitrary<I>,
+  fn: (i: I) => O,
+  property: (i: I, o: O) => boolean
+]) =>
+  test(description, (t) => {
+    const { failed, counterexample } = fc.check(
+      fc.property(arbitraryMaker(), (i) => prop(i, fn(i)))
+    );
+
+    if (!failed) {
+      t.pass();
+      return;
+    }
+
+    const [i] = counterexample!;
+
+    t.fail(inspect({ i, o: fn(i) }));
+  });
+
+// names taken from https://www.mathsisfun.com/definitions/difference.html
+const difference = <T>([a, b]: [minuend: T[], subtrahend: T[]]): T[] =>
+  a.filter(not(b.includes.bind(b)));
+
+property<[number[], number[]], number[]>([
+  "difference - diff is shorter than minuend",
+  () => fc.tuple(fc.array(fc.integer()), fc.array(fc.integer())),
+  difference,
+  ([a], d) => d.length <= a.length,
+]);
+
+property<[number[], number[]], number[]>([
+  "difference - difference included in minuend",
+  () => fc.tuple(fc.array(fc.integer()), fc.array(fc.integer())),
+  difference,
+  ([a], d) => d.every(a.includes.bind(a)),
+]);
+
+property<[number[], number[]], number[]>([
+  "difference - subtranhend not in difference",
+  () => fc.tuple(fc.array(fc.integer()), fc.array(fc.integer())),
+  difference,
+  ([_, b], d) => b.every(not(d.includes.bind(d))),
+]);
+
+property<[number[], number[]], number[]>([
+  "difference - minuend element are either in differnce or in subtranhend",
+  () => fc.tuple(fc.array(fc.integer()), fc.array(fc.integer())),
+  difference,
+  ([a, b], d) => a.every((x) => b.includes(x) || d.includes(x)),
+]);
+
+const resolved = (deps: Deps): number[] => deps.flat();
+
+const resolvedSpecs: [
+  desc: string,
+  property: (deps: Deps, res: number[]) => boolean
+][] = [
+  [
+    `resolved -
+  yes on the right, not on the left
+  iow - things depend on it, but it doesn't depend on anything else`,
+    (deps, res) =>
+      res.every(
+        (r) => deps.find(([_, b]) => b == r) && !deps.find(([a]) => a == r)
+      ),
+  ],
+];
+
+resolvedSpecs.forEach(([desc, prop]) =>
+  test(desc, (t) => {
+    const { failed, counterexample } = fc.check(
+      fc.property(nonCircularDepsArbitrary(), (deps) =>
+        prop(deps, resolved(deps))
+      )
+    );
+
+    t.false(failed, inspect(counterexample));
+  })
+);
+
 const resolve = (deps: Deps): number[] => {
+  const depsCopy = clone(deps);
+
+  const ret = [];
+
+  // while (depsCopy.length > 0) {
+  //   ret.push(...resolved(depsCopy));
+  // }
+
   return uniq(deps.flat());
 };
 
