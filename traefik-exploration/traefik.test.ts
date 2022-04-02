@@ -4,7 +4,7 @@ import { GenericContainer, Network, Wait } from "testcontainers";
 
 const tick = promisify(setTimeout);
 
-test("mountebank", async (t) => {
+test("mountebank imposters in a docker network", async (t) => {
   const network = await new Network({ name: "mountebank-test" }).start();
 
   const mountebank = await new GenericContainer("bbyars/mountebank:2.6.0")
@@ -75,7 +75,7 @@ test("mountebank", async (t) => {
   }
 });
 
-test("up a container", async (t) => {
+test("up a docker container", async (t) => {
   t.plan(1);
 
   const c1 = await new GenericContainer("alpine").withCmd(["ls"]).start();
