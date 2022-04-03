@@ -1,15 +1,7 @@
 {
-  "name": "traefik-exploration",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "type": "module",
   "dependencies": {
+    "@anev/ts-mountebank": "^1.4.1",
     "ava": "^4.1.0",
     "testcontainers": "^8.6.1",
     "ts-node": "^10.7.0",
@@ -17,12 +9,11 @@
     "zx": "^6.0.7"
   },
   "ava": {
-    "timeout": "2m",
-    "extensions": [
-      "ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ]
-  }
+		"extensions": {
+			"ts": "module"
+		},
+		"nodeArguments": [
+			"--loader=ts-node/esm"
+		]
+	}
 }

@@ -1,14 +1,21 @@
 import { promisify } from "util";
 import test from "ava";
 import { GenericContainer, Network, Wait } from "testcontainers";
+import { Mountebank } from "@anev/ts-mountebank";
+import { $ } from "zx";
 
 const tick = promisify(setTimeout);
 
 test("mountebank imposters in a docker network", async (t) => {
-  const network = await new Network({ name: "mountebank-test" }).start();
+  const network = (
+    await new Network({ name: "mountebank-test" }).start()
+  ).getName();
 
   const mountebank = await new GenericContainer("bbyars/mountebank:2.6.0")
-    .withNetworkMode(network.getName())
+    // ts-mountebank assumes the port to be fixed on the host 2525
+    // https://github.com/AngelaE/ts-mountebank/blob/master/project/src/mountebank.ts#L8
+    .withExposedPorts({ container: 2525, host: 2525 })
+    .withNetworkMode(network)
     .withNetworkAliases("mb", "imposter")
     .withCmd(["mb", "start"])
     .withWaitStrategy(
@@ -16,12 +23,16 @@ test("mountebank imposters in a docker network", async (t) => {
     )
     .start();
 
+  $`docker ps`.stdout.pipe(process.stdout);
+
+  console.log(`mapped port: ${mountebank.getMappedPort(2525)}`);
+
   const logsStream = await mountebank.logs();
 
   logsStream.pipe(process.stdout);
 
   const caller = await new GenericContainer("alpine")
-    .withNetworkMode(network.getName())
+    .withNetworkMode(network)
     .withCmd(["sleep", "infinity"])
     .start();
 
@@ -73,6 +84,12 @@ test("mountebank imposters in a docker network", async (t) => {
       `hello from imposter #${i}`
     );
   }
+
+  const mb = new Mountebank();
+
+  const imposter = await mb.getImposter(4545);
+
+  t.deepEqual(JSON.stringify(imposter), "a");
 });
 
 test("up a docker container", async (t) => {
