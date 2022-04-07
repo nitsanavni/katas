@@ -12,9 +12,7 @@ test("mountebank imposters in a docker network", async (t) => {
   ).getName();
 
   const mountebank = await new GenericContainer("bbyars/mountebank:2.6.0")
-    // ts-mountebank assumes the port to be fixed on the host 2525
-    // https://github.com/AngelaE/ts-mountebank/blob/master/project/src/mountebank.ts#L8
-    .withExposedPorts({ container: 2525, host: 2525 })
+    .withExposedPorts(2525)
     .withNetworkMode(network)
     .withNetworkAliases("mb", "imposter")
     .withCmd(["mb", "start"])
@@ -85,7 +83,9 @@ test("mountebank imposters in a docker network", async (t) => {
     );
   }
 
-  const mb = new Mountebank();
+  const mb = new Mountebank().withURL(
+    `http://localhost:${mountebank.getMappedPort(2525)}`
+  );
 
   const imposter = await mb.getImposter(4545);
 
