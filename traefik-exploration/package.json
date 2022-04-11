@@ -9,6 +9,7 @@
     "zx": "^6.0.7"
   },
   "ava": {
+    "timeout": "2m",
 		"extensions": {
 			"ts": "module"
 		},
