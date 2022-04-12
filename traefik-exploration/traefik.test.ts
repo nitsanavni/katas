@@ -39,9 +39,8 @@ test("traefik getting started, only instead of docker-compose we use testcontain
 
   const whoami = await new GenericContainer("traefik/whoami")
     .withNetworkMode(network)
-    .withLabel({
-      key: "traefik.http.routers.whoami.rule",
-      value: "Host(`whoami.docker.localhost`)",
+    .withLabels({
+      ["traefik.http.routers.whoami.rule"]: "Host(`whoami.docker.localhost`)",
     })
     .start();
 
