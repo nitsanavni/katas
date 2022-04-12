@@ -2,19 +2,21 @@
   "type": "module",
   "dependencies": {
     "@anev/ts-mountebank": "^1.5.0",
+    "@types/lodash": "^4.14.181",
     "ava": "^4.1.0",
-    "testcontainers": "^8.6.1",
+    "lodash": "^4.17.21",
+    "testcontainers": "nitsanavni/testcontainers-node#with-label",
     "ts-node": "^10.7.0",
     "undici": "^5.0.0",
     "zx": "^6.0.7"
   },
   "ava": {
     "timeout": "2m",
-		"extensions": {
-			"ts": "module"
-		},
-		"nodeArguments": [
-			"--loader=ts-node/esm"
-		]
-	}
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm"
+    ]
+  }
 }

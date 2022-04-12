@@ -9,12 +9,19 @@ import {
   Response,
   Stub,
 } from "@anev/ts-mountebank";
+import { request } from "undici";
+import _ from "lodash";
 import { $, sleep } from "zx";
 $.verbose = false;
 
 const tick = promisify(setTimeout);
 
 test.todo("traefik proxies calls to mountebank imposter");
+// https://community.traefik.io/t/docker-container-with-multiple-ports/4657/2
+test.todo(
+  "traefik proxies calls to multiple mountebank imposters - different servers on different ports"
+);
+test.todo("traefik load balaces several instances of same service");
 
 test("traefik getting started, only instead of docker-compose we use testcontainers", async (t) => {
   // https://doc.traefik.io/traefik/getting-started/quick-start/#launch-traefik-with-the-docker-provider
@@ -32,6 +39,10 @@ test("traefik getting started, only instead of docker-compose we use testcontain
 
   const whoami = await new GenericContainer("traefik/whoami")
     .withNetworkMode(network)
+    .withLabel({
+      key: "traefik.http.routers.whoami.rule",
+      value: "Host(`whoami.docker.localhost`)",
+    })
     .start();
 
   // need to add a label, but testcontainers api doesn't have it (yet)
@@ -39,7 +50,39 @@ test("traefik getting started, only instead of docker-compose we use testcontain
 
   await whoami.getId();
 
-  await sleep(10000);
+  await sleep(2000);
+
+  t.like(
+    await (
+      await request(
+        `http://localhost:${traefik.getMappedPort(8080)}/api/rawdata`
+      )
+    ).body.json(),
+    {
+      routers: {
+        "whoami@docker": {
+          service: _.kebabCase(whoami.getName()),
+          status: "enabled",
+        },
+      },
+    }
+  );
+
+  t.regex(
+    await (
+      await request(`http://localhost:${traefik.getMappedPort(80)}`)
+    ).body.text(),
+    /404/
+  );
+
+  t.regex(
+    await (
+      await request(`http://localhost:${traefik.getMappedPort(80)}`, {
+        headers: { Host: "whoami.docker.localhost" },
+      })
+    ).body.text(),
+    new RegExp(`Hostname: ${whoami.getId().substring(0, 6)}`, "s")
+  );
 });
 
 test("mountebank imposters in a docker network", async (t) => {
