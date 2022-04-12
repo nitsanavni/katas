@@ -1,6 +1,5 @@
-import { promisify } from "util";
 import test from "ava";
-import { GenericContainer, Network, Wait } from "testcontainers";
+import { GenericContainer, Wait } from "testcontainers";
 import {
   EqualPredicate,
   HttpMethod,
@@ -12,30 +11,27 @@ import {
 import { request } from "undici";
 import _ from "lodash";
 import { $, sleep } from "zx";
+import { startCaller, startNetwork, startTraefik, tick } from "./utils.js";
 $.verbose = false;
 
-const tick = promisify(setTimeout);
-
-test.todo("traefik proxies calls to mountebank imposter");
 // https://community.traefik.io/t/docker-container-with-multiple-ports/4657/2
 test.todo(
   "traefik proxies calls to multiple mountebank imposters - different servers on different ports"
 );
 test.todo("traefik load balaces several instances of same service");
 
+test.todo("traefik proxies calls to mountebank imposter");
+
+test.todo(
+  "traefik - don't expose the port, instead call it from within the network"
+);
+
 test("traefik getting started, only instead of docker-compose we use testcontainers", async (t) => {
   // https://doc.traefik.io/traefik/getting-started/quick-start/#launch-traefik-with-the-docker-provider
 
-  const network = (await new Network().start()).getName();
+  const network = await startNetwork();
 
-  const traefik = await new GenericContainer("traefik:v2.6")
-    .withNetworkMode(network)
-    .withCmd(["--api.insecure=true", "--providers.docker"])
-    .withExposedPorts(80, 8080)
-    .withBindMount("/var/run/docker.sock", "/var/run/docker.sock")
-    .start();
-
-  (await traefik.logs()).pipe(process.stderr);
+  const traefik = await startTraefik({ network });
 
   const whoami = await new GenericContainer("traefik/whoami")
     .withNetworkMode(network)
@@ -44,39 +40,22 @@ test("traefik getting started, only instead of docker-compose we use testcontain
     })
     .start();
 
-  // need to add a label, but testcontainers api doesn't have it (yet)
-  // maybe use the docker cli
-
-  await whoami.getId();
-
   await sleep(2000);
 
-  t.like(
-    await (
-      await request(
-        `http://localhost:${traefik.getMappedPort(8080)}/api/rawdata`
-      )
-    ).body.json(),
-    {
-      routers: {
-        "whoami@docker": {
-          service: _.kebabCase(whoami.getName()),
-          status: "enabled",
-        },
+  t.like(await traefik.rawData(), {
+    routers: {
+      "whoami@docker": {
+        service: _.kebabCase(whoami.getName()),
+        status: "enabled",
       },
-    }
-  );
+    },
+  });
+
+  t.regex(await (await request(traefik.url())).body.text(), /404/);
 
   t.regex(
     await (
-      await request(`http://localhost:${traefik.getMappedPort(80)}`)
-    ).body.text(),
-    /404/
-  );
-
-  t.regex(
-    await (
-      await request(`http://localhost:${traefik.getMappedPort(80)}`, {
+      await request(traefik.url(), {
         headers: { Host: "whoami.docker.localhost" },
       })
     ).body.text(),
@@ -85,9 +64,7 @@ test("traefik getting started, only instead of docker-compose we use testcontain
 });
 
 test("mountebank imposters in a docker network", async (t) => {
-  const network = (
-    await new Network({ name: "mountebank-test" }).start()
-  ).getName();
+  const network = await startNetwork();
 
   const mountebank = await new GenericContainer("bbyars/mountebank:2.6.0")
     .withName("mb")
@@ -109,15 +86,7 @@ test("mountebank imposters in a docker network", async (t) => {
 
   logsStream.pipe(process.stdout);
 
-  const caller = await new GenericContainer("alpine")
-    .withNetworkMode(network)
-    .withCmd(["sleep", "infinity"])
-    .start();
-
-  t.regex(
-    (await caller.exec(["apk", "--no-cache", "add", "curl"])).output,
-    /installing curl.*ok/is
-  );
+  const caller = await startCaller({ network });
 
   const mb = new Mountebank().withURL(
     `http://localhost:${mountebank.getMappedPort(2525)}`
