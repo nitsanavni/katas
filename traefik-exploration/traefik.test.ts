@@ -31,7 +31,9 @@ test("traefik getting started, only instead of docker-compose we use testcontain
 
   const network = await startNetwork();
 
-  const traefik = await startTraefik({ network });
+  const { teardown } = t;
+
+  const traefik = await startTraefik({ network, teardown });
 
   const whoami = await new GenericContainer("traefik/whoami")
     .withNetworkMode(network)
@@ -39,6 +41,8 @@ test("traefik getting started, only instead of docker-compose we use testcontain
       ["traefik.http.routers.whoami.rule"]: "Host(`whoami.docker.localhost`)",
     })
     .start();
+
+  teardown(whoami.stop.bind(whoami));
 
   await sleep(2000);
 
@@ -66,6 +70,8 @@ test("traefik getting started, only instead of docker-compose we use testcontain
 test("mountebank imposters in a docker network", async (t) => {
   const network = await startNetwork();
 
+  const { teardown } = t;
+
   const mountebank = await new GenericContainer("bbyars/mountebank:2.6.0")
     .withName("mb")
     .withExposedPorts(2525)
@@ -77,6 +83,8 @@ test("mountebank imposters in a docker network", async (t) => {
     )
     .start();
 
+  t.teardown(mountebank.stop.bind(mountebank));
+
   t.regex(
     (await $`docker ps`).stdout,
     new RegExp(`${mountebank.getMappedPort(2525)}->2525.*mb`, "s")
@@ -86,7 +94,7 @@ test("mountebank imposters in a docker network", async (t) => {
 
   logsStream.pipe(process.stdout);
 
-  const caller = await startCaller({ network });
+  const caller = await startCaller({ network, teardown });
 
   const mb = new Mountebank().withURL(
     `http://localhost:${mountebank.getMappedPort(2525)}`
