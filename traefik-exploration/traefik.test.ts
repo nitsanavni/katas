@@ -18,7 +18,7 @@ $.verbose = false;
 test.todo(
   "traefik proxies calls to multiple mountebank imposters - different servers on different ports"
 );
-test.todo("traefik load balaces several instances of same service");
+test.todo("traefik load balances several instances of same service");
 
 test.todo("traefik proxies calls to mountebank imposter");
 
@@ -90,9 +90,7 @@ test("mountebank imposters in a docker network", async (t) => {
     new RegExp(`${mountebank.getMappedPort(2525)}->2525.*mb`, "s")
   );
 
-  const logsStream = await mountebank.logs();
-
-  logsStream.pipe(process.stdout);
+  (await mountebank.logs()).pipe(process.stdout);
 
   const caller = await startCaller({ network, teardown });
 
