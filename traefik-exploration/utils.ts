@@ -1,7 +1,6 @@
 import { TeardownFn } from "ava";
 import { GenericContainer, Network } from "testcontainers";
 import { request } from "undici";
-import { promisify } from "util";
 import { $ } from "zx";
 
 export const buildCaller = () =>
@@ -25,8 +24,6 @@ export const startCaller = async ({
 
   return container;
 };
-
-export const tick = promisify(setTimeout);
 
 export const startNetwork = async () => (await new Network().start()).getName();
 

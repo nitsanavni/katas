@@ -11,7 +11,7 @@ import {
 import { request } from "undici";
 import _ from "lodash";
 import { $, sleep } from "zx";
-import { startCaller, startNetwork, startTraefik, tick } from "./utils.js";
+import { startCaller, startNetwork, startTraefik } from "./utils.js";
 $.verbose = false;
 
 // https://community.traefik.io/t/docker-container-with-multiple-ports/4657/2
@@ -128,14 +128,11 @@ test("mountebank imposters in a docker network", async (t) => {
 test("up a docker container", async (t) => {
   t.plan(1);
 
-  const c1 = await new GenericContainer("alpine").withCmd(["ls"]).start();
+  const c1 = await new GenericContainer("alpine")
+    .withCmd(["sleep", "infinity"])
+    .start();
 
-  const stream = await c1.logs();
+  t.teardown(() => c1.stop());
 
-  stream.on("data", (d) => {
-    stream.removeAllListeners("data");
-    t.regex(String(d), /bin/);
-  });
-
-  await tick();
+  t.regex((await c1.exec(["ls"])).output, /bin.*dev.*etc.*home/s);
 });
