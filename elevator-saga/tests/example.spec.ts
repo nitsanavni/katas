@@ -5,8 +5,27 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("speed up, start, and fail", async ({ page }) => {
-  expect(await page.locator(".challenge > h3 > span")).toHaveText("2x");
-  await page.click(".timescale_increase");
+  const fibonacciExpectedSpeed = (() => {
+    let prev = 1;
+    let speed = 1;
+    const max = 55;
+
+    return () => {
+      const newSpeed = prev + speed;
+      prev = speed;
+      speed = newSpeed;
+
+      return Math.min(speed, max);
+    };
+  })();
+
+  const speedIndicator = () => page.locator(".challenge > h3 > span");
+
+  for (let i = 0; i < 10; i++) {
+    expect(await speedIndicator()).toHaveText(`${fibonacciExpectedSpeed()}x`);
+    await page.click(".timescale_increase");
+    await page.waitForLoadState("domcontentloaded");
+  }
 });
 
 test("sanity - can reach site, sees first elevator challenge", async ({
