@@ -54,6 +54,26 @@ const challengeRunOutcome = async ({ page }: { page: Page }) => {
   return /failed/.test(feedback) ? "failed" : "succeeded";
 };
 
+const addGoToFloor2 = async ({ page }: { page: Page }) => {
+  const line9 = page.locator(
+    "div.CodeMirror-code > div:nth-child(9) > pre > span"
+  );
+
+  await line9.click();
+  await page.keyboard.press("End");
+  await line9.type("elevator.goToFloor(2);");
+  await page.screenshot({ path: "./screenshot3.png" });
+  await page.locator('text="Apply"').click();
+};
+
+test("go to floor 2", async ({ page }) => {
+  await speedUp({ page });
+  await addGoToFloor2({ page });
+  // await startChallengeRun({ page });
+  await waitForChallengeToComplete({ page });
+  expect(await challengeRunOutcome({ page })).toEqual("succeeded");
+});
+
 test("speed up, start, and fail", async ({ page }) => {
   await speedUp({ page });
   await startChallengeRun({ page });
