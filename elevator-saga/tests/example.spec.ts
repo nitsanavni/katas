@@ -4,18 +4,19 @@ test.beforeEach(async ({ page }) => {
   await page.goto("http://play.elevatorsaga.com/");
 });
 
-test("speed up, start, and fail", async ({ page }) => {
+const speedUp = async ({ page }) => {
+  
   const fibonacciExpectedSpeed = (() => {
     let prev = 1;
     let speed = 1;
-    const max = 55;
+    const maxSpeed = 55;
 
     return () => {
       const newSpeed = prev + speed;
       prev = speed;
       speed = newSpeed;
 
-      return Math.min(speed, max);
+      return Math.min(speed, maxSpeed);
     };
   })();
 
@@ -26,6 +27,10 @@ test("speed up, start, and fail", async ({ page }) => {
     await page.click(".timescale_increase");
     await page.waitForLoadState("domcontentloaded");
   }
+}
+
+test("speed up, start, and fail", async ({ page }) => {
+  await speedUp({ page });
 });
 
 test("sanity - can reach site, sees first elevator challenge", async ({
