@@ -1,11 +1,10 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("http://play.elevatorsaga.com/");
 });
 
 const speedUp = async ({ page }) => {
-  
   const fibonacciExpectedSpeed = (() => {
     let prev = 1;
     let speed = 1;
@@ -27,10 +26,39 @@ const speedUp = async ({ page }) => {
     await page.click(".timescale_increase");
     await page.waitForLoadState("domcontentloaded");
   }
-}
+};
+
+const startChallengeRun = async ({ page }) => {
+  const button = () => page.locator(".challenge > button");
+  expect(await button()).toHaveText("Start");
+  await button().click();
+  expect(await button()).toHaveText("Pause");
+};
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const waitFor = async (predicate: () => Promise<boolean>) => {
+  while (!(await predicate())) {
+    await sleep(100);
+  }
+};
+
+const waitForChallengeToComplete = async ({ page }: { page: Page }) => {
+  const button = () => page.locator(".challenge > button");
+  await waitFor(async () => (await button().textContent()).includes("Restart"));
+};
+
+const challengeRunOutcome = async ({ page }: { page: Page }) => {
+  const feedback = (await page.locator(".feedback > h2").allInnerTexts())[0];
+
+  return /failed/.test(feedback) ? "failed" : "succeeded";
+};
 
 test("speed up, start, and fail", async ({ page }) => {
   await speedUp({ page });
+  await startChallengeRun({ page });
+  await waitForChallengeToComplete({ page });
+  expect(await challengeRunOutcome({ page })).toEqual("failed");
 });
 
 test("sanity - can reach site, sees first elevator challenge", async ({
