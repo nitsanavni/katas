@@ -1,0 +1,28 @@
+    1  mkdi
+    2  docker run -d -p 8080 plantuml/plantuml-server
+    3  docker ps
+    4  gp url 49153
+    5  docker logs festive_khayyam 
+    6  docker exec festive_khayyam ls
+    7  docker exec festive_khayyam ls lib
+    8  docker exec festive_khayyam ls /
+    9  docker exec festive_khayyam ls /bin
+   10  docker exec -it  festive_khayyam /bin/bash
+   11  docker ps
+   12  docker exec -it  festive_khayyam /bin/bash
+   13  docker cp --help
+   14  docker cp festive_khayyam:/tmp/file.png .
+   15  ls
+   16  code file.png 
+   17  docker exec festive_khayyam java -jar /tmp/jetty/jetty-0_0_0_0-8080-ROOT_war-_-any-4926077145472452705/webapp/WEB-INF/lib/plantuml-1.2022.5.jar --help
+   18  docker exec festive_khayyam java -jar /tmp/jetty/jetty-0_0_0_0-8080-ROOT_war-_-any-4926077145472452705/webapp/WEB-INF/lib/plantuml-1.2022.5.jar -h
+   19  docker exec festive_khayya/bin/bash -c "find / -t file"
+   20  docker exec festive_khayya /bin/bash -c "find / -t file"
+   21  docker exec festive_khayyam /bin/bash -c "find / -t file"
+   22  docker exec festive_khayyam /bin/bash -c "find / -type file"
+   23  docker exec festive_khayyam /bin/bash -c "find / -type f"
+   24  docker exec festive_khayyam /bin/bash -c "find / -type f -iname *uml*"
+   25  mkdir platuml
+   26  mkdir plantuml
+   27  cd plantuml/
+   28  history > history
