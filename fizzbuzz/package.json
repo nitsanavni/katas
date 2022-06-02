@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@anev/ts-mountebank": "^1.5.0",
+    "@types/lodash": "^4.14.181",
+    "ava": "^4.2.0",
+    "lodash": "^4.17.21",
+    "testcontainers": "^8.7.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3",
+    "undici": "^5.0.0",
+    "zx": "^6.0.7"
+  },
+  "ava": {
+    "timeout": "2m",
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm"
+    ]
+  }
+}
