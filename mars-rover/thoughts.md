@@ -1,0 +1,13 @@
+- state could be stored as the string representation - it's actually more readable once you get used to it
+- we could avoid mutable state: `reduce` iso `for` loop
+- we could do something like storing the intermediate states - no overriding of previous state
+- it's much like cubetto - we can extend it like cubetto (functions, random, not / reverse)
+- did not support multiple rovers
+- did not test bad input
+- did not test for 'rover out of plateau'
+- visualize the movement - with a cli?
+- multiple rovers - collisions?
+- manual override
+- separate the movement from the instructions - a rover could be a separate thread / process taking instructions through an api; the plateau is a shared state of all rovers
+- this could turn into a capture the flag type of adverserial game between bots
+- this seems like a good candidate for the max lexical complexity kata
