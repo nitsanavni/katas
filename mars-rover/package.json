@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/node": "^17.0.40",
     "ava": "^4.3.0",
     "lodash": "^4.17.21",
     "ts-node": "^10.8.1",
@@ -10,7 +11,7 @@
       "ts"
     ],
     "require": [
-      "ts-node/register"
+      "ts-node/register/transpile-only"
     ]
   }
 }
