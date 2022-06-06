@@ -119,6 +119,23 @@ test("parse state - 0 0 N", (t) => {
   t.deepEqual(state, { x: 0, y: 0, orientation: "N" });
 });
 
+test.failing("single rover - 0 1 N -> RRM -> 0 0 S", (t) => {
+  const upperRightCoordinates = "0 1";
+  const roverInitialState = "0 1 N";
+  const roverInstructions = "RRM";
+
+  const input = `${upperRightCoordinates}
+${roverInitialState}
+${roverInstructions}`;
+
+  const output = play(input);
+
+  // expect no change in state, as no instructions where given
+  const expectedRoverFinalState = "0 0 S";
+
+  t.deepEqual(output, expectedRoverFinalState);
+});
+
 test("single rover - 0 0 N -> RM -> 1 0 E", (t) => {
   const upperRightCoordinates = "0 0";
   const roverInitialState = "0 0 N";
@@ -136,7 +153,7 @@ ${roverInstructions}`;
   t.deepEqual(output, expectedRoverFinalState);
 });
 
-test("single rover - should spin left", (t) => {
+test("single rover - should spin right", (t) => {
   const upperRightCoordinates = "0 0";
   const roverInitialState = "0 0 N";
   const roverInstructions = "R";
