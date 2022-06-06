@@ -23,25 +23,51 @@ const parseInstructions = (instructionsString: string): Instruction[] =>
 const format = ({ x, y, orientation }: RoverState): string =>
   `${x} ${y} ${orientation}`;
 
-const moveNorth = (from: RoverState): RoverState => ({
+const moveNorth: Mover = (from) => ({
   ...from,
   y: from.y + 1,
 });
 
-const moveEast = (from: RoverState): RoverState => ({
+const moveEast: Mover = (from) => ({
   ...from,
   x: from.x + 1,
 });
 
-const spinRight = (from: RoverState): RoverState => ({
+const moveSouth: Mover = (from) => ({
   ...from,
-  orientation: "E",
+  y: from.y - 1,
 });
 
+const moveWest: Mover = (from) => ({
+  ...from,
+  x: from.x - 1,
+});
+
+type Transform<T> = (t: T) => T;
+
+type Spinner = Transform<Orientation>;
+type Mover = Transform<RoverState>;
+
+const rightOf: Spinner = (o) =>
+  (({ N: "E", E: "S", S: "W", W: "N" } as const)[o]);
+
+const leftOf: Spinner = (o) =>
+  (({ N: "W", W: "S", S: "E", E: "N" } as const)[o]);
+
+const spin: (s: Spinner) => Mover =
+  (s: Spinner) =>
+  (from: RoverState): RoverState => ({
+    ...from,
+    orientation: s(from.orientation),
+  });
+
 const moveForward = (from: RoverState): RoverState =>
-  ({ N: moveNorth, E: moveEast, S: moveNorth, W: moveNorth }[from.orientation](
+  ({ N: moveNorth, E: moveEast, S: moveSouth, W: moveWest }[from.orientation](
     from
   ));
+
+const moveAction = (by: Instruction): Mover =>
+  ({ M: moveForward, R: spin(rightOf), L: spin(leftOf) }[by]);
 
 const moveRover = ({
   from,
@@ -49,8 +75,7 @@ const moveRover = ({
 }: {
   from: RoverState;
   instruction: Instruction;
-}): RoverState =>
-  ({ M: moveForward, R: spinRight, L: spinRight }[instruction](from));
+}): RoverState => moveAction(instruction)(from);
 
 const play = (input: string) => {
   const [, initStateString, instructionsString] = input.split(os.EOL);
@@ -119,7 +144,39 @@ test("parse state - 0 0 N", (t) => {
   t.deepEqual(state, { x: 0, y: 0, orientation: "N" });
 });
 
-test.failing("single rover - 0 1 N -> RRM -> 0 0 S", (t) => {
+test("ex2", (t) => {
+  const upperRightCoordinates = "5 5";
+  const roverInitialState = "3 3 E";
+  const roverInstructions = "MMRMMRMRRM";
+
+  const input = `${upperRightCoordinates}
+${roverInitialState}
+${roverInstructions}`;
+
+  const output = play(input);
+
+  const expectedRoverFinalState = "5 1 E";
+
+  t.deepEqual(output, expectedRoverFinalState);
+});
+
+test("ex1", (t) => {
+  const upperRightCoordinates = "5 5";
+  const roverInitialState = "1 2 N";
+  const roverInstructions = "LMLMLMLMM";
+
+  const input = `${upperRightCoordinates}
+${roverInitialState}
+${roverInstructions}`;
+
+  const output = play(input);
+
+  const expectedRoverFinalState = "1 3 N";
+
+  t.deepEqual(output, expectedRoverFinalState);
+});
+
+test("single rover - 0 1 N -> RRM -> 0 0 S", (t) => {
   const upperRightCoordinates = "0 1";
   const roverInitialState = "0 1 N";
   const roverInstructions = "RRM";
@@ -130,7 +187,6 @@ ${roverInstructions}`;
 
   const output = play(input);
 
-  // expect no change in state, as no instructions where given
   const expectedRoverFinalState = "0 0 S";
 
   t.deepEqual(output, expectedRoverFinalState);
@@ -147,7 +203,6 @@ ${roverInstructions}`;
 
   const output = play(input);
 
-  // expect no change in state, as no instructions where given
   const expectedRoverFinalState = "1 0 E";
 
   t.deepEqual(output, expectedRoverFinalState);
@@ -164,7 +219,6 @@ ${roverInstructions}`;
 
   const output = play(input);
 
-  // expect no change in state, as no instructions where given
   const expectedRoverFinalState = "0 0 E";
 
   t.deepEqual(output, expectedRoverFinalState);
@@ -181,7 +235,6 @@ ${roverInstructions}`;
 
   const output = play(input);
 
-  // expect no change in state, as no instructions where given
   const expectedRoverFinalState = "0 2 N";
 
   t.deepEqual(output, expectedRoverFinalState);
@@ -199,7 +252,6 @@ ${roverInstructions}`;
 
   const output = play(input);
 
-  // expect no change in state, as no instructions where given
   const expectedRoverFinalState = "0 1 N";
 
   t.deepEqual(output, expectedRoverFinalState);
