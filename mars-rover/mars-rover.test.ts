@@ -1,5 +1,6 @@
 import test from "ava";
 import os from "os";
+import { reduce, flow } from "lodash";
 
 type Orientation = "N" | "E" | "S" | "W";
 
@@ -69,7 +70,7 @@ const moveForward = (from: RoverState): RoverState =>
 const moveAction = (by: Instruction): Mover =>
   ({ M: moveForward, R: spin(rightOf), L: spin(leftOf) }[by]);
 
-const moveRover = ({
+const followOneInstruction = ({
   from,
   instruction,
 }: {
@@ -77,19 +78,30 @@ const moveRover = ({
   instruction: Instruction;
 }): RoverState => moveAction(instruction)(from);
 
-const play = (input: string) => {
+const parseInput = (input: string) => {
   const [, initStateString, instructionsString] = input.split(os.EOL);
 
-  let state = parseState(initStateString);
+  const initialState = parseState(initStateString);
 
   const instructions = parseInstructions(instructionsString);
 
-  for (const instruction of instructions) {
-    state = moveRover({ from: state, instruction });
-  }
-
-  return format(state);
+  return { initialState, instructions };
 };
+
+const moveRover = ({
+  instructions,
+  initialState,
+}: {
+  instructions: Instruction[];
+  initialState: RoverState;
+}) =>
+  reduce(
+    instructions,
+    (from, instruction) => followOneInstruction({ from, instruction }),
+    initialState
+  );
+
+const play = flow(parseInput, moveRover, format);
 
 test("format state - 1 2 W", (t) => {
   t.deepEqual(format({ x: 1, y: 2, orientation: "W" }), "1 2 W");
@@ -101,21 +113,27 @@ test("format state - 0 0 N", (t) => {
 
 test("move rover east", (t) => {
   t.deepEqual(
-    format(moveRover({ from: parseState("0 0 E"), instruction: "M" })),
+    format(
+      followOneInstruction({ from: parseState("0 0 E"), instruction: "M" })
+    ),
     "1 0 E"
   );
 });
 
 test("move rover - 0 0 N -> R -> 0 0 E", (t) => {
   t.deepEqual(
-    format(moveRover({ from: parseState("0 0 N"), instruction: "R" })),
+    format(
+      followOneInstruction({ from: parseState("0 0 N"), instruction: "R" })
+    ),
     "0 0 E"
   );
 });
 
 test("move rover - 0 0 N -> M -> 0 1 N", (t) => {
   t.deepEqual(
-    format(moveRover({ from: parseState("0 0 N"), instruction: "M" })),
+    format(
+      followOneInstruction({ from: parseState("0 0 N"), instruction: "M" })
+    ),
     "0 1 N"
   );
 });
