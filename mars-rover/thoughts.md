@@ -1,3 +1,5 @@
+- when going from single rover to many - could have done the change side-by-side iso replacing
+- another option - undo the move to `flow()`, then make changes easier, then back to `flow()`
 - state could be stored as the string representation - it's actually more readable once you get used to it
 - we could avoid mutable state: `reduce` iso `for` loop
 - we could do something like storing the intermediate states - no overriding of previous state

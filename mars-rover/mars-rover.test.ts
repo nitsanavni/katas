@@ -111,12 +111,9 @@ const moveRover = ({
     initialState
   );
 
-const play = flow(
-  parseInput,
-  // (x) => [x],
-  map(flow(moveRover, format)),
-  join(os.EOL)
-);
+const moveRovers = map(moveRover);
+
+const play = flow(parseInput, moveRovers, map(format), join(os.EOL));
 
 test("format state - 1 2 W", (t) => {
   t.deepEqual(format({ x: 1, y: 2, orientation: "W" }), "1 2 W");
