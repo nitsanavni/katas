@@ -1,6 +1,7 @@
 import test from "ava";
 import os from "os";
-import { reduce, flow } from "lodash";
+import _, { reduce, flow } from "lodash";
+import { map, join } from "lodash/fp";
 import dedent from "dedent";
 
 type Orientation = "N" | "E" | "S" | "W";
@@ -80,13 +81,21 @@ const followOneInstruction = ({
 }): RoverState => moveAction(instruction)(from);
 
 const parseInput = (input: string) => {
-  const [, initStateString, instructionsString] = input.split(os.EOL);
+  const [, ...lines] = input.split(os.EOL);
 
-  const initialState = parseState(initStateString);
+  const ret: {
+    instructions: Instruction[];
+    initialState: RoverState;
+  }[] = [];
 
-  const instructions = parseInstructions(instructionsString);
+  for (let i = 0; i < lines.length; i += 2) {
+    const initialState = parseState(lines[i]);
+    const instructions = parseInstructions(lines[i + 1]);
 
-  return { initialState, instructions };
+    ret.push({ instructions, initialState });
+  }
+
+  return ret;
 };
 
 const moveRover = ({
@@ -102,7 +111,12 @@ const moveRover = ({
     initialState
   );
 
-const play = flow(parseInput, moveRover, format);
+const play = flow(
+  parseInput,
+  // (x) => [x],
+  map(flow(moveRover, format)),
+  join(os.EOL)
+);
 
 test("format state - 1 2 W", (t) => {
   t.deepEqual(format({ x: 1, y: 2, orientation: "W" }), "1 2 W");
@@ -163,7 +177,7 @@ test("parse state - 0 0 N", (t) => {
   t.deepEqual(state, { x: 0, y: 0, orientation: "N" });
 });
 
-test.failing("two rovers - example from website", (t) => {
+test("two rovers - example from website", (t) => {
   const input = dedent`5 5
                        1 2 N
                        LMLMLMLMM
