@@ -1,6 +1,7 @@
 import test from "ava";
 import os from "os";
 import { reduce, flow } from "lodash";
+import dedent from "dedent";
 
 type Orientation = "N" | "E" | "S" | "W";
 
@@ -160,6 +161,21 @@ test("parse state - 0 0 N", (t) => {
   const state = parseState("0 0 N");
 
   t.deepEqual(state, { x: 0, y: 0, orientation: "N" });
+});
+
+test.failing("two rovers - example from website", (t) => {
+  const input = dedent`5 5
+                       1 2 N
+                       LMLMLMLMM
+                       3 3 E
+                       MMRMMRMRRM`;
+
+  const output = play(input);
+
+  const expectedRoverFinalState = dedent`1 3 N
+                                         5 1 E`;
+
+  t.deepEqual(output, expectedRoverFinalState);
 });
 
 test("ex2", (t) => {
