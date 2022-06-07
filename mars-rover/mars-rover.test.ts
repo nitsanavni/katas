@@ -1,6 +1,6 @@
 import test from "ava";
 import os from "os";
-import _, { reduce, flow } from "lodash";
+import _, { reduce, flow, chunk } from "lodash";
 import { map, join } from "lodash/fp";
 import dedent from "dedent";
 
@@ -83,19 +83,10 @@ const followOneInstruction = ({
 const parseInput = (input: string) => {
   const [, ...lines] = input.split(os.EOL);
 
-  const ret: {
-    instructions: Instruction[];
-    initialState: RoverState;
-  }[] = [];
-
-  for (let i = 0; i < lines.length; i += 2) {
-    const initialState = parseState(lines[i]);
-    const instructions = parseInstructions(lines[i + 1]);
-
-    ret.push({ instructions, initialState });
-  }
-
-  return ret;
+  return chunk(lines, 2).map(([stateString, instructionsString]) => ({
+    initialState: parseState(stateString),
+    instructions: parseInstructions(instructionsString),
+  }));
 };
 
 const moveRover = ({
