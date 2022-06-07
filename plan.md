@@ -18,10 +18,9 @@
 - refactor to patterns
 - undo
 - guilded rose
-
-
+- naming as a process
 
 # workflow
 
 - prefer mobbing, or pairing
-- leave time for a retro / note taking
+- leave time for a retro / note taking / thinking
