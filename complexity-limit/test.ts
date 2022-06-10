@@ -9,17 +9,25 @@ import { constant, each, identity, noop } from "lodash";
 type FizzBuzz = number | "fizz" | "buzz" | "fizzbuzz";
 type FizzBuzzer = (n: number) => FizzBuzz;
 
-const divisable = (n: number, d: number) => n % d == 0;
+type Predicate = (n: number) => boolean;
+
+const divisable =
+  (d: number): Predicate =>
+  (n) =>
+    n % d == 0;
 
 const checkFor =
-  (d: number) => (yes: FizzBuzzer) => (no: FizzBuzzer) => (n: number) =>
-    divisable(n, d) ? yes(n) : no(n);
+  (predicate: Predicate) =>
+  (yes: FizzBuzzer) =>
+  (no: FizzBuzzer) =>
+  (n: number) =>
+    predicate(n) ? yes(n) : no(n);
 
 const stop = identity;
-const standard = checkFor(1)(identity);
-const checkFive = checkFor(5)(constant("buzz"));
-const checkThree = checkFor(3)(constant("fizz"));
-const checkBoth = checkFor(15)(constant("fizzbuzz"));
+const standard = checkFor(divisable(1))(identity);
+const checkThree = checkFor(divisable(3))(constant("fizz"));
+const checkFive = checkFor(divisable(5))(constant("buzz"));
+const checkBoth = checkFor(divisable(15))(constant("fizzbuzz"));
 
 const fizzbuzz: FizzBuzzer = checkBoth(checkThree(checkFive(standard(stop))));
 
