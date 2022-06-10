@@ -1,5 +1,5 @@
 import test from "ava";
-import { each, identity } from "lodash";
+import { constant, each, identity, noop } from "lodash";
 
 // fizzbuzz(n) = n
 // divisable by 3 - fizz
@@ -7,19 +7,21 @@ import { each, identity } from "lodash";
 // divisable by both - fizzbuzz
 
 type FizzBuzz = number | "fizz" | "buzz" | "fizzbuzz";
-type Daisy = (n: number) => FizzBuzz;
+type FizzBuzzer = (n: number) => FizzBuzz;
 
 const divisable = (n: number, d: number) => n % d == 0;
 
-const checkFor = (d: number, res: FizzBuzz) => (daisy: Daisy) => (n: number) =>
-  divisable(n, d) ? res : daisy(n);
+const checkFor =
+  (d: number) => (yes: FizzBuzzer) => (no: FizzBuzzer) => (n: number) =>
+    divisable(n, d) ? yes(n) : no(n);
 
-const checkFive = checkFor(5, "buzz");
-const checkThree = checkFor(3, "fizz");
-const checkBoth = checkFor(15, "fizzbuzz");
-const standard = identity;
+const stop = identity;
+const standard = checkFor(1)(identity);
+const checkFive = checkFor(5)(constant("buzz"));
+const checkThree = checkFor(3)(constant("fizz"));
+const checkBoth = checkFor(15)(constant("fizzbuzz"));
 
-const fizzbuzz: Daisy = checkBoth(checkThree(checkFive(standard)));
+const fizzbuzz: FizzBuzzer = checkBoth(checkThree(checkFive(standard(stop))));
 
 each(
   [
