@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "more-deps": "brew install entr parallel",
+    "go": "echo test.ts | entr parallel --tag --tty ::: \"npx ava\" \"npx eslint test.ts && echo \\ \\ ✔ complexity \\<= 2\""
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.182",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "ava": "^4.3.0",
+    "eslint": "^8.17.0",
+    "lodash": "^4.17.21",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  }
+}
