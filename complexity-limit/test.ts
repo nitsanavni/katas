@@ -48,23 +48,27 @@ const fizzbuzzFind: FizzBuzzer = (n: number) => {
 };
 
 // TODO - this can be extracted as `product`
-each([fizzbuzzFind, fizzbuzzComposedFunctions], (fizzbuzz) =>
-  each(
-    [
-      [1, 1],
-      [2, 2],
-      [3, "fizz"],
-      [4, 4],
-      [5, "buzz"],
-      [6, "fizz"],
-      [7, 7],
-      [8, 8],
-      [9, "fizz"],
-      [10, "buzz"],
-      [15, "fizzbuzz"],
-    ] as const,
-    ([n, expected]) =>
-      test(`${fizzbuzz.name}(${n}): ${expected}`, (t) =>
-        t.is(fizzbuzz(n), expected))
-  )
+each(
+  [
+    [fizzbuzzFind, "find"],
+    [fizzbuzzComposedFunctions, "compose"],
+  ] as const,
+  ([fizzbuzz, name]) =>
+    each(
+      [
+        [1, 1],
+        [2, 2],
+        [3, "fizz"],
+        [4, 4],
+        [5, "buzz"],
+        [6, "fizz"],
+        [7, 7],
+        [8, 8],
+        [9, "fizz"],
+        [10, "buzz"],
+        [15, "fizzbuzz"],
+      ] as const,
+      ([n, expected]) =>
+        test(`${name}(${n}): ${expected}`, (t) => t.is(fizzbuzz(n), expected))
+    )
 );
