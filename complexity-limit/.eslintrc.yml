@@ -10,4 +10,4 @@ parserOptions:
   sourceType: module
 plugins:
   - "@typescript-eslint"
-rules: { complexity: ["error", 2] }
+rules: { complexity: ["error", 1] }
