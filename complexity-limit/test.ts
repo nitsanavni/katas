@@ -34,19 +34,20 @@ const fizzbuzzComposedFunctions: FizzBuzzer = checkBoth(
 );
 
 const fizzbuzzFind: FizzBuzzer = (n: number) => {
-  const [, fizzbuzzer] = find(
+  const [, fizzbuzz] = find(
     [
-      [divisable(15), constant("fizzbuzz")],
-      [divisable(3), constant("fizz")],
-      [divisable(5), constant("buzz")],
-      [constant(true), identity],
-    ] as [Predicate, FizzBuzzer][],
+      [divisable(15), "fizzbuzz"],
+      [divisable(3), "fizz"],
+      [divisable(5), "buzz"],
+      [constant(true), n],
+    ] as [Predicate, FizzBuzz][],
     ([predicate]) => predicate(n)
   )!;
 
-  return fizzbuzzer(n);
+  return fizzbuzz;
 };
 
+// TODO - this can be extracted as `product`
 each([fizzbuzzFind, fizzbuzzComposedFunctions], (fizzbuzz) =>
   each(
     [
