@@ -7,4 +7,4 @@
 - did not commit often (almost not at all)
 - should probably prune the tests - according to https://jay.bazuzi.com/Characteristics-of-Ideal-Tests/ - "1 defect == 1 test failure"
 - can be done using ~~`reduce`~~ `find` - done - reached complexity of 1
-- the question is - is `find` really less complex than `if`? not really, but it's a more intent-revealing construct
+- the question is - is `find` really less complex than `if`? not really, but it's a more intent-revealing construct; it still pretty much looks like the same switch-case construct

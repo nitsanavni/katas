@@ -1,5 +1,5 @@
 import test from "ava";
-import { constant, each, find, identity, noop, reduce } from "lodash";
+import { constant, each, find, identity } from "lodash";
 
 // fizzbuzz(n) = n
 // divisable by 3 - fizz

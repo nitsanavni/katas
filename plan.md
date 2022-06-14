@@ -1,5 +1,7 @@
 # kata ideas
 
+[[closest-to-zero/README]]
+
 - TDD kata, but every refactoring must get to lexical complexity of X (e.g. 1)
 - ACN
 - following this TDD chart: https://quinngil.com/tdd-like-you-mean-it/
@@ -19,6 +21,7 @@
 - undo
 - guilded rose
 - naming as a process
+- testcontainers + playwright + htmx
 
 # workflow
 
