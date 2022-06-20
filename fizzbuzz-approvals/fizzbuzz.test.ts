@@ -4,7 +4,7 @@ import { range } from "lodash";
 type FizzBuzz = number | "Fizz" | "Buzz" | "FizzBuzz";
 
 const fizzbuzz = (n: number): FizzBuzz => {
-  return 0;
+  return n;
 };
 
 const printer = (fb: typeof fizzbuzz): string =>
@@ -14,6 +14,4 @@ const printer = (fb: typeof fizzbuzz): string =>
       .map((n) => `|${n}|${fb(n)}|`)
       .join("\n")}}`;
 
-test("fizzbuzz", (t) => {
-  t.snapshot(printer(fizzbuzz));
-});
+test("fizzbuzz", ({ snapshot }) => snapshot(printer(fizzbuzz)));
