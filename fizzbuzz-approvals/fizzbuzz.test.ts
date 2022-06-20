@@ -4,7 +4,7 @@ import { range } from "lodash";
 type FizzBuzz = number | "Fizz" | "Buzz" | "FizzBuzz";
 
 const fizzbuzz = (n: number): FizzBuzz => {
-  return n;
+  return n % 3 == 0 ? "Fizz" : n;
 };
 
 const printer = (fb: typeof fizzbuzz): string =>
