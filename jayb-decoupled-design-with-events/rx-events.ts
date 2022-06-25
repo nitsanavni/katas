@@ -11,14 +11,14 @@ export class Program {
     const bar = foo.bar.bind(foo);
 
     // foo starts reacting to bazChannel events
-    bazChannel.subscribe(bar)
+    const sub = bazChannel.subscribe(bar)
     
     const aClass = new AClass();
     
     // bazChannel starts receiving baz events from aClass
     aClass.onBaz.subscribe(bazChannel);
 
-    return { aClass, foo, bar, bazChannel };
+    return { aClass, foo, bar, bazChannel, sub };
   }
 
   public static main() {
@@ -41,7 +41,6 @@ export class AClass {
 }
 
 class Foo {
-
   public bar(message: string) {
     console.log(message);
   }
