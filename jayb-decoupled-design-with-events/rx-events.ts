@@ -1,7 +1,9 @@
-import { Observer, Subject } from "rxjs";
+import { Subject } from "rxjs";
 
 export class Program {
   public static configure() {
+    // the channel through which the events are flowing can be extracted as a separate entity
+    // and later used in tests
     const bazChannel = new Subject<string>;
     
     const foo = new Foo();
@@ -34,7 +36,7 @@ export class AClass {
   }
 
   public do() {
-    this.baz.next("Hello, World!");
+    this.baz.next("Hello, Rx!");
   }
 }
 
