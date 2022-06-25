@@ -1,0 +1,17 @@
+name: decoupled design
+
+on:
+  push:
+    paths:
+      - "jayb-decoupled-design-with-events/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm ci
+        working-directory: jayb-decoupled-design-with-events
+      - run: npx ava
+        working-directory: jayb-decoupled-design-with-events
