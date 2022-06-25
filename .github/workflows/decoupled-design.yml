@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "jayb-decoupled-design-with-events/**"
+      - ".github/workflows/decoupled-design.yml"
 
 jobs:
   test:
