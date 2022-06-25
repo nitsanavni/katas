@@ -1,3 +1,4 @@
+// note - only Program needs to be public for testing
 export class Program {
   public static main() {
     const aClass = new AClass();
