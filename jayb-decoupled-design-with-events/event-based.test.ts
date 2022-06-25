@@ -13,8 +13,8 @@ test("AClass raises event at right time", (t) => {
   t.deepEqual(onBaz.firstCall.firstArg, "Hello, World!");
 });
 
-test.failing("configure", (t) => {
-  const { aClass, foo } = Program.configure();
+test("configure", (t) => {
+  const { aClass, bar } = Program.configure();
 
-  t.deepEqual(aClass.onBaz.toString(), foo.bar.bind(foo));
+  t.deepEqual(aClass.onBaz.getInvocationList(), [bar]);
 });

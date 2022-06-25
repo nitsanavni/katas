@@ -2,9 +2,10 @@ export class Program {
   public static configure() {
     const foo = new Foo();
     const aClass = new AClass();
-    aClass.onBaz.add(foo.bar.bind(foo));
+    const bar = foo.bar.bind(foo);
+    aClass.onBaz.add(bar);
 
-    return { aClass, foo };
+    return { aClass, foo, bar };
   }
 
   public static main() {
