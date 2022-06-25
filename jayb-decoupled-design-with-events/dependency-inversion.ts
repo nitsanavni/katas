@@ -14,7 +14,7 @@ export class AClass {
   }
 }
 
-export interface IFoo {
+interface IFoo {
   bar(message: string): void;
 }
 

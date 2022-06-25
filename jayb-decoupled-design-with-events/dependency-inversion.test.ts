@@ -9,5 +9,5 @@ test("AClass bars 'hello world'", (t) => {
 
   aClass.do();
 
-  t.deepEqual(bar.args, [["Hello, World!"]]);
+  t.deepEqual(bar.firstCall.firstArg, "Hello, World!");
 });

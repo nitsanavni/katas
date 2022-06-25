@@ -1,7 +1,10 @@
 {
   "dependencies": {
+    "@types/inversify": "^2.0.33",
     "@types/sinon": "^10.0.11",
     "ava": "^4.3.0",
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
     "sinon": "^14.0.0",
     "ts-node": "^10.8.1",
