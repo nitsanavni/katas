@@ -1,0 +1,22 @@
+version: "3.1"
+
+services:
+  mariadb:
+    image: mariadb:10.8.2
+    user: 33333:33333
+    environment:
+      MARIADB_ROOT_PASSWORD: testpassword
+      MARIADB_DATABASE: app
+      MARIADB_USER: user
+      MARIADB_PASSWORD: testpassword
+    volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
