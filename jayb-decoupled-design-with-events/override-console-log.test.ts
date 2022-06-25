@@ -1,7 +1,7 @@
 import test from "ava";
 import sinon from "sinon";
 
-import { Program } from "./original/program";
+import { Program } from "./original-program";
 
 test("program should log 'hello world' to console", (t) => {
   const sandbox = sinon.createSandbox();
