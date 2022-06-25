@@ -2,7 +2,7 @@ export class Program {
   public static configure() {
     const foo = new Foo();
     const aClass = new AClass();
-    aClass.onBaz = foo.bar.bind(foo);
+    aClass.onBaz.add(foo.bar.bind(foo));
 
     return { aClass, foo };
   }
@@ -16,11 +16,21 @@ export class Program {
 
 type Action<T> = (t: T) => void;
 
+const event = <T>() => {
+  const invocations: Action<T>[] = [];
+
+  const add = (action: Action<T>) => invocations.push(action);
+  const getInvocationList = () => invocations;
+  const invokeWith = (t: T) => invocations.forEach((i) => i(t));
+
+  return { add, getInvocationList, invokeWith };
+};
+
 export class AClass {
-  public onBaz!: Action<string>;
+  public onBaz = event<string>();
 
   public do() {
-    this.onBaz?.("Hello, World!");
+    this.onBaz.invokeWith("Hello, World!");
   }
 }
 
