@@ -24,7 +24,7 @@ test("we can still test aClass in isolation - Foo class is not involved", (t) =>
   t.deepEqual(bazSpy.firstCall.firstArg, "Hello, Rx!");
 });
 
-test("tap into the rx channel to inspect events coming from dispatcher", (t) => {
+test("listen in to the rx channel directly to inspect events coming from dispatcher (AClass)", (t) => {
   const { aClass, bazChannel } = Program.configure();
 
   const bazSpy = sinon.spy();
