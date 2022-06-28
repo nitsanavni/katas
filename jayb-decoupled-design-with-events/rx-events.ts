@@ -4,7 +4,7 @@ export class Program {
   public static configure() {
     // the channel through which the events are flowing can be extracted as a separate entity
     // and later used in tests
-    const bazChannel = new Subject<string>;
+    const bazChannel = new Subject<string>();
     
     const foo = new Foo();
 

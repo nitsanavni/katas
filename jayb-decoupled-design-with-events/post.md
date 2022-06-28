@@ -65,11 +65,11 @@ test("configure", (t) => {
 });
 ```
 
-For our Rx example, we'll be replacing `onBaz: Action<string>` with a `rxjs.Subject`.
+For our Rx example, we'll be replacing `onBaz: Action<string>` with a `rxjs.Subject<string>`.
 
 ```ts
 class AClass {
-  private readonly baz = new Subject<string>;
+  private readonly baz = new Subject<string>();
 
   public get onBaz() {
     return this.baz.asObservable();
