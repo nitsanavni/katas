@@ -3,7 +3,7 @@ layout: post
 title: Decoupled Design with Rx
 ---
 
-Following Jay Bazuzi's post on [Decoupled Design with Events](https://jay.bazuzi.com/Decoupled-Design/), I wanted to show a possible variation using [Rx](https://reactivex.io/) in Typescript.
+Following Jay Bazuzi's post, [Decoupled Design with Events](https://jay.bazuzi.com/Decoupled-Design/), I wanted to show a possible variation using [Rx](https://reactivex.io/) in Typescript.
 
 In particular for this discussion I like how [`Subject`s](https://reactivex.io/documentation/subject.html) can act as channels (or 'topics') for eventing.
 
@@ -117,7 +117,11 @@ public static configure() {
 }
 ```
 
-Here I've introduced a second `Subject` to act as a connecting channel between emitter and consumer, this is not necessary but it creates an extra separation which I sometimes like. For example, we can intercept `bazChannel` events in a test:
+Here I've introduced a second `Subject` to act as a connecting channel between emitter and consumer, this is not necessary but it creates an extra separation which I sometimes like.
+
+There might be a few benefits for doing that, but the one that I care about in our context is - this makes the connecting tissue separate, explicit, testable, with a proper name, and basically makes things clearer.
+
+Here's an example of how we can use this extra entity in our tests - we can intercept `bazChannel` events as they're emitted from the source:
 
 ```ts
 const { aClass, bazChannel } = Program.configure();
@@ -129,6 +133,4 @@ aClass.do();
 t.deepEqual(bazSpy.firstCall.firstArg, "Hello, Rx!");
 ```
 
-🤔 how is this different from the simpler events?
-
-Full source code can be found [here](https://github.com/nitsanavni/katas/tree/main/jayb-decoupled-design-with-events).
+Full source code, including all of Jay's examples translated to Typescript can be found [here](https://github.com/nitsanavni/katas/tree/main/jayb-decoupled-design-with-events).
