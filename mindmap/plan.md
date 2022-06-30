@@ -1,0 +1,3 @@
+- in an outline, parents precede their children
+- recursively - a parent is to the left of its children
+  - we need a way to append blocks of strings (multi-line strings) horizontally

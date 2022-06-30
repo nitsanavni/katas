@@ -18,7 +18,15 @@ const parseLine = (line: string): Node => {
 
 const parse = (outline: string): Node[] => outline.split(EOL).map(parseLine);
 
-const format = (outline: string) => "a";
+const format = (outline: string) => {
+  let ret = "";
+
+  parse(outline)
+    .map(({ body }) => body)
+    .join("\n");
+
+  return ret;
+};
 
 test("parse outline", (t) => {
   const outlineString = "0|a\n0|b";
@@ -30,5 +38,15 @@ test("parse outline string", (t) => {
 });
 
 test("format", (t) => {
-  t.snapshot(format(`0|a`));
+  ["0|a", "0|a\n0|b", "0|a\n1|b"].map((outline) =>
+    t.snapshot(format(outline), outline)
+  );
+});
+
+const cat = (lhs: string, rhs: string) => `${lhs} ${rhs}`;
+
+test("concat blocks", (t) => {
+  [["a", "b"]].map(([lhs, rhs]) =>
+    t.snapshot(cat(lhs, rhs), `${lhs} + ${rhs}`)
+  );
 });
