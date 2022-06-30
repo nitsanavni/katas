@@ -43,10 +43,42 @@ test("format", (t) => {
   );
 });
 
-const cat = (lhs: string, rhs: string) => `${lhs} ${rhs}`;
+const w = (lines: string[]): number => Math.max(...lines.map((l) => l.length));
+const h = (lines: string[]): number => lines.length;
+
+const cat = (lhs: string[], rhs: string[]): string[] => {
+  const lw = w(lhs);
+  const lh = h(lhs);
+  const rw = w(rhs);
+  const rh = h(rhs);
+
+  const ret: string[] = [];
+
+  const mh = Math.max(lh, rh);
+
+  for (let i = 0; i < mh; i++) {
+    const li = i - ((mh - lh) >> 1);
+    const ri = i - ((mh - rh) >> 1);
+
+    const l = lhs[li] || "";
+    const r = rhs[ri] || "";
+    const p = "".padEnd(lw - l.length, " ");
+
+    ret.push(`${l}${p} ${r}`);
+  }
+
+  return ret;
+};
 
 test("concat blocks", (t) => {
-  [["a", "b"]].map(([lhs, rhs]) =>
-    t.snapshot(cat(lhs, rhs), `${lhs} + ${rhs}`)
-  );
+  [
+    [["a"], ["b"]],
+    [["a"], ["b", "c"]],
+    [["a"], ["b", "c", "d"]],
+    [
+      ["a", "a22"],
+      ["b", "c", "d"],
+    ],
+    [["a", "b", "ccc"], ["d"]],
+  ].map(([lhs, rhs]) => t.snapshot(cat(lhs, rhs), `${lhs} + ${rhs}`));
 });
