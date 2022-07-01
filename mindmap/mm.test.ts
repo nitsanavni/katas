@@ -18,26 +18,51 @@ const parseLine = (line: string): Node => {
 
 const parse = (outline: string): Node[] => outline.split(EOL).map(parseLine);
 
+const find = <T>(
+  arr: T[],
+  predicate: (t: T) => boolean,
+  startIndex = 0
+): [T, number] | undefined => {
+  for (let i = startIndex; i < arr.length; i++) {
+    const item = arr[i];
+    if (predicate(item)) return [item, i];
+  }
+};
+
+const filter = <T>(
+  arr: T[],
+  predicate: (t: T, index: number) => boolean,
+  startIndex: number,
+  endIndex: number
+): [T, number][] => {
+  const ret: [T, number][] = [];
+
+  for (let i = startIndex; i < Math.min(arr.length, endIndex); i++) {
+    const item = arr[i];
+    if (predicate(item, i)) ret.push([item, i]);
+  }
+
+  return ret;
+};
+
 const format = (outlineString: string) => {
   const nodes = parse(outlineString);
 
   const formatNode = (i: number): string[] => {
     const node = nodes[i];
 
-    const directChildren: number[] = [];
+    const [, end] = find(
+      nodes,
+      (candidate) => candidate.indentation <= node.indentation,
+      i + 1
+    ) || [undefined, nodes.length];
 
-    for (let j = i + 1; j < nodes.length; j++) {
-      const candidate = nodes[j];
-
-      // TODO - extract `find()`
-      const isDirectChild = candidate.indentation == node.indentation + 1;
-
-      if (isDirectChild) {
-        directChildren.push(j);
-      } else if (candidate.indentation <= node.indentation) {
-        break;
-      }
-    }
+    const directChildren: number[] = filter(
+      nodes,
+      (candidate) => candidate.indentation == node.indentation + 1,
+      i + 1,
+      end
+    ).map(([, i]) => i);
 
     const childless = directChildren.length == 0;
 
