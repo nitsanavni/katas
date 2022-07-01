@@ -39,7 +39,9 @@ const format = (outlineString: string) => {
       }
     }
 
-    return directChildren.length == 0
+    const childless = directChildren.length == 0;
+
+    return childless
       ? [node.body]
       : cat([node.body], directChildren.flatMap(formatNode));
   };
@@ -103,7 +105,12 @@ const cat = (lhs: string[], rhs: string[]): string[] => {
     const l = lhs[li] || "";
     const r = rhs[ri] || "";
     const p = "".padEnd(lw - l.length, " ");
-    const connector = mh == 1 ? "─" : i == 0 ? "┌" : i == mh - 1 ? "└" : "│";
+
+    const singleLine = mh == 1;
+    const firstLine = i == 0;
+    const lastLine = i == mh - 1;
+
+    const connector = singleLine ? "─" : firstLine ? "┌" : lastLine ? "└" : "│";
 
     ret.push(`${l}${p}${connector}${r}`);
   }
