@@ -18,14 +18,33 @@ const parseLine = (line: string): Node => {
 
 const parse = (outline: string): Node[] => outline.split(EOL).map(parseLine);
 
-const format = (outline: string) => {
-  let ret = "";
+const format = (outlineString: string) => {
+  const nodes = parse(outlineString);
 
-  parse(outline)
-    .map(({ body }) => body)
-    .join("\n");
+  const formatNode = (i: number): string[] => {
+    const node = nodes[i];
 
-  return ret;
+    const directChildren: number[] = [];
+
+    for (let j = i + 1; j < nodes.length; j++) {
+      const candidate = nodes[j];
+
+      // TODO - extract `find()`
+      const isDirectChild = candidate.indentation == node.indentation + 1;
+
+      if (isDirectChild) {
+        directChildren.push(j);
+      } else if (candidate.indentation <= node.indentation) {
+        break;
+      }
+    }
+
+    return directChildren.length == 0
+      ? [node.body]
+      : cat([node.body], directChildren.flatMap(formatNode));
+  };
+
+  return formatNode(0);
 };
 
 test("parse outline", (t) => {
@@ -37,10 +56,32 @@ test("parse outline string", (t) => {
   ["0|a", "1|b"].map((line) => t.snapshot(parseLine(line), line));
 });
 
+const range = (end: number): number[] => {
+  const ret: number[] = [];
+
+  for (let i = 0; i < end; i++) {
+    ret.push(i);
+  }
+
+  return ret;
+};
+
 test("format", (t) => {
-  ["0|a", "0|a\n0|b", "0|a\n1|b"].map((outline) =>
-    t.snapshot(format(outline), outline)
-  );
+  [
+    "0|a",
+    "0|a\n1|b",
+    "0|a\n1|b\n1|c",
+    `0|a
+1|b
+2|c
+1|d
+2|1
+2|2
+2|3`,
+    range(10)
+      .map((i) => `${i}|${i}`)
+      .join(EOL),
+  ].map((outline) => t.snapshot(format(outline), outline));
 });
 
 const w = (lines: string[]): number => Math.max(...lines.map((l) => l.length));
@@ -49,7 +90,6 @@ const h = (lines: string[]): number => lines.length;
 const cat = (lhs: string[], rhs: string[]): string[] => {
   const lw = w(lhs);
   const lh = h(lhs);
-  const rw = w(rhs);
   const rh = h(rhs);
 
   const ret: string[] = [];
@@ -63,8 +103,9 @@ const cat = (lhs: string[], rhs: string[]): string[] => {
     const l = lhs[li] || "";
     const r = rhs[ri] || "";
     const p = "".padEnd(lw - l.length, " ");
+    const connector = mh == 1 ? "─" : i == 0 ? "┌" : i == mh - 1 ? "└" : "│";
 
-    ret.push(`${l}${p} ${r}`);
+    ret.push(`${l}${p}${connector}${r}`);
   }
 
   return ret;
