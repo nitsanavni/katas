@@ -20,10 +20,11 @@ c`,
   (answer) => (
     rl.cursorTo(process.stdout, 0, 0),
     rl.clearScreenDown(process.stdout),
-    i.setPrompt(answer),
-    i.prompt(),
-    process.exit()
+    i.setPrompt(`a
+b: ${answer} ✅
+c`),
+    i.prompt()
   )
 );
 
-rl.cursorTo(process.stdout, 4, 1);
+rl.cursorTo(process.stdout, 3, 1);
