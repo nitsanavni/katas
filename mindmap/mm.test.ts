@@ -1,25 +1,13 @@
 import test from "ava";
 import { EOL } from "os";
 
+import { parse } from "./parse";
+
 type Node = {
   body: string;
   indentation: number;
   selected?: boolean;
 };
-
-const parseLine = (line: string): Node => {
-  // a line looks like this: `${indentation}|[${flags}|]${body}`
-  const m = /(\d+)\|((s)?\|)?(.*)/.exec(line)!;
-
-  return {
-    body: m[4],
-    ...(m[3] == "s" ? { selected: true } : {}),
-    indentation: +m[1],
-  };
-};
-
-export const parse = (outline: string): Node[] =>
-  outline.split(EOL).map(parseLine);
 
 const find = <T>(
   arr: T[],
@@ -81,15 +69,6 @@ const formatMindmap = (nodes: Node[]) => {
 
   return formatNode(0);
 };
-
-test("parse outline", (t) => {
-  const outlineString = "0|a\n0|b";
-  t.snapshot(parse(outlineString), outlineString);
-});
-
-test("parse outline string", (t) => {
-  ["0|a", "1|b", "2|s|c"].map((line) => t.snapshot(parseLine(line), line));
-});
 
 type Transform = (nodes: Node[]) => Node[];
 

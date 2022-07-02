@@ -17,13 +17,14 @@
 - node "typing" mode is handled by a `readline.interface`
 - mindmap "navigation" mode disallows keys to be reflected to stdout
 
-- `cli`
+- ✅ `cli`
   - get `filePath` from `argv`
 - `parse`
   - outline string to `Node[]`
 - `read-file`
   - uses `cli.filePath`
   - reads file
+  - if not exists - creates the file and initialize it with empty outline
   - uses `parse`
   - emits `initialNodes: Node[]`
 - `write-file`
