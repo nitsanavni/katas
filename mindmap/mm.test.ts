@@ -47,7 +47,12 @@ const filter = <T>(
   return ret;
 };
 
-const format = (nodes: Node[]) => {
+const formatOutlineLine = ({ indentation, selected, body }: Node): string =>
+  `${indentation}|${selected ? "s|" : ""}${body}`;
+
+const formatOutline = (nodes: Node[]): string[] => nodes.map(formatOutlineLine);
+
+const formatMindmap = (nodes: Node[]) => {
   const formatNode = (i: number): string[] => {
     const node = nodes[i];
 
@@ -85,6 +90,27 @@ test("parse outline string", (t) => {
   ["0|a", "1|b", "2|s|c"].map((line) => t.snapshot(parseLine(line), line));
 });
 
+type Transform = (nodes: Node[]) => Node[];
+
+const home: Transform = (nodes) => {
+  const [first, ...rest] = nodes;
+
+  if (!first) {
+    return [];
+  }
+
+  return [
+    { ...first, selected: true },
+    ...rest.map(({ body, indentation }) => ({ body, indentation })),
+  ];
+};
+
+test("home", (t) => {
+  ["0|a", "0|s|a", "0|a\n1|b"].forEach((outline) =>
+    t.snapshot(formatMindmap(home(parse(outline))))
+  );
+});
+
 const range = (end: number): number[] => {
   const ret: number[] = [];
 
@@ -95,23 +121,33 @@ const range = (end: number): number[] => {
   return ret;
 };
 
-test("format", (t) => {
-  [
-    "0|a",
-    "0|a\n1|b",
-    "0|a\n1|b\n1|c",
-    `0|a
+const outlineStringExamples = [
+  "0|a",
+  "0|a\n1|b",
+  "0|a\n1|b\n1|c",
+  `0|a
 1|b
 2|c
 1|d
 2|1
 2|2
 2|3`,
-    range(10)
-      .map((i) => `${i}|${i}`)
-      .join(EOL),
-    "0|s|selected",
-  ].map((outline) => t.snapshot(format(parse(outline)), outline));
+  range(10)
+    .map((i) => `${i}|${i}`)
+    .join(EOL),
+  "0|s|selected",
+];
+
+test("formatMindmap", (t) => {
+  outlineStringExamples.map((outline) =>
+    t.snapshot(formatMindmap(parse(outline)), outline)
+  );
+});
+
+test("formatOutline", (t) => {
+  outlineStringExamples.map((outline) =>
+    t.deepEqual(formatOutline(parse(outline)), outline.split(EOL))
+  );
 });
 
 const w = (lines: string[]): number => Math.max(...lines.map((l) => l.length));
