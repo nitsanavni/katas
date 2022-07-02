@@ -28,10 +28,11 @@ const atLine = (() => {
 const render = () => {
   cls();
   process.stdout.write(
+    // splice!
     [
-      ...lines.filter((v, i) => i < atLine.get()),
+      ...lines.filter((_, i) => i < atLine.get()),
       "",
-      ...lines.filter((v, i) => i >= atLine.get()),
+      ...lines.filter((_, i) => i >= atLine.get()),
     ].join(EOL)
   );
   rl.cursorTo(process.stdout, 0, atLine.get());
@@ -43,6 +44,7 @@ const cls = () => {
 };
 
 i.on("line", (line) => {
+  // splice!
   lines = [
     ...lines.filter((_, i) => i < atLine.get()),
     line,
@@ -52,11 +54,8 @@ i.on("line", (line) => {
   render();
 });
 
-process.stdin.on("keypress", (str, key) => {
+process.stdin.on("keypress", (_, key) => {
   switch (key.name) {
-    case "tab":
-      i.emit("line", clearLine());
-      break;
     case "up":
       clearLine();
       atLine.dec();
