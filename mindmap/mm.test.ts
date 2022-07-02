@@ -18,7 +18,8 @@ const parseLine = (line: string): Node => {
   };
 };
 
-const parse = (outline: string): Node[] => outline.split(EOL).map(parseLine);
+export const parse = (outline: string): Node[] =>
+  outline.split(EOL).map(parseLine);
 
 const find = <T>(
   arr: T[],
