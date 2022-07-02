@@ -1,17 +1,19 @@
 import test from "ava";
 import { EOL } from "os";
-import { inspect } from "util";
 
 type Node = {
   body: string;
   indentation: number;
+  selected?: boolean;
 };
 
 const parseLine = (line: string): Node => {
-  const m = /(\d+)\|(.*)/.exec(line)!;
+  // a line looks like this: `${indentation}|[${flags}|]${body}`
+  const m = /(\d+)\|((s)?\|)?(.*)/.exec(line)!;
 
   return {
-    body: m[2],
+    body: m[4],
+    ...(m[3] == "s" ? { selected: true } : {}),
     indentation: +m[1],
   };
 };
@@ -80,7 +82,7 @@ test("parse outline", (t) => {
 });
 
 test("parse outline string", (t) => {
-  ["0|a", "1|b"].map((line) => t.snapshot(parseLine(line), line));
+  ["0|a", "1|b", "2|s|c"].map((line) => t.snapshot(parseLine(line), line));
 });
 
 const range = (end: number): number[] => {
