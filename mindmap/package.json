@@ -4,7 +4,8 @@
     "@types/node": "^18.0.0",
     "ava": "^4.3.0",
     "minimist": "^1.2.6",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "zx": "^7.0.6"
   },
   "ava": {
     "timeout": "1s"
