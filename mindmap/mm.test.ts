@@ -130,7 +130,7 @@ const outlineStringExamples = [
 1|b
 2|c
 1|d
-2|1
+2|s|1
 2|2
 2|3`,
   range(10)
