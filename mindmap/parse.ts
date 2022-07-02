@@ -1,11 +1,16 @@
 import { EOL } from "os";
+import { inspect } from "util";
 
 import { OutlineNode } from "./outline-node";
 
 // exported for testing only
-export const parseLine = (line: string): OutlineNode => {
+export const parseLine = (line: string): OutlineNode | undefined => {
   // a line looks like this: `${indentation}|[${flags}|]${body}`
   const m = /(\d+)\|((s)?\|)?(.*)/.exec(line)!;
+
+  if (!m) {
+    return undefined;
+  }
 
   return {
     body: m[4],
@@ -15,4 +20,7 @@ export const parseLine = (line: string): OutlineNode => {
 };
 
 export const parse = (outline: string): OutlineNode[] =>
-  outline.split(EOL).map(parseLine);
+  outline
+    .split(EOL)
+    .map(parseLine)
+    .filter((l) => !!l) as OutlineNode[];

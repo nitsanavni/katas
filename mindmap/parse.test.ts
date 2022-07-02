@@ -8,5 +8,7 @@ test("parse outline", (t) => {
 });
 
 test("parse outline string", (t) => {
-  ["0|a", "1|b", "2|s|c"].map((line) => t.snapshot(parseLine(line), line));
+  ["0|a", "1|b", "2|s|c", ""].map((line, i) =>
+    t.snapshot(parseLine(line), `${i}. "${line}"`)
+  );
 });
