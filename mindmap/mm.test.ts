@@ -47,9 +47,7 @@ const filter = <T>(
   return ret;
 };
 
-const format = (outlineString: string) => {
-  const nodes = parse(outlineString);
-
+const format = (nodes: Node[]) => {
   const formatNode = (i: number): string[] => {
     const node = nodes[i];
 
@@ -68,9 +66,11 @@ const format = (outlineString: string) => {
 
     const childless = directChildren.length == 0;
 
+    const selfFormat = `${node.selected ? ">" : ""}${node.body}`;
+
     return childless
-      ? [node.body]
-      : cat([node.body], directChildren.flatMap(formatNode));
+      ? [selfFormat]
+      : cat([selfFormat], directChildren.flatMap(formatNode));
   };
 
   return formatNode(0);
@@ -110,7 +110,8 @@ test("format", (t) => {
     range(10)
       .map((i) => `${i}|${i}`)
       .join(EOL),
-  ].map((outline) => t.snapshot(format(outline), outline));
+    "0|s|selected",
+  ].map((outline) => t.snapshot(format(parse(outline)), outline));
 });
 
 const w = (lines: string[]): number => Math.max(...lines.map((l) => l.length));
