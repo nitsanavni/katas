@@ -1,13 +1,14 @@
 import test from "ava";
 import { BehaviorSubject, firstValueFrom } from "rxjs";
 import { $ } from "zx";
+import { OutlineNode } from "./outline-node.js";
 
 import { makeReadFile } from "./read-file.js";
 
 $.verbose = false;
 
-test("creates file if not exists", async (t) => {
-  t.plan(1);
+test("creates file if not exists - with empty outline", async (t) => {
+  t.plan(2);
 
   const readfile = makeReadFile();
 
@@ -17,7 +18,12 @@ test("creates file if not exists", async (t) => {
   const fileSubject = new BehaviorSubject(file);
 
   readfile.read(fileSubject);
-  await firstValueFrom(readfile.initialNodes());
+
+  const emptyOutline: OutlineNode[] = [
+    { body: "", indentation: 0, selected: true },
+  ];
+
+  t.deepEqual(await firstValueFrom(readfile.initialNodes()), emptyOutline);
 
   t.is(await $`ls ${file}`.exitCode, 0);
 });

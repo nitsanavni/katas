@@ -3,10 +3,7 @@ import { readFile, writeFile } from "fs/promises";
 import { mergeMap, Observable, Subject } from "rxjs";
 
 import { parse } from "./parse";
-
-export type OutlineNode = {
-  body: string;
-};
+import { OutlineNode } from "./outline-node";
 
 export const makeReadFile = () => {
   const _read = async (filePath: string): Promise<OutlineNode[]> => {
