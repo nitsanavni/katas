@@ -14,18 +14,27 @@ const clearLine = (): string => {
 };
 
 let lines: string[] = [];
-let atLine: number = 0;
+
+const atLine = (() => {
+  let n = 0;
+
+  const inc = () => (n = Math.min(lines.length, n + 1));
+  const dec = () => (n = Math.max(0, n - 1));
+  const get = () => n;
+
+  return { inc, dec, get };
+})();
 
 const render = () => {
   cls();
   process.stdout.write(
     [
-      ...lines.filter((v, i) => i < atLine),
+      ...lines.filter((v, i) => i < atLine.get()),
       "",
-      ...lines.filter((v, i) => i >= atLine),
+      ...lines.filter((v, i) => i >= atLine.get()),
     ].join(EOL)
   );
-  rl.cursorTo(process.stdout, 0, atLine);
+  rl.cursorTo(process.stdout, 0, atLine.get());
 };
 
 const cls = () => {
@@ -34,12 +43,12 @@ const cls = () => {
 };
 
 i.on("line", (line) => {
-  atLine++;
   lines = [
-    ...lines.filter((_, i) => i < atLine - 1),
+    ...lines.filter((_, i) => i < atLine.get()),
     line,
-    ...lines.filter((_, i) => i >= atLine - 1),
+    ...lines.filter((_, i) => i >= atLine.get()),
   ];
+  atLine.inc();
   render();
 });
 
@@ -50,16 +59,12 @@ process.stdin.on("keypress", (str, key) => {
       break;
     case "up":
       clearLine();
-      atLine = Math.max(0, atLine - 1);
+      atLine.dec();
       render();
       break;
     case "down":
       clearLine();
-      atLine++;
-      // extract cap / Math.min
-      if (atLine > lines.length) {
-        atLine = lines.length;
-      }
+      atLine.inc();
       render();
       break;
   }
