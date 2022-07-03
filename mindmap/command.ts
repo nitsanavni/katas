@@ -3,6 +3,9 @@ export type CommandType =
   | "update selected node body"
   | "home"
   | "go to child"
+  | "go to parent"
+  | "go to next sibling"
+  | "go to previous sibling"
   | "quit";
 
 export type Command = {
