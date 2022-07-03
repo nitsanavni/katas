@@ -1,5 +1,6 @@
 # in
 
+- maybe `selected` should be a number on the model, instead of booleans all over the place
 - idea! for markdown snapshot, we can create our own "received" md file, and snapshot its contents using `t.snapshot`
 - in an outline, parents precede their children
 - recursively - a parent is to the left of its children

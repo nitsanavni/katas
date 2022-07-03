@@ -1,16 +1,8 @@
 import { Transform } from "./transform";
 
-export const home: Transform = (nodes) => {
-  const [first, ...rest] = nodes;
-
-  if (!first) {
-    return [];
-  }
-
-  return [
-    { ...first, selected: true },
-    ...rest.map(({ body, indentation }) => ({ body, indentation })),
-  ];
-};
+export const home: Transform = (nodes) =>
+  nodes.map((n, i) =>
+    i == 0 ? { ...n, selected: true } : { ...n, selected: false }
+  );
 
 export default home;

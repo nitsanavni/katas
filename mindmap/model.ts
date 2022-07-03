@@ -1,6 +1,7 @@
 import { BehaviorSubject, EMPTY, map, Observable } from "rxjs";
 
 import { Command } from "./command";
+import { goToChild } from "./go-to-child";
 import home from "./home";
 import { OutlineNode } from "./outline-node";
 import updateSelectedNodeBody from "./update-selected-node-body";
@@ -26,6 +27,8 @@ export const makeModel = ({
       return updateSelectedNodeBody(payload)(get());
     } else if (command == "home") {
       return home(get());
+    } else if (command == "go to child") {
+      return goToChild(get());
     }
 
     return get();

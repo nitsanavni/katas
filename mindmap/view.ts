@@ -21,11 +21,11 @@ export const makeView = ({
   model: Observable<OutlineNode[]>;
   mode: Observable<OutlineNode[]>;
 }) => {
-  const i = readline.createInterface({ input, output });
+  //   const i = readline.createInterface({ input });
 
   const render = (nodes: OutlineNode[]) => {
     cls(output);
-    i.write(formatMindmap(nodes).join(EOL));
+    output.write(formatMindmap(nodes).join(EOL));
   };
 
   model.pipe(tap(render)).subscribe();
