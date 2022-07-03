@@ -3,6 +3,7 @@ import { BehaviorSubject, EMPTY, map, Observable } from "rxjs";
 import { Command } from "./command";
 import { goToChild } from "./go-to-child";
 import { goToNextSibling } from "./go-to-next-sibling";
+import { goToPreviousSibling } from "./go-to-previous-sibling";
 import { goToParent } from "./go-to-parent";
 import home from "./home";
 import { OutlineNode } from "./outline-node";
@@ -36,7 +37,7 @@ export const makeModel = ({
     } else if (command == "go to next sibling") {
       return goToNextSibling(get());
     } else if (command == "go to previous sibling") {
-      return get();
+      return goToPreviousSibling(get());
     }
 
     return get();
