@@ -11,6 +11,12 @@ import parse from "./parse";
 const outline = dedent`0|root
                        1|s|hello model!`;
 
+test.beforeEach("time", (t) => ((t.context as any).b = Date.now()));
+
+test.afterEach("after time", (t) => {
+  console.log(Date.now() - (t.context as any).b);
+});
+
 test("init", (t) => {
   const initWith = new Subject<OutlineNode[]>();
   const model = makeModel({ initWith });
