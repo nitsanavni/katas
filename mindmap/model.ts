@@ -32,5 +32,5 @@ export const makeModel = ({
 
   const get = () => subject.getValue();
 
-  return { get };
+  return { get, model: subject.asObservable() };
 };
