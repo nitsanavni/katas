@@ -1,7 +1,9 @@
 import { BehaviorSubject, EMPTY, map, Observable } from "rxjs";
 
 import { Command } from "./command";
+import home from "./home";
 import { OutlineNode } from "./outline-node";
+import updateSelectedNodeBody from "./update-selected-node-body";
 
 export const makeModel = ({
   initWith,
@@ -16,17 +18,11 @@ export const makeModel = ({
 
   initWith.subscribe(subject);
 
-  const updateSelectedNodeBody = ({
-    nodes,
-    w,
-  }: {
-    nodes: OutlineNode[];
-    w?: string;
-  }) => nodes.map((n) => ({ ...n, ...(n.selected ? { body: w || "" } : {}) }));
-
-  const transform = (command: Command): OutlineNode[] => {
-    if (command.command == "update selected node body") {
-      return updateSelectedNodeBody({ nodes: get(), w: command.with });
+  const transform = ({ command, payload }: Command): OutlineNode[] => {
+    if (command == "update selected node body") {
+      return updateSelectedNodeBody(payload)(get());
+    } else if (command == "home") {
+      return home(get());
     }
 
     return get();

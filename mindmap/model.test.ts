@@ -34,7 +34,10 @@ test("listens to commands - e.g. 'update selected node body'", (t) => {
 
   t.snapshot(formatMindmap(model.get()), "before update body");
 
-  command.next({ command: "update selected node body", with: "updated body" });
+  command.next({
+    command: "update selected node body",
+    payload: "updated body",
+  });
 
   t.snapshot(formatMindmap(model.get()), "after update body");
 });
