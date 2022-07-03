@@ -3,20 +3,18 @@ import { EOL } from "os";
 
 import formatMindmap from "./format-mindmap";
 import outlineExamples from "./outline-examples";
+import { OutlineNode } from "./outline-node";
 import parse from "./parse";
+import { Transform } from "./transform";
 
-type Node = {
-  body: string;
-  indentation: number;
-  selected?: boolean;
-};
+const formatOutlineLine = ({
+  indentation,
+  selected,
+  body,
+}: OutlineNode): string => `${indentation}|${selected ? "s|" : ""}${body}`;
 
-const formatOutlineLine = ({ indentation, selected, body }: Node): string =>
-  `${indentation}|${selected ? "s|" : ""}${body}`;
-
-const formatOutline = (nodes: Node[]): string[] => nodes.map(formatOutlineLine);
-
-type Transform = (nodes: Node[]) => Node[];
+const formatOutline = (nodes: OutlineNode[]): string[] =>
+  nodes.map(formatOutlineLine);
 
 const home: Transform = (nodes) => {
   const [first, ...rest] = nodes;
