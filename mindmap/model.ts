@@ -19,7 +19,10 @@ export const makeModel = ({
   initWith.subscribe(subject);
 
   const transform = ({ command, payload }: Command): OutlineNode[] => {
-    if (command == "update selected node body") {
+    if (command == "noop") {
+      // can avoid emitting at all?
+      return get();
+    } else if (command == "update selected node body") {
       return updateSelectedNodeBody(payload)(get());
     } else if (command == "home") {
       return home(get());
