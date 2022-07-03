@@ -1,11 +1,7 @@
 import find from "./find";
 import findBack from "./find-back";
 import { OutlineNode } from "./outline-node";
-
-const select = (index: number) => (nodes: OutlineNode[]) =>
-  nodes.map((n, i) =>
-    i == index ? { ...n, selected: true } : { ...n, selected: false }
-  );
+import select from "./select";
 
 export const goToPreviousSibling = (nodes: OutlineNode[]): OutlineNode[] => {
   const [{ indentation }, s] = find(nodes, (n) => !!n.selected)!;

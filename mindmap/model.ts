@@ -8,6 +8,7 @@ import { goToParent } from "./go-to-parent";
 import home from "./home";
 import { OutlineNode } from "./outline-node";
 import updateSelectedNodeBody from "./update-selected-node-body";
+import { newChild } from "./new-child";
 
 export const makeModel = ({
   initWith,
@@ -38,6 +39,8 @@ export const makeModel = ({
       return goToNextSibling(get());
     } else if (command == "go to previous sibling") {
       return goToPreviousSibling(get());
+    } else if (command == "new child") {
+      return newChild(get());
     }
 
     return get();

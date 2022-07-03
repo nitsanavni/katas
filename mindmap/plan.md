@@ -1,5 +1,7 @@
 # in
 
+- move all transforms under sudfolder
+- replace escape with 'h'
 - maybe `selected` should be a number on the model, instead of booleans all over the place
 - idea! for markdown snapshot, we can create our own "received" md file, and snapshot its contents using `t.snapshot`
 - in an outline, parents precede their children
