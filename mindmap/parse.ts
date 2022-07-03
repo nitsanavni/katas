@@ -23,4 +23,7 @@ export const parse = (outline: string): OutlineNode[] =>
   outline
     .split(EOL)
     .map(parseLine)
+    // TODO - extract `compact`
     .filter((l) => !!l) as OutlineNode[];
+
+export default parse;

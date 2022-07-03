@@ -19,22 +19,22 @@
 
 - ✅ `cli`
   - get `filePath` from `argv`
-- `parse`
+- ✅ `parse`
   - outline string to `Node[]`
 - `read-file`
   - uses `cli.filePath`
-  - reads file
-  - if not exists - creates the file and initialize it with empty outline
-  - uses `parse`
-  - emits `initialNodes: Node[]`
-- `write-file`
+  - ✅ reads file
+  - ✅ if not exists - creates the file and initialize it with empty outline
+  - ✅ uses `parse`
+  - ✅ emits `initialNodes: Node[]`
+- ⌛ `write-file`
   - listens to `model.changed`
   - uses `outline-format`
   - asynchronously persists to the file
   - debounce? throttle?
 - `mindmap-format`
   - `(nodes: Node[]) => string` or maybe `(nodes: Node[]) => Line[]`
-- `ouline-format`
+- ⌛ `ouline-format`
 - a `mode`
   - app state
   - listens to `key`
