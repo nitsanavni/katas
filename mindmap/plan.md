@@ -32,9 +32,9 @@
   - uses `outline-format`
   - asynchronously persists to the file
   - debounce? throttle?
-- `mindmap-format`
+- ✅ `mindmap-format`
   - `(nodes: Node[]) => string` or maybe `(nodes: Node[]) => Line[]`
-- ⌛ `ouline-format`
+- ✅ `ouline-format`
 - a `mode`
   - app state
   - listens to `key`
@@ -50,7 +50,7 @@
 - a `model`
   - responds to `command`
   - responds to `view.editor.line`
-  - mutates `nodes` with "transforms"
+  - mutates `nodes` with "transforms" - e.g. `home`
   - emits `changed`
   - exports `getNodes`
 - a `keys`:
