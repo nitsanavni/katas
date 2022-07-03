@@ -1,5 +1,6 @@
 # in
 
+- need a debug log that doesn't interfere with stdout
 - move all transforms under sudfolder
 - replace escape with 'h'
 - maybe `selected` should be a number on the model, instead of booleans all over the place
