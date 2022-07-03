@@ -1,4 +1,5 @@
 import test from "ava";
+import dedent from "dedent";
 import { BehaviorSubject } from "rxjs";
 
 import formatMindmap from "./format-mindmap";
@@ -9,8 +10,8 @@ import parse from "./parse";
 test("init", (t) => {
   const model = makeModel({
     initWith: new BehaviorSubject<OutlineNode[]>(
-      parse(`0|root
-1|s|hello model!`)
+      parse(dedent`0|root
+                   1|s|hello model!`)
     ),
   });
 
