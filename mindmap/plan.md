@@ -1,5 +1,6 @@
 # in
 
+- idea! for markdown snapshot, we can create our own "received" md file, and snapshot its contents using `t.snapshot`
 - in an outline, parents precede their children
 - recursively - a parent is to the left of its children
   - we need a way to append blocks of strings (multi-line strings) horizontally
@@ -47,13 +48,15 @@
   - emit `command`
   - listen to `mode`
   - key to command mapper
-- a `model`
-  - responds to `command`
-  - responds to `view.editor.line`
-  - mutates `nodes` with "transforms" - e.g. `home`
-  - emits `changed`
-  - exports `getNodes`
+- ✅ a `model`
+  - ✅ responds to `command`
+  - ?? responds to `view.editor.line`
+    - not sure this is needed actually...
+  - ✅ mutates `nodes` with "transforms" - e.g. `home`
+  - ✅ emits `changed`
+  - ✅ exports `getNodes`
 - a `keys`:
+  - how to test drive this guy?
   - owns the `stdin.on("keypress")`
   - emits keys
 - a `view`:

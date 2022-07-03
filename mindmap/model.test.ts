@@ -11,12 +11,6 @@ import parse from "./parse";
 const outline = dedent`0|root
                        1|s|hello model!`;
 
-test.beforeEach("time", (t) => ((t.context as any).b = Date.now()));
-
-test.afterEach("after time", (t) => {
-  console.log(Date.now() - (t.context as any).b);
-});
-
 test("init", (t) => {
   const initWith = new Subject<OutlineNode[]>();
   const model = makeModel({ initWith });
@@ -40,4 +34,17 @@ test("listens to commands - e.g. 'update selected node body'", (t) => {
   });
 
   t.snapshot(formatMindmap(model.get()), "after update body");
+});
+
+test("one more example - 'home'", (t) => {
+  const initWith = new BehaviorSubject<OutlineNode[]>(parse(outline));
+  const command = new Subject<Command>();
+
+  const model = makeModel({ initWith, command });
+
+  t.snapshot(formatMindmap(model.get()), "before going home");
+
+  command.next({ command: "home" });
+
+  t.snapshot(formatMindmap(model.get()), "after going home");
 });
