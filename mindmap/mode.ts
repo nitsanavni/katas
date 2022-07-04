@@ -1,24 +1,22 @@
-import { BehaviorSubject, filter, map, Observable } from "rxjs";
+import { filter, map, Observable, Observer } from "rxjs";
 
 export type Mode = "typing" | "navigating";
 
 export const mode = ({
   key,
   line,
+  subject,
 }: {
   key: Observable<string>;
   line: Observable<string>;
+  subject: Observer<Mode>;
 }) => {
-  const subject = new BehaviorSubject<Mode>("navigating");
-
   line.pipe(map(() => "navigating" as const)).subscribe(subject);
 
   key
     .pipe(
-      filter((k) => k == "tab" || k == "e"),
+      filter((k) => k == "e"),
       map(() => "typing" as const)
     )
     .subscribe(subject);
-
-  return { mode: subject.asObservable(), get: () => subject.getValue() };
 };

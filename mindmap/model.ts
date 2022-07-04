@@ -16,20 +16,20 @@ import { Mode } from "./mode";
 export const makeModel = ({
   initWith,
   command = EMPTY,
-  mode = () => "navigating",
+  mode,
 }: {
   initWith: Observable<OutlineNode[]>;
   command?: Observable<Command>;
-  mode?: () => Mode;
+  mode: BehaviorSubject<Mode>;
 }) => {
   const subject = new BehaviorSubject<OutlineNode[]>([
-    { body: "", indentation: 0 },
+    { body: "", indentation: 0, selected: true },
   ]);
 
   initWith.subscribe(subject);
 
   const transform = ({ command, payload }: Command): OutlineNode[] => {
-    if (mode() == "navigating") {
+    if (mode.getValue() == "navigating") {
       if (command == "focus") {
         return focus(get());
       } else if (command == "collapse") {
@@ -45,13 +45,14 @@ export const makeModel = ({
       } else if (command == "go to previous sibling") {
         return goToPreviousSibling(get());
       }
-    } else if (mode() == "typing") {
+    } else if (mode.getValue() == "typing") {
       if (command == "update selected node body") {
         return updateSelectedNodeBody(payload)(get());
       }
     }
 
     if (command == "new child") {
+      setTimeout(() => mode.next("typing"), 20);
       return newChild(get());
     }
 

@@ -13,6 +13,7 @@ import { writeFile } from "./write-file";
 const until = new Subject<void>();
 const command = new Subject<Command>();
 const line = new Subject<string>();
+const mode = new BehaviorSubject<Mode>("navigating");
 
 line
   .pipe(
@@ -28,31 +29,27 @@ const { initialNodes, read } = makeReadFile();
 const { model } = makeModel({
   initWith: initialNodes(),
   command,
-  mode: () => mode.get(),
+  mode,
 });
 
 const file = new BehaviorSubject<string>(filePath);
 
 read(file);
 
-const modeSubject = new Subject<Mode>();
-
 makeView({
   input: process.stdin,
   output: process.stdout,
   model,
-  mode: modeSubject.asObservable(),
+  mode: mode.asObservable(),
   line,
 });
 
 const { key } = makeKey({
   input: process.stdin,
-  mode: modeSubject.asObservable(),
+  mode: mode.asObservable(),
 });
 
-const mode = makeMode({ key, line });
-
-mode.mode.subscribe(modeSubject);
+makeMode({ key, line, subject: mode });
 
 key.pipe(map(keyMap)).subscribe(command);
 
