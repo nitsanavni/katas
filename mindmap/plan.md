@@ -1,5 +1,17 @@
 # in
 
+- we could think about it all from the perspective of the events in the system
+  - default model
+  - file is read -> initial model
+  - input received from user ("line")
+  - key is hit
+  - command is determined
+  - mode changes
+  - model changes
+  - quit / end process
+- also we could think of them (the events) as:
+  - external (on the edge - e.g. `"keypress"`) vs. internal to our app
+  - single (e.g. file is read) vs. many (model has changed)
 - when `"typing"` - move cursor to start of node
 - watch the file - if changed from outside - attempt to reload it
 - children can leave hints of their exact location in the multi-line block, later to be used by the outer iteration to know where to place the connecting lines
