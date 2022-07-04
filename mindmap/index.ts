@@ -25,6 +25,7 @@ line
 const { model } = makeModel({
   initWith: new BehaviorSubject(parse(init)),
   command,
+  mode: () => mode.get(),
 });
 
 const modeSubject = new Subject<Mode>();

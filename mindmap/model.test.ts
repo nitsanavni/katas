@@ -24,7 +24,7 @@ test("listens to commands - e.g. 'update selected node body'", (t) => {
   const initWith = new BehaviorSubject<OutlineNode[]>(parse(outline));
   const command = new Subject<Command>();
 
-  const model = makeModel({ initWith, command });
+  const model = makeModel({ initWith, command, mode: () => "typing" });
 
   t.snapshot(formatMindmap(model.get()), "before update body");
 

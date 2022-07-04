@@ -9,13 +9,16 @@ import home from "./home";
 import { OutlineNode } from "./outline-node";
 import updateSelectedNodeBody from "./update-selected-node-body";
 import { newChild } from "./new-child";
+import { Mode } from "./mode";
 
 export const makeModel = ({
   initWith,
   command = EMPTY,
+  mode = () => "navigating",
 }: {
   initWith: Observable<OutlineNode[]>;
   command?: Observable<Command>;
+  mode?: () => Mode;
 }) => {
   const subject = new BehaviorSubject<OutlineNode[]>([
     { body: "", indentation: 0 },
@@ -24,22 +27,25 @@ export const makeModel = ({
   initWith.subscribe(subject);
 
   const transform = ({ command, payload }: Command): OutlineNode[] => {
-    if (command == "noop") {
-      // can avoid emitting at all?
-      return get();
-    } else if (command == "update selected node body") {
-      return updateSelectedNodeBody(payload)(get());
-    } else if (command == "home") {
-      return home(get());
-    } else if (command == "go to child") {
-      return goToChild(get());
-    } else if (command == "go to parent") {
-      return goToParent(get());
-    } else if (command == "go to next sibling") {
-      return goToNextSibling(get());
-    } else if (command == "go to previous sibling") {
-      return goToPreviousSibling(get());
-    } else if (command == "new child") {
+    if (mode() == "navigating") {
+      if (command == "home") {
+        return home(get());
+      } else if (command == "go to child") {
+        return goToChild(get());
+      } else if (command == "go to parent") {
+        return goToParent(get());
+      } else if (command == "go to next sibling") {
+        return goToNextSibling(get());
+      } else if (command == "go to previous sibling") {
+        return goToPreviousSibling(get());
+      }
+    } else if (mode() == "typing") {
+      if (command == "update selected node body") {
+        return updateSelectedNodeBody(payload)(get());
+      }
+    }
+
+    if (command == "new child") {
       return newChild(get());
     }
 

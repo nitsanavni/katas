@@ -1,5 +1,7 @@
 # in
 
+- conclusion - there should be a single place where the stdio is handled - e.g. allow/disallow typing to appear on screen / listen to "keypress" events
+  - `stdio` module
 - need a debug log that doesn't interfere with stdout
 - move all transforms under sudfolder
 - replace escape with 'h'
@@ -22,6 +24,9 @@
 - node "typing" mode is handled by a `readline.interface`
 - mindmap "navigation" mode disallows keys to be reflected to stdout
 
+- `debug`
+  - print debug logs on `process.exit`
+  - log to file
 - ✅ `cli`
   - get `filePath` from `argv`
 - ✅ `parse`
