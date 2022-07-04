@@ -1,3 +1,23 @@
+type CommandTypeTodo =
+  | "new sibling"
+  | "edit node body"
+  | "remove node"
+  | "move: indent"
+  | "move: outdent"
+  | "move: down sibling list"
+  | "move: up sibling list"
+  | "collapse children"
+  | "expand children"
+  | "deep collapse children"
+  | "deep expand children"
+  | "focus"
+  | "unfocus"
+  | "copy body"
+  | "deep copy"
+  | "deep cut"
+  | "paste string"
+  | "deep paste";
+
 export type CommandType =
   | "noop"
   | "update selected node body"

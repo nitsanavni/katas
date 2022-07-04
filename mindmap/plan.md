@@ -1,15 +1,22 @@
 # in
 
+- children can leave hints of their exact location in the multi-line block, later to be used by the outer iteration to know where to place the connecting lines
+  - hints can be placed in the string itself
+  - or - more explicitely in a new field - so each line becomes:
+    ```ts
+    type Line = { body: string; leadingConnector: boolean };
+    ```
+    👍 like
 - conclusion - there should be a single place where the stdio is handled - e.g. allow/disallow typing to appear on screen / listen to "keypress" events
   - `stdio` module
 - need a debug log that doesn't interfere with stdout
 - move all transforms under sudfolder
-- replace escape with 'h'
+- ✅ replace escape with 'h'
 - maybe `selected` should be a number on the model, instead of booleans all over the place
 - idea! for markdown snapshot, we can create our own "received" md file, and snapshot its contents using `t.snapshot`
 - in an outline, parents precede their children
 - recursively - a parent is to the left of its children
-  - we need a way to append blocks of strings (multi-line strings) horizontally
+  - ✅ we need a way to append blocks of strings (multi-line strings) horizontally
 
 ## thinking about arch
 
@@ -52,11 +59,11 @@
   - listens to `line` -> gets out of `"type"`
   - `export const mode: "type" | "nav"`
   - emits changes to mode
-- a `keyMap`:
-  - listens to `key`
-  - emit `command`
-  - listen to `mode`
-  - key to command mapper
+- ✅ a `keyMap`:
+  - ❌ listens to `key`
+  - ❌ emit `command`
+  - ❌ listen to `mode`
+  - ✅ key to command mapper
 - ✅ a `model`
   - ✅ responds to `command`
   - ?? responds to `view.editor.line`
