@@ -32,7 +32,7 @@ export const makeModel = ({
     if (mode() == "navigating") {
       if (command == "focus") {
         return focus(get());
-      }  else if (command == "collapse") {
+      } else if (command == "collapse") {
         return collapse(get());
       } else if (command == "home") {
         return home(get());
@@ -60,7 +60,10 @@ export const makeModel = ({
 
   command
     .pipe(
-      filter(({ command }) => command != "quit" && command != "noop"),
+      filter(
+        ({ command }) =>
+          command != "quit" && command != "noop" && command != "edit"
+      ),
       map(transform)
     )
     .subscribe(subject);

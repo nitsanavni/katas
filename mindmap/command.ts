@@ -19,6 +19,7 @@ type CommandTypeTodo =
   | "deep paste";
 
 export type CommandType =
+  | "edit"
   | "focus"
   | "collapse"
   | "noop"

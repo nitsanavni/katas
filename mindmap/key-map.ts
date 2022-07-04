@@ -12,6 +12,7 @@ export const keyMap = (keyName: string): Command =>
       up: { command: "go to previous sibling" },
       q: { command: "quit" },
       f: { command: "focus" },
+      e: { command: "edit" },
       space: { command: "collapse" },
     } as const
   )[keyName] || { command: "noop" });

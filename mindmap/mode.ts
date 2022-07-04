@@ -15,7 +15,7 @@ export const mode = ({
 
   key
     .pipe(
-      filter((k) => k == "tab"),
+      filter((k) => k == "tab" || k == "e"),
       map(() => "typing" as const)
     )
     .subscribe(subject);

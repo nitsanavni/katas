@@ -1,4 +1,4 @@
-import { BehaviorSubject, filter, tap, map, Subject, mergeMap } from "rxjs";
+import { BehaviorSubject, filter, map, Subject } from "rxjs";
 
 import { Command } from "./command";
 import { makeKey } from "./key";

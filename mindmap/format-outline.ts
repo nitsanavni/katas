@@ -7,9 +7,9 @@ const formatOutlineLine = ({
   focused,
   body,
 }: OutlineNode): string =>
-  `${indentation}|${selected ? "s" : ""}${collapsed ? "c" : ""}${focused ? "f" : ""}${
-    selected || collapsed || focused ? "|" : ""
-  }${body}`;
+  `${indentation}|${selected ? "s" : ""}${collapsed ? "c" : ""}${
+    focused ? "f" : ""
+  }${selected || collapsed || focused ? "|" : ""}${body}`;
 
 export const formatOutline = (nodes: OutlineNode[]): string[] =>
   nodes.map(formatOutlineLine);

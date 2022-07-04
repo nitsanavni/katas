@@ -39,14 +39,14 @@ export const makeView = ({
       i?.close();
       i = undefined;
       cls(output);
-      output.write(formatMindmap(nodes).join(EOL));
+      output.write(formatMindmap(nodes).join(EOL) + EOL);
     } else if (m == "typing") {
       if (!i) {
         onLine();
       }
       if (i?.line == "") {
         cls(output);
-        output.write(formatMindmap(nodes).join(EOL));
+        output.write(formatMindmap(nodes).join(EOL) + EOL);
       }
     }
   };
