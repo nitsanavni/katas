@@ -1,5 +1,4 @@
 import { EOL } from "os";
-import { inspect } from "util";
 
 import { OutlineNode } from "./outline-node";
 
