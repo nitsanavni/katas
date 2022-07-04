@@ -13,6 +13,12 @@ export const formatMindmap = (nodes: OutlineNode[]) => {
       i + 1
     ) || [undefined, nodes.length];
 
+    const focusedChild = find(nodes, (child) => !!child.focused, i + 1);
+
+    if (focusedChild) {
+      return formatNode(focusedChild[1]);
+    }
+
     const directChildren: number[] = filter(
       nodes,
       (candidate) => candidate.indentation == node.indentation + 1,
@@ -22,9 +28,9 @@ export const formatMindmap = (nodes: OutlineNode[]) => {
 
     const childless = directChildren.length == 0;
 
-    const selfFormat = `${node.selected ? ">" : ""}${node.body}${
-      node.collapsed ? `(+${end - i - 1})` : ""
-    }`;
+    const selfFormat = `${node.focused ? "+" : ""}${node.selected ? ">" : ""}${
+      node.body
+    }${node.collapsed ? `(+${end - i - 1})` : ""}`;
 
     if (node.collapsed || childless) {
       return [selfFormat];

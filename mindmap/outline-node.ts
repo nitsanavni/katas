@@ -5,4 +5,5 @@ export type OutlineNode = {
   indentation: number;
   selected?: boolean;
   collapsed?: boolean;
+  focused?: boolean;
 };

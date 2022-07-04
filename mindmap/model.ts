@@ -7,6 +7,7 @@ import { goToPreviousSibling } from "./go-to-previous-sibling";
 import { goToParent } from "./go-to-parent";
 import home from "./home";
 import collapse from "./collapse";
+import focus from "./focus";
 import { OutlineNode } from "./outline-node";
 import updateSelectedNodeBody from "./update-selected-node-body";
 import { newChild } from "./new-child";
@@ -29,7 +30,9 @@ export const makeModel = ({
 
   const transform = ({ command, payload }: Command): OutlineNode[] => {
     if (mode() == "navigating") {
-      if (command == "collapse") {
+      if (command == "focus") {
+        return focus(get());
+      }  else if (command == "collapse") {
         return collapse(get());
       } else if (command == "home") {
         return home(get());
