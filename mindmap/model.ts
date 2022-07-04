@@ -1,4 +1,4 @@
-import { BehaviorSubject, EMPTY, map, Observable } from "rxjs";
+import { BehaviorSubject, EMPTY, filter, map, Observable } from "rxjs";
 
 import { Command } from "./command";
 import { goToChild } from "./go-to-child";
@@ -52,7 +52,12 @@ export const makeModel = ({
     return get();
   };
 
-  command.pipe(map(transform)).subscribe(subject);
+  command
+    .pipe(
+      filter(({ command }) => command != "quit"),
+      map(transform)
+    )
+    .subscribe(subject);
 
   const get = () => subject.getValue();
 

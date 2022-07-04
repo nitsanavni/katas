@@ -1,15 +1,16 @@
-import dedent from "dedent";
-import { BehaviorSubject, EMPTY, filter, map, Subject } from "rxjs";
+import { BehaviorSubject, filter, tap, map, Subject, mergeMap } from "rxjs";
 
 import { Command } from "./command";
 import { makeKey } from "./key";
 import { keyMap } from "./key-map";
 import { makeModel } from "./model";
-import parse from "./parse";
 import { makeView } from "./view";
-import init from "./example-init-outline";
 import { mode as makeMode, Mode } from "./mode";
+import { filePath } from "./cli";
+import { makeReadFile } from "./read-file";
+import { writeFile } from "./write-file";
 
+const until = new Subject<void>();
 const command = new Subject<Command>();
 const line = new Subject<string>();
 
@@ -22,11 +23,17 @@ line
   )
   .subscribe(command);
 
+const { initialNodes, read } = makeReadFile();
+
 const { model } = makeModel({
-  initWith: new BehaviorSubject(parse(init)),
+  initWith: initialNodes(),
   command,
   mode: () => mode.get(),
 });
+
+const file = new BehaviorSubject<string>(filePath);
+
+read(file);
 
 const modeSubject = new Subject<Mode>();
 
@@ -51,4 +58,6 @@ key.pipe(map(keyMap)).subscribe(command);
 
 command
   .pipe(filter(({ command }) => command == "quit"))
-  .subscribe(() => process.exit());
+  .subscribe(() => (until.next(), process.exit()));
+
+setTimeout(() => writeFile({ filePath, model, until }), 100);
