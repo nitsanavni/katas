@@ -6,6 +6,7 @@ import { goToNextSibling } from "./go-to-next-sibling";
 import { goToPreviousSibling } from "./go-to-previous-sibling";
 import { goToParent } from "./go-to-parent";
 import home from "./home";
+import collapse from "./collapse";
 import { OutlineNode } from "./outline-node";
 import updateSelectedNodeBody from "./update-selected-node-body";
 import { newChild } from "./new-child";
@@ -28,7 +29,9 @@ export const makeModel = ({
 
   const transform = ({ command, payload }: Command): OutlineNode[] => {
     if (mode() == "navigating") {
-      if (command == "home") {
+      if (command == "collapse") {
+        return collapse(get());
+      } else if (command == "home") {
         return home(get());
       } else if (command == "go to child") {
         return goToChild(get());
@@ -54,7 +57,7 @@ export const makeModel = ({
 
   command
     .pipe(
-      filter(({ command }) => command != "quit"),
+      filter(({ command }) => command != "quit" && command != "noop"),
       map(transform)
     )
     .subscribe(subject);

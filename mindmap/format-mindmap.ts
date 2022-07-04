@@ -7,6 +7,14 @@ export const formatMindmap = (nodes: OutlineNode[]) => {
   const formatNode = (i: number): string[] => {
     const node = nodes[i];
 
+    const selfFormat = `${node.selected ? ">" : ""}${node.body}${
+      node.collapsed ? "+" : ""
+    }`;
+
+    if (node.collapsed) {
+      return [selfFormat];
+    }
+
     const [, end] = find(
       nodes,
       (candidate) => candidate.indentation <= node.indentation,
@@ -21,8 +29,6 @@ export const formatMindmap = (nodes: OutlineNode[]) => {
     ).map(([, i]) => i);
 
     const childless = directChildren.length == 0;
-
-    const selfFormat = `${node.selected ? ">" : ""}${node.body}`;
 
     return childless
       ? [selfFormat]

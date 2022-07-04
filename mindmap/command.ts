@@ -19,6 +19,7 @@ type CommandTypeTodo =
   | "deep paste";
 
 export type CommandType =
+  | "collapse"
   | "noop"
   | "update selected node body"
   | "new child"

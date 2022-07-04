@@ -1,5 +1,6 @@
 # in
 
+- when `"typing"` - move cursor to start of node
 - watch the file - if changed from outside - attempt to reload it
 - children can leave hints of their exact location in the multi-line block, later to be used by the outer iteration to know where to place the connecting lines
   - hints can be placed in the string itself
