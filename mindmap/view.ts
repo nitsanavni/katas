@@ -29,6 +29,7 @@ export const makeView = ({
 
   const onLine = (selected: string) => {
     input.removeAllListeners("end");
+    // input.removeAllListeners("data");
     i = readline.createInterface({ input, output });
     i.removeAllListeners("line");
     i.on("line", (l) => line.next(l));

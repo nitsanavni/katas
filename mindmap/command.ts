@@ -25,6 +25,7 @@ export type CommandType =
   | "noop"
   | "update selected node body"
   | "new child"
+  | "new sibling"
   | "home"
   | "go to child"
   | "go to parent"

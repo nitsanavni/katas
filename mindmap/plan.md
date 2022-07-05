@@ -1,5 +1,7 @@
 # in
 
+- experiment - two `readline.Interface`s - while one is `pause()`d the other `resume()`s
+- use https://www.npmjs.com/package/log-update
 - we could think about it all from the perspective of the events in the system
   - default model
   - file is read -> initial model
