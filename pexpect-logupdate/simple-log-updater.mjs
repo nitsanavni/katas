@@ -1,14 +1,13 @@
 import logUpdate from "log-update";
 
-setInterval(
+const interval = setInterval(
   (
     (n = 1) =>
-    () =>
-      logUpdate(1 * ++n)
+    () => (logUpdate(`${n}\n${2 * n}\n${3 * n}`), n++)
   )(),
   1000
 );
 
 setTimeout(() => {
   clearInterval(interval);
-}, 10000);
+}, 15000);
