@@ -48,12 +48,13 @@ export const makeView = ({
     const selected = find(nodes, (n) => !!n?.selected)![0].body;
 
     if (m == "navigating") {
+      output.write(i.getCursorPos());
+      cls(output);
       i?.removeAllListeners("line");
       i?.close();
       i = undefined;
-      cls(output);
       output.write(formatMindmap(nodes).join(EOL) + EOL);
-      output.write(selected);
+      output.write(selected + EOL);
     } else if (m == "typing") {
       if (!i) {
         onLine(selected);
