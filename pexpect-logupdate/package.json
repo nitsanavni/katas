@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "ava": "^4.3.0",
+    "log-update": "^5.0.1"
+  }
+}
