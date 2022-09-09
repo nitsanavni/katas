@@ -1,6 +1,8 @@
 - some notable stuff from bash history:
   - `brew install check texinfo gh ack`
-  - `cp -r /home/linuxbrew/.linuxbrew/Cellar/check/0.15.2/share/doc/check/example/* check-example/`
+  - minimal example
+    - `cp -r /home/linuxbrew/.linuxbrew/Cellar/check/0.15.2/share/doc/check/example/* check-example/`
+    - it's also here: `/usr/local/share/doc/check/example/`
   - build check from source
     - gh repo clone libcheck/check
     - cd check/
