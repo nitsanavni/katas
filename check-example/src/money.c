@@ -18,48 +18,55 @@
  * MA 02110-1301, USA.
  */
 
-#include <stdlib.h>
 #include "money.h"
+#include <stdio.h>  // `printf()`
+#include <stdlib.h> // `getenv()`
+#include <unistd.h> // `sleep()`
 
-struct Money
-{
-    int amount;
-    char *currency;
+struct Money {
+  int amount;
+  char *currency;
 };
 
-Money *money_create(int amount, char *currency)
-{
-    Money *m;
+int calls = 0;
 
-    if (amount < 0)
-    {
-        return NULL;
-    }
+void wait_for_gdb() {
+  printf("calls %d", calls++);
+  printf("getenving\n\n");
 
-    m = malloc(sizeof(Money));
-
-    if (m == NULL)
-    {
-        return NULL;
-    }
-
-    m->amount = amount;
-    m->currency = currency;
-    return m;
+  if (getenv("DEBUG")) {
+    printf("waiting\n\n");
+    sleep(100);
+    printf("done\n\n");
+  }
 }
 
-int money_amount(Money * m)
-{
-    return m->amount;
+Money *money_create(int amount, char *currency) {
+  Money *m;
+
+  wait_for_gdb();
+  wait_for_gdb();
+
+  if (amount < 0) {
+    return NULL;
+  }
+
+  m = malloc(sizeof(Money));
+
+  if (m == NULL) {
+    return NULL;
+  }
+
+  m->amount = amount;
+  m->currency = currency;
+  return m;
 }
 
-char *money_currency(Money * m)
-{
-    return m->currency;
-}
+int money_amount(Money *m) { return m->amount; }
 
-void money_free(Money * m)
-{
-    free(m);
-    return;
+char *money_currency(Money *m) { return m->currency; }
+
+void money_free(Money *m) {
+  free(m);
+  return;
 }
