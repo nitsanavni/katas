@@ -24,4 +24,9 @@ $ pip install pytest approvaltests black
 $ pytest
 ```
 
+## Inspect the Diff
+
 You should see the diff reported using the IDE's diff tool.
+
+Something like this:
+![Diff in IDE](https://github.com/nitsanani/katas/blob/main/diff.png?raw=true)
