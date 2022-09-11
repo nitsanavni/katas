@@ -16,7 +16,7 @@ $ cd approvals-in-gitpod
 # Run
 ## Installations
 ```sh
-$ pip install pytest, approvaltests, black
+$ pip install pytest approvaltests black
 ```
 
 ## Run the tests
