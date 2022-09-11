@@ -1,5 +1,9 @@
 Report ApprovalTests diffs directly inside Gitpod
 
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/nitsanavni/katas)
+
+
 Read more about Gitpod [here](https://www.gitpod.io/docs/getting-started).
 
 Read more about ApprovalTests [here](https://github.com/approvals/ApprovalTests.Python).
