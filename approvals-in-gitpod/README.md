@@ -1,6 +1,7 @@
 Report ApprovalTests diffs directly inside Gitpod
 
 Read more about Gitpod [here](https://www.gitpod.io/docs/getting-started).
+
 Read more about ApprovalTests [here](https://github.com/approvals/ApprovalTests.Python).
 
 # Create a Gitpod Workspace
