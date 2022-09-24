@@ -8,11 +8,7 @@ const spec = [
   { divisor: 11, codeName: "Bang" },
 ] as const;
 
-const divisable = (d: number) => (n: number) => n % d == 0;
-
-const emptyString = /^$/;
-
-const fizzEtc = (n: number): string =>
+const fizzbuzz = (n: number): string =>
   chain(spec)
     .filter(({ divisor }) => divisable(divisor)(n))
     .map("codeName")
@@ -21,12 +17,16 @@ const fizzEtc = (n: number): string =>
     .value();
 
 test("fizzbuzzwhizzbang", (t) => {
-  const leastCommonMultiple = chain(spec)
-    .map("divisor")
-    .reduce(multiply, 1)
-    .value();
-
   t.snapshot(
-    range(1, leastCommonMultiple + 1).map((n) => `${n}: ${fizzEtc(n)}`)
+    range(1, leastCommonMultiple + 1).map((n) => `${n}: ${fizzbuzz(n)}`)
   );
 });
+
+const divisable = (d: number) => (n: number) => n % d == 0;
+
+const leastCommonMultiple = chain(spec)
+  .map("divisor")
+  .reduce(multiply, 1)
+  .value();
+
+const emptyString = /^$/;
