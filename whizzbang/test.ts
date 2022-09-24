@@ -2,24 +2,31 @@ import test from "ava";
 import { chain, multiply, range } from "lodash";
 
 const spec = [
-  [3, "Fizz"],
-  [5, "Buzz"],
-  [7, "Whizz"],
-  [11, "Bang"],
+  { divisor: 3, codeName: "Fizz" },
+  { divisor: 5, codeName: "Buzz" },
+  { divisor: 7, codeName: "Whizz" },
+  { divisor: 11, codeName: "Bang" },
 ] as const;
 
 const divisable = (d: number) => (n: number) => n % d == 0;
 
+const emptyString = /^$/;
+
 const fizzEtc = (n: number): string =>
   chain(spec)
-    .filter(([d]) => divisable(d)(n))
-    .map(1)
+    .filter(({ divisor }) => divisable(divisor)(n))
+    .map("codeName")
     .join("")
-    .replace(/^$/, String(n))
+    .replace(emptyString, String(n))
     .value();
 
 test("fizzbuzzwhizzbang", (t) => {
-  const mul = chain(spec).map(0).reduce(multiply, 1).value();
+  const leastCommonMultiple = chain(spec)
+    .map("divisor")
+    .reduce(multiply, 1)
+    .value();
 
-  t.snapshot(range(1, mul + 1).map((n) => `${n}: ${fizzEtc(n)}`));
+  t.snapshot(
+    range(1, leastCommonMultiple + 1).map((n) => `${n}: ${fizzEtc(n)}`)
+  );
 });
