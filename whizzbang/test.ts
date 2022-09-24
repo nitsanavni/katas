@@ -13,8 +13,7 @@ const fizzEtc = (n: number): string =>
     .filter(([divisable]) => divisable(n))
     .map(1)
     .join("")
-    // huge hack 🤦
-    .padStart(`${n}`.length, `${n}`)
+    .replace(/^$/, String(n))
     .value();
 
 test("fizzbuzzwhizzbang", (t) => {
