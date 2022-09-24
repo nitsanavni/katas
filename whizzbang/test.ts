@@ -1,5 +1,5 @@
 import test from "ava";
-import { chain, range } from "lodash";
+import { chain, multiply, range } from "lodash";
 
 const spec = [
   [3, "Fizz"],
@@ -19,5 +19,7 @@ const fizzEtc = (n: number): string =>
     .value();
 
 test("fizzbuzzwhizzbang", (t) => {
-  t.snapshot(range(1, 3 * 5 * 7 * 11 + 1).map((n) => `${n}: ${fizzEtc(n)}`));
+  const mul = chain(spec).map(0).reduce(multiply, 1).value();
+
+  t.snapshot(range(1, mul + 1).map((n) => `${n}: ${fizzEtc(n)}`));
 });
