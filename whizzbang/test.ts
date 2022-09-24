@@ -1,15 +1,20 @@
 import test from "ava";
 import { chain, multiply, range } from "lodash";
 
-const spec = [
-  { divisor: 3, codeName: "Fizz" },
-  { divisor: 5, codeName: "Buzz" },
-  { divisor: 7, codeName: "Whizz" },
-  { divisor: 11, codeName: "Bang" },
-] as const;
+const spec = {
+  3: "Fizz",
+  5: "Buzz",
+  7: "Whizz",
+  11: "Bang",
+} as const;
+
+const namedSpec = chain(spec)
+  .entries()
+  .map(([d, codeName]) => ({ divisor: +d, codeName }))
+  .value();
 
 const fizzbuzz = (n: number): string =>
-  chain(spec)
+  chain(namedSpec)
     .filter(({ divisor }) => divisable(divisor)(n))
     .map("codeName")
     .join("")
@@ -24,7 +29,7 @@ test("fizzbuzzwhizzbang", (t) => {
 
 const divisable = (d: number) => (n: number) => n % d == 0;
 
-const leastCommonMultiple = chain(spec)
+const leastCommonMultiple = chain(namedSpec)
   .map("divisor")
   .reduce(multiply, 1)
   .value();
