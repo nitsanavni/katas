@@ -1,16 +1,18 @@
 import test from "ava";
 import { chain, range } from "lodash";
 
-const divisableBy = (d: number) => (n: number) => n % d == 0;
+const spec = [
+  [3, "Fizz"],
+  [5, "Buzz"],
+  [7, "Whizz"],
+  [11, "Bang"],
+] as const;
+
+const divisable = (d: number) => (n: number) => n % d == 0;
 
 const fizzEtc = (n: number): string =>
-  chain([
-    [divisableBy(3), "Fizz"],
-    [divisableBy(5), "Buzz"],
-    [divisableBy(7), "Whizz"],
-    [divisableBy(11), "Bang"],
-  ] as const)
-    .filter(([divisable]) => divisable(n))
+  chain(spec)
+    .filter(([d]) => divisable(d)(n))
     .map(1)
     .join("")
     .replace(/^$/, String(n))
