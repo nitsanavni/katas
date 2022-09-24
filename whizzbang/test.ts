@@ -8,9 +8,12 @@ const spec = {
   11: "Bang",
 } as const;
 
-const namedSpec = chain(spec)
+type Divisor = keyof typeof spec;
+type CodeName = typeof spec[Divisor];
+
+const namedSpec: { divisor: Divisor; codeName: CodeName }[] = chain(spec)
   .entries()
-  .map(([d, codeName]) => ({ divisor: +d, codeName }))
+  .map(([d, codeName]) => ({ divisor: +d as Divisor, codeName }))
   .value();
 
 const fizzbuzz = (n: number): string =>
@@ -29,9 +32,9 @@ test("fizzbuzzwhizzbang", (t) => {
 
 const divisable = (d: number) => (n: number) => n % d == 0;
 
-const leastCommonMultiple = chain(namedSpec)
+const leastCommonMultiple: number = chain(namedSpec)
   .map("divisor")
   .reduce(multiply, 1)
   .value();
 
-const emptyString = /^$/;
+const emptyString: RegExp = /^$/;
