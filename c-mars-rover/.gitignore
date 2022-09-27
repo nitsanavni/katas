@@ -1,1 +1,3 @@
 catch*.[hc]pp
+catch.o
+test
