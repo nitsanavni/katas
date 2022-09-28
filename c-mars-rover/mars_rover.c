@@ -9,32 +9,47 @@ const char *get_initial_rover_position(const char *input);
 const char *get_instructions(const char *input);
 const char *get_input_line(const char *input, unsigned line_number);
 const char *next_newline_or_eos(const char *str);
+const char *follow_single_instruction(const char *from_position,
+                                      char instruction);
 
 const char *mars_rover(const char *input) {
   const char *position = get_initial_rover_position(input);
-  const char o = orientation(position);
   const char *instructions = get_instructions(input);
 
   if (!strlen(instructions)) {
     return position;
   }
 
-  switch (o) {
+  char *pos = (char *)position;
+
+  for (char *instruction = (char *)instructions; *instruction != '\0';
+       instruction++) {
+    pos = (char *)follow_single_instruction(pos, *instruction);
+  }
+
+  return pos;
+}
+
+const char *follow_single_instruction(const char *from_position,
+                                      char instruction) {
+  const int _x = x(from_position);
+  const int _y = y(from_position);
+  const char _o = orientation(from_position);
+
+  switch (_o) {
   case 'N':
-    return format_position(x(position), y(position) + 1, orientation(position));
+    return format_position(_x, _y + 1, _o);
   default:
-    return format_position(x(position) + 1, y(position), orientation(position));
+    return format_position(_x + 1, _y, _o);
   }
 }
 
-const char *format_position(int x, int y, char orientation) {
-  static char format[20];
+const char *format_position(const int x, const int y, const char orientation) {
+  static char buffer[20];
 
-  format[0] = '\0';
+  sprintf(buffer, "%d %d %c", x, y, orientation);
 
-  sprintf(format, "%d %d %c", x, y, orientation);
-
-  return strdup(format);
+  return strdup(buffer);
 }
 
 int x(const char *position) {

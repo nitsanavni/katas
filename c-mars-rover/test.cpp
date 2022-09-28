@@ -8,6 +8,13 @@ extern "C" {
 #include "mars_rover_utils.h"
 }
 
+TEST_CASE("multiple instructions") {
+  CHECK_THAT(mars_rover(R"(5 5
+1 2 N
+MM)"),
+             Equals("1 4 N"));
+}
+
 TEST_CASE("format position") {
   CHECK_THAT(format_position(1, 12, 'N'), Equals("1 12 N"));
 }
