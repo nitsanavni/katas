@@ -4,7 +4,7 @@
 
 const char *get_initial_rover_position(const char *input);
 const char *get_instructions(const char *input);
-
+const char *get_input_line(const char *input, unsigned line_number);
 const char *next_newline_or_eos(const char *str);
 
 const char *mars_rover(const char *input) {
@@ -21,34 +21,21 @@ const char *mars_rover(const char *input) {
   return pos;
 }
 
-// extract get_input_line? / tokenize
 const char *get_initial_rover_position(const char *input) {
-  const char *newline = next_newline_or_eos(input);
-
-  if (*newline == '\0') {
-    return "";
-  }
-
-  const char *start = newline + 1;
-  const char *end = next_newline_or_eos(start);
-
-  return strndup(start, end - start);
+  return get_input_line(input, 1);
 }
 
 const char *get_instructions(const char *input) {
-  const char *newline = next_newline_or_eos(input);
+  return get_input_line(input, 2);
+}
 
-  if (*newline == '\0') {
-    return "";
+const char *get_input_line(const char *input, unsigned line_number) {
+  char *start = (char *)input;
+
+  for (unsigned i = 0; i < line_number; i++) {
+    start = (char *)(next_newline_or_eos(start) + 1);
   }
 
-  const char *second_newline = next_newline_or_eos(newline + 1);
-
-  if (*newline == '\0') {
-    return "";
-  }
-
-  const char *start = second_newline + 1;
   const char *end = next_newline_or_eos(start);
 
   return strndup(start, end - start);
