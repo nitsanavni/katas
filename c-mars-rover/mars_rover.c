@@ -11,6 +11,8 @@ const char *get_input_line(const char *input, unsigned line_number);
 const char *next_newline_or_eos(const char *str);
 const char *follow_single_instruction(const char *from_position,
                                       char instruction);
+const char *follow_instructions(const char *from_position,
+                                const char *instructions);
 
 const char *mars_rover(const char *input) {
   const char *position = get_initial_rover_position(input);
@@ -20,7 +22,12 @@ const char *mars_rover(const char *input) {
     return position;
   }
 
-  char *pos = (char *)position;
+  return follow_instructions(position, instructions);
+}
+
+const char *follow_instructions(const char *from_position,
+                                const char *instructions) {
+  char *pos = (char *)from_position;
 
   for (char *instruction = (char *)instructions; *instruction != '\0';
        instruction++) {
@@ -61,6 +68,18 @@ const char *follow_single_instruction(const char *from_position,
       return format_position(_x, _y, 'E');
     case 'W':
       return format_position(_x, _y, 'S');
+    }
+  case 'R':
+    switch (_o) {
+    default:
+    case 'N':
+      return format_position(_x, _y, 'E');
+    case 'E':
+      return format_position(_x, _y, 'S');
+    case 'S':
+      return format_position(_x, _y, 'W');
+    case 'W':
+      return format_position(_x, _y, 'N');
     }
   }
 }
