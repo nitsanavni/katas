@@ -1,22 +1,32 @@
-# C mars rover
+# Mars Rover in C
 
-## get and build Catch2 (needed before tests can run)
+## Background
+
+see https://sammancoaching.org/kata_descriptions/mars_rover.html
+
+## Run
+
+### Get and build Catch2 (needed before tests can run)
 
 ```shell
 ./get-catch2.sh
 ```
 
-## build and run tests
+### Build and run tests
 
-## build and test continuously
+```shell
+./test.sh
+```
 
-first:
+### Build and test continuously
+
+First:
 
 ```shell
 brew install entr
 ```
 
-then:
+Then:
 
 ```shell
 ls *.[hc]* | entr -c ./test.sh
