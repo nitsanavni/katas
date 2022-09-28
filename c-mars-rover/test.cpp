@@ -8,11 +8,16 @@ extern "C" {
 #include "mars_rover_utils.h"
 }
 
+TEST_CASE("format position") {
+  CHECK_THAT(format_position(1, 12, 'N'), Equals("1 12 N"));
+}
+
 TEST_CASE("orientation") {
   CHECK(orientation("1 12 N") == 'N');
   CHECK(orientation("21 123 W") == 'W');
   CHECK(orientation("213 1 S") == 'S');
 }
+
 TEST_CASE("y") {
   CHECK(y("1 12 N") == 12);
   CHECK(y("21 123 N") == 123);

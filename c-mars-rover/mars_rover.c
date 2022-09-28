@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <string.h>
 
 #include "mars_rover.h"
@@ -14,19 +15,26 @@ const char *mars_rover(const char *input) {
   const char o = orientation(position);
   const char *instructions = get_instructions(input);
 
-  char *pos = strdup(position);
-
-  if (strlen(instructions)) {
-    switch (o) {
-    case 'N':
-      ++pos[2];
-      break;
-    default:
-      ++pos[0];
-    }
+  if (!strlen(instructions)) {
+    return position;
   }
 
-  return pos;
+  switch (o) {
+  case 'N':
+    return format_position(x(position), y(position) + 1, orientation(position));
+  default:
+    return format_position(x(position) + 1, y(position), orientation(position));
+  }
+}
+
+const char *format_position(int x, int y, char orientation) {
+  static char format[20];
+
+  format[0] = '\0';
+
+  sprintf(format, "%d %d %c", x, y, orientation);
+
+  return strdup(format);
 }
 
 int x(const char *position) {
