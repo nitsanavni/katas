@@ -15,19 +15,34 @@ const char *follow_instructions(const char *from_position,
                                 const char *instructions);
 
 const char *mars_rover(const char *input) {
-  const char *position = get_initial_rover_position(input);
-  const char *instructions = get_instructions(input);
+  char *rover_input = (char *)(next_newline_or_eos(input) + 1);
 
-  if (!strlen(instructions)) {
-    return position;
-  }
+  static char ret[100];
+  ret[0] = '\0';
 
-  return follow_instructions(position, instructions);
+  int first = 1;
+
+  do {
+    const char *position = (char *)get_input_line(rover_input, 0);
+    const char *instructions = (char *)get_input_line(rover_input, 1);
+
+    if (!first) {
+      strcat(ret, "\n");
+    }
+    first = 0;
+
+    strcat(ret, follow_instructions(position, instructions));
+
+    rover_input = (char *)(next_newline_or_eos(rover_input) + 1);
+    rover_input = (char *)(next_newline_or_eos(rover_input) + 1);
+  } while (*(rover_input - 1) != '\0');
+
+  return strdup(ret);
 }
 
 const char *follow_instructions(const char *from_position,
                                 const char *instructions) {
-  char *pos = (char *)from_position;
+  char *pos = (char *)strdup(from_position);
 
   for (char *instruction = (char *)instructions; *instruction != '\0';
        instruction++) {

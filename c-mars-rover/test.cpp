@@ -8,6 +8,15 @@ extern "C" {
 #include "mars_rover_utils.h"
 }
 
+TEST_CASE("multiple rovers") {
+  CHECK_THAT(mars_rover(R"(5 5
+2 1 E
+LMMRMM
+4 4 S
+MMM)"),
+             Equals("4 3 E\n4 1 S"));
+}
+
 TEST_CASE("left") {
   CHECK_THAT(mars_rover(R"(5 5
 1 2 N
