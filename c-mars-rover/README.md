@@ -7,3 +7,17 @@
 ```
 
 ## build and run tests
+
+## build and test continuously
+
+first:
+
+```shell
+brew install entr
+```
+
+then:
+
+```shell
+ls *.[hc]* | entr -c ./test.sh
+```
