@@ -11,6 +11,10 @@ TEST_CASE("mars_rover: single rover, single instruction") {
 1 2 N
 M)"),
              Equals("1 3 N"));
+  CHECK_THAT(mars_rover(R"(5 5
+1 2 E
+M)"),
+             Equals("2 2 E"));
 }
 
 TEST_CASE("mars_rover: single rover, no instructions") {
