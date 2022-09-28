@@ -1,17 +1,28 @@
-#include "mars_rover.h"
 #include <string.h>
 
-const char *parse_initial_rover_position(const char *input);
+#include "mars_rover.h"
+
+const char *get_initial_rover_position(const char *input);
+const char *get_instructions(const char *input);
 
 const char *next_newline_or_eos(const char *str);
 
 const char *mars_rover(const char *input) {
-  const char *position_string = parse_initial_rover_position(input);
+  const char *position = get_initial_rover_position(input);
+  const char *instructions = get_instructions(input);
 
-  return position_string;
+  char *pos = strdup(position);
+
+  if (strlen(instructions)) {
+    // huge hack - what if x, y have more digits?
+    ++pos[2];
+  }
+
+  return pos;
 }
 
-const char *parse_initial_rover_position(const char *input) {
+// extract get_input_line? / tokenize
+const char *get_initial_rover_position(const char *input) {
   const char *newline = next_newline_or_eos(input);
 
   if (*newline == '\0') {
@@ -19,6 +30,25 @@ const char *parse_initial_rover_position(const char *input) {
   }
 
   const char *start = newline + 1;
+  const char *end = next_newline_or_eos(start);
+
+  return strndup(start, end - start);
+}
+
+const char *get_instructions(const char *input) {
+  const char *newline = next_newline_or_eos(input);
+
+  if (*newline == '\0') {
+    return "";
+  }
+
+  const char *second_newline = next_newline_or_eos(newline + 1);
+
+  if (*newline == '\0') {
+    return "";
+  }
+
+  const char *start = second_newline + 1;
   const char *end = next_newline_or_eos(start);
 
   return strndup(start, end - start);
