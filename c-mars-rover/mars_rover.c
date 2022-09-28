@@ -1,6 +1,8 @@
 #include <string.h>
 
 #include "mars_rover.h"
+// exposed for testing only
+#include "mars_rover_utils.h"
 
 const char *get_initial_rover_position(const char *input);
 const char *get_instructions(const char *input);
@@ -9,15 +11,14 @@ const char *next_newline_or_eos(const char *str);
 
 const char *mars_rover(const char *input) {
   const char *position = get_initial_rover_position(input);
-  const char orientation = position[strlen(position) - 1];
+  const char o = orientation(position);
   const char *instructions = get_instructions(input);
 
   char *pos = strdup(position);
 
   if (strlen(instructions)) {
-    switch (orientation) {
+    switch (o) {
     case 'N':
-      // huge hack - what if x, y have more digits?
       ++pos[2];
       break;
     default:
@@ -26,6 +27,34 @@ const char *mars_rover(const char *input) {
   }
 
   return pos;
+}
+
+int x(const char *position) {
+  int ret = 0;
+
+  for (char *it = (char *)position; *it != ' '; it++) {
+    ret *= 10;
+    ret += *it - '0';
+  }
+
+  return ret;
+}
+
+char orientation(const char *position) {
+  return position[strlen(position) - 1];
+}
+
+int y(const char *position) {
+  int ret = 0;
+  const char *start = memchr(position, ' ', strlen(position)) + 1;
+
+  for (char *it = (char *)start; *it != ' '; it++) {
+    ret *= 10;
+    const int digit_value = *it - '0';
+    ret += digit_value;
+  }
+
+  return ret;
 }
 
 const char *get_initial_rover_position(const char *input) {

@@ -4,6 +4,32 @@ using namespace Catch::Matchers;
 
 extern "C" {
 #include "mars_rover.h"
+// exposed for testing only
+#include "mars_rover_utils.h"
+}
+
+TEST_CASE("orientation") {
+  CHECK(orientation("1 12 N") == 'N');
+  CHECK(orientation("21 123 W") == 'W');
+  CHECK(orientation("213 1 S") == 'S');
+}
+TEST_CASE("y") {
+  CHECK(y("1 12 N") == 12);
+  CHECK(y("21 123 N") == 123);
+  CHECK(y("213 1 N") == 1);
+}
+
+TEST_CASE("x") {
+  CHECK(x("1 12 N") == 1);
+  CHECK(x("21 12 N") == 21);
+  CHECK(x("213 12 N") == 213);
+}
+
+TEST_CASE("multi-digit coordinates") {
+  CHECK_THAT(mars_rover(R"(5 5
+1 12 N
+M)"),
+             Equals("1 13 N"));
 }
 
 TEST_CASE("mars_rover: single rover, single instruction") {
