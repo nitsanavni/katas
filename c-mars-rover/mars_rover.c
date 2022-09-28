@@ -36,11 +36,32 @@ const char *follow_single_instruction(const char *from_position,
   const int _y = y(from_position);
   const char _o = orientation(from_position);
 
-  switch (_o) {
-  case 'N':
-    return format_position(_x, _y + 1, _o);
+  switch (instruction) {
   default:
-    return format_position(_x + 1, _y, _o);
+  case 'M':
+    switch (_o) {
+    default:
+    case 'N':
+      return format_position(_x, _y + 1, _o);
+    case 'E':
+      return format_position(_x + 1, _y, _o);
+    case 'S':
+      return format_position(_x, _y - 1, _o);
+    case 'W':
+      return format_position(_x - 1, _y, _o);
+    }
+  case 'L':
+    switch (_o) {
+    default:
+    case 'N':
+      return format_position(_x, _y, 'W');
+    case 'E':
+      return format_position(_x, _y, 'N');
+    case 'S':
+      return format_position(_x, _y, 'E');
+    case 'W':
+      return format_position(_x, _y, 'S');
+    }
   }
 }
 
