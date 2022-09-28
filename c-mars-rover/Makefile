@@ -1,8 +1,8 @@
 test: test.o
 	./test.o
 
-test-watch: test.o entr
-	ls *.[hc]* | entr -c ./test.o
+test-watch: entr
+	ls *.[hc]* | entr -c make -s
 
 clean:
 	git clean -dfx
