@@ -9,13 +9,20 @@ const char *next_newline_or_eos(const char *str);
 
 const char *mars_rover(const char *input) {
   const char *position = get_initial_rover_position(input);
+  const char orientation = position[strlen(position) - 1];
   const char *instructions = get_instructions(input);
 
   char *pos = strdup(position);
 
   if (strlen(instructions)) {
-    // huge hack - what if x, y have more digits?
-    ++pos[2];
+    switch (orientation) {
+    case 'N':
+      // huge hack - what if x, y have more digits?
+      ++pos[2];
+      break;
+    default:
+      ++pos[0];
+    }
   }
 
   return pos;
