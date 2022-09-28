@@ -33,6 +33,7 @@ const char *get_input_line(const char *input, unsigned line_number) {
   char *start = (char *)input;
 
   for (unsigned i = 0; i < line_number; i++) {
+    // if it's EOS then break here
     start = (char *)(next_newline_or_eos(start) + 1);
   }
 
