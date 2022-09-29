@@ -1,3 +1,7 @@
+# takes
+
+- start at 13:35
+
 # Thoughts
 
 - not freeing any allocated memory - may not feel secure
