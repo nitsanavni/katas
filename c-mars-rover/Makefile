@@ -12,12 +12,12 @@ entr:
 	touch entr
 
 test.o: catch.o mars_rover.o test.cpp
-	c++ -o $@ $^
+	c++ -std=c++14 -o $@ $^
 
 catch_src = catch_amalgamated.cpp catch_amalgamated.hpp
 
 catch.o: $(catch_src)
-	c++ -c catch_amalgamated.cpp -o $@
+	c++ -std=c++14 -c catch_amalgamated.cpp -o $@
 
 $(catch_src):
 	curl -L -o $@ https://github.com/catchorg/Catch2/releases/download/v3.1.0/$@
