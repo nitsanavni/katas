@@ -1,10 +1,10 @@
 test: test.a tap
-	./test.a --reporter=TAP | tap - --reporter=terse
+	./test.a --reporter=TAP | tap - --reporter=min
 
 all: test.a
 
 test-watch: entr
-	ls *.[hc]* | entr -c make -s
+	ls *.[hc]* | entr -c make -si
 
 clean:
 	git clean -dfx
