@@ -1,6 +1,6 @@
-#ifndef _MARS_ROVER_H_
-#define _MARS_ROVER_H_
+#ifndef MARS_ROVER_H_
+#define MARS_ROVER_H_
 
 const char *mars_rover_hello();
 
-#endif // _MARS_ROVER_H_
+#endif // MARS_ROVER_H_
