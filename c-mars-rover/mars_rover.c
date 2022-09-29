@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h> // for sprintf()
 #include <string.h>
 
 #include "mars_rover.h"
