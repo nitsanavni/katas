@@ -1,4 +1,5 @@
 catch*.[hc]pp
 *.o
+*.a
 entr
 .idea

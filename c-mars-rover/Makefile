@@ -1,5 +1,7 @@
-test: test.o
-	./test.o
+test: test.a
+	./test.a
+
+all: test.a
 
 test-watch: entr
 	ls *.[hc]* | entr -c make -s
@@ -11,8 +13,11 @@ entr:
 	brew install entr
 	touch entr
 
-test.o: catch.o mars_rover.o test.cpp
+test.a: test.o catch.o mars_rover.o
 	c++ -std=c++14 -o $@ $^
+
+test.o: test.cpp catch_amalgamated.hpp
+	c++ -std=c++14 -c test.cpp -o $@
 
 catch_src = catch_amalgamated.cpp catch_amalgamated.hpp
 
