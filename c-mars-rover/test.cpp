@@ -6,6 +6,16 @@ extern "C" {
 #include "mars_rover.h"
 }
 
-TEST_CASE("should fail: hello mars rover") {
+// Test Input:
+// 5 5
+// 1 2 N
+// LMLMLMLMM
+// 3 3 E
+// MMRMMRMRRM
+// Expected Output:
+// 1 3 N
+// 5 1 E
+
+TEST_CASE("failing test: hello mars rover") {
     CHECK_THAT(mars_rover_hello(), Equals("Hello from Earth!"));
 }

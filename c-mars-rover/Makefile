@@ -1,5 +1,5 @@
-test: test.a
-	./test.a
+test: test.a tap
+	./test.a --reporter=TAP | tap - --reporter=terse
 
 all: test.a
 
@@ -11,6 +11,9 @@ clean:
 
 entr:
 	which entr || brew install entr
+
+tap:
+	which tap &> /dev/null || npm i -g tap
 
 test.a: test.o catch.o mars_rover.o
 	c++ -std=c++14 -o $@ $^
