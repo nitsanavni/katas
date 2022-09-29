@@ -4,15 +4,13 @@ test: test.a
 all: test.a
 
 test-watch: entr
-	rm entr
 	ls *.[hc]* | entr -c make -s
 
 clean:
 	git clean -dfx
 
 entr:
-	entr || brew install entr
-	touch entr
+	which entr || brew install entr
 
 test.a: test.o catch.o mars_rover.o
 	c++ -std=c++14 -o $@ $^
