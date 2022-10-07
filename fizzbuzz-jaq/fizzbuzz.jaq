@@ -1,9 +1,9 @@
 def spec:
     [
-        [3,"fizz"],
-        [5,"buzz"],
-        [7,"whizz"],
-        [9,"bang"]
+        [3, "fizz"],
+        [5, "buzz"],
+        [7, "whizz"],
+        [9, "bang"]
     ];
 
 def named_spec:
@@ -26,4 +26,16 @@ def fizzbuzz:
     cat_codes($n) |
     replace_null_with($n);
 
-map(fizzbuzz)
+def tests:
+    [
+        ["fizzbuzz(1) == 1", (1 | fizzbuzz | . == 1)],
+        ["fizzbuzz(2) == 2", (2 | fizzbuzz | . == 2)],
+        ["fizzbuzz(3) == fizz", (3 | fizzbuzz | . == "fizz")],
+        ["fizzbuzz(4) == 4", (4 | fizzbuzz | . == 4)],
+        ["fizzbuzz(5) == buzz", (5 | fizzbuzz | . == "buzz")],
+        ["fizzbuzz(6) == fizz", (6 | fizzbuzz | . == "fizz")],
+        ["fizzbuzz(7) == whizz", (7 | fizzbuzz | . == "whizz")],
+        ["fizzbuzz(15) == fizzbuzz", (15 | fizzbuzz | . == "fizzbuzz")]
+    ];
+
+tests | filter(.[1] | not) | map(.[0]) | if length == 0 then "all tests pass!" else {"failing tests": .} end
