@@ -15,9 +15,15 @@ def cat:
 def filter(f):
     map(select(f));
 
+def cat_codes(n):
+    named_spec | filter(n % .divisor == 0) | map(.code) | cat;
+
+def replace_null_with(n):
+    if . == null then n else . end;
+
 def fizzbuzz:
     . as $n |
-    named_spec | filter($n % .divisor == 0) | map(.code) | cat |
-    if . == null then $n else . end;
+    cat_codes($n) |
+    replace_null_with($n);
 
 map(fizzbuzz)
