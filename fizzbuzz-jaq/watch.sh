@@ -1,0 +1,1 @@
+ls fizzbuzz.jaq | entr -c ./run.sh

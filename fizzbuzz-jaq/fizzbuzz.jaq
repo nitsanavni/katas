@@ -1,0 +1,23 @@
+def spec:
+    [
+        [3,"fizz"],
+        [5,"buzz"],
+        [7,"whizz"],
+        [9,"bang"]
+    ];
+
+def named_spec:
+    spec | map({ divisor: .[0], code: .[1] });
+
+def cat:
+    add;
+
+def filter(f):
+    map(select(f));
+
+def fizzbuzz:
+    . as $n |
+    named_spec | filter($n % .divisor == 0) | map(.code) | cat |
+    if . == null then $n else . end;
+
+map(fizzbuzz)
