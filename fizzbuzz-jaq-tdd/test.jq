@@ -1,13 +1,11 @@
 def fizzbuzz:
-    if
-        .%15==0 then "fizzbuzz"
-    elif
-        .%3==0 then "fizz"
-    elif
-        .%5==0 then "buzz"
-    else
+    [
+        ([
+            (select(.%3==0)|"fizz"),
+            (select(.%5==0)|"buzz")
+        ] | add),
         .
-    end;
+    ] | map(select(.)) | first;
 
 def tests:
     [
