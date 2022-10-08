@@ -1,11 +1,11 @@
 def fizzbuzz:
-    [
-        ([
+    {
+        code: ([
             (select(.%3==0)|"fizz"),
             (select(.%5==0)|"buzz")
         ] | add),
-        .
-    ] | map(select(.)) | first;
+        n: .
+    } | map(select(.)) | first;
 
 def tests:
     [
