@@ -1,1 +1,0 @@
-seq 20 | jaq -s "$(<fizzbuzz.jaq)"
