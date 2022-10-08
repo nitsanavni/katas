@@ -1,12 +1,11 @@
+def code:
+    [
+        (select(.%3==0)|"fizz"),
+        (select(.%5==0)|"buzz")
+    ] | add;
+
 def fizzbuzz:
-    {
-        code:
-            ([
-                (select(.%3==0)|"fizz"),
-                (select(.%5==0)|"buzz")
-            ] | add),
-        n: .
-    } | .code // .n;
+    code // .;
 
 def tests:
     [
