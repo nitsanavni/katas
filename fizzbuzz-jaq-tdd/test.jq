@@ -1,5 +1,5 @@
 def fizzbuzz:
-    if .==3 then "fizz" else . end;
+    if .==3 then "fizz" elif .==5 then "buzz" else . end;
 
 def tests:
     [
