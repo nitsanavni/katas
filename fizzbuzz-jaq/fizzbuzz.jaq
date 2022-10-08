@@ -41,6 +41,4 @@ def tests:
         ["fizzbuzz(15) == fizzbuzz", (15 | fizzbuzz | . == "fizzbuzz")]
     ];
 
-# tests | filter(.[1] | not) | map(.[0]) | if length == 0 then "all tests pass!" else {"failing tests": .} end
-
-[range(least_common_multiple)] | map(.+1) | map(fizzbuzz) 
+tests | filter(.[1] | not) | map(.[0]) | if length == 0 then "all tests pass!" else {"failing tests": .} end
