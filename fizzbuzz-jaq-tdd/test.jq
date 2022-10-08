@@ -1,13 +1,13 @@
 def fizzbuzz:
-    [
-        ([
-            (if .%3==0 then "fizz" else "" end),
-            (if .%5==0 then "buzz" else "" end)
-        ] |
-        add),
+    if
+        .%15==0 then "fizzbuzz"
+    elif
+        .%3==0 then "fizz"
+    elif
+        .%5==0 then "buzz"
+    else
         .
-    ] |
-    if (.[0] | length == 0) then .[1] else .[0] end;
+    end;
 
 def tests:
     [
