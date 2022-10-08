@@ -9,8 +9,11 @@ def spec:
 def named_spec:
     spec | map({ divisor: .[0], code: .[1] });
 
+def mul:
+    reduce .[] as $x (1; . * $x);
+
 def least_common_multiple:
-    named_spec | map(.divisor) | reduce .[] as $d (1; . * $d);
+    named_spec | map(.divisor) | mul;
 
 def cat:
     add;
@@ -38,7 +41,8 @@ def tests:
         ["fizzbuzz(5) == buzz", (5 | fizzbuzz | . == "buzz")],
         ["fizzbuzz(6) == fizz", (6 | fizzbuzz | . == "fizz")],
         ["fizzbuzz(7) == whizz", (7 | fizzbuzz | . == "whizz")],
-        ["fizzbuzz(15) == fizzbuzz", (15 | fizzbuzz | . == "fizzbuzz")]
+        ["fizzbuzz(15) == fizzbuzz", (15 | fizzbuzz | . == "fizzbuzz")],
+        ["fizzbuzz(least_common_multiple) == fizzbuzz", (least_common_multiple | fizzbuzz | . == "fizzbuzzwhizzbang")]
     ];
 
 tests | filter(.[1] | not) | map(.[0]) | if length == 0 then "all tests pass!" else {"failing tests": .} end
