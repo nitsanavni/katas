@@ -1,5 +1,5 @@
 def fizzbuzz:
-    1;
+    .;
 
 def tests:
     [
