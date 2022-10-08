@@ -1,5 +1,5 @@
 def fizzbuzz:
-    .;
+    if .==3 then "fizz" else . end;
 
 def tests:
     [
@@ -8,4 +8,4 @@ def tests:
         ["fizzbuzz(3) == fizz", (3 | fizzbuzz | . == "fizz")]
     ];
 
-tests | map(select(.[1] | not) | .[0]) | if length == 0 then "green" else . end
+tests | map(select(.[1] | not) | .[0]) | if length == 0 then "green" else {red:.} end
