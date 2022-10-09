@@ -12,6 +12,7 @@ Approvals attempt at fizzbuzz with jaq
 
 ```shell
 pip install pytest approvaltests Command
+cargo install jaq
 ```
 
 ## run the test
