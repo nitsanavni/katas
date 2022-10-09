@@ -13,7 +13,7 @@ Approvals attempt at fizzbuzz with jaq
 ### Python Reqs
 
 ```shell
-pip install pytest approvaltests Command
+pip install pytest approvaltests
 cargo install jaq
 ```
 
