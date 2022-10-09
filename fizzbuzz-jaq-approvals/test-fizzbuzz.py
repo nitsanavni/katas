@@ -1,4 +1,4 @@
-from approvaltests.utilities.command_line_approvals import verify_command_line, verify_command_line_with_inputs
+from approvaltests.utilities.command_line_approvals import verify_command_line_with_inputs
 
 
 def test_fizzbuzz_verify_range_1_to_100():
