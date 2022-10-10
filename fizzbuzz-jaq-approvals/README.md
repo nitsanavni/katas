@@ -1,11 +1,14 @@
-Approvals attempt at fizzbuzz with jaq
+[Approvals](https://approvaltests.com/) attempt at [fizzbuzz](https://sammancoaching.org/kata_descriptions/fizzbuzz.html) with [jaq](https://github.com/01mf02/jaq).
+
+## Background
+
+This is an exercise on the path to learn jq / jaq, including testing.
 
 ## Setup
 
-- approvals by python approvaltests
-- test execution by pytest
-- jaq is invoked as a chid process via the Command pkg
-- the test code is in `test-fizzbuzz.py`
+- approvals by [python approvaltests](https://github.com/approvals/ApprovalTests.Python)
+- test execution by [pytest](https://docs.pytest.org/en/7.1.x/)
+- test code in `test-fizzbuzz.py`
 - the dut is in `fizzbuzz.jq`
 
 ## Installs
