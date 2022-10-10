@@ -1,1 +1,1 @@
-range(100) | .+1 | 
+range(100) | .+1 | if . % 3 == 0 then "fizz" else . end
