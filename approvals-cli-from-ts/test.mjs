@@ -13,7 +13,7 @@ test("hello world!", async (t) => {
   await verify({ t, testId: "hello", received: "hello world!" });
 });
 
-const fizzbuzz = (n) => (n % 3 == 0 ? "fizz" : n);
+const fizzbuzz = (n) => (n % 3 == 0 ? "fizz" : n % 5 == 0 ? "buzz" :n);
 
 test("fizzbuzz 1-100", async (t) => {
   await verify({
