@@ -3,7 +3,7 @@ example usage for approvals cli (implemented in ../approvals-cli/verify.py)
 # install
 
 ```shell
-pipt install approvaltests
+pip install approvaltests
 ```
 
 # run the test
