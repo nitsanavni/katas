@@ -1,3 +1,6 @@
+from approvaltests.core.namer import Namer
+from typing import Dict
+from approvaltests.namer.namer_base import NamerBase
 from approvaltests import verify
 import argparse
 
@@ -9,5 +12,19 @@ parser.add_argument('--received', '-r', type=str,
 
 args = parser.parse_args()
 
-print(args.id)
-print(args.received)
+
+class CliNamer(Namer):
+    def __init__(self, test_id: str) -> None:
+        self.test_id = test_id
+
+    def get_received_filename(self, base) -> str:
+        return f"{self.test_id}.received.txt"
+
+    def get_approved_filename(self, base) -> str:
+        return f"{self.test_id}.approved.txt"
+
+    def get_basename(self) -> str:
+        return self.test_id
+
+
+verify(args.received, namer=CliNamer(test_id=args.id))
