@@ -1,6 +1,4 @@
 from approvaltests.core.namer import Namer
-from typing import Dict
-from approvaltests.namer.namer_base import NamerBase
 from approvaltests import verify
 import argparse
 
