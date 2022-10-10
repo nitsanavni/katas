@@ -2,7 +2,11 @@
 
 ## Background
 
-This is an exercise on the path to learn jq / jaq, including testing.
+This is an exercise (3rd attempt) on the path to learn jq / jaq, including testing.
+
+Previous attempts at this:
+- https://github.com/nitsanavni/katas/tree/main/fizzbuzz-jaq
+- https://github.com/nitsanavni/katas/tree/main/fizzbuzz-jaq-tdd
 
 ## Setup
 
