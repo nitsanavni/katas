@@ -1,11 +1,13 @@
 import test from "ava";
-import { $, path } from "zx";
-import { fileURLToPath } from "url";
+import { $ } from "zx";
 
-test("hello world!", async (t) => {
+const verify = async ({ t, testId, received }) =>
   t.is(
-    await $`python ../approvals-cli/verify.py  -t hello -r "hello world!"`
+    await $`python ../approvals-cli/verify.py  -t ${testId} -r ${received}`
       .exitCode,
     0
   );
+
+test("hello world!", async (t) => {
+  await verify({ t, testId: "hello", received: "hello world!" });
 });
