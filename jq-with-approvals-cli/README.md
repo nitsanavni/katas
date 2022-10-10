@@ -1,3 +1,5 @@
+example usage for approvals cli (implemented in ../approvals-cli/verify.py)
+
 # install
 
 ```shell
