@@ -9,5 +9,5 @@ pip install approvaltests
 # run the test
 
 ```shell
-jaq -nf fizzbuzz.jq | python ../approvals-cli/verify.py -t test
+jaq -nf fizzbuzz.jq | python ../approvals-cli/verify.py --test-id fizzbuzz
 ```
