@@ -22,24 +22,23 @@ def move:
 def left:
     { N: "W", W: "S", S: "E", E: "N" }[.];
 
+def right:
+    { N: "E", W: "N", S: "W", E: "S" }[.];
+
 def turn_left:
     split(" ") |
     .[2] = (.[2] | left) |
     join(" ");
 
-def right:
+def turn_right:
     split(" ") |
-    if .[2] == "N" then .[2] = "E"
-    elif .[2] == "W" then .[2] = "N"
-    elif .[2] == "S" then .[2] = "W"
-    elif .[2] == "E" then .[2] = "S"
-    else empty end |
+    .[2] = (.[2] | right) |
     join(" ");
 
 def follow_instruction(instruction):
     if instruction == "M" then move
     elif instruction == "L" then turn_left
-    elif instruction == "R" then right
+    elif instruction == "R" then turn_right
     else empty end;
 
 def chunk_2:
