@@ -14,9 +14,9 @@ async function streamToString(stream) {
 }
 
 const marsRover = async (input) => {
-  const process = $`jaq -rRf mars-rover.jq`;
+  const process = $`jaq -srRf mars-rover.jq`;
 
-  process.stdin.write(Buffer(input));
+  process.stdin.write(Buffer.from(input));
   process.stdin.end();
 
   return await streamToString(process.stdout);
