@@ -23,6 +23,25 @@ const marsRover = async (input) => {
   return await streamToString(process.stdout);
 };
 
+test("different direction - West", async (t) => {
+  const inputs = [
+    `5 5
+1 2 W
+M`,
+    `5 5
+2 3 W
+M`,
+  ];
+
+  const outputs = [];
+
+  for (const input of inputs) {
+    outputs.push({ in: input.split("\n"), out: await marsRover(input) });
+  }
+
+  await verify(t, inspect(outputs));
+});
+
 test("one instruction, move north", async (t) => {
   const inputs = [
     `5 5
