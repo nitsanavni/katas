@@ -51,6 +51,7 @@ LR`,
     t,
   });
 });
+
 test("many instructions", async (t) => {
   await verifyMany({
     inputs: [

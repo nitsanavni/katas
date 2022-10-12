@@ -1,7 +1,7 @@
-def north: .[1] |= .+1;
-def south: .[1] |= .-1;
-def west: .[0] |= .-1;
-def east: .[0] |= .+1;
+def north: .[1] += 1;
+def south: .[1] -= 1;
+def west: .[0] -= 1;
+def east: .[0] += 1;
 
 def move:
     (.[0],.[1]) |= tonumber|
@@ -18,12 +18,12 @@ def follow_instruction(instruction):
     { M: move, L: turn(left), R: turn(right) }[instruction] |
     join(" ");
 
-def chunk_2: range(length/2|floor) as $i | .[2*$i:2*$i+2];
+def chunk(n): range(length / n | floor) as $i | .[n * $i:n * $i + n];
 
 def mars_rover:
     split("\n") |
     .[1:] |
-    chunk_2 |
+    chunk(2) |
     reduce (.[1]|split("")|.[]) as $instruction (.[0]; follow_instruction($instruction));
 
 mars_rover
