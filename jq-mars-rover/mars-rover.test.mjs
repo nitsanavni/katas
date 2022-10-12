@@ -3,6 +3,27 @@ import { $ } from "zx";
 
 import { verify } from "./verify.mjs";
 
+
+async function streamToString(stream) {
+  // lets have a ReadableStream as a stream variable
+  const chunks = [];
+
+  for await (const chunk of stream) {
+    chunks.push(Buffer.from(chunk));
+  }
+
+  return Buffer.concat(chunks).toString("utf-8");
+}
+
+const marsRover = async (input) => {
+  const process = $`jaq -f mars-rover.jq`;
+  process.stdin.write(input);
+  process.stdin.end();
+
+  const result = await streamToString(process.stdout);
+  return result;
+};
+
 // Test Input:
 // 5 5
 // 1 2 N
@@ -14,5 +35,9 @@ import { verify } from "./verify.mjs";
 // 5 1 E
 
 test("mars rover - example from kata description", async (t) => {
-  await verify(t, (await $`jaq -n '3'`).stdout);
+  const input = "3";
+
+  const result = await marsRover(input);
+
+  await verify(t, result);
 });
