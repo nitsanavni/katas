@@ -39,6 +39,12 @@ test("many instructions", async (t) => {
       `5 5
 1 2 W
 MM`,
+      `5 5
+1 2 N
+MMMMM`,
+      `5 5
+1 2 E
+MMMMM`,
     ],
     t,
   });
