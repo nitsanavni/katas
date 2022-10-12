@@ -23,16 +23,7 @@ const marsRover = async (input) => {
   return await streamToString(process.stdout);
 };
 
-test("different direction - West", async (t) => {
-  const inputs = [
-    `5 5
-1 2 W
-M`,
-    `5 5
-2 3 W
-M`,
-  ];
-
+const verifyMany = async ({ inputs, t }) => {
   const outputs = [];
 
   for (const input of inputs) {
@@ -40,25 +31,31 @@ M`,
   }
 
   await verify(t, inspect(outputs));
+};
+
+test("different direction - West", async (t) => {
+  await verifyMany({
+    inputs: [
+      `5 5
+1 2 W
+M`,
+      `5 5
+2 3 W
+M`,
+    ],
+    t,
+  });
 });
 
 test("one instruction, move north", async (t) => {
-  const inputs = [
+  await verifyMany({ inputs: [
     `5 5
 1 2 N
 M`,
     `5 5
 1 3 N
 M`,
-  ];
-
-  const outputs = [];
-
-  for (const input of inputs) {
-    outputs.push({ in: input.split("\n"), out: await marsRover(input) });
-  }
-
-  await verify(t, inspect(outputs));
+  ], t});
 });
 
 test("single rover, no instructions - no movement", async (t) => {
