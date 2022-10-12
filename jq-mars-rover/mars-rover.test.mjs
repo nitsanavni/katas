@@ -4,6 +4,8 @@ import { inspect } from "util";
 
 import { verify } from "./verify.mjs";
 
+$.verbose = false;
+
 async function streamToString(stream) {
   const chunks = [];
 
