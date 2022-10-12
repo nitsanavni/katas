@@ -33,6 +33,17 @@ const verifyMany = async ({ inputs, t }) => {
   await verify(t, inspect(outputs));
 };
 
+test("many instructions", async (t) => {
+  await verifyMany({
+    inputs: [
+      `5 5
+1 2 W
+MM`,
+    ],
+    t,
+  });
+});
+
 test("different direction - West", async (t) => {
   await verifyMany({
     inputs: [
@@ -48,14 +59,17 @@ M`,
 });
 
 test("one instruction, move north", async (t) => {
-  await verifyMany({ inputs: [
-    `5 5
+  await verifyMany({
+    inputs: [
+      `5 5
 1 2 N
 M`,
-    `5 5
+      `5 5
 1 3 N
 M`,
-  ], t});
+    ],
+    t,
+  });
 });
 
 test("single rover, no instructions - no movement", async (t) => {
