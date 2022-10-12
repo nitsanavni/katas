@@ -13,7 +13,7 @@ async function streamToString(stream) {
     chunks.push(Buffer.from(chunk));
   }
 
-  return chunks.length == 0 ? "" : Buffer.concat(chunks).toString("utf-8");
+  return Buffer.concat(chunks).toString("utf-8");
 }
 
 const marsRover = (input) => {
