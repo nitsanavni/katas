@@ -1,5 +1,6 @@
 import test from "ava";
 import { $ } from "zx";
+import { inspect } from "util";
 
 import { verify } from "./verify.mjs";
 
@@ -23,11 +24,22 @@ const marsRover = async (input) => {
 };
 
 test("one instruction, move north", async (t) => {
-  const input = `5 5
+  const inputs = [
+    `5 5
 1 2 N
-M`;
+M`,
+    `5 5
+1 3 N
+M`,
+  ];
 
-  await verify(t, await marsRover(input));
+  const outputs = [];
+
+  for (const input of inputs) {
+    outputs.push({ in: input.split("\n"), out: await marsRover(input) });
+  }
+
+  await verify(t, inspect(outputs));
 });
 
 test("single rover, no instructions - no movement", async (t) => {
