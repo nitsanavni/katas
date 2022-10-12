@@ -1,22 +1,18 @@
 def north:
-    .[1] = (.[1] | tonumber | .+1 | tostring);
+    .[1] |= (tonumber | .+1 | tostring);
 
 def south:
-    .[1] = (.[1] | tonumber | .-1 | tostring);
+    .[1] |= (tonumber | .-1 | tostring);
 
 def west:
-    .[0] = (.[0] | tonumber | .-1 | tostring);
+    .[0] |= (tonumber | .-1 | tostring);
 
 def east:
-    .[0] = (.[0] | tonumber | .+1 | tostring);
+    .[0] |= (tonumber | .+1 | tostring);
 
 def move:
     split(" ") |
-    if .[2] == "N" then north
-    elif .[2] == "W" then west
-    elif .[2] == "S" then south
-    elif .[2] == "E" then east
-    else empty end |
+    { N: north, W: west, S: south, E: east }[.[2]] |
     join(" ");
 
 def left:
@@ -25,20 +21,15 @@ def left:
 def right:
     { N: "E", W: "N", S: "W", E: "S" }[.];
 
-def turn_left:
+def turn(direction):
     split(" ") |
-    .[2] = (.[2] | left) |
-    join(" ");
-
-def turn_right:
-    split(" ") |
-    .[2] = (.[2] | right) |
+    .[2] |= direction |
     join(" ");
 
 def follow_instruction(instruction):
     if instruction == "M" then move
-    elif instruction == "L" then turn_left
-    elif instruction == "R" then turn_right
+    elif instruction == "L" then turn(left)
+    elif instruction == "R" then turn(right)
     else empty end;
 
 def chunk_2:
