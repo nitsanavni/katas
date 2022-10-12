@@ -43,8 +43,13 @@ def follow_instruction(instruction):
     elif instruction == "R" then right
     else empty end;
 
+def chunk_2:
+    range(length/2|floor) as $i | .[2*$i:2*$i+2];
+
 def mars_rover:
     split("\n") |
-    reduce (.[2]|split("")|.[]) as $instruction (.[1]; follow_instruction($instruction));
+    .[1:] |
+    chunk_2 |
+    reduce (.[1]|split("")|.[]) as $instruction (.[0]; follow_instruction($instruction));
 
 mars_rover

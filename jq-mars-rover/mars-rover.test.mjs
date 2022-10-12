@@ -13,16 +13,16 @@ async function streamToString(stream) {
     chunks.push(Buffer.from(chunk));
   }
 
-  return Buffer.concat(chunks).toString("utf-8");
+  return chunks.length == 0 ? "" : Buffer.concat(chunks).toString("utf-8");
 }
 
-const marsRover = async (input) => {
+const marsRover = (input) => {
   const process = $`jaq -srRf mars-rover.jq`;
 
   process.stdin.write(Buffer.from(input));
   process.stdin.end();
 
-  return await streamToString(process.stdout);
+  return streamToString(process.stdout);
 };
 
 const verifyMany = async ({ inputs, t }) => {
@@ -104,12 +104,12 @@ test("single rover, no instructions - no movement", async (t) => {
   await verify(t, await marsRover(input));
 });
 
-test.skip("mars rover - example from kata description", async (t) => {
+test("mars rover - example from kata description", async (t) => {
   const input = `5 5
 1 2 N
 LMLMLMLMM
 3 3 E
 MMRMMRMRRM`;
 
-  await verify(await marsRover(input));
+  await verify(t, await marsRover(input));
 });
