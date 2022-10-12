@@ -20,12 +20,11 @@ def move:
     join(" ");
 
 def left:
+    { N: "W", W: "S", S: "E", E: "N" }[.];
+
+def turn_left:
     split(" ") |
-    if .[2] == "N" then .[2] = "W"
-    elif .[2] == "W" then .[2] = "S"
-    elif .[2] == "S" then .[2] = "E"
-    elif .[2] == "E" then .[2] = "N"
-    else empty end |
+    .[2] = (.[2] | left) |
     join(" ");
 
 def right:
@@ -39,7 +38,7 @@ def right:
 
 def follow_instruction(instruction):
     if instruction == "M" then move
-    elif instruction == "L" then left
+    elif instruction == "L" then turn_left
     elif instruction == "R" then right
     else empty end;
 
