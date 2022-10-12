@@ -4,7 +4,7 @@
 
 This is showing a polyglot approach to practicing jq, TDD, approvals.
 
-It also shows the potential triggering `approvals.verify` via the cli.
+It also shows the potential of triggering `approvals.verify` via the cli. See related discussion [here](https://github.com/approvals/ApprovalTests.Python/issues/127).
 
 # What
 
