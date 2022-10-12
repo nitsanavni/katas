@@ -14,13 +14,21 @@ async function streamToString(stream) {
 }
 
 const marsRover = async (input) => {
-  const process = $`jaq -Rf mars-rover.jq`;
+  const process = $`jaq -rRf mars-rover.jq`;
 
   process.stdin.write(Buffer(input));
   process.stdin.end();
 
   return await streamToString(process.stdout);
 };
+
+test("single rover, no instructions - no movement", async (t) => {
+  const input = `5 5
+1 2 N
+`;
+
+  await verify(t, await marsRover(input));
+});
 
 test.skip("mars rover - example from kata description", async (t) => {
   const input = `5 5
@@ -29,11 +37,5 @@ LMLMLMLMM
 3 3 E
 MMRMMRMRRM`;
 
-  // Expected Output:
-  // 1 3 N
-  // 5 1 E
-
-  const result = await marsRover(input);
-
-  await verify(t, result);
+  await verify(await marsRover(input));
 });
