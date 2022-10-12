@@ -33,6 +33,22 @@ const verifyMany = async ({ inputs, t }) => {
   await verify(t, inspect(outputs));
 };
 
+test("other instructions", async (t) => {
+  await verifyMany({
+    inputs: [
+      `5 5
+1 2 W
+R`,
+      `5 5
+1 2 N
+RR`,
+      `5 5
+1 2 E
+LR`,
+    ],
+    t,
+  });
+});
 test("many instructions", async (t) => {
   await verifyMany({
     inputs: [
