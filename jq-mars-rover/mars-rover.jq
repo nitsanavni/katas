@@ -11,9 +11,7 @@ def east:
     .[0] |= (tonumber | .+1 | tostring);
 
 def move:
-    split(" ") |
-    { N: north, W: west, S: south, E: east }[.[2]] |
-    join(" ");
+    { N: north, W: west, S: south, E: east }[.[2]];
 
 def left:
     { N: "W", W: "S", S: "E", E: "N" }[.];
@@ -22,15 +20,12 @@ def right:
     { N: "E", W: "N", S: "W", E: "S" }[.];
 
 def turn(direction):
-    split(" ") |
-    .[2] |= direction |
-    join(" ");
+    .[2] |= direction;
 
 def follow_instruction(instruction):
-    if instruction == "M" then move
-    elif instruction == "L" then turn(left)
-    elif instruction == "R" then turn(right)
-    else empty end;
+    split(" ") |
+    { M: move, L: turn(left), R: turn(right) }[instruction] |
+    join(" ");
 
 def chunk_2:
     range(length/2|floor) as $i | .[2*$i:2*$i+2];
