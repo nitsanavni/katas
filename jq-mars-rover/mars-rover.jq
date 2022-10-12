@@ -19,4 +19,8 @@ def move:
     else "what?!" end |
     join(" ");
 
-split("\n") | if (.[2]|length==0) then .[1] else (.[1]|move) end
+def mars_rover:
+    split("\n") |
+    reduce (.[2]|split("")|.[]) as $instruction (.[1]; move);
+
+mars_rover
