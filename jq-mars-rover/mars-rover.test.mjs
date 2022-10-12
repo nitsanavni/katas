@@ -22,6 +22,14 @@ const marsRover = async (input) => {
   return await streamToString(process.stdout);
 };
 
+test("one instruction, move north", async (t) => {
+  const input = `5 5
+1 2 N
+M`;
+
+  await verify(t, await marsRover(input));
+});
+
 test("single rover, no instructions - no movement", async (t) => {
   const input = `5 5
 1 2 N
