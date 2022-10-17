@@ -2,6 +2,8 @@ Concept for ApprovalTests - trigger a `verify` call from the cli.
 
 See discussion [here](https://github.com/approvals/ApprovalTests.Python/issues/127).
 
+Update: this was incorporated into `approvaltests` with [this release](https://github.com/approvals/ApprovalTests.Python/releases/tag/v7.2.0).
+
 # installs
 
 ```shell
