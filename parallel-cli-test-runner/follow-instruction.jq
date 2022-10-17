@@ -1,0 +1,1 @@
+if $instruction == "M" then "move" else . end
