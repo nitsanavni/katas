@@ -1,0 +1,17 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - init: |
+      brew install \
+        ack \
+        entr \
+        fzf \
+        parallel \
+        ttyd
+      pip install \
+        approvaltests \
+        pytest
+      cargo install \
+        jaq
+      npm i \
+        zx
+      curl https://bun.sh/install | bash
