@@ -1,1 +1,4 @@
-if $instruction == "M" then "move" else . end
+def move:
+    .;
+
+if $instruction == "M" then move else . end
