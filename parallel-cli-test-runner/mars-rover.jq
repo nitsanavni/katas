@@ -1,19 +1,33 @@
-def position_move_north:
-    split(" ")|
-    .[1]=(.[1]|tonumber|.+1|tostring)|
+def move:
+    {
+        N: .[1]=(.[1]|tonumber|.+1|tostring),
+        S: .[1]=(.[1]|tonumber|.-1|tostring),
+        W: .[0]=(.[0]|tonumber|.-1|tostring),
+        E: .[0]=(.[0]|tonumber|.+1|tostring),
+    }[.[2]];
+
+def right: {N:"E",E:"S",S:"W",W:"N"}[.];
+
+def left: {N:"W",W:"S",S:"E",E:"N"}[.];
+
+def turn(dir): .[2]=(.[2]|dir);
+
+def chunk(n): range(length/n|ceil) as $i | .[n*$i:n*$i+n];
+
+def input_to_lines: split("\n") | chunk(2);
+
+def get_instructions: .[1]|split("")|.[];
+
+def follow_instruction(instruction):
+    split(" ") |
+    {
+        M: move,
+        R: turn(right),
+        L: turn(left),
+    }[instruction] |
     join(" ");
 
-def position_turn_right:
-    split(" ")|
-    .[2]=(.[2]|{N:"E",E:"S",S:"W",W:"N"}[.])|
-    join(" ");
+def move_rover:
+    reduce get_instructions as $instruction (.[0]; follow_instruction($instruction));
 
-def position_turn_left:
-    split(" ")|
-    .[2]=(.[2]|{N:"W",W:"S",S:"E",E:"N"}[.])|
-    join(" ");
-
-def input_to_lines: split("\n");
-
-input_to_lines |
-    reduce (.[1]|split("")|.[]) as $instruction (.[0]; ({M:position_move_north,R:position_turn_right,L:position_turn_left}[$instruction]))
+input_to_lines | move_rover

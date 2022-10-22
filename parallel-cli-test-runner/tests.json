@@ -5,5 +5,7 @@
   ["multiple instructions", "\"0 0 N\\nMM\""],
   ["three lefts make a right", "\"0 0 N\\nLLL\""],
   ["three rights make a left", "\"0 0 N\\nRRR\""],
-  ["move to the west", "\"0 0 W\\nMM\""]
+  ["move to the west", "\"0 0 W\\nMM\""],
+  ["two rovers", "\"0 0 N\\nM\\n0 0 S\\nM\""],
+  ["from sammancoaching.com", "\"1 2 N\\nLMLMLMLMM\\n3 3 E\\nMMRMMRMRRM\""]
 ]

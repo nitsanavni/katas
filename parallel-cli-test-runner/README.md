@@ -8,7 +8,7 @@ brew install parallel
 
 # run tests
 
-```sh
+```bash
 < tests.json jaq -rf command.jq | parallel
 ```
 
