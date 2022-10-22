@@ -12,6 +12,12 @@ brew install parallel
 < tests.json jaq -rf command.jq | parallel
 ```
 
+# run tests continuously
+
+```sh
+ls tests.json mars-rover.jq | entr -c sh -c "< tests.json jaq -rf command.jq | parallel"
+```
+
 # idea
 
 break the code into two

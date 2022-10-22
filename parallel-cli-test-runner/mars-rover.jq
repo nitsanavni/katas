@@ -5,7 +5,7 @@ def position_move_north:
 
 def position_turn_right:
     split(" ")|
-    .[2]=(.[2]|{N:"E"}[.])|
+    .[2]=(.[2]|{N:"E",E:"S",S:"W",W:"N"}[.])|
     join(" ");
 
 def position_turn_left:
