@@ -2,5 +2,6 @@
   ["no movement", "\"0 0 N\\n\""],
   ["single instruction - move north", "\"0 0 N\\nM\""],
   ["different instruction - right", "\"0 0 N\\nR\""],
-  ["multiple instructions", "\"0 0 N\\nMM\""]
+  ["multiple instructions", "\"0 0 N\\nMM\""],
+  ["three lefts make a right", "\"0 0 N\\nLLL\""]
 ]
