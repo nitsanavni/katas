@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "esbenp.prettier-vscode",
-    "llvm-vs-code-extensions.vscode-clangd"
+    "llvm-vs-code-extensions.vscode-clangd",
+    "jq-syntax-highlighting.jq-syntax-highlighting"
   ]
 }
