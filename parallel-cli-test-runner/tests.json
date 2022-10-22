@@ -4,5 +4,6 @@
   ["different instruction - right", "\"0 0 N\\nR\""],
   ["multiple instructions", "\"0 0 N\\nMM\""],
   ["three lefts make a right", "\"0 0 N\\nLLL\""],
-  ["three rights make a left", "\"0 0 N\\nRRR\""]
+  ["three rights make a left", "\"0 0 N\\nRRR\""],
+  ["move to the west", "\"0 0 W\\nMM\""]
 ]
