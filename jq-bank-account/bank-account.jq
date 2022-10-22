@@ -20,4 +20,4 @@ def bank_account(method; amount; date):
         print_statement: print_statement,
     }[method];
 
-($args|fromjson) as $a | bank_account($a[0]; $a[1]; $a[2])
+($args|fromjson) as $a | bank_account($a[0]; $a[1]//0; $a[2]//"")
