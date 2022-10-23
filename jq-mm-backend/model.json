@@ -1,0 +1,28 @@
+[
+  {
+    "text": "0: outline root",
+    "indent": 0,
+    "select": true
+  },
+  {
+    "text": "1: 1st child of root",
+    "indent": 1,
+    "fold": true
+  },
+  {
+    "text": "2: 2nd child of root",
+    "indent": 1
+  },
+  {
+    "text": "3: 1st child of 2",
+    "indent": 2
+  },
+  {
+    "text": "4: 2nd child of 2",
+    "indent": 2
+  },
+  {
+    "text": "5: 3rd child of root",
+    "indent": 1
+  }
+]
