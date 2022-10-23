@@ -1,6 +1,6 @@
-def a: "a";
-def b: "b";
+def a: . + ["a"];
+def b: reduce .[] as $x ([]; . + [$x + " b"]);
 {
     a: a,
     b: b
-}["a"]
+}[$a_or_b]
