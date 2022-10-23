@@ -8,7 +8,14 @@ def add_balance:
     reduce .[] as $move ([];.+[$move + {balance:(.[-1]//{balance:0}).balance + $move.amount}]);
 
 def print_statement:
-    add_balance | map([.date,.amount,.balance] | map(tostring) | join("\t")) | .[];
+    add_balance |
+    map(
+        [.date,.amount,.balance] |
+        map(tostring) |
+        join("\t")
+    ) |
+    ["date\tamount\tbalance"] + . |    
+    .[];
 
 def init: [];
 
@@ -18,6 +25,6 @@ def bank_account(method; amount; date):
         deposit: deposit(amount; date),
         withdraw: withdraw(amount; date),
         print_statement: print_statement,
-    }[method];
+    }[method//"print_statement"];
 
 ($args|fromjson) as $a | bank_account($a[0]; $a[1]//0; $a[2]//"")
