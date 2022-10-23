@@ -58,3 +58,16 @@ $ jaq -rf outline.jq model.json
 ```sh
 jaq -rf mindmap-render-test-command.jq mindmap-render-test.json | parallel
 ```
+
+### Thoughts
+
+- Horizontally concatenate blocks of multi-line strings
+- a leaf is just its text
+- all siblins become `.text|join("\n")`
+- easier to work with arrays of strings, each element represents a line
+- `[["parent "], ["child 1", "child 2"]] | cat` -> `"parent child 1\n child 2"`
+- vertical alignment can be done by adding empty strings before the parent
+- notice the left-padding before `"child 2"`
+- `[["a"], ["b", "c"]] | cat` -> `"ab\n c"`
+- `[["","a"],["b","c","d"]] | cat` -> `" b\nac\n d"`
+- then we'll need to think about the connecting lines logic
