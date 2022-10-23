@@ -15,6 +15,7 @@
     ]
   },
   {
+    "method": "render",
     "test": "grandchild",
     "model": [
       { "text": "parent", "indent": 0 },
@@ -23,6 +24,7 @@
     ]
   },
   {
+    "skip": true,
     "test": "two children",
     "model": [
       { "text": "parent", "indent": 0 },

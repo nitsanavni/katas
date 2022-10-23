@@ -1,1 +1,5 @@
-[(.[] | .text)//""] | join("─")
+def render: [(.[] | .text)//""] | join("─");
+
+{
+    render: render
+}[$method // "render"]
