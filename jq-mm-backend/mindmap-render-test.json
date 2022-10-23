@@ -51,11 +51,17 @@
     ]
   },
   {
+    "skip": true,
     "method": "cat",
     "test": "cat: two and two with different lengths",
     "model": [
       ["a", "bb"],
       ["ccc", "ddddd"]
     ]
+  },
+  {
+    "method": "rpad",
+    "test": "rpad",
+    "model": ""
   }
 ]
