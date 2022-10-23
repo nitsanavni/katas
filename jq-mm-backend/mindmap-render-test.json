@@ -2,5 +2,9 @@
   {
     "test": "empty model",
     "model": []
+  },
+  {
+    "test": "single node",
+    "model": [{ "text": "a node", "indent": 0 }]
   }
 ]

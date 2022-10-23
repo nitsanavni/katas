@@ -52,3 +52,9 @@ $ jaq -rf outline.jq model.json
 ```
 
 ## Render as Mind Map
+
+### Run the Tests
+
+```sh
+jaq -rf mindmap-render-test-command.jq mindmap-render-test.json | parallel
+```
