@@ -41,5 +41,13 @@
     "method": "cat",
     "test": "cat: parent, two children",
     "model": [["a"], ["b", "c"]]
+  },
+  {
+    "method": "cat",
+    "test": "cat: two and two",
+    "model": [
+      ["a", "b"],
+      ["c", "d"]
+    ]
   }
 ]
