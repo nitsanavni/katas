@@ -13,5 +13,13 @@
       { "text": "parent", "indent": 0 },
       { "text": "child", "indent": 1 }
     ]
+  },
+  {
+    "test": "grandchild",
+    "model": [
+      { "text": "parent", "indent": 0 },
+      { "text": "child", "indent": 1 },
+      { "text": "grandchild", "indent": 2 }
+    ]
   }
 ]
