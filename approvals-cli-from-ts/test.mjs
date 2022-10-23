@@ -4,8 +4,7 @@ import _ from "lodash";
 
 const verify = async ({ t, testId, received }) =>
   t.is(
-    await $`python ../approvals-cli/verify.py  -t ${testId} -r ${received}`
-      .exitCode,
+    await $`python -m approvaltests -t ${testId} -r ${received}`.exitCode,
     0
   );
 
@@ -13,7 +12,8 @@ test("hello world!", async (t) => {
   await verify({ t, testId: "hello", received: "hello world!" });
 });
 
-const fizzbuzz = (n) => (n % 15 == 0 ? "fizzbuzz" : n % 3 == 0 ? "fizz" : n % 5 == 0 ? "buzz" :n);
+const fizzbuzz = (n) =>
+  n % 15 == 0 ? "fizzbuzz" : n % 3 == 0 ? "fizz" : n % 5 == 0 ? "buzzz" : n;
 
 test("fizzbuzz 1-100", async (t) => {
   await verify({
