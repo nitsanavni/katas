@@ -49,5 +49,13 @@
       ["a", "b"],
       ["c", "d"]
     ]
+  },
+  {
+    "method": "cat",
+    "test": "cat: two and two with different lengths",
+    "model": [
+      ["a", "bb"],
+      ["ccc", "ddddd"]
+    ]
   }
 ]
