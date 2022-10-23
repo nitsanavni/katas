@@ -36,5 +36,10 @@
     "method": "cat",
     "test": "cat: single lines",
     "model": [["a"], ["b"]]
+  },
+  {
+    "method": "cat",
+    "test": "cat: parent, two children",
+    "model": [["a"], ["b", "c"]]
   }
 ]
