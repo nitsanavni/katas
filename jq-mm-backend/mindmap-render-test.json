@@ -6,5 +6,12 @@
   {
     "test": "single node",
     "model": [{ "text": "a node", "indent": 0 }]
+  },
+  {
+    "test": "child",
+    "model": [
+      { "text": "parent", "indent": 0 },
+      { "text": "child", "indent": 1 }
+    ]
   }
 ]
