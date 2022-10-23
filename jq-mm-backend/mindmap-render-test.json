@@ -31,5 +31,10 @@
       { "text": "child 1", "indent": 1 },
       { "text": "child 2", "indent": 1 }
     ]
+  },
+  {
+    "method": "cat",
+    "test": "cat: single lines",
+    "model": [["a"], ["b"]]
   }
 ]

@@ -1,5 +1,8 @@
+def cat: [.[0]+.[1]|join("")];
+
 def render: [(.[] | .text)//""] | join("─");
 
-{
-    render: render
-}[$method // "render"]
+if $method == "render"
+then render
+else cat
+end
