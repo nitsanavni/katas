@@ -1,6 +1,7 @@
+# generate an array containing `n` times `.`
 def times(n): . as $x | [range(n)] | map($x);
 
-# right-pad a string with spaces
+# right-pad a string with spaces up to size `n`
 def rpad(n):
     .//"" | tostring |
     length as $l |
@@ -17,10 +18,18 @@ def cat:
 # concatenate three multi-line strings
 def cat3: [(.[0:2]|cat),.[2]]|cat;
 
-def render: [(.[] | .text)//""] | join("─");
+# enumerate items in an array
+def enum: .;
 
+def render: [map(select(.indent==0)|.text), map(select(.indent==1)|.text), map(select(.indent==2)|.text)]|cat3|.[];
+
+# route input to method per cli arg
+# provided using e.g.:
+# `jaq --arg method cat -f mindmap-render.jq`
 if $method == "render" then render
 elif $method == "cat" then cat
 elif $method == "rpad" then rpad($arg|tonumber)
-else cat3
+elif $method == "cat3" then cat3
+elif $method == "enum" then enum
+else "unrecognized method arg"
 end

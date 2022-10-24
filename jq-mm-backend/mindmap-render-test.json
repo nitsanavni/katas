@@ -24,7 +24,6 @@
     ]
   },
   {
-    "skip": true,
     "test": "two children",
     "model": [
       { "text": "parent", "indent": 0 },
