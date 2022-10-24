@@ -10,9 +10,13 @@ def cat:
     transpose |
     map(.[0]=(.[0]|rpad($p)) | join(""));
 
+def cat3:
+    [(.[0:2]|cat),.[2]]|cat;
+
 def render: [(.[] | .text)//""] | join("─");
 
 if $method == "render" then render
 elif $method == "cat" then cat
-else rpad($arg|tonumber)
+elif $method == "rpad" then rpad($arg|tonumber)
+else cat3
 end

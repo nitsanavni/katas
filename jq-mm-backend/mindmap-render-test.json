@@ -63,5 +63,14 @@
     "test": "rpad",
     "input": "pad me",
     "arg": 12
+  },
+  {
+    "method": "cat3",
+    "test": "cat3: three blocks",
+    "model": [
+      ["eeeee", "ffffff"],
+      ["ccc", "dddd"],
+      ["a", "bb"]
+    ]
   }
 ]
