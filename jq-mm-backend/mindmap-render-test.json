@@ -51,7 +51,6 @@
     ]
   },
   {
-    "skip": true,
     "method": "cat",
     "test": "cat: two and two with different lengths",
     "model": [
