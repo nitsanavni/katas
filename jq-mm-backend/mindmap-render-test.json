@@ -62,6 +62,7 @@
   {
     "method": "rpad",
     "test": "rpad",
-    "model": ""
+    "input": "pad me",
+    "arg": 12
   }
 ]
