@@ -1,11 +1,14 @@
-# generate an array containing `n` times `.`
-def times(n): . as $x | [range(n)] | map($x);
+# generate an `n` `.`'s
+def times(n): . as $x | range(n) | $x;
+
+# generate an string containing `n` spaces
+def spaces(n): [" " | times(n)] | join("");
 
 # right-pad a string with spaces up to size `n`
 def rpad(n):
     .//"" | tostring |
     length as $l |
-    if $l >= n then . else . + (" " | times(n - $l) | join("")) end;
+    if $l >= n then . else . + spaces(n - $l) end;
 
 # concatenate two multi-line strings
 # each multi-line string is represented as an array of single line strings
@@ -21,7 +24,14 @@ def cat3: [(.[0:2]|cat),.[2]]|cat;
 # enumerate items in an array
 def enum: .;
 
-def render: [map(select(.indent==0)|.text), map(select(.indent==1)|.text), map(select(.indent==2)|.text)]|cat3|.[];
+def render:
+    [
+        map(select(.indent==0)|.text),
+        map(select(.indent==1)|.text),
+        map(select(.indent==2)|.text)
+    ] |
+    cat3 |
+    .[];
 
 # route input to method per cli arg
 # provided using e.g.:
@@ -31,5 +41,5 @@ elif $method == "cat" then cat
 elif $method == "rpad" then rpad($arg|tonumber)
 elif $method == "cat3" then cat3
 elif $method == "enum" then enum
-else "unrecognized method arg"
+else error("unrecognized method arg")
 end
