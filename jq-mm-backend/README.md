@@ -61,6 +61,116 @@ jaq -rf mindmap-render-test-command.jq mindmap-render-test.json | parallel
 
 ### Thoughts
 
+- it's like the dependencies!
+  - when a node is resolved it no longer needs its children and it's ready to be added to its parent until it's resolved in turn
+  - also once it's resolved it knows its own size (height)
+  - leafs are already resolved and have size (height) of 1
+  - for connectors to work a node only needs to know its children's sizes (heights)
+  - a parent always puts itself at line number `floor(height / 2)` - this is like vertical padding, can reuse `times`
+  - we can first transform the model into a hierarchical intermediate model
+    ```json
+    [
+      { "text": "a", "indent": 0 },
+      { "text": "b", "indent": 1 }
+    ]
+    ```
+    becomes:
+    ```json
+    [{ "text": "a", "indent": 0, "children": [{ "text": "b", "indent": 1 }] }]
+    ```
+    then:
+    ```json
+    [{ "text": "a", "indent": 0, "rendered": "a b" }]
+    ```
+- order of rendering; consider this outline:
+  ```md
+  - a
+    - b
+      - c
+      - d
+    - e
+  ```
+  it would turn into this mm:
+  ```
+    b c
+  a   d
+    e
+  ```
+  - first: (siblins up to cliff)
+    ```
+    c
+    d
+    ```
+  - then: (add parent)
+    ```
+    b c
+      d
+    ```
+  - then: (siblins up to end)
+    ```
+    b c
+      d
+    e
+    ```
+  - finally: (add parent)
+    ```
+      b c
+    a   d
+      e
+    ```
+- another example:
+  ```md
+  - a
+    - b
+    - c
+      - d
+    - e
+  ```
+  becomes this mm:
+  ```
+    b
+  a c d
+    e
+  ```
+  - cliff:
+  ```
+  d
+  ```
+  - parent:
+  ```
+  c d
+  ```
+  - cliff/end:
+  ```
+  b
+  c d
+  e
+  ```
+  - parent:
+  ```
+    b
+  a c d
+    e
+  ```
+- one more:
+  ```md
+  - a
+    - b
+    - c
+      - d
+    - e
+      - f
+      - g
+    - h
+  ```
+  becomes this mm:
+  ```
+    b
+    c d
+  a e f
+      g
+    h
+  ```
 - smaller steps!
   - work backwards
     - hard-code the logic when needed
