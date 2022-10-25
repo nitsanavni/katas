@@ -61,6 +61,10 @@ jaq -rf mindmap-render-test-command.jq mindmap-render-test.json | parallel
 
 ### Thoughts
 
+- smaller steps!
+  - work backwards
+    - hard-code the logic when needed
+    - start at the leaf I think
 - Horizontally concatenate blocks of multi-line strings
 - a leaf is just its text
 - all siblins become `.text|join("\n")`

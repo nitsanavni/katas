@@ -71,5 +71,24 @@
       ["ccc", "dddd"],
       ["a", "bb"]
     ]
+  },
+  {
+    "method": "render",
+    "test": "render: larger tree",
+    "model": [
+      { "text": ";0", "indent": 0 },
+      { "text": ";a", "indent": 1 },
+      { "text": ";a1", "indent": 2 },
+      { "text": ";a22", "indent": 2 },
+      { "text": ";a333", "indent": 2 },
+      { "text": ";bb", "indent": 1 },
+      { "text": ";bb1", "indent": 2 },
+      { "text": ";bb22", "indent": 2 },
+      { "text": ";bb333", "indent": 2 },
+      { "text": ";ccc", "indent": 1 },
+      { "text": ";ccc1", "indent": 2 },
+      { "text": ";ccc22", "indent": 2 },
+      { "text": ";ccc333", "indent": 2 }
+    ]
   }
 ]
