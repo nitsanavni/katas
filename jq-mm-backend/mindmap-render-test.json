@@ -206,5 +206,10 @@
     "test": "update: deep C",
     "input": [{ "a": { "b": [{ "c": 0 }] } }],
     "arg": { "path": [0, "a", "b", 0, "c"], "value": 7 }
+  },
+  {
+    "method": "diff",
+    "test": "diff: differential of indentations",
+    "input": [0, 1, 2, 2, 2, 2, 3, 1, 2, 2, 2, 1, 2, 1, 1, 1, 2, 3, 4, 1]
   }
 ]

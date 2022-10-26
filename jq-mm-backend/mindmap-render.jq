@@ -53,6 +53,9 @@ def resolvable:
 def resolve_one:
     {m:.,p:[0]}|recurse(.;false);
 
+def diff:
+    . as $i | range(.|length|.-1) | $i[.+1] - $i[.];
+
 def render:
     [
         map(select(.indent==0)|.text),
@@ -74,5 +77,6 @@ elif $method == "resolve_one" then resolve_one
 elif $method == "get" then get
 elif $method == "resolvable" then resolvable
 elif $method == "update" then update($arg|fromjson|.path; $arg|fromjson|.value)
+elif $method == "diff" then diff
 else error("unrecognized method arg")
 end

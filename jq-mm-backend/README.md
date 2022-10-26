@@ -61,6 +61,30 @@ jaq -rf mindmap-render-test-command.jq mindmap-render-test.json | parallel
 
 ### Thoughts
 
+```json
+[
+  { "t": "a", "i": 0 },
+  { "t": "b", "i": 1 },
+  { "t": "c", "i": 1 },
+  { "t": "d", "i": 1 }
+]
+```
+
+-->
+
+```json
+[
+  { "t": ["a"], "i": 0 },
+  { "t": ["b", "c", "d"], "i": 1 }
+]
+```
+
+-->
+
+```json
+[{ "t": [" b", "ac", " d"], "i": 0 }]
+```
+
 - it's like the dependencies!
   - when a node is resolved it no longer needs its children and it's ready to be added to its parent until it's resolved in turn
   - also once it's resolved it knows its own size (height)
