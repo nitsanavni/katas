@@ -29,6 +29,23 @@ def enum: .;
 def get:
     reduce (.p|.[]) as $p (.m; if isarray then .[$p] else (.children//empty)[$p] end);
 
+def update(path; value):
+    if path | length == 0 then .
+    elif path | length == 1 then .[path[0]] = value
+    elif path | length == 2 then .[path[0]][path[1]] = value
+    elif path | length == 3 then .[path[0]][path[1]][path[2]] = value
+    elif path | length == 4 then .[path[0]][path[1]][path[2]][path[3]] = value
+    elif path | length == 5 then .[path[0]][path[1]][path[2]][path[3]][path[4]] = value
+    elif path | length == 6 then .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]] = value
+    elif path | length == 7 then .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]][path[6]] = value
+    elif path | length == 8 then .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]][path[6]][path[7]] = value
+    elif path | length == 9 then
+    .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]][path[6]][path[7]][path[8]] = value
+    elif path | length == 10 then
+    .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]][path[6]][path[7]][path[8]][path[9]] = value
+    else error("set: path too long")
+    end;
+
 def resolvable:
     get | has("children") | not;
 
@@ -56,5 +73,6 @@ elif $method == "enum" then enum
 elif $method == "resolve_one" then resolve_one
 elif $method == "get" then get
 elif $method == "resolvable" then resolvable
+elif $method == "update" then update($arg|fromjson|.path; $arg|fromjson|.value)
 else error("unrecognized method arg")
 end
