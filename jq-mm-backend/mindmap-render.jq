@@ -54,7 +54,7 @@ def resolve_one:
     {m:.,p:[0]}|recurse(.;false);
 
 def diff:
-    . as $i | range(.|length|.-1) | $i[.+1] - $i[.];
+    length as $ll | [.,[]]|[recurse((.[1]|length) as $l | .[1]=.[1]+[.[0][$l+1-$ll]-.[0][$l]];$ll-(.[1]|length)>0)]|.[-1][1][];
 
 def render:
     [
