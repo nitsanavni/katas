@@ -1,4 +1,4 @@
-# generate an `n` `.`'s
+# generate `n` `.`'s
 def times(n): . as $x | range(n) | $x;
 
 # generate an string containing `n` spaces
@@ -35,7 +35,7 @@ def pairs:
             (.[] | select(.di < 0) | .i),
             (.[] | select(.i == ($l-1) and .indent >= 0) | .i | .+1)
         ) | [.-2, .-1]
-    ) as $ipairs | [.[$ipairs[0],$ipairs[1]]];
+    ) as $ipairs | [.[$ipairs[0], $ipairs[1]]];
 
 def arrify: if isarray then . else [.] end;
 
@@ -89,10 +89,9 @@ def combine_parent_child:
     };
 
 def render_pair:
-    if .[1].di == 0
-    then combine_two_children
-    else combine_parent_child
-    end;
+    if .[1].di == 0 then combine_two_children
+    elif .[1].di == 1 then combine_parent_child
+    else error("unexpected di: " + (.[1].di | tostring)) end;
 
 def render_pairs:
     if isarray and length > 1 then
