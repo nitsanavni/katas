@@ -50,7 +50,11 @@ def tpad:
     (.[1] | length) as $l | .[0]=([""|times($l | parent_position | . - 1)])+.[0];
 
 def combine_parent_child:
-    { text: [.[].text | arrify] | tpad | cat, indent: .[0].indent, i: .[0].i };
+    {
+        text: [.[].text | arrify] | tpad | cat,
+        indent: .[0].indent,
+        i: .[0].i
+    };
 
 def render_pair:
     if .[1].di == 0
@@ -64,7 +68,7 @@ def render_pairs:
     else null end;
 
 def render:
-    [recurse(render_pairs;isarray)]| .[-1][0].text | arrify | .[];
+    [recurse(render_pairs;isarray)] | .[-1][0].text | arrify | .[];
 
 # route input to method per cli arg
 # provided using e.g.:
