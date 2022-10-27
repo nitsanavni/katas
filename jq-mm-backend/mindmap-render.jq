@@ -56,14 +56,14 @@ def resolve_one:
 def diff:
     . as $i | range(.|length|.-1) | $i[.+1] - $i[.];
 
+# indentation differential
+def di:
+    if length != 0 then
+    [(map(.indent)|[({di:1}),(diff|{di:.})]),.]|transpose|map(add)
+    else . end;
+
 def render:
-    [
-        map(select(.indent==0)|.text),
-        map(select(.indent==1)|.text),
-        map(select(.indent==2)|.text)
-    ] |
-    cat3 |
-    .[];
+    di|di;
 
 # route input to method per cli arg
 # provided using e.g.:
