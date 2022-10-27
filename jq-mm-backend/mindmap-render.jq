@@ -58,13 +58,13 @@ def single_child_connector:
     .[] | (. / 2 | ceil - 1) as $position | [""|times($position), "─"];
 
 def first_child_connector:
-    . as $s | ($s / 2 | ceil - 1) as $position | [(""|times($position)), ("┌"), ("│"|times($s - $position - 1))];
+    . as $s | ($s / 2 | ceil - 1) as $position | [(""|times($position)), ("╭"), ("│"|times($s - $position - 1))];
 
 def middle_connector:
     . as $s | ($s / 2 | ceil - 1) as $position | [("│"|times($position)), ("├"), ("│"|times($s - $position - 1))];
 
 def last_child_connector:
-    . as $s | ($s / 2 | ceil - 1) as $position | [("│"|times($position)), ("└")];
+    . as $s | ($s / 2 | ceil - 1) as $position | [("│"|times($position)), ("╰")];
 
 #  ├ ┌ │ ─ ┬ └ ┼ ┤
 def connectors:
@@ -77,7 +77,7 @@ def connectors:
             (.[-1]|last_child_connector)
         ] |
         add |
-        .[$left]=({ "┌": "┬", "│": "┤", "├": "┼"}[.[$left]])
+        .[$left]=({ "╭": "┬", "│": "┤", "├": "┼", "╰": "┴"}[.[$left]])
     end;
 
 def combine_parent_child:
