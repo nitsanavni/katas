@@ -117,5 +117,17 @@
       [2, 2, 2],
       [3, 3, 3]
     ]
+  },
+  {
+    "todo": true,
+    "test": "selected node - the cursor for navigation mode"
+  },
+  {
+    "todo": true,
+    "test": "focus on node (render starting diff. root)"
+  },
+  {
+    "todo": true,
+    "test": "collapse node - do not display descendants"
   }
 ]

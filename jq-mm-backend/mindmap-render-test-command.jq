@@ -1,7 +1,7 @@
 (map(select(.focus))) as $focus |
 if ($focus | length > 0) then $focus else . end |
 .[] |
-if .skip
+if .skip or .todo or .wip
 then
     ["echo 'skipped: ", (.test), "'"]
 else

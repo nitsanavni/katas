@@ -25,7 +25,7 @@ def diff: . as $i | range(. | length | .-1) | $i[.+1] - $i[.];
 def di:
     length as $l |
     if $l > 0 then
-    [(map(.indent)|[({di:1}),(diff|{di:.})]),.,([range($l)|{i:.}])]|transpose|map(add)
+    [(map(.indent) | [({ di: 1 }), (diff | { di: . })]), ., ([range($l) | { i: . }])] | transpose | map(add)
     else . end;
 
 def pairs:
@@ -52,16 +52,16 @@ def parent_position:
 
 # top-pad a multiline string
 def tpad:
-    (.[1] | length) as $l | .[0]=([""|times($l | parent_position | . - 1)])+.[0];
+    (.[1] | length) as $l | .[0]=(["" | times($l | parent_position | . - 1)]) + .[0];
 
 def single_child_connector:
-    .[] | (. / 2 | ceil - 1) as $position | [""|times($position), "─"];
+    .[] | (. / 2 | ceil - 1) as $position | ["" | times($position), "─"];
 
 def first_child_connector:
-    . as $s | ($s / 2 | ceil - 1) as $position | [(""|times($position)), ("╭"), ("│"|times($s - $position - 1))];
+    . as $s | ($s / 2 | ceil - 1) as $position | [("" | times($position)), ("╭"), ("│" | times($s - $position - 1))];
 
 def middle_connector:
-    . as $s | ($s / 2 | ceil - 1) as $position | [("│"|times($position)), ("├"), ("│"|times($s - $position - 1))];
+    . as $s | ($s / 2 | ceil - 1) as $position | [("│" | times($position)), ("├"), ("│" | times($s - $position - 1))];
 
 def last_child_connector:
     . as $s | ($s / 2 | ceil - 1) as $position | [("│"|times($position)), ("╰")];
@@ -72,12 +72,12 @@ def connectors:
     if $l == 1 then single_child_connector else
         (add / 2 | ceil - 1) as $left |
         [
-            (.[0]|first_child_connector),
-            (if $l > 2 then (.[1:-1] | map(middle_connector)) |.[] else empty end),
-            (.[-1]|last_child_connector)
+            (.[0] | first_child_connector),
+            (if $l > 2 then (.[1:-1] | map(middle_connector)) | .[] else empty end),
+            (.[-1] | last_child_connector)
         ] |
         add |
-        .[$left]=({ "╭": "┬", "│": "┤", "├": "┼", "╰": "┴"}[.[$left]])
+        .[$left]=({ "╭": "┬", "│": "┤", "├": "┼", "╰": "┴" }[.[$left]])
     end;
 
 def combine_parent_child:
