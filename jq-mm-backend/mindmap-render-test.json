@@ -64,15 +64,6 @@
     "arg": 12
   },
   {
-    "method": "cat3",
-    "test": "cat3: three blocks",
-    "model": [
-      ["eeeee", "ffffff"],
-      ["ccc", "dddd"],
-      ["a", "bb"]
-    ]
-  },
-  {
     "method": "render",
     "test": "render: larger tree",
     "model": [
@@ -90,118 +81,6 @@
       { "text": ";ccc22", "indent": 2 },
       { "text": ";ccc333", "indent": 2 }
     ]
-  },
-  {
-    "skip": true,
-    "method": "resolve_one",
-    "test": "resolve_one",
-    "input": [
-      { "text": "a", "indent": 0, "children": [{ "text": "b", "indent": 1 }] }
-    ]
-  },
-  {
-    "method": "get",
-    "test": "get: [0]",
-    "input": {
-      "m": [
-        { "text": "a", "indent": 0, "children": [{ "text": "b", "indent": 1 }] }
-      ],
-      "p": [0]
-    }
-  },
-  {
-    "method": "get",
-    "test": "get: [0,0]",
-    "input": {
-      "m": [
-        { "text": "a", "indent": 0, "children": [{ "text": "b", "indent": 1 }] }
-      ],
-      "p": [0, 0]
-    }
-  },
-  {
-    "method": "get",
-    "test": "get: [0,1,0]",
-    "input": {
-      "m": [
-        {
-          "text": "a",
-          "indent": 0,
-          "children": [
-            { "text": "b", "indent": 1 },
-            {
-              "text": "c",
-              "indent": 1,
-              "children": [
-                { "text": "d", "indent": 2 },
-                { "text": "e", "indent": 2 }
-              ]
-            },
-            { "text": "f", "indent": 1 }
-          ]
-        }
-      ],
-      "p": [0, 1, 0]
-    }
-  },
-  {
-    "method": "get",
-    "test": "get: [0,0,0] - empty",
-    "input": {
-      "m": [
-        {
-          "text": "a",
-          "indent": 0,
-          "children": [
-            { "text": "b", "indent": 1 },
-            {
-              "text": "c",
-              "indent": 1,
-              "children": [
-                { "text": "d", "indent": 2 },
-                { "text": "e", "indent": 2 }
-              ]
-            },
-            { "text": "f", "indent": 1 }
-          ]
-        }
-      ],
-      "p": [0, 0, 0]
-    }
-  },
-  {
-    "method": "resolvable",
-    "test": "resolvable: has children: no",
-    "input": {
-      "m": [
-        {
-          "text": "a",
-          "indent": 0,
-          "children": [{ "text": "b", "indent": 1 }]
-        }
-      ],
-      "p": [0]
-    }
-  },
-  {
-    "method": "resolvable",
-    "test": "resolvable: no children: yes",
-    "input": {
-      "m": [
-        {
-          "text": "a",
-          "indent": 0,
-          "children": [{ "text": "b", "indent": 1 }]
-        }
-      ],
-      "p": [0, 0]
-    }
-  },
-  {
-    "method": "update",
-    "test": "update: deep C",
-    "input": [{ "a": { "b": [{ "c": 0 }] } }],
-    "arg": { "path": [0, "a", "b", 0, "c"], "value": 7 }
   },
   {
     "method": "diff",

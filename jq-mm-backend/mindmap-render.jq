@@ -18,52 +18,53 @@ def cat:
     transpose |
     map(.[0]=(.[0]|rpad($p)) | join(""));
 
-# concatenate three multi-line strings
-def cat3: [(.[0:2]|cat),.[2]]|cat;
-
-# enumerate items in an array
-def enum: .;
-
-# .m is a hierarchical outline, .p is an array of indices e.g. `[0,2,1]`
-# returns `empty` if not found
-def get:
-    reduce (.p|.[]) as $p (.m; if isarray then .[$p] else (.children//empty)[$p] end);
-
-def update(path; value):
-    if path | length == 0 then .
-    elif path | length == 1 then .[path[0]] = value
-    elif path | length == 2 then .[path[0]][path[1]] = value
-    elif path | length == 3 then .[path[0]][path[1]][path[2]] = value
-    elif path | length == 4 then .[path[0]][path[1]][path[2]][path[3]] = value
-    elif path | length == 5 then .[path[0]][path[1]][path[2]][path[3]][path[4]] = value
-    elif path | length == 6 then .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]] = value
-    elif path | length == 7 then .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]][path[6]] = value
-    elif path | length == 8 then .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]][path[6]][path[7]] = value
-    elif path | length == 9 then
-    .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]][path[6]][path[7]][path[8]] = value
-    elif path | length == 10 then
-    .[path[0]][path[1]][path[2]][path[3]][path[4]][path[5]][path[6]][path[7]][path[8]][path[9]] = value
-    else error("set: path too long")
-    end;
-
-def resolvable:
-    get | has("children") | not;
-
-# given an hiearchical json representing an outline as input, resolve (render) one node
-def resolve_one:
-    {m:.,p:[0]}|recurse(.;false);
-
-def diff:
-    . as $i | range(.|length|.-1) | $i[.+1] - $i[.];
+# differential
+def diff: . as $i | range(. | length | .-1) | $i[.+1] - $i[.];
 
 # indentation differential
 def di:
-    if length != 0 then
-    [(map(.indent)|[({di:1}),(diff|{di:.})]),.]|transpose|map(add)
+    length as $l |
+    if $l > 0 then
+    [(map(.indent)|[({di:1}),(diff|{di:.})]),.,([range($l)|{i:.}])]|transpose|map(add)
     else . end;
 
+def pairs:
+    length as $l |
+    (
+        (
+            (.[] | select(.di < 0) | .i),
+            (.[] | select(.i == ($l-1) and .indent >= 0) | .i | .+1)
+        ) | [.-2, .-1]
+    ) as $ipairs | [.[$ipairs[0],$ipairs[1]]];
+
+def arrify: if isarray then . else [.] end;
+
+def combine_two_children:
+    { text: [.[].text | arrify] | add, indent: .[0].indent, i: .[0].i };
+
+def parent_position:
+    length / 2 | ceil;
+
+# top-pad a multiline string
+def tpad:
+    (.[1] | length) as $l | .[0]=([""|times($l | parent_position | . - 1)])+.[0];
+
+def combine_parent_child:
+    { text: [.[].text | arrify] | tpad | cat, indent: .[0].indent, i: .[0].i };
+
+def render_pair:
+    if .[1].di == 0
+    then combine_two_children
+    else combine_parent_child
+    end;
+
+def render_pairs:
+    if isarray and length > 1 then
+    di | reduce (pairs | render_pair) as $p (.; .[$p.i] = $p | .[$p.i+1]=null) | map(select(.))
+    else null end;
+
 def render:
-    di|di;
+    [recurse(render_pairs;isarray)]| .[-1][0].text | arrify | .[];
 
 # route input to method per cli arg
 # provided using e.g.:
@@ -71,12 +72,6 @@ def render:
 if $method == "render" then render
 elif $method == "cat" then cat
 elif $method == "rpad" then rpad($arg|tonumber)
-elif $method == "cat3" then cat3
-elif $method == "enum" then enum
-elif $method == "resolve_one" then resolve_one
-elif $method == "get" then get
-elif $method == "resolvable" then resolvable
-elif $method == "update" then update($arg|fromjson|.path; $arg|fromjson|.value)
 elif $method == "diff" then diff
 else error("unrecognized method arg")
 end
