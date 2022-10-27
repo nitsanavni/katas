@@ -1,3 +1,5 @@
+(map(select(.focus))) as $focus |
+if ($focus | length > 0) then $focus else . end |
 .[] |
 if .skip
 then

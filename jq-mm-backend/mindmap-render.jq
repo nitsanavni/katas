@@ -40,18 +40,50 @@ def pairs:
 def arrify: if isarray then . else [.] end;
 
 def combine_two_children:
-    { text: [.[].text | arrify] | add, indent: .[0].indent, i: .[0].i };
+    {
+        text: [.[].text | arrify] | add,
+        indent: .[0].indent,
+        i: .[0].i,
+        sizes: [.[0].text | arrify | length] + (.[1].sizes//[.[1].text | arrify | length])
+    };
 
 def parent_position:
-    length / 2 | ceil;
+    . / 2 | ceil;
 
 # top-pad a multiline string
 def tpad:
     (.[1] | length) as $l | .[0]=([""|times($l | parent_position | . - 1)])+.[0];
 
+def single_child_connector:
+    .[] | (. / 2 | ceil - 1) as $position | [""|times($position), "─"];
+
+def first_child_connector:
+    . as $s | ($s / 2 | ceil - 1) as $position | [(""|times($position)), ("┌"), ("│"|times($s - $position - 1))];
+
+def middle_connector:
+    . as $s | ($s / 2 | ceil - 1) as $position | [("│"|times($position)), ("├"), ("│"|times($s - $position - 1))];
+
+def last_child_connector:
+    . as $s | ($s / 2 | ceil - 1) as $position | [("│"|times($position)), ("└")];
+
+#  ├ ┌ │ ─ ┬ └ ┼ ┤
+def connectors:
+    length as $l |
+    if $l == 1 then single_child_connector else
+        (add / 2 | ceil - 1) as $left |
+        [
+            (.[0]|first_child_connector),
+            (if $l > 2 then (.[1:-1] | map(middle_connector)) |.[] else empty end),
+            (.[-1]|last_child_connector)
+        ] |
+        add |
+        .[$left]=({ "┌": "┬", "│": "┤", "├": "┼"}[.[$left]])
+    end;
+
 def combine_parent_child:
+    (.[1].sizes // [1] | connectors) as $c |
     {
-        text: [.[].text | arrify] | tpad | cat,
+        text: ([.[].text | arrify] | tpad) | [.[0], ([$c, .[1]] | cat)] | cat,
         indent: .[0].indent,
         i: .[0].i
     };
@@ -67,8 +99,13 @@ def render_pairs:
     di | reduce (pairs | render_pair) as $p (.; .[$p.i] = $p | .[$p.i+1]=null) | map(select(.))
     else null end;
 
+def test_connectors:
+    .[] | ., connectors | tojson;
+
+def unarrify: arrify | .[];
+
 def render:
-    [recurse(render_pairs;isarray)] | .[-1][0].text | arrify | .[];
+    [recurse(render_pairs;isarray)] | .[-1][].text | unarrify;
 
 # route input to method per cli arg
 # provided using e.g.:
@@ -77,5 +114,7 @@ if $method == "render" then render
 elif $method == "cat" then cat
 elif $method == "rpad" then rpad($arg|tonumber)
 elif $method == "diff" then diff
+elif $method == "connectors" then connectors
+elif $method == "test_connectors" then test_connectors
 else error("unrecognized method arg")
 end

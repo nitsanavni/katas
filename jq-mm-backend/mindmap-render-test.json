@@ -24,6 +24,16 @@
     ]
   },
   {
+    "method": "render",
+    "test": "two grandchildren",
+    "model": [
+      { "text": "parent", "indent": 0 },
+      { "text": "child", "indent": 1 },
+      { "text": "grandchild 1", "indent": 2 },
+      { "text": "grandchild 2", "indent": 2 }
+    ]
+  },
+  {
     "test": "two children",
     "model": [
       { "text": "parent", "indent": 0 },
@@ -67,24 +77,45 @@
     "method": "render",
     "test": "render: larger tree",
     "model": [
-      { "text": ";0", "indent": 0 },
-      { "text": ";a", "indent": 1 },
-      { "text": ";a1", "indent": 2 },
-      { "text": ";a22", "indent": 2 },
-      { "text": ";a333", "indent": 2 },
-      { "text": ";bb", "indent": 1 },
-      { "text": ";bb1", "indent": 2 },
-      { "text": ";bb22", "indent": 2 },
-      { "text": ";bb333", "indent": 2 },
-      { "text": ";ccc", "indent": 1 },
-      { "text": ";ccc1", "indent": 2 },
-      { "text": ";ccc22", "indent": 2 },
-      { "text": ";ccc333", "indent": 2 }
+      { "text": "0", "indent": 0 },
+      { "text": "a", "indent": 1 },
+      { "text": "a1", "indent": 2 },
+      { "text": "a22", "indent": 2 },
+      { "text": "a333", "indent": 2 },
+      { "text": "bb", "indent": 1 },
+      { "text": "bb1", "indent": 2 },
+      { "text": "bb22", "indent": 2 },
+      { "text": "bb333", "indent": 2 },
+      { "text": "ccc", "indent": 1 },
+      { "text": "ccc1", "indent": 2 },
+      { "text": "ccc22", "indent": 2 },
+      { "text": "ccc333", "indent": 2 }
     ]
   },
   {
     "method": "diff",
     "test": "diff: differential of indentations",
     "input": [0, 1, 2, 2, 2, 2, 3, 1, 2, 2, 2, 1, 2, 1, 1, 1, 2, 3, 4, 1]
+  },
+  {
+    "method": "connectors",
+    "test": "connectors([1])",
+    "input": [1]
+  },
+  {
+    "method": "test_connectors",
+    "test": "connectors",
+    "input": [
+      [1],
+      [2],
+      [3],
+      [4],
+      [5],
+      [1, 1],
+      [1, 1, 1],
+      [2, 2],
+      [2, 2, 2],
+      [3, 3, 3]
+    ]
   }
 ]

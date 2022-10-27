@@ -1,0 +1,2 @@
+parent─child┬grandchild 1
+            └grandchild 2
