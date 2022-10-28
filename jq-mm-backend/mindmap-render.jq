@@ -7,8 +7,7 @@ def spaces(n): [" " | times(n)] | join("");
 # right-pad a string with spaces up to size `n`
 def rpad(n):
     .//"" | tostring |
-    length as $l |
-    if $l >= n then . else . + spaces(n - $l) end;
+    length as $l | . + spaces(n - $l);
 
 # concatenate two multi-line strings
 # each multi-line string is represented as an array of single line strings
