@@ -95,7 +95,7 @@ def render_pair:
 
 def render_pairs:
     if isarray and length > 1 then
-    di | reduce (pairs | render_pair) as $p (.; .[$p.i] = $p | .[$p.i+1]=null) | map(select(.))
+    di | reduce (pairs | render_pair) as $p (.; .[$p.i] = $p | .[$p.i+1] = null) | map(select(.))
     else null end;
 
 def test_connectors:
@@ -104,7 +104,7 @@ def test_connectors:
 def unarrify: arrify | .[];
 
 def render:
-    [recurse(render_pairs;isarray)] | .[-1][].text | unarrify;
+    [recurse(render_pairs; isarray)] | .[-1][].text | unarrify;
 
 # route input to method per cli arg
 # provided using e.g.:
