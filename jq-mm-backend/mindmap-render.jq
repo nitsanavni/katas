@@ -1,8 +1,8 @@
 # generate `n` `.`'s
-def times(n): . as $x | range(n) | $x;
+def times(n): if n <=0 then empty else [.] | . as $x | [recurse(.+$x; length <= n)] | .[-1][] end;
 
 # generate an string containing `n` spaces
-def spaces(n): [" " | times(n)] | join("");
+def spaces(n): [" " | times(n)] | add;
 
 # right-pad a string with spaces up to size `n`
 def rpad(n):
