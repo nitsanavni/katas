@@ -1,5 +1,9 @@
 # generate `n` `.`'s
-def times(n): if n <=0 then empty else [.] | . as $x | [recurse(.+$x; length <= n)] | .[-1][] end;
+def times(n):
+    if n <= 0
+    then empty
+    else [.] | . as $x | [recurse(. + $x; length <= n)] | .[-1][]
+    end;
 
 # generate an string containing `n` spaces
 def spaces(n): [" " | times(n)] | add;
