@@ -1,6 +1,10 @@
 FROM gitpod/workspace-full
 
+RUN brew tap \
+        oven-sh/bun
+
 RUN brew install \
+        bun \
         fzf \
         ack \
         entr \
