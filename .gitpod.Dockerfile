@@ -5,10 +5,7 @@ RUN brew install \
         fzf \
         ack \
         entr \
-        parallel \
         ttyd
-
-RUN echo 'will cite' | parallel --citation 1> /dev/null 2> /dev/null &
 
 RUN pip install \
         approvaltests \
@@ -16,3 +13,6 @@ RUN pip install \
 
 RUN cargo install \
         jaq
+
+RUN go install \
+        github.com/shenwei356/rush@latest
