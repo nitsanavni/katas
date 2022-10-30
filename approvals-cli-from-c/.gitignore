@@ -1,3 +1,4 @@
 doctest.h
 *.o
 test
+*.received.*
