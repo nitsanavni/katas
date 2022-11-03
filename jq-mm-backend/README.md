@@ -56,7 +56,7 @@ $ jaq -rf outline.jq model.json
 ### Run the Tests
 
 ```sh
-jaq -rf mindmap-render-test-command.jq mindmap-render-test.json | parallel -j 5
+jaq -rf mindmap-render-test-command.jq mindmap-render-test.json | rush {}
 ```
 
 ### Thoughts
