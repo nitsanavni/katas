@@ -9,5 +9,10 @@
     "test": "gol: single dead cell remains dead",
     "method": "gol",
     "input": ["gen 12", "1 1", "."]
+  },
+  {
+    "test": "gol: single live cell dies",
+    "method": "gol",
+    "input": ["gen 13", "1 1", "*"]
   }
 ]
