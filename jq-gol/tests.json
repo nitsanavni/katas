@@ -4,5 +4,10 @@
     "test": "gol: example from codingdojo.org",
     "method": "gol",
     "input": ["gen 13", "4 8", "........", "....*...", "...**...", "........"]
+  },
+  {
+    "test": "gol: single dead cell remains dead",
+    "method": "gol",
+    "input": ["gen 12", "1 1", "."]
   }
 ]
