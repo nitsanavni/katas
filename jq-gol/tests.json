@@ -25,5 +25,10 @@
     "test": "count_living_neighbor_cells: single cell",
     "method": "count_living_neighbor_cells",
     "input": ["*"]
+  },
+  {
+    "test": "count_living_neighbor_cells: two cells",
+    "method": "count_living_neighbor_cells",
+    "input": ["**"]
   }
 ]
