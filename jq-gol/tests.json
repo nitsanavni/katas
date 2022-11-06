@@ -16,8 +16,14 @@
     "input": ["gen 13", "1 1", "*"]
   },
   {
+    "skip": true,
     "test": "gol: still life: block",
     "method": "gol",
     "input": ["gen 15", "2 2", "**", "**"]
+  },
+  {
+    "test": "count_neighbors: single cell",
+    "method": "count_neighbors",
+    "input": ["*"]
   }
 ]

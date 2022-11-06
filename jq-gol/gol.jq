@@ -11,4 +11,12 @@ def kill_cell:
 def kill_all_cells_in_row:
     split("") | map(kill_cell) | join("");
 
-increment_generation_number | .[2] = (.[2] | kill_all_cells_in_row)
+def gol:
+    increment_generation_number | .[2] = (.[2] | kill_all_cells_in_row);
+
+def count_neighbors: .;
+
+if $method == "gol" then gol
+elif $method == "count_neighbors" then count_neighbors
+else error("unknown method: " + $method)
+end
