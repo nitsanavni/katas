@@ -22,8 +22,8 @@
     "input": ["gen 15", "2 2", "**", "**"]
   },
   {
-    "test": "count_neighbors: single cell",
-    "method": "count_neighbors",
+    "test": "count_living_neighbor_cells: single cell",
+    "method": "count_living_neighbor_cells",
     "input": ["*"]
   }
 ]
