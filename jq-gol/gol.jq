@@ -5,4 +5,10 @@ def increment_generation_number:
             (.[1] =
                 (.[1] | tonumber | .+1 | tostring)) | join(" "));
 
-increment_generation_number | .[2] = (.[2] | split("") | map(".") | join(""))
+def kill_cell:
+    ".";
+
+def kill_all_cells_in_row:
+    split("") | map(kill_cell) | join("");
+
+increment_generation_number | .[2] = (.[2] | kill_all_cells_in_row)
