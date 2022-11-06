@@ -14,7 +14,7 @@ def kill_all_cells_in_row:
 def gol:
     increment_generation_number | .[2] = (.[2] | kill_all_cells_in_row);
 
-def count_neighbors: .;
+def count_neighbors: map(0);
 
 if $method == "gol" then gol
 elif $method == "count_neighbors" then count_neighbors
