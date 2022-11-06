@@ -22,11 +22,13 @@
     "input": ["gen 15", "2 2", "**", "**"]
   },
   {
+    "skip": true,
     "test": "count_living_neighbor_cells: single cell",
     "method": "count_living_neighbor_cells",
     "input": ["*"]
   },
   {
+    "skip": true,
     "test": "count_living_neighbor_cells: two cells",
     "method": "count_living_neighbor_cells",
     "input": ["**"]
