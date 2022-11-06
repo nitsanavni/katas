@@ -5,4 +5,4 @@ def increment_generation_number:
             (.[1] =
                 (.[1] | tonumber | .+1 | tostring)) | join(" "));
 
-increment_generation_number
+increment_generation_number | .[2] = "."
