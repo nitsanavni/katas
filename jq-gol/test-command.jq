@@ -1,0 +1,1 @@
+["jaq -n '", (.input|tojson), "' | jaq -f gol.jq | python -m approvaltests -t '", .test ,"'"] | add

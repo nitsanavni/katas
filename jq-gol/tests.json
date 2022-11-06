@@ -1,0 +1,7 @@
+[
+  {
+    "test": "gol: example from codingdojo.org",
+    "method": "gol",
+    "input": ["gen 13", "4 8", "........", "....*...", "...**...", "........"]
+  }
+]

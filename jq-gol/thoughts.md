@@ -1,0 +1,9 @@
+- GOL: inputs and output
+- recurse, where output gets fed back as input
+- can have a similar structure as done before:
+  - `method` - test some method
+  - `input` - the input to the method
+  - `skip`, `focus`
+  - tests.json, test-command.jq
+  - each test in the tests.json, gets transformed to a command, allowing to run a specific method from cli
+  - think about using fzf!
