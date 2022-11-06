@@ -22,7 +22,7 @@
     "input": ["gen 15", "2 2", "**", "**"]
   },
   {
-    "test": "rules_of_gol: cell with zero neighbors should die",
+    "test": "rules_of_gol: underpopulation. cell with zero neighbors should die",
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 0,
@@ -30,10 +30,26 @@
     }
   },
   {
+    "test": "rules_of_gol: dead cell with zero neighbors stays dead",
+    "method": "rules_of_gol",
+    "input": {
+      "number_of_living_neighbors": 0,
+      "cell_alive": false
+    }
+  },
+  {
     "test": "rules_of_gol: live cell with 2 neighbours lives on",
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 2,
+      "cell_alive": true
+    }
+  },
+  {
+    "test": "rules_of_gol: live cell with 3 neighbours lives on",
+    "method": "rules_of_gol",
+    "input": {
+      "number_of_living_neighbors": 3,
       "cell_alive": true
     }
   },
@@ -51,6 +67,14 @@
     "input": {
       "number_of_living_neighbors": 3,
       "cell_alive": false
+    }
+  },
+  {
+    "test": "rules_of_gol: live cell with 4 neighbours dies",
+    "method": "rules_of_gol",
+    "input": {
+      "number_of_living_neighbors": 4,
+      "cell_alive": true
     }
   }
 ]

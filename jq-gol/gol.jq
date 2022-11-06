@@ -14,9 +14,26 @@ def kill_all_cells_in_row:
 def gol:
     increment_generation_number | .[2] = (.[2] | kill_all_cells_in_row);
 
+def underpopulation:
+    .number_of_living_neighbors < 2;
+
+def overcrowding:
+    .number_of_living_neighbors > 3;
+
+
+def dead:
+    false;
+
+def alive:
+    true;
+
 def rules_of_gol:
-    if .cell_alive then .number_of_living_neighbors == 2
+    if .cell_alive then 
+        if underpopulation or overcrowding then dead 
+        else alive
+        end
     else .number_of_living_neighbors == 3 end;
+
 
 if $method == "gol" then gol
 elif $method == "rules_of_gol" then rules_of_gol
