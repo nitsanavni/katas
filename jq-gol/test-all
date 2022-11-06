@@ -1,0 +1,1 @@
+jaq <tests.json '.[]' | jaq -rf test-command.jq | rush {}
