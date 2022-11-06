@@ -20,6 +20,12 @@ def underpopulation:
 def overcrowding:
     .number_of_living_neighbors > 3;
 
+def sustainable_population:
+    (underpopulation or overcrowding)|not;
+
+def dead_should_come_alive:
+    .number_of_living_neighbors == 3;
+
 
 def dead:
     false;
@@ -27,12 +33,18 @@ def dead:
 def alive:
     true;
 
-def rules_of_gol:
-    if .cell_alive then 
-        if underpopulation or overcrowding then dead 
-        else alive
-        end
-    else .number_of_living_neighbors == 3 end;
+def cell_is_alive:
+    .cell_aliveness == alive;
+
+def cell_is_dead:
+    .cell_aliveness == dead;
+
+
+def evolve_one_cell:
+    if (cell_is_alive and sustainable_population) or (cell_is_dead and dead_should_come_alive)
+        then alive
+        else dead
+        end;
 
 
 if $method == "gol" then gol

@@ -26,7 +26,7 @@
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 0,
-      "cell_alive": true
+      "cell_aliveness": true
     }
   },
   {
@@ -34,7 +34,7 @@
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 0,
-      "cell_alive": false
+      "cell_aliveness": false
     }
   },
   {
@@ -42,7 +42,7 @@
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 2,
-      "cell_alive": true
+      "cell_aliveness": true
     }
   },
   {
@@ -50,7 +50,7 @@
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 3,
-      "cell_alive": true
+      "cell_aliveness": true
     }
   },
   {
@@ -58,7 +58,7 @@
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 2,
-      "cell_alive": false
+      "cell_aliveness": false
     }
   },
   {
@@ -66,7 +66,7 @@
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 3,
-      "cell_alive": false
+      "cell_aliveness": false
     }
   },
   {
@@ -74,7 +74,7 @@
     "method": "rules_of_gol",
     "input": {
       "number_of_living_neighbors": 4,
-      "cell_alive": true
+      "cell_aliveness": true
     }
   }
 ]
