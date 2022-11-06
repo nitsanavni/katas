@@ -7,7 +7,7 @@ else
         (.input|tojson),
         "' | jaq --arg method ",
         (.method // "gol"),
-        " -f gol.jq | python -m approvaltests -t '",
+        " -rf gol.jq | python -m approvaltests -t '",
         .test,
         "'"
     ]

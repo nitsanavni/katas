@@ -26,12 +26,9 @@ def sustainable_population:
 def dead_should_come_alive:
     .number_of_living_neighbors == 3;
 
+def dead: ".";
 
-def dead:
-    false;
-
-def alive:
-    true;
+def alive: "*";
 
 def cell_is_alive:
     .cell_aliveness == alive;
@@ -40,7 +37,7 @@ def cell_is_dead:
     .cell_aliveness == dead;
 
 
-def evolve_one_cell:
+def rules_of_gol:
     if (cell_is_alive and sustainable_population) or (cell_is_dead and dead_should_come_alive)
         then alive
         else dead
