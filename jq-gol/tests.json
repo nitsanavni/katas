@@ -44,5 +44,13 @@
       "number_of_living_neighbors": 2,
       "cell_alive": false
     }
+  },
+  {
+    "test": "rules_of_gol: dead cell with 3 neighbours comes alive",
+    "method": "rules_of_gol",
+    "input": {
+      "number_of_living_neighbors": 3,
+      "cell_alive": false
+    }
   }
 ]

@@ -16,7 +16,7 @@ def gol:
 
 def rules_of_gol:
     if .cell_alive then .number_of_living_neighbors == 2
-    else false end;
+    else .number_of_living_neighbors == 3 end;
 
 if $method == "gol" then gol
 elif $method == "rules_of_gol" then rules_of_gol
