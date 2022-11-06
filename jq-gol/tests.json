@@ -16,8 +16,8 @@
     "input": ["gen 13", "1 1", "*"]
   },
   {
-    "test": "gol: two live cells die",
+    "test": "gol: still life: block",
     "method": "gol",
-    "input": ["gen 14", "1 2", "**"]
+    "input": ["gen 15", "2 2", "**", "**"]
   }
 ]
