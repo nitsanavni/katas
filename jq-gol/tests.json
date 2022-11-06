@@ -32,5 +32,10 @@
     "test": "count_living_neighbor_cells: two cells",
     "method": "count_living_neighbor_cells",
     "input": ["**"]
+  },
+  {
+    "test": "rules_of_gol: cell with zero neighbors should die",
+    "method": "rules_of_gol",
+    "input": 0
   }
 ]
