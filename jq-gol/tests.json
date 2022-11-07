@@ -81,5 +81,10 @@
     "test": "count_live_neighbours: block",
     "method": "count_live_neighbours",
     "input": ["**", "**"]
+  },
+  {
+    "test": "count_live_neighbours: blinker",
+    "method": "count_live_neighbours",
+    "input": ["...", "***", "..."]
   }
 ]

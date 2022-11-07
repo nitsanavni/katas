@@ -41,7 +41,26 @@ def rules_of_gol:
     else dead
     end;
 
-def count_live_neighbours: [[3, 3], [3, 3]];
+def flatten_and_add_coordinates:
+    map(split("")|to_entries|map({x:.key,v:.value}))|to_entries|map(.key as $y | .value | map({y:$y,x,v}))|add;
+
+def neighbours(w;h):
+    [
+        { x: .x - 1, y: .y - 1 },
+        { x: .x    , y: .y - 1 },
+        { x: .x + 1, y: .y - 1 },
+        { x: .x - 1, y: .y     },
+        { x: .x + 1, y: .y     },
+        { x: .x - 1, y: .y + 1 },
+        { x: .x    , y: .y + 1 },
+        { x: .x + 1, y: .y + 1 }
+    ] | map(select(.x >= 0 and .y >= 0 and .x < w and .y < h));
+
+def count_live_neighbours:
+    length as $h | (.[0] | length) as $w |
+    flatten_and_add_coordinates |
+    . as $grid |
+    map(neighbours($w;$h) | [$grid[.[]|.y * $w + .x]]);
 
 if $method == "gol" then gol
 elif $method == "rules_of_gol" then rules_of_gol
