@@ -41,7 +41,10 @@ def rules_of_gol:
     else dead
     end;
 
+def count_live_neighbours: [[3, 3], [3, 3]];
+
 if $method == "gol" then gol
 elif $method == "rules_of_gol" then rules_of_gol
+elif $method == "count_live_neighbours" then count_live_neighbours
 else error("unknown method: " + $method)
 end

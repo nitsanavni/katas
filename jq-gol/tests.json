@@ -76,5 +76,10 @@
       "number_of_living_neighbors": 4,
       "cell_aliveness": "*"
     }
+  },
+  {
+    "test": "count_live_neighbours: block",
+    "method": "count_live_neighbours",
+    "input": ["**", "**"]
   }
 ]
