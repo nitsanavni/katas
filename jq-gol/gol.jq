@@ -56,11 +56,13 @@ def neighbours(w;h):
         { x: .x + 1, y: .y + 1 }
     ] | map(select(.x >= 0 and .y >= 0 and .x < w and .y < h));
 
+def chunk(n): range(length / n | floor) as $i | .[n * $i:n * $i + n];
+
 def count_live_neighbours:
     length as $h | (.[0] | length) as $w |
     flatten_and_add_coordinates |
     . as $grid |
-    map(neighbours($w;$h) | [$grid[.[]|.y * $w + .x]]);
+    map(neighbours($w;$h) | [$grid[.[]|.y * $w + .x] | select(.v == alive)] | length) | [chunk($w)];
 
 if $method == "gol" then gol
 elif $method == "rules_of_gol" then rules_of_gol
