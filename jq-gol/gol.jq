@@ -14,35 +14,32 @@ def kill_all_cells_in_row:
 def gol:
     increment_generation_number | .[2] = (.[2] | kill_all_cells_in_row);
 
-def underpopulation:
-    .number_of_living_neighbors < 2;
+def underpopulation: .number_of_living_neighbors < 2;
 
-def overcrowding:
-    .number_of_living_neighbors > 3;
+def overcrowding: .number_of_living_neighbors > 3;
 
-def sustainable_population:
-    (underpopulation or overcrowding)|not;
+def sustainable_population: underpopulation or overcrowding | not;
 
-def dead_should_come_alive:
-    .number_of_living_neighbors == 3;
+def should_come_alive: .number_of_living_neighbors == 3;
 
 def dead: ".";
 
 def alive: "*";
 
-def cell_is_alive:
-    .cell_aliveness == alive;
+def cell_is_alive: .cell_aliveness == alive;
 
-def cell_is_dead:
-    .cell_aliveness == dead;
+def cell_is_dead: .cell_aliveness == dead;
 
+def should_be_alive:
+    (cell_is_alive and sustainable_population)
+    or
+    (cell_is_dead and should_come_alive);
 
 def rules_of_gol:
-    if (cell_is_alive and sustainable_population) or (cell_is_dead and dead_should_come_alive)
-        then alive
-        else dead
-        end;
-
+    if should_be_alive
+    then alive
+    else dead
+    end;
 
 if $method == "gol" then gol
 elif $method == "rules_of_gol" then rules_of_gol
