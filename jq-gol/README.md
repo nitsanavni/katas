@@ -11,3 +11,5 @@ https://codingdojo.org/kata/GameOfLife/
 ```bash
 ./magic-of-life
 ```
+
+[![asciicast](https://asciinema.org/a/SPJCEQKywaIKzs8pLXXqr0kOy.svg)](https://asciinema.org/a/SPJCEQKywaIKzs8pLXXqr0kOy)
