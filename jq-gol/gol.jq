@@ -11,9 +11,6 @@ def kill_cell:
 def kill_all_cells_in_row:
     split("") | map(kill_cell) | join("");
 
-def gol:
-    increment_generation_number | .[2] = (.[2] | kill_all_cells_in_row);
-
 def underpopulation: .number_of_living_neighbors < 2;
 
 def overcrowding: .number_of_living_neighbors > 3;
@@ -62,7 +59,10 @@ def count_live_neighbours:
     length as $h | (.[0] | length) as $w |
     flatten_and_add_coordinates |
     . as $grid |
-    map(neighbours($w;$h) | [$grid[.[]|.y * $w + .x] | select(.v == alive)] | length) | [chunk($w)];
+    map(.v as $v | neighbours($w;$h) | [$grid[.[]|.y * $w + .x] | select(.v == alive)] | {cell_aliveness: $v, number_of_living_neighbors: length}) | [chunk($w)];
+
+def gol:
+    increment_generation_number | .[2:] = (.[2:] | count_live_neighbours | map(map(rules_of_gol) | join("")));
 
 if $method == "gol" then gol
 elif $method == "rules_of_gol" then rules_of_gol

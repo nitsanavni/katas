@@ -1,17 +1,44 @@
 [
   [
-    2,
-    3,
-    2
+    {
+      "cell_aliveness": ".",
+      "number_of_living_neighbors": 2
+    },
+    {
+      "cell_aliveness": ".",
+      "number_of_living_neighbors": 3
+    },
+    {
+      "cell_aliveness": ".",
+      "number_of_living_neighbors": 2
+    }
   ],
   [
-    1,
-    2,
-    1
+    {
+      "cell_aliveness": "*",
+      "number_of_living_neighbors": 1
+    },
+    {
+      "cell_aliveness": "*",
+      "number_of_living_neighbors": 2
+    },
+    {
+      "cell_aliveness": "*",
+      "number_of_living_neighbors": 1
+    }
   ],
   [
-    2,
-    3,
-    2
+    {
+      "cell_aliveness": ".",
+      "number_of_living_neighbors": 2
+    },
+    {
+      "cell_aliveness": ".",
+      "number_of_living_neighbors": 3
+    },
+    {
+      "cell_aliveness": ".",
+      "number_of_living_neighbors": 2
+    }
   ]
 ]

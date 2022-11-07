@@ -1,10 +1,22 @@
 [
   [
-    3,
-    3
+    {
+      "cell_aliveness": "*",
+      "number_of_living_neighbors": 3
+    },
+    {
+      "cell_aliveness": "*",
+      "number_of_living_neighbors": 3
+    }
   ],
   [
-    3,
-    3
+    {
+      "cell_aliveness": "*",
+      "number_of_living_neighbors": 3
+    },
+    {
+      "cell_aliveness": "*",
+      "number_of_living_neighbors": 3
+    }
   ]
 ]

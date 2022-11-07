@@ -9,7 +9,7 @@ else
         (.method // "gol"),
         " -rf gol.jq) && python -m approvaltests -t '",
         .test,
-        "' -r \"$received\" || echo 'error in test: ", .test, "'"
+        "' -r \"$received\""
     ]
 end |
 add
