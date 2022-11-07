@@ -3,13 +3,13 @@ then
     ["echo 'skipped test: ", (.test|tojson), "'"]
 else
     [
-        "jaq -n '",
+        "received=$(jaq -n '",
         (.input|tojson),
         "' | jaq --arg method ",
         (.method // "gol"),
-        " -rf gol.jq | python -m approvaltests -t '",
+        " -rf gol.jq) && python -m approvaltests -t '",
         .test,
-        "'"
+        "' -r \"$received\" || echo 'error in test: ", .test, "'"
     ]
 end |
 add

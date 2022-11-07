@@ -1,3 +1,4 @@
+- test infra: don't verify if jaq errors
 - GOL: inputs and output
 - recurse, where output gets fed back as input
 - can have a similar structure as done before:
