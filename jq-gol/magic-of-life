@@ -1,1 +1,1 @@
-watch -n .5 'tmp=$(mktemp) && <frame.json jaq --arg method gol -f gol.jq >$tmp && mv $tmp frame.json && jaq <frame.json'
+watch -n .5 'tmp=$(mktemp) && <frame.json jaq --arg method gol -f gol.jq >$tmp && mv $tmp frame.json && jaq -r ".[]" <frame.json'
