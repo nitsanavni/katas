@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-jaq -i --arg date $(date +%s) '($date | tonumber) as $d | [{start: $d}]' .tdd.json
+touch .tdd.json
+jaq -ni --arg date $(date +%s) '($date | tonumber) as $d | [{start: $d}]' .tdd.json
