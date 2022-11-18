@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+ls fizzbuzz.jq fizzbuzz.approved.txt | entr -c /usr/bin/env bash -c "./test && ./green || ./red"
