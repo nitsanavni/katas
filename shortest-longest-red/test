@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+jaq -nf fizzbuzz.jq | python -m approvaltests -t fizzbuzz
