@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+jaq -i --arg date $(date +%s) '($date | tonumber) as $d | . + [{red: $d}]' .tdd.json
