@@ -1,0 +1,11 @@
+- there are additional events / time spent of intereset:
+  - waiting for the build
+  - build fail / pass
+  - waiting for the tests
+  - red / green
+  - revert
+- event logging could be achieved with git actually - each event gets a commit
+- file watcher makes it more accurate, and faster feedback
+- try fizzbuzz inside out / double loop
+- it can be extracted to a module (a cli app)
+- 
