@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+<.tdd.json jaq -f report.jq
