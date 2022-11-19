@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+jaq -r <.tdd.json 'map(to_entries|.[]|{event:.key,time:.value}| .event + "," + (.time|tostring))|.[]'
