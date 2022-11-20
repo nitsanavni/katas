@@ -20,10 +20,10 @@ ls * | entr sh -c "./test && ./green || ./red"
 
 ## Implementation Details
 
-- Use `jaq` to manipulate a json file logging the events: `green` / `red`
+- Use [`jaq`](https://github.com/01mf02/jaq) to manipulate a json file logging the events: `green` / `red`
 - Export the json to csv and plot using Google Sheets
 - Use `jaq` for the kata too, implementing [fizzbuzz](https://sammancoaching.org/kata_descriptions/fizzbuzz.html)
-- ApprovalTests cli as a testing mechanism
+- [ApprovalTests cli](https://github.com/approvals/ApprovalTests.Python#example-using-cli) as the testing mechanism
 
 ## Results
 
