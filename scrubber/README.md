@@ -2,7 +2,7 @@
 
 ## background
 
-A scrubber is a useful tool to normalize text, for example when using [approval tests](http://approvaltests.com/).
+A [scrubber](https://approvaltestscpp.readthedocs.io/en/latest/generated_docs/explanations/Scrubbers.html) is a useful tool to normalize text, for example when using [approval tests](http://approvaltests.com/).
 
 ## run the tests
 
