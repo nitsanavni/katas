@@ -1,1 +1,1 @@
-reduce .[] as $array (null; $array[] as $element | (. // []) + [$element]) // empty
+reduce .[] as $array (null; (. // []) + ($array[] | [.])) // empty
