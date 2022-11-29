@@ -1,0 +1,23 @@
+no input
+[]
+
+single empty input array
+[]
+
+single array with single item
+[
+  [
+    1
+  ]
+]
+
+single non-empty array
+[
+  [
+    1
+  ],
+  [
+    2
+  ]
+]
+
