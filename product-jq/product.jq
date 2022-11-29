@@ -8,3 +8,4 @@ def product_2:
 if length == 0 then empty else
     reduce .[] as $a ([]; [[.], $a] | product_2)
 end
+
