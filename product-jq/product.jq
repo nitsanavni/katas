@@ -1,1 +1,1 @@
-reduce .[] as $a (null; $a[] as $e | (.//[]) + [$e]) // empty
+reduce .[] as $a (null; $a[] as $e | (. // []) + [$e]) // empty
