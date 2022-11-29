@@ -14,5 +14,33 @@
     {
         "name": "single non-empty array",
         "input": [[1, 2]]
+    },
+    {
+        "name": "one array, more items",
+        "input": [[1, 2, 3]]
+    },
+    {
+        "name": "two arrays, one item",
+        "input": [[1], [2]]
+    },
+    {
+        "name": "two arrays, two items",
+        "input": [
+            [1, 2],
+            [3, 4]
+        ]
+    },
+    {
+        "name": "three arrays, one item",
+        "input": [[1], [2], [3]]
+    },
+    {
+        "name": "binary counter",
+        "input": [
+            [0, 1],
+            [0, 1],
+            [0, 1],
+            [0, 1]
+        ]
     }
 ]
