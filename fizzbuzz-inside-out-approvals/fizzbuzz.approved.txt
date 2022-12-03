@@ -6,3 +6,15 @@ of(4)(3): false
 of(4)(4): true
 of(4)(8): true
 
+"Fizz" | "" (code)
+code({d:4,code:"foo"})(4): "foo"
+code({d:4,code:"foo"})(5): ""
+code({d:4,code:"foo"})(8): "foo"
+code({d:4,code:"foo"})(9): ""
+code({d:4,code:"foo"})(12): "foo"
+code({d:3,code:"fizz"})(4): ""
+code({d:3,code:"fizz"})(5): ""
+code({d:3,code:"fizz"})(8): ""
+code({d:3,code:"fizz"})(9): "fizz"
+code({d:3,code:"fizz"})(12): "fizz"
+
