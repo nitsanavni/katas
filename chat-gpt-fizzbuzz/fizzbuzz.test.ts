@@ -14,8 +14,8 @@ test("returns false for non-multiples of 3", () => {
     expect(isMultipleOf(3)(8)).toBe(false);
 });
 
-const code = (obj: { d: number; code: string }) =>
-    and(isMultipleOf(obj.d), (x: number) => obj.code);
+const code = (obj: { d: number; code: string }) => (x: number) =>
+    (isMultipleOf(obj.d)(x) && obj.code) || "";
 describe("code", () => {
     test("returns the code for multiples of 3", () => {
         expect(code({ d: 3, code: "Fizz" })(3)).toBe("Fizz");
