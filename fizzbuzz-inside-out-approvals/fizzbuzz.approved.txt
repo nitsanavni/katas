@@ -18,3 +18,55 @@ code({d:3,code:"fizz"})(8): ""
 code({d:3,code:"fizz"})(9): "fizz"
 code({d:3,code:"fizz"})(12): "fizz"
 
+["Fizz" | "", "Buzz" | ""]
+arr([{"d":3,"code":"fizz"}])(3):
+["fizz"]
+arr([{"d":3,"code":"fizz"}])(4):
+[""]
+arr([{"d":3,"code":"fizz"}])(12):
+["fizz"]
+arr([{"d":4,"code":"foo"}])(3):
+[""]
+arr([{"d":4,"code":"foo"}])(4):
+["foo"]
+arr([{"d":4,"code":"foo"}])(12):
+["foo"]
+arr([{"d":3,"code":"fizz"},{"d":4,"code":"foo"}])(3):
+["fizz",""]
+arr([{"d":3,"code":"fizz"},{"d":4,"code":"foo"}])(4):
+["","foo"]
+arr([{"d":3,"code":"fizz"},{"d":4,"code":"foo"}])(12):
+["fizz","foo"]
+arr([{"d":4,"code":"foo"},{"d":3,"code":"fizz"}])(3):
+["","fizz"]
+arr([{"d":4,"code":"foo"},{"d":3,"code":"fizz"}])(4):
+["foo",""]
+arr([{"d":4,"code":"foo"},{"d":3,"code":"fizz"}])(12):
+["foo","fizz"]
+
+"" | "Fizz" | "Buzz" | "FizzBuzz"
+codes([{"d":3,"code":"fizz"}])(3):
+"fizz"
+codes([{"d":3,"code":"fizz"}])(4):
+""
+codes([{"d":3,"code":"fizz"}])(12):
+"fizz"
+codes([{"d":4,"code":"foo"}])(3):
+""
+codes([{"d":4,"code":"foo"}])(4):
+"foo"
+codes([{"d":4,"code":"foo"}])(12):
+"foo"
+codes([{"d":3,"code":"fizz"},{"d":4,"code":"foo"}])(3):
+"fizz"
+codes([{"d":3,"code":"fizz"},{"d":4,"code":"foo"}])(4):
+"foo"
+codes([{"d":3,"code":"fizz"},{"d":4,"code":"foo"}])(12):
+"fizzfoo"
+codes([{"d":4,"code":"foo"},{"d":3,"code":"fizz"}])(3):
+"fizz"
+codes([{"d":4,"code":"foo"},{"d":3,"code":"fizz"}])(4):
+"foo"
+codes([{"d":4,"code":"foo"},{"d":3,"code":"fizz"}])(12):
+"foofizz"
+

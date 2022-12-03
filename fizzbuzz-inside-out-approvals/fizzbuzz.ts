@@ -50,3 +50,59 @@ test('"Fizz" | "" (code)', () => {
         )
         .join("\n");
 });
+
+type Spec<C> = { d: number; code: StringLiteral<C> };
+const arr: <C>(s: Spec<C>[]) => (n: number) => string[] = (s) => {
+    const codes = s.map(code);
+
+    return (n: number) => codes.map((c) => c(n));
+};
+
+test('["Fizz" | "", "Buzz" | ""]', () => {
+    const ns = [3, 4, 12];
+    const specss = [
+        [{ d: 3, code: "fizz" }],
+        [{ d: 4, code: "foo" }],
+        [
+            { d: 3, code: "fizz" },
+            { d: 4, code: "foo" },
+        ],
+        [
+            { d: 4, code: "foo" },
+            { d: 3, code: "fizz" },
+        ],
+    ];
+
+    const s = JSON.stringify;
+
+    return product(specss, ns)
+        .map(([specs, n]) => `arr(${s(specs)})(${n}):\n${s(arr(specs)(n))}`)
+        .join("\n");
+});
+
+type F<A, R> = (a: A) => R;
+
+const codes: <C>(s: Spec<C>[]) => (n: number) => string = (s) => (n) =>
+    arr(s)(n).join("");
+
+test('"" | "Fizz" | "Buzz" | "FizzBuzz"', () => {
+    const ns = [3, 4, 12];
+    const specss = [
+        [{ d: 3, code: "fizz" }],
+        [{ d: 4, code: "foo" }],
+        [
+            { d: 3, code: "fizz" },
+            { d: 4, code: "foo" },
+        ],
+        [
+            { d: 4, code: "foo" },
+            { d: 3, code: "fizz" },
+        ],
+    ];
+
+    const s = JSON.stringify;
+
+    return product(specss, ns)
+        .map(([specs, n]) => `codes(${s(specs)})(${n}):\n${s(codes(specs)(n))}`)
+        .join("\n");
+});
