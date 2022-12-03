@@ -1,0 +1,8 @@
+multipleOf
+of(3)(3): true
+of(3)(4): false
+of(3)(8): false
+of(4)(3): false
+of(4)(4): true
+of(4)(8): true
+
