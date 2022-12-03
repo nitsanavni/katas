@@ -29,3 +29,23 @@ describe("code", () => {
         expect(code({ d: 3, code: "Fizz" })(8)).toBe("");
     });
 });
+
+const codes = (specs: Array<{ d: number; code: string }>) => {
+    return (n: number) =>
+        specs.map((spec) => (isMultipleOf(spec.d)(n) ? spec.code : ""));
+};
+
+const s = JSON.stringify;
+
+describe("codes", () => {
+    test("should return a function that takes a number and returns an array of strings", () => {
+        const specs = [
+            { d: 3, code: "Fizz" },
+            { d: 5, code: "Buzz" },
+            { d: 7, code: "FizzBuzz" },
+        ];
+        const result = codes(specs);
+        expect(typeof result).toBe("function");
+        expect(s(result(3))).toBe(s(["Fizz", "", ""]));
+    });
+});
