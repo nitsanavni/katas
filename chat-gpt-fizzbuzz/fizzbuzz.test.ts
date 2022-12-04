@@ -30,22 +30,60 @@ describe("code", () => {
     });
 });
 
-const codes = (specs: Array<{ d: number; code: string }>) => {
-    return (n: number) =>
-        specs.map((spec) => (isMultipleOf(spec.d)(n) ? spec.code : ""));
-};
+const codes = (specs) => (n) =>
+    specs
+        .filter((spec) => isMultipleOf(spec.d)(n))
+        .map((spec) => spec.code)
+        .join("");
 
 const s = JSON.stringify;
 
 describe("codes", () => {
-    test("should return a function that takes a number and returns an array of strings", () => {
+    test("should return a function that takes a number and returns a string", () => {
         const specs = [
             { d: 3, code: "Fizz" },
             { d: 5, code: "Buzz" },
-            { d: 7, code: "FizzBuzz" },
+            { d: 7, code: "whizz" },
         ];
         const result = codes(specs);
         expect(typeof result).toBe("function");
-        expect(s(result(3))).toBe(s(["Fizz", "", ""]));
+        expect(s(result(3))).toBe(s("Fizz"));
+        expect(s(result(5))).toBe(s("Buzz"));
+        expect(s(result(7))).toBe(s("whizz"));
+        expect(s(result(11))).toBe(s(""));
+        expect(s(result(15))).toBe(s("FizzBuzz"));
+    });
+});
+
+const game = (specs) => {
+    const codes = (n) =>
+        specs
+            .filter((spec) => isMultipleOf(spec.d)(n))
+            .map((spec) => spec.code)
+            .join("");
+
+    return (n) => {
+        // Use the `codes` function to get the code string for the given number
+        const codeString = codes(n);
+
+        // Return the original number as a string if there's no code string,
+        // otherwise return the code string
+        return codeString ? codeString : String(n);
+    };
+};
+describe("game", () => {
+    test("should return a function that takes a number and returns a string", () => {
+        const specs = [
+            { d: 3, code: "Fizz" },
+            { d: 5, code: "Buzz" },
+            { d: 7, code: "whizz" },
+        ];
+        const result = game(specs);
+        expect(typeof result).toBe("function");
+        expect(s(result(3))).toBe(s("Fizz"));
+        expect(s(result(5))).toBe(s("Buzz"));
+        expect(s(result(7))).toBe(s("whizz"));
+        expect(s(result(11))).toBe(s("11"));
+        expect(s(result(15))).toBe(s("FizzBuzz"));
     });
 });
