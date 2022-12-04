@@ -839,3 +839,61 @@ function testLiftUpExample() {
 ```
 
 In this test function, the definitions of the helper functions are provided at the beginning of the function, before the for loop that tests the original code and the refactored code. This allows the helper functions to be used in both the original code and the refactored code without having to redefine them multiple times. I hope this helps! Let me know if you have any other questions.
+
+---
+
+**maybe define 'calledFun'**
+
+---
+
+Yes, you're right, it's a good idea to define the calledFun variable before using it in the test function. This will avoid any potential errors or undefined behavior in the test code. Here is an example of the test function with the calledFun variable defined at the beginning of the function:
+
+```js
+function testLiftUpExample() {
+  const inputs = [    [true, true],
+    [true, false],
+    [false, true],
+    [false, false]
+  ];
+
+  const expectedOutputs = [    'foo',    'bar',    'baz',    'qux'  ];
+
+  // Define the helper functions and the calledFun variable
+  let calledFun = '';
+  foo = () => { calledFun = 'foo'; }
+  bar = () => { calledFun = 'bar'; }
+  baz = () => { calledFun = 'baz'; }
+  qux = () => { calledFun = 'qux'; }
+
+  for (let i = 0; i < inputs.length; i++) {
+    const [a, b] = inputs[i];
+
+    // Test the original code
+    if (a) {
+      if (b) {
+        foo();
+      } else {
+        bar();
+      }
+    } else {
+      if (b) {
+        baz();
+      } else {
+        qux();
+      }
+    }
+
+    // Assert that the correct function was called
+    assert(calledFun === expectedOutputs[i], `Expected function "${expectedOutputs[i]}" to be called (original code)`);
+
+    // Test the refactored code
+    if (b) {
+      if (a) {
+        foo();
+      } else {
+        baz();
+      }
+    } else {
+      if (a) {
+        bar
+```
