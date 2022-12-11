@@ -4,7 +4,10 @@ const test = async () => {
     return (await $`${argv.t.split(" ")}`.exitCode) == 0;
 };
 
-const commit = () => $`git commit -am ${"auto commit"}`.nothrow();
+const commit = async () => {
+    const diff = await $`git diff --no-prefix --word-diff -U0 | tail +6`;
+    $`git commit -am ${diff.toString() || "empty diff"}`.nothrow();
+};
 
 const revert = () => $`git reset --hard`;
 

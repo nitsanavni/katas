@@ -498,6 +498,7 @@ Yes, that looks correct! The refactored code uses the "lift-up conditional" refa
 
 ---
 
+liftUpExample
 Sure, here is an example of a test function that you can use to test the refactored code:
 
 ```js
@@ -538,7 +539,7 @@ You can modify this test function to suit your specific needs. For example, you 
 Sure, here is an example of a refactored code function that you can use to test the "lift-up conditional" refactoring technique:
 
 ```js
-function liftUpExample(a, b) {
+function (a, b) {
     if (b) {
         if (a) {
             foo();
