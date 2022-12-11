@@ -21,3 +21,6 @@ RUN cargo install \
 
 RUN go install \
         github.com/shenwei356/rush@latest
+
+RUN npm install -g \
+        zx

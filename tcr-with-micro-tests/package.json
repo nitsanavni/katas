@@ -1,5 +1,4 @@
 {
-  "dependencies": {},
   "devDependencies": {
     "bun-types": "^0.3.0"
   }
