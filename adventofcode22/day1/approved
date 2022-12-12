@@ -1,7 +1,64 @@
-test: split input per elf
+test: split input per elf: one elf one item
 [
   [
-    1
+    "1"
   ]
 ]
+
+test: split input per elf: one elf two items
+[
+  [
+    "2",
+    "3"
+  ]
+]
+
+test: split input per elf: two elves one item
+[
+  [
+    "4"
+  ],
+  [
+    "5"
+  ]
+]
+
+test: split input per elf: two for two
+[
+  [
+    "6",
+    "7"
+  ],
+  [
+    "8",
+    "9"
+  ]
+]
+
+test: numbers
+[
+  [
+    6,
+    7
+  ],
+  [
+    8,
+    9
+  ]
+]
+
+test: sum
+13
+
+test: add
+13
+
+test: max
+7
+
+test: highest calories
+17
+
+test: highest calories
+17
 

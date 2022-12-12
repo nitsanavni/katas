@@ -1,6 +1,59 @@
 [
     {
-        "name": "split input per elf",
+        "name": "split input per elf: one elf one item",
         "jq": [["1"], "|", "split_per_elf"]
+    },
+    {
+        "name": "split input per elf: one elf two items",
+        "jq": [["2", "3"], "|", "split_per_elf"]
+    },
+    {
+        "name": "split input per elf: two elves one item",
+        "jq": [["4", "", "5"], "|", "split_per_elf"]
+    },
+    {
+        "name": "split input per elf: two for two",
+        "jq": [["6", "7", "", "8", "9"], "|", "split_per_elf"]
+    },
+    {
+        "name": "numbers",
+        "jq": [
+            [
+                ["6", "7"],
+                ["8", "9"]
+            ],
+            "|",
+            "numbers"
+        ]
+    },
+    {
+        "name": "sum",
+        "jq": [[6, 7], "|", "sum"]
+    },
+    {
+        "name": "add",
+        "jq": [[6, 7], "|", "add"]
+    },
+    {
+        "name": "max",
+        "jq": [[6, 7], "|", "max"]
+    },
+    {
+        "name": "highest calories",
+        "jq": [
+            ["6", "7", "", "8", "9"],
+            "|",
+            "split_per_elf",
+            "|",
+            "numbers",
+            "|",
+            "map(add)",
+            "|",
+            "max"
+        ]
+    },
+    {
+        "name": "highest calories",
+        "jq": [["6", "7", "", "8", "9"], "|", "highest_calories"]
     }
 ]
