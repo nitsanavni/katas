@@ -1,4 +1,1 @@
-#!/usr/bin/env bash
-jaq '.[]' tests.json | jaq -rf test-command.jq > tests
-source tests
-rm tests
+source <(jaq '.[]' tests.json | jaq -rf test-command.jq)
