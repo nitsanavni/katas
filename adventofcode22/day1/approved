@@ -1,0 +1,11 @@
+test: split input per elf
+[
+  1
+]
+
+test: more splits
+[
+  1,
+  2
+]
+

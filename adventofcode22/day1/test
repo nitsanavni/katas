@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+jaq '.[]' tests.json | jaq -rf test-command.jq | rush -k "bash -c '{}'"

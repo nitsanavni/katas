@@ -1,0 +1,1 @@
+ls tests.json approved highest-elf-calory-count.jq | entr -c ./verify
