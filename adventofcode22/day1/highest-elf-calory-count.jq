@@ -11,4 +11,7 @@ def highest_calories:
     split_per_elf | numbers | map(add) | max;
 
 def top_three:
-    split_per_elf | numbers | map(add) | sort | .[-3:] | add;
+    split_per_elf |
+    numbers |
+    map(add) |
+    reduce .[] as $n ([0,0,0]; if .[0] < $n then .[-2:] + [$n] | sort else . end) | add;
