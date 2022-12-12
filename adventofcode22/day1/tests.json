@@ -2,9 +2,5 @@
     {
         "name": "split input per elf",
         "jq": [["1"], "|", "split_per_elf"]
-    },
-    {
-        "name": "more splits",
-        "jq": [["1", "2"], "|", "split_per_elf"]
     }
 ]
