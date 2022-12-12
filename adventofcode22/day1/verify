@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 ./test > received
 diff received approved > /dev/null \
-    && echo "test passed" \
+    && (echo "test passed" && rm received) \
     || (echo "test failed" && code -d received approved && false)
