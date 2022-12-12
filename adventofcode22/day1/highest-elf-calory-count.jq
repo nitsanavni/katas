@@ -9,3 +9,6 @@ def sum:
 
 def highest_calories:
     split_per_elf | numbers | map(add) | max;
+
+def top_three:
+    split_per_elf | numbers | map(add) | sort | .[-3:] | add;

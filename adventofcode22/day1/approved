@@ -62,3 +62,20 @@ test: highest calories
 test: highest calories
 17
 
+test: top three, explore
+[
+  4,
+  7,
+  9
+]
+
+test: top three
+[
+  13,
+  17,
+  90
+]
+
+test: top three: top_three
+120
+

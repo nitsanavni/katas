@@ -55,5 +55,27 @@
     {
         "name": "highest calories",
         "jq": [["6", "7", "", "8", "9"], "|", "highest_calories"]
+    },
+    {
+        "name": "top three, explore",
+        "jq": ["[1,4,0,2,7,3,9]", "|", "sort|.[-3:]"]
+    },
+    {
+        "name": "top three",
+        "jq": [
+            ["6", "7", "", "8", "9", "", "1", "", "90"],
+            "|",
+            "split_per_elf",
+            "|",
+            "numbers",
+            "|",
+            "map(add)",
+            "|",
+            "sort|.[-3:]"
+        ]
+    },
+    {
+        "name": "top three: top_three",
+        "jq": [["6", "7", "", "8", "9", "", "1", "", "90"], "|", "top_three"]
     }
 ]
