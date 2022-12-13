@@ -77,5 +77,9 @@
     {
         "name": "top three: top_three",
         "jq": [["6", "7", "", "8", "9", "", "1", "", "90"], "|", "top_three"]
+    },
+    {
+        "name": "split per elf Guy Romm style",
+        "jq": ["\"6\n7\n\n8\n9\n\n1\n\n90\"", "|", "split_per_elf_gr"]
     }
 ]
