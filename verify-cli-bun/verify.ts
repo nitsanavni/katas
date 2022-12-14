@@ -1,3 +1,11 @@
 #!/usr/bin/env bun
 
-console.log("test passed");
+let input = "";
+
+for await (const line of console) {
+    input += line;
+}
+
+console.log(input == "hello" ? "test passed" : "test failed");
+
+export {};

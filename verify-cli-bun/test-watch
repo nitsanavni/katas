@@ -1,1 +1,1 @@
-ls verify-cli-test.ts verify-cli-test.approved verify.ts | entr -c ./test
+time ls verify-cli-test.ts verify-cli-test.approved verify.ts | entr -c ./test

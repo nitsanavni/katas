@@ -1,3 +1,17 @@
 test: says "test passed"
 test passed
 
+
+test: get childs with pstree
+{
+  pstree: [ "sh -c sleep 1", "  `-sleep 1" ]
+}
+
+test: says "test failed"
+outputs: test failed
+
+
+test: passes #2
+outputs: test passed
+
+
