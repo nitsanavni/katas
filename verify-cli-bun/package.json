@@ -4,5 +4,9 @@
   "type": "module",
   "devDependencies": {
     "bun-types": "^0.3.0"
+  },
+  "dependencies": {
+    "@types/minimist": "^1.2.2",
+    "minimist": "^1.2.7"
   }
 }

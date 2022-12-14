@@ -11,7 +11,11 @@ test: says "test failed"
 outputs: test failed
 
 
-test: passes #2
-outputs: test passed
+test: reads cli args: --test-arg
+outputs: my-value
+
+
+test: reads cli args: --echo
+outputs: hello
 
 
