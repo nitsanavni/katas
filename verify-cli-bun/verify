@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+received="$1.received"
+approved="$1.approved"
+
+cat - > $received
+
+touch $approved
+
+diff $received $approved > /dev/null \
+    && (echo "test passed" && rm $received) \
+    || (echo "test failed" && code -d $received $approved && false)
