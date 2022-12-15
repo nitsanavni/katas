@@ -7,3 +7,11 @@ echo ""
 echo "test: echo: no -e"
 ./verify <<< "$(seq 4)"
 echo ""
+
+echo "test: positional arg"
+./verify -t 'some test name' -a <<< ""
+echo ""
+
+echo "test: positional arg #2"
+./verify -t 'some other test name' -e -r "hello"
+echo ""

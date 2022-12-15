@@ -523,3 +523,536 @@ h) height_flag=true; height_arg="$OPTARG";;
 esac
 done
 In the example above, the optstring includes several colon-style multi-character options, such as [email protected]=, `[
+
+=========
+
+nitsanav@gmail.com
+ok, here's what I have:
+test file:
+
+```
+#!/bin/bash
+
+echo "test: echo: yes -e"
+./verify -e <<< "$(seq 4)"
+echo ""
+
+echo "test: echo: no -e"
+./verify <<< "$(seq 4)"
+echo ""
+
+```
+
+verify file:
+
+```
+#!/bin/bash
+
+# Parse the command-line arguments
+while getopts ":e" opt; do
+  case $opt in
+    e) echo_flag=true;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+  esac
+done
+
+# Read standard input with a delimiter
+read -d '' input
+
+# Print the input if the --echo flag was passed
+if [ "$echo_flag" = true ]; then
+  echo "input: $input"
+fi
+
+```
+
+running the test gives:
+
+```
+$ ./test
+test: echo: yes -e
+input: 1
+2
+3
+4
+
+test: echo: no -e
+
+```
+
+It looks like the verify script is working as expected, and it is correctly printing the input string only when the -e flag is passed as an argument. In the second test, the verify script is run without the -e flag, so the echo_flag variable is not set to true, and the if statement does not print the input string.
+
+If you want to change the verify script to print the input string by default, you can modify the if statement like this:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":e" opt; do
+case $opt in
+    e) echo_flag=true;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Read standard input with a delimiter
+
+read -d '' input
+
+# Print the input unless the --no-echo flag was passed
+
+if [ "$echo_flag" != true ]; then
+echo "input: $input"
+fi
+In the example above, the if statement is modified to print the input string unless the -e flag is passed as an argument, which sets the echo_flag variable to true and prevents the input string from being printed. This means that the `ver
+
+nitsanav@gmail.com
+let's add a new test, and a new flag '-t', when we pass in this flag to the verify script, it will print the first positional arg like this:
+echo "test: $test"
+To add a new test and a new -t flag to the verify script, you can modify the test script like this:
+
+Copy code
+#!/bin/bash
+
+# Define the test variable
+
+test="this is a test"
+
+echo "test: echo: yes -e"
+./verify -e <<< "$(seq 4)"
+echo ""
+
+echo "test: echo: no -e"
+./verify <<< "$(seq 4)"
+echo ""
+
+echo "test: echo: no -e, print test: yes -t"
+./verify -t "$test" <<< "$(seq 4)"
+echo ""
+In the example above, the test script defines a new test variable and then passes it as an argument to the verify script using the -t flag when calling the verify script with the seq command.
+
+To add support for the -t flag to the verify script, you can modify the getopts command like this:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":et:" opt; do
+case $opt in
+    e) echo_flag=true;;
+    t) test_flag=true; test="$OPTARG";;
+\?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Read standard input with a delim
+
+nitsanav@gmail.com
+let's change 't' to be a non-colon arg, just like 'e'
+and if (test_flag) { echo $first_positional_arg }
+
+you know what I mean by "positional arg" right?
+Yes, I understand what you mean by a "positional argument". In the context of a bash script, a "positional argument" refers to an argument that is passed to the script without using a flag or option. Positional arguments are typically accessed using the $1, $2, $3, etc. variables, which represent the first, second, third, etc. positional arguments passed to the script.
+
+To change the -t flag to be a non-colon flag, like the -e flag, and to print the first positional argument if the -t flag is passed as an argument to the verify script, you can modify the getopts command like this:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":et" opt; do
+case $opt in
+    e) echo_flag=true;;
+    t) test_flag=true;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Read standard input with a delimiter
+
+read -d '' input
+
+# Print the input unless the --no-echo flag was passed
+
+if [ "$echo_flag" != true ]; then
+echo "input: $input"
+fi
+
+# Print the first positional argument if the -t flag was passed
+
+if [ "$test_flag" = true ]; then
+echo "test: $1"
+fi
+In the example above, the getopts command is modified to include the -t flag in the optstring without a : character after it, which makes the -t flag a non-colon flag. This means that the -t flag does not expect an argument to be specified after it, and the test_flag variable is set to true if the -t flag
+
+nitsanav@gmail.com
+ok, here's my test:
+echo "test: positional arg"
+./verify 'hello positional arg' -t <<< ""
+echo ""
+
+I want to see the 'hello posi...' string on the output but I get this:
+
+```
+test: positional arg
+input:
+
+```
+
+The issue you are experiencing is because the verify script is not correctly handling the positional arguments passed to it. By default, the getopts command only parses the command-line options and flags, and it does not process the positional arguments passed to the script.
+
+To process the positional arguments in the verify script, you can use the shift command to shift the positional arguments to the left, so that the first positional argument is stored in the $1 variable, like this:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":et" opt; do
+case $opt in
+    e) echo_flag=true;;
+    t) test_flag=true;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Shift the positional arguments to the left
+
+shift $((OPTIND - 1))
+
+# Read standard input with a delimiter
+
+read -d '' input
+
+# Print the input unless the --no-echo flag was passed
+
+if [ "$echo_flag" != true ]; then
+echo "input: $input"
+fi
+
+# Print the first positional argument if the -t flag was passed
+
+if [ "$test_flag" = true ]; then
+echo "test: $1"
+fi
+In the example above, the shift command is used to shift the positional arguments to the left, so that the first positional argument is stored in the $1 variable. The $((OPTIND - 1)) expression is used to specify the number of arguments to shift, and it is calculated by subtracting 1 from the OPTIND variable, which is set by the getopts command to the index of the next option to be processed.
+
+After the shift command is executed, the $1 variable will contain the first positional argument passed to the verify script, and the if statement will print the contents of the $1 variable if
+
+nitsanav@gmail.com
+I'm still not seeing my test string...
+maybe the shift needs to happen before?
+
+maybe show me a simplified example of using both positional args and '-t' flag
+Here is a simplified example of using both positional arguments and the -t flag in a bash script:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":t" opt; do
+case $opt in
+    t) test_flag=true;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Shift the positional arguments to the left
+
+shift $((OPTIND - 1))
+
+# Print the first positional argument if the -t flag was passed
+
+if [ "$test_flag" = true ]; then
+echo "test: $1"
+fi
+In the example above, the getopts command is used to parse the command-line arguments, and the shift command is used to shift the positional arguments to the left, so that the first positional argument is stored in the $1 variable. The if statement at the end of the script checks if the -t flag was passed as an argument, and if it was, it prints the contents of the $1 variable, which contains the first positional argument passed to the script.
+
+To run the script and pass in a positional argument and the -t flag, you can use the following command:
+
+Copy code
+./script.sh -t "hello positional argument"
+The command above will call the script.sh script and pass it the -t flag and the "hello positional argument" string as a positional argument. The getopts command will parse the command-line arguments, set the test_flag variable to true, and then the shift command will shift the positional arguments to the left, so that the "hello positional argument" string is stored in the $1 variable. Finally
+
+nitsanav@gmail.com
+yes it works, but what if the positional arg comes before the -t flag?
+./script.sh "hello positional argument" -t
+If the positional argument is passed before the -t flag, the getopts command will not parse it correctly, because it expects the flags and options to come first, followed by the positional arguments. In this case, you can use the shift command to shift the arguments to the right, so that the flags and options come first, like this:
+
+Copy code
+#!/bin/bash
+
+# Shift the arguments to the right
+
+shift $((OPTIND - 1))
+
+# Parse the command-line arguments
+
+while getopts ":t" opt; do
+case $opt in
+    t) test_flag=true;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Print the first positional argument if the -t flag was passed
+
+if [ "$test_flag" = true ]; then
+echo "test: $1"
+fi
+In the example above, the shift command is used to shift the arguments to the right, so that the flags and options come first, and the getopts command can parse them correctly. The shift command is given the same $((OPTIND - 1)) expression as before, which calculates the number of arguments to shift based on the value of the OPTIND variable.
+
+After the arguments are shifted to the right, the getopts command will parse the flags and options as usual, and the if statement at the end of the script will print the first positional argument if the -t flag was passed as an argument.
+
+To run the script and pass in a positional argument before the -t flag, you can use the following command:
+
+Copy code
+./script.sh "hello positional argument" -t
+The command above will call the script.sh script and pass it the "hello positional argument" string as a positional argument, followed by the -t flag. The shift command will shift the arguments to the right, so that the flags and options come first, and the getopts command will parse them correctly. The if statement will then print the "hello positional argument" string, because the -t flag was passed as an argument.
+
+nitsanav@gmail.com
+ok I want to change things, forget about positional args
+let's stick to flags
+
+I want:
+
+```
+$ ./verify -t "some test name" -a
+some test name
+```
+
+```
+$ ./verify -t "some test name"
+```
+
+To implement the behavior you described, where the verify script only prints the test name if the -a flag is passed as an argument, you can modify the verify script like this:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":at:" opt; do
+case $opt in
+    a) echo_flag=true;;
+    t) test_name="$OPTARG";;
+\?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Read standard input with a delimiter
+
+read -d '' input
+
+# Print the input unless the --no-echo flag was passed
+
+if [ "$echo_flag" != true ]; then
+echo "input: $input"
+fi
+
+# Print the test name if the -t flag was passed and the -a flag was not passed
+
+if [ "$test_name" != "" ] && [ "$echo_flag" != true ]; then
+echo "test: $test_name"
+fi
+In the example above, the getopts command is modified to include the -a and -t flags in the optstring, and the case statement is updated to set the echo_flag variable to true if the -a flag is passed as an argument, and to set the test_name variable to the value of the -t flag if it is passed as an argument.
+
+The if statement at the end of the script checks if the test_name variable is not empty, and if the echo_flag variable is not true. If both of these conditions are met, the if statement will print the value of the test_name variable, which contains the test name specified using the -t flag.
+
+To run the verify script and pass in the -t and -a flags, you can use the following command:
+
+Copy code
+./verify -t "some test name" -a <<< ""
+The command above will call the verify script and pass it the -t and -a flags as arguments, along with an empty standard input. The getopts command will parse the arguments, set the echo_flag variable to true and the test_name variable to "some test name", and then the if statement will not print anything, because the echo_flag variable is true.
+
+To run the verify script and pass in only the -t flag, you can use the following command:
+
+Copy code
+./verify -t "some test name" <<< ""
+The command above will call the verify script and pass it only the `
+
+nitsanav@gmail.com
+ok here's what we have now:
+test:
+
+```
+#!/bin/bash
+
+echo "test: echo: yes -e"
+./verify -e <<< "$(seq 4)"
+echo ""
+
+echo "test: echo: no -e"
+./verify <<< "$(seq 4)"
+echo ""
+
+echo "test: positional arg"
+./verify -t 'some test name' -a <<< ""
+echo ""
+
+```
+
+verify:
+
+```
+#!/bin/bash
+
+# Parse the command-line arguments
+while getopts ":eat:" opt; do
+  case $opt in
+    e) echo_flag=true;;
+    a) echo_flag=true;;
+    t) test_name="$OPTARG";;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+  esac
+done
+
+# Read standard input with a delimiter
+read -d '' input
+
+# Print the input unless the --no-echo flag was passed
+if [ "$echo_flag" == true ]; then
+  echo "input: $input"
+fi
+
+# Print the test name if the -t flag was passed and the -a flag was not passed
+if [ "$test_name" != "" ] && [ "$echo_flag" == true ]; then
+  echo "test: $test_name"
+fi
+
+```
+
+To fix the issue you are experiencing, where the verify script always prints the test name, regardless of whether the -a flag is passed as an argument or not, you can modify the verify script like this:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":eat:" opt; do
+case $opt in
+    e) echo_flag=true;;
+    a) echo_flag=true;;
+    t) test_name="$OPTARG";;
+\?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Read standard input with a delimiter
+
+read -d '' input
+
+# Print the input unless the --no-echo flag was passed
+
+if [ "$echo_flag" = true ]; then
+echo "input: $input"
+fi
+
+# Print the test name if the -t flag was passed and the -a flag was passed
+
+if [ "$test_name" != "" ] && [ "$echo_flag" = true ]; then
+echo "test: $test_name"
+fi
+In the example above, the if statement at the end of the script is modified to check if the test_name variable is not empty, and if the echo_flag variable is true. If both of these conditions are met, the if statement will print the value of the test_name variable, which contains the test name specified using the -t flag.
+
+This ensures that the test name will only be printed if both the -t and -a flags are passed as arguments, and not if only the -t flag is passed.
+
+To run the verify script and pass in the -t and -a flags, you can use the following command:
+
+Copy code
+./verify -t "some test name
+
+nitsanav@gmail.com
+I'd like to avoid having to pass in stdin; and be able to change the test to:
+echo "test: positional arg"
+./verify -t 'some test name' -a
+echo ""
+
+(without the <<<)
+
+but it gets stuck
+can you fix it so that it's not stuck?
+To avoid having to pass standard input to the verify script and make it possible to run the script without the <<< operator, you can modify the verify script to read standard input without a delimiter, like this:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":eat:" opt; do
+case $opt in
+    e) echo_flag=true;;
+    a) echo_flag=true;;
+    t) test_name="$OPTARG";;
+\?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Read standard input without a delimiter
+
+while read -r line; do
+input="$input$line"
+done
+
+# Print the input unless the --no-echo flag was passed
+
+if [ "$echo_flag" = true ]; then
+echo "input: $input"
+fi
+
+# Print the test name if the -t flag was passed and the -a flag was passed
+
+if [ "$test_name" != "" ] && [ "$echo_flag" = true ]; then
+echo "test: $test_name"
+fi
+In the example above, the verify script uses a while loop to read standard input without a delimiter, and appends each line of input to the input variable. This allows the script to read standard input without the <<< operator, and without being stuck in an infinite loop.
+
+After the while loop finishes reading standard input, the if statement at the end of the script is the same as before, and it will print the input
+
+nitsanav@gmail.com
+it's still stuck
+
+I would like it to read stdin, only if we don't pass in the -r flag
+To make the verify script read standard input only if the -r flag is passed as an argument, you can modify the verify script like this:
+
+Copy code
+#!/bin/bash
+
+# Parse the command-line arguments
+
+while getopts ":ear:t:" opt; do
+case $opt in
+    e) echo_flag=true;;
+    a) echo_flag=true;;
+    r) read_flag=true;;
+    t) test_name="$OPTARG";;
+\?) echo "Invalid option: -$OPTARG" >&2;;
+esac
+done
+
+# Read standard input without a delimiter if the -r flag was passed
+
+if [ "$read_flag" = true ]; then
+while read -r line; do
+input="$input$line"
+done
+fi
+
+# Print the input unless the --no-echo flag was passed
+
+if [ "$echo_flag" = true ]; then
+echo "input: $input"
+fi
+
+# Print the test name if the -t flag was passed and the -a flag was passed
+
+if [ "$test_name" != "" ] && [ "$echo_flag" = true ]; then
+echo "test: $test_name"
+fi
+In the example above, the getopts command is modified to include the -r flag in the optstring, and the case statement is updated to set the read_flag variable to true if the -r flag is passed as an argument.
+
+The if statement at the beginning of the script checks if

@@ -1,17 +1,29 @@
 #!/bin/bash
 
 # Parse the command-line arguments
-while getopts ":e" opt; do
+while getopts ":ear:t:" opt; do
   case $opt in
+    r) received_text="$OPTARG";;
     e) echo_flag=true;;
+    a) echo_flag=true;;
+    t) test_name="$OPTARG";;
     \?) echo "Invalid option: -$OPTARG" >&2;;
   esac
 done
 
-# Read standard input with a delimiter
-read -d '' input
+# Read standard input without a delimiter
+if [ "$received_text" == "" ]; then
+    while read -r line; do
+    input="$input$line"
+    done
+fi
 
-# Print the input if the --echo flag was passed
-if [ "$echo_flag" = true ]; then
+# Print the input unless the --no-echo flag was passed
+if [ "$echo_flag" == true ]; then
   echo "input: $input"
+fi
+
+# Print the test name if the -t flag was passed and the -a flag was not passed
+if [ "$test_name" != "" ] && [ "$echo_flag" == true ]; then
+  echo "test: $test_name"
 fi
