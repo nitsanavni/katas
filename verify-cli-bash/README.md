@@ -1,0 +1,1 @@
+# verify cli using bash
