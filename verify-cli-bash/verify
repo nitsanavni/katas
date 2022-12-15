@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Read standard input
-read -r input
+# Read standard input with a delimiter
+read -d '' input
 
 # Print the input
 echo "input: $input"
