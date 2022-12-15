@@ -1,3 +1,9 @@
 #!/bin/bash
 
+echo "test: echo: yes -e"
+./verify -e <<< "$(seq 4)"
+echo ""
+
+echo "test: echo: no -e"
 ./verify <<< "$(seq 4)"
+echo ""

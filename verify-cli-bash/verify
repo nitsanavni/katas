@@ -1,7 +1,17 @@
 #!/bin/bash
 
+# Parse the command-line arguments
+while getopts ":e" opt; do
+  case $opt in
+    e) echo_flag=true;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+  esac
+done
+
 # Read standard input with a delimiter
 read -d '' input
 
-# Print the input
-echo "input: $input"
+# Print the input if the --echo flag was passed
+if [ "$echo_flag" = true ]; then
+  echo "input: $input"
+fi
