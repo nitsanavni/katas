@@ -1,13 +1,17 @@
 test: total round score
+input:
 {
   "round_outcome_score": 7,
   "shape_score": 3
 }
+total score:
 10
 
 test: round outcome score
+input:
 {
   "round_outcome": "draw"
 }
+score:
 3
 

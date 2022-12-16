@@ -1,9 +1,11 @@
 #!/usr/bin/bash
 
 echo "test: total round score"
-jaq -n '{ round_outcome_score: 7, shape_score: 3}' | jaq "$(cat rock-paper-scissors.jq) ., total_round_score"
+jaq -n '{ round_outcome_score: 7, shape_score: 3}' | \
+jaq -r "$(cat rock-paper-scissors.jq) \"input:\", ., \"total score:\", total_round_score"
 echo ""
 
 echo "test: round outcome score"
-jaq -n '{ round_outcome: "draw" }' | jaq "$(cat rock-paper-scissors.jq) ., round_outcome_score"
+jaq -n '{ round_outcome: "draw" }' | \
+jaq -r "$(cat rock-paper-scissors.jq) \"input:\", ., \"score:\", round_outcome_score"
 echo ""
