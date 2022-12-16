@@ -46,3 +46,6 @@ def round_outcome:
     then "won"
     else "lost"
     end;
+
+def parse:
+    split(" ") | { theirs: opponent_plays[.[0]], ours: own_plays[.[1]] };

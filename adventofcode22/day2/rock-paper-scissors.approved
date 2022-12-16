@@ -31,3 +31,6 @@ test: round outcome
 {"ours":"scissors","theirs":"paper"} -> won
 {"ours":"scissors","theirs":"scissors"} -> draw
 
+test: parse one round
+A X -> {"theirs":"rock","ours":"rock"}
+
