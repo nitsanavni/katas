@@ -9,3 +9,8 @@ echo "test: round outcome score"
 jaq -n '"lost", "draw", "won" | { round_outcome: . }' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [.round_outcome, \" -> \", round_outcome_score | tostring] | add"
 echo ""
+
+echo "test: round outcome"
+jaq -n '{ ours: "rock", theirs: "scissors" }' | \
+jaq -cr "$(cat rock-paper-scissors.jq) [. | tostring, \" -> \", round_outcome] | add"
+echo ""

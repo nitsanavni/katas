@@ -38,3 +38,11 @@ def total_round_score:
 
 def round_outcome_score:
     .round_outcome as $outcome | round_outcome_scores[$outcome];
+
+def round_outcome:
+    if .ours == .theirs
+    then "draw"
+    elif defeats[.ours] == .theirs
+    then "won"
+    else "lost"
+    end;

@@ -9,3 +9,6 @@ lost -> 0
 draw -> 3
 won -> 6
 
+test: round outcome
+{"ours":"rock","theirs":"scissors"} -> won
+
