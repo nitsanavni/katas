@@ -33,4 +33,12 @@ test: round outcome
 
 test: parse one round
 A X -> {"theirs":"rock","ours":"rock"}
+A Y -> {"theirs":"rock","ours":"paper"}
+A Z -> {"theirs":"rock","ours":"scissors"}
+B X -> {"theirs":"paper","ours":"rock"}
+B Y -> {"theirs":"paper","ours":"paper"}
+B Z -> {"theirs":"paper","ours":"scissors"}
+C X -> {"theirs":"scissors","ours":"rock"}
+C Y -> {"theirs":"scissors","ours":"paper"}
+C Z -> {"theirs":"scissors","ours":"scissors"}
 

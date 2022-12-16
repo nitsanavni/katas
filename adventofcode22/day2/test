@@ -17,13 +17,15 @@ echo ""
 
 echo "test: round outcome"
 jaq -n '["rock", "paper", "scissors"]|[.,.]' | \
-jaq -cf ../../product-jq/product.jq | \
+jaq -f ../../product-jq/product.jq | \
 jaq '{ ours: .[0], theirs: .[1] }' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [. | tostring, \" -> \", round_outcome] | add"
 echo ""
 
 echo "test: parse one round"
-jaq -n '"A X"' | \
+jaq -n '[["A","B","C"],["X","Y","Z"]]' | \
+jaq -f ../../product-jq/product.jq | \
+jaq 'join(" ")' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [., \" -> \", parse | tostring] | add"
 echo ""
 
