@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+echo "test: scaffolding"
+jaq -n 'range(5)' | jaq "$(cat rock-paper-scissors.jq) square"
+echo ""
