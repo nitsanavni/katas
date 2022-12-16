@@ -1,0 +1,6 @@
+ls \
+    test \
+    rock-paper-scissors.jq \
+    rock-paper-scissors.approved \
+| \
+entr -c sh -c './test | ../../verify-cli-bash/verify -t rock-paper-scissors'

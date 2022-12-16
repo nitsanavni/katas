@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
-echo "test: scaffolding"
-jaq -n 'range(5)' | jaq "$(cat rock-paper-scissors.jq) square"
-echo ""
+echo "test: total round score"
+jaq -n '{ round_outcome_score: 7, shape_score: 3}' | tee >(jaq "$(cat rock-paper-scissors.jq) total_round_score")
+# echo ""
+
+echo "test: round outcome score"
+jaq -n '{ round_outcome: "draw" }' | tee >(jaq "$(cat rock-paper-scissors.jq) round_outcome_score")
+# echo ""
