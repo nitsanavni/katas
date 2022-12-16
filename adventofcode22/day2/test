@@ -10,7 +10,17 @@ jaq -n '"lost", "draw", "won" | { round_outcome: . }' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [.round_outcome, \" -> \", round_outcome_score | tostring] | add"
 echo ""
 
+
+
+echo "test: product"
+jaq -n '["rock", "paper", "scissors"]|[.,.]' | \
+jaq -cf ../../product-jq/product.jq 
+# jaq -cr "$(cat rock-paper-scissors.jq) [. | tostring, \" -> \", round_outcome] | add"
+echo ""
+
 echo "test: round outcome"
-jaq -n '{ ours: "rock", theirs: "scissors" }' | \
+jaq -n '["rock", "paper", "scissors"]|[.,.]' | \
+jaq -cf ../../product-jq/product.jq | \
+jaq '{ ours: .[0], theirs: .[1] }' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [. | tostring, \" -> \", round_outcome] | add"
 echo ""

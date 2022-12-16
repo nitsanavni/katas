@@ -9,6 +9,25 @@ lost -> 0
 draw -> 3
 won -> 6
 
+test: product
+["rock","rock"]
+["rock","paper"]
+["rock","scissors"]
+["paper","rock"]
+["paper","paper"]
+["paper","scissors"]
+["scissors","rock"]
+["scissors","paper"]
+["scissors","scissors"]
+
 test: round outcome
+{"ours":"rock","theirs":"rock"} -> draw
+{"ours":"rock","theirs":"paper"} -> lost
 {"ours":"rock","theirs":"scissors"} -> won
+{"ours":"paper","theirs":"rock"} -> won
+{"ours":"paper","theirs":"paper"} -> draw
+{"ours":"paper","theirs":"scissors"} -> lost
+{"ours":"scissors","theirs":"rock"} -> lost
+{"ours":"scissors","theirs":"paper"} -> won
+{"ours":"scissors","theirs":"scissors"} -> draw
 
