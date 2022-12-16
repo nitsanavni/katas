@@ -1,17 +1,10 @@
 #!/bin/bash
 
-echo "test: echo: yes -e"
-./verify -e <<< "$(seq 4)"
+echo "test: pass"
+./verify -t test1 <<< "test 1 approves this message
+line 2"
 echo ""
 
-echo "test: echo: no -e"
-./verify <<< "$(seq 4)"
-echo ""
-
-echo "test: positional arg"
-./verify -t 'some test name' -a <<< ""
-echo ""
-
-echo "test: positional arg #2"
-./verify -t 'some other test name' -e -r "hello"
+echo "test: fails and triggers diff tool"
+./verify -t test3 -d diff <<< "test 3 receives this input"
 echo ""
