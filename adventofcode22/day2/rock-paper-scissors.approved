@@ -3,9 +3,11 @@ test: total round score
   "round_outcome_score": 7,
   "shape_score": 3
 }
-test: round outcome score
 10
+
+test: round outcome score
 {
   "round_outcome": "draw"
 }
 3
+
