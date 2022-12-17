@@ -1,0 +1,9 @@
+-   jaq can be fed input in a streaming way
+-   fast-check happens in js, has to call a js function
+-   can call jaq as child process
+    -   can do it per property function call
+    -   can do it once, and then just feed more input into jaq
+-   can use bun, spawn, ts
+-   can use dependencies as dut
+-   looking at previous attempts at this problem, looks like building the arbitraries make for most of the heavy lifting of this problem
+-   can approvals be used for the arbitraries themselves?
