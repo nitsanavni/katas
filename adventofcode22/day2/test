@@ -36,3 +36,15 @@ jaq 'join(" ")' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [., \" -> \", round_score | tostring] | add"
 echo ""
 
+echo "test: sum them up"
+jaq -n '[["A","B","C"],["X","Y","Z"]]' | \
+jaq -f ../../product-jq/product.jq | \
+jaq -r 'join(" ")' | \
+jaq -sRcr "$(cat rock-paper-scissors.jq) [., \" -> \", sum_them_up | tostring] | add"
+echo ""
+
+echo "test: with our input"
+cat input.txt | \
+jaq -sRcr "$(cat rock-paper-scissors.jq) [sum_them_up | tostring] | add"
+echo ""
+

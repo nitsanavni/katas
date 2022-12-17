@@ -53,3 +53,6 @@ def parse:
 def round_score:
     parse |
     ({round_outcome:round_outcome} | round_outcome_score) + shape_scores[.ours];
+
+def sum_them_up:
+    split("\n") | map(select(. != "") | round_score) | add;

@@ -53,3 +53,18 @@ C X -> 7
 C Y -> 2
 C Z -> 6
 
+test: sum them up
+A X
+A Y
+A Z
+B X
+B Y
+B Z
+C X
+C Y
+C Z
+ -> 45
+
+test: with our input
+14297
+
