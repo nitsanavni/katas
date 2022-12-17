@@ -29,3 +29,10 @@ jaq 'join(" ")' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [., \" -> \", parse | tostring] | add"
 echo ""
 
+echo "test: leap forward: round score"
+jaq -n '[["A","B","C"],["X","Y","Z"]]' | \
+jaq -f ../../product-jq/product.jq | \
+jaq 'join(" ")' | \
+jaq -cr "$(cat rock-paper-scissors.jq) [., \" -> \", round_score | tostring] | add"
+echo ""
+

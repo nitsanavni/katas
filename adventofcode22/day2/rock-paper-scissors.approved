@@ -42,3 +42,14 @@ C X -> {"theirs":"scissors","ours":"rock"}
 C Y -> {"theirs":"scissors","ours":"paper"}
 C Z -> {"theirs":"scissors","ours":"scissors"}
 
+test: leap forward: round score
+A X -> 4
+A Y -> 8
+A Z -> 3
+B X -> 1
+B Y -> 5
+B Z -> 9
+C X -> 7
+C Y -> 2
+C Z -> 6
+

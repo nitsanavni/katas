@@ -49,3 +49,7 @@ def round_outcome:
 
 def parse:
     split(" ") | { theirs: opponent_plays[.[0]], ours: own_plays[.[1]] };
+
+def round_score:
+    parse |
+    ({round_outcome:round_outcome} | round_outcome_score) + shape_scores[.ours];
