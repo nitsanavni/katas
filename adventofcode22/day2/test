@@ -1,50 +1,63 @@
 #!/usr/bin/bash
 
-echo "test: total round score"
+echo "Rock Paper Scissors"
+echo "Part 1"
+echo ""
+
+echo "total round score"
 jaq -n '{ round_outcome_score: 7, shape_score: 3}' | \
 jaq -cr "$(cat rock-paper-scissors.jq) \"input:\", ., \"total score:\", total_round_score"
 echo ""
 
-echo "test: round outcome score"
+echo "round outcome score"
 jaq -n '"lost", "draw", "won" | { round_outcome: . }' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [.round_outcome, \" -> \", round_outcome_score | tostring] | add"
 echo ""
 
-echo "test: product"
+echo "product"
 jaq -n '["rock", "paper", "scissors"]|[.,.]' | \
 jaq -cf ../../product-jq/product.jq 
 echo ""
 
-echo "test: round outcome"
+echo "round outcome"
 jaq -n '["rock", "paper", "scissors"]|[.,.]' | \
 jaq -f ../../product-jq/product.jq | \
 jaq '{ ours: .[0], theirs: .[1] }' | \
 jaq -cr "$(cat rock-paper-scissors.jq) [. | tostring, \" -> \", round_outcome] | add"
 echo ""
 
-echo "test: parse one round"
-jaq -n '[["A","B","C"],["X","Y","Z"]]' | \
-jaq -f ../../product-jq/product.jq | \
-jaq 'join(" ")' | \
+input_combinations=$(jaq -n '[["A","B","C"],["X","Y","Z"]]' | jaq -f ../../product-jq/product.jq | jaq 'join(" ")')
+
+echo "parse one round"
+echo $input_combinations | \
 jaq -cr "$(cat rock-paper-scissors.jq) [., \" -> \", parse | tostring] | add"
 echo ""
 
-echo "test: leap forward: round score"
-jaq -n '[["A","B","C"],["X","Y","Z"]]' | \
-jaq -f ../../product-jq/product.jq | \
-jaq 'join(" ")' | \
+echo "leap forward: round score"
+echo $input_combinations | \
 jaq -cr "$(cat rock-paper-scissors.jq) [., \" -> \", round_score | tostring] | add"
 echo ""
 
-echo "test: sum them up"
-jaq -n '[["A","B","C"],["X","Y","Z"]]' | \
-jaq -f ../../product-jq/product.jq | \
-jaq -r 'join(" ")' | \
+echo "sum them up"
+echo $input_combinations | \
+jaq -r '.' | \
 jaq -sRcr "$(cat rock-paper-scissors.jq) [., \" -> \", sum_them_up | tostring] | add"
 echo ""
 
-echo "test: with our input"
+echo "with our input"
 cat input.txt | \
 jaq -sRcr "$(cat rock-paper-scissors.jq) [sum_them_up | tostring] | add"
 echo ""
 
+echo "Part 2"
+echo ""
+
+echo "parse 2"
+echo $input_combinations | \
+jaq -cr "$(cat rock-paper-scissors.jq) [., \" -> \", parse2 | tostring] | add"
+echo ""
+
+echo "choose shape"
+echo $input_combinations | \
+jaq -cr "$(cat rock-paper-scissors.jq) [(parse2 | tostring), \" -> \", (parse2 | choose_shape | tostring)] | add"
+echo ""

@@ -5,11 +5,25 @@ def defeats:
         paper: "rock"
     };
 
+def defeated_by:
+    {
+        rock: "paper",
+        scissors: "rock",
+        paper: "scissors"
+    };
+
 def own_plays:
     {
         X: "rock",
         Y: "paper",
         Z: "scissors"
+    };
+
+def second_column_outcomes:
+    {
+        X: "lose",
+        Y: "draw",
+        Z: "win"
     };
 
 def opponent_plays:
@@ -49,6 +63,17 @@ def round_outcome:
 
 def parse:
     split(" ") | { theirs: opponent_plays[.[0]], ours: own_plays[.[1]] };
+
+def parse2:
+    split(" ") | { theirs: opponent_plays[.[0]], outcome: second_column_outcomes[.[1]] };
+
+def choose_shape:
+    if .outcome == "draw"
+    then .theirs
+    elif .outcome == "win"
+    then defeated_by[.theirs]
+    else defeats[.theirs]
+    end;
 
 def round_score:
     parse |
