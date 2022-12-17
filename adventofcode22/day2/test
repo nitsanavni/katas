@@ -61,3 +61,19 @@ echo "choose shape"
 echo $input_combinations | \
 jaq -cr "$(cat rock-paper-scissors.jq) [(parse2 | tostring), \" -> \", (parse2 | choose_shape | tostring)] | add"
 echo ""
+
+echo "round score"
+echo $input_combinations | \
+jaq -cr "$(cat rock-paper-scissors.jq) [., \" -> \", round_score_part_2 | tostring] | add"
+echo ""
+
+echo "total"
+echo $input_combinations | \
+jaq -r '.' | \
+jaq -sRrc "$(cat rock-paper-scissors.jq) [., \" -> \", sum_2 | tostring] | add"
+echo ""
+
+echo "with our input"
+cat input.txt | \
+jaq -sRcr "$(cat rock-paper-scissors.jq) [sum_2 | tostring] | add"
+echo ""

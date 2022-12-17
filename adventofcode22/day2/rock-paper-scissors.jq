@@ -36,8 +36,10 @@ def opponent_plays:
 def round_outcome_scores:
     {
         lost: 0,
+        lose: 0,
         draw: 3,
-        won: 6
+        won: 6,
+        win: 6
     };
 
 def shape_scores:
@@ -79,5 +81,12 @@ def round_score:
     parse |
     ({round_outcome:round_outcome} | round_outcome_score) + shape_scores[.ours];
 
+def round_score_part_2:
+    parse2 |
+    (choose_shape | shape_scores[.]) + round_outcome_scores[.outcome];
+
 def sum_them_up:
     split("\n") | map(select(. != "") | round_score) | add;
+
+def sum_2:
+    split("\n")|map(select(.!="")|round_score_part_2)|add;
