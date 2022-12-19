@@ -1,0 +1,1 @@
+jaq -rf mindmap-render-test-command.jq mindmap-render-test.json | rush {}
