@@ -1,0 +1,8 @@
+{
+  "name": "jq-template-literal",
+  "module": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "bun-types": "^0.3.0"
+  }
+}
