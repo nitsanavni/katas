@@ -1,24 +1,5 @@
 import { test, expect } from "bun:test";
-import { readableStreamToText, spawn } from "bun";
-
-const jq = (strings, ...values) => {
-    const code = String.raw({ raw: strings }, ...values);
-
-    return async (input: any) =>
-        JSON.parse(
-            await readableStreamToText(
-                (
-                    await spawn({
-                        cmd: [
-                            "sh",
-                            "-c",
-                            `echo '${JSON.stringify(input)}' | jaq '${code}'`,
-                        ],
-                    })
-                ).stdout!
-            )
-        );
-};
+import jq from "./jq";
 
 test("let's run some jq", async () => {
     const square = jq`. * .`;

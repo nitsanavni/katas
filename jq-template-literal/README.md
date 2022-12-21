@@ -1,15 +1,25 @@
-# jq-template-literal
+# jq template literal
 
-To install dependencies:
+invoke jq from javascript with:
 
-```bash
-bun install
+```ts
+const square = jq`. * .`;
+
+expect(await square(8)).toEqual(64);
 ```
 
-To run:
+## Run
 
-```bash
-bun run index.ts
+installs
+
+[jaq](https://github.com/01mf02/jaq), [bun](https://bun.sh/)
+
+```
+bun install --backend=copyfile
 ```
 
-This project was created using `bun init` in bun v0.2.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+run tests
+
+```
+bun wiptest
+```
