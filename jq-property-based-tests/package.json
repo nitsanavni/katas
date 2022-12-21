@@ -4,5 +4,8 @@
   "type": "module",
   "devDependencies": {
     "bun-types": "^0.3.0"
+  },
+  "dependencies": {
+    "fast-check": "^3.4.0"
   }
 }
