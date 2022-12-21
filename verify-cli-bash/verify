@@ -22,7 +22,7 @@ else
     echo "$received_text" > "$received"
 fi
 
-touch $approved
+touch "$approved"
 
 diff "$received" "$approved" > /dev/null \
     && (echo "test passed"; rm "$received") \
