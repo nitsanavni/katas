@@ -27,10 +27,10 @@ test("test jq code with fast-check", async () => {
 
     const inputAndOutputArrayLengthsAlignProperty = fc.asyncProperty(
         inputArbitrary,
-        async (s) =>
+        async (input) =>
             /true/.test(
                 await invokeJq(
-                    JSON.stringify(s),
+                    JSON.stringify(input),
                     "[(.|length),(product|.[0]|length)] | .[0]==.[1]"
                 )
             )

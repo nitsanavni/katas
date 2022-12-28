@@ -20,7 +20,7 @@ test6.received test6.approved
 test: chooses diff tool: diff
 stdout: test failed
 1c1
-< nope43757
+< <0>
 \ No newline at end of file
 ---
 > match?
@@ -29,12 +29,12 @@ stdout: test failed
 test: chooses diff tool: git diff
 stdout: test failed
 diff --git a/test7.received b/test7.approved
-index 8c83e56..cd2b099 100644
 --- a/test7.received
 +++ b/test7.approved
 @@ -1 +1 @@
--nope44392
+-<1>
 \ No newline at end of file
 +match?
 \ No newline at end of file
+
 

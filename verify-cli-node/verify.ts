@@ -1,7 +1,7 @@
 import minimist from "minimist";
 import getStdin from "get-stdin";
 import { readFile, stat, writeFile } from "fs/promises";
-import { execa, execaCommand } from "execa";
+import { execaCommand } from "execa";
 const argv = minimist(process.argv.slice(2));
 
 const input = await getStdin();
