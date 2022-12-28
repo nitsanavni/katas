@@ -1,0 +1,2 @@
+cc fizz-buzz.test.c
+./a.out | ../verify-cli-bash/verify -t fizzbuzz
