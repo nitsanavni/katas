@@ -1,28 +1,33 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct {
-  int d;
-  const char *code;
+typedef const struct spec {
+  const int divisor;
+  const char *const code;
 } spec_t;
 
-spec_t specs[] = {{.d = 3, .code = "Fizz"},
-                  {.d = 5, .code = "Buzz"},
-                  {.d = 7, .code = "Whizz"}};
+spec_t specs[] = {
+    {3, "Fizz"},
+    {5, "Buzz"},
+    {7, "Whizz"},
+    {11, "Bang"},
+};
 
-int is_multiple(int n, int of) { return n % of == 0; }
+const int num_of_specs = sizeof(specs) / sizeof(specs[0]);
 
-void fizzbuzz(char *output, int n) {
+const int is_multiple(const int n, const int of) { return n % of == 0; }
+
+void fizzbuzz(char *const output, const int n) {
   output[0] = '\0';
 
-  for (spec_t *spec = specs; spec < specs + 3; spec++) {
-    if (is_multiple(n, spec->d)) {
+  for (spec_t *spec = specs; spec < specs + num_of_specs; spec++) {
+    if (is_multiple(n, spec->divisor)) {
       // append the code
       strcat(output, spec->code);
     }
   }
 
-  int no_divisors = output[0] == '\0';
+  const int no_divisors = output[0] == '\0';
 
   if (no_divisors) {
     sprintf(output, "%d", n);
@@ -30,9 +35,11 @@ void fizzbuzz(char *output, int n) {
 }
 
 int main(void) {
-  for (int n = 1; n <= 35; n++) {
-    char buf[20];
-    fizzbuzz(buf, n);
-    printf("%d -> %s\n", n, buf);
+  const int least_common_multiple = 3 * 5 * 7 * 11;
+
+  for (int n = 1; n <= least_common_multiple; n++) {
+    char result[20];
+    fizzbuzz(result, n);
+    printf("%d -> %s\n", n, result);
   }
 }
