@@ -1,5 +1,5 @@
 const fizzbuzz = (n: number) => {
-    if (n == 3) {
+    if (n % 3 == 0) {
         return "Fizz";
     }
 
@@ -10,7 +10,7 @@ const fizzbuzz = (n: number) => {
     return String(n);
 };
 
-range(5)
+range(6)
     .map((x) => x + 1)
     .forEach((n) => console.log(fizzbuzz(n)));
 
