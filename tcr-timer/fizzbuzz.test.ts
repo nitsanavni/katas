@@ -8,7 +8,8 @@ const fizzbuzz = (n: number) => {
 
     specs
         .filter(({ divisor }) => n % fizz.divisor == 0)
-        .map(({ code }) => code);
+        .map(({ code }) => code)
+        .join("");
 
     if (n % fizz.divisor == 0) {
         ret += fizz.code;
