@@ -9,7 +9,7 @@ const fizzbuzz = (n: number) => {
     }
 
     if (n % buzz.divisor == 0) {
-        ret += "Buzz";
+        ret += buzz.code;
     }
 
     return ret || String(n);
