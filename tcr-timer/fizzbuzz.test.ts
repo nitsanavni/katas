@@ -1,6 +1,7 @@
 const fizz = { divisor: 3, code: "Fizz" };
 const buzz = { divisor: 5, code: "Buzz" };
 const whizz = { divisor: 7, code: "Whizz" };
+const bang = { divisor: 11, code: "Bang" };
 
 const specs = [fizz, buzz, whizz];
 
