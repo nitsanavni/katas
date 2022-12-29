@@ -8,7 +8,7 @@ Whizz
 8
 Fizz
 Buzz
-11
+Bang
 Fizz
 13
 Whizz
@@ -19,7 +19,7 @@ Fizz
 19
 Buzz
 FizzWhizz
-22
+Bang
 23
 Fizz
 Buzz
@@ -30,6 +30,6 @@ Whizz
 FizzBuzz
 31
 32
-Fizz
+FizzBang
 34
 BuzzWhizz
