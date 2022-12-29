@@ -8,7 +8,7 @@ const fizzbuzz = (n: number) => {
         ret += fizz.code;
     }
 
-    if (n % 5 == 0) {
+    if (n % buzz.divisor == 0) {
         ret += "Buzz";
     }
 
