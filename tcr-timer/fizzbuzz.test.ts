@@ -3,15 +3,11 @@ const buzz = { divisor: 5, code: "Buzz" };
 
 const specs = [fizz, buzz];
 
-const fizzbuzz = (n: number) => {
-    return (
-        specs
-            .filter(({ divisor }) => n % divisor == 0)
-            .map(({ code }) => code)
-            .join("") || String(n)
-    );
-};
-
+const fizzbuzz = (n: number) =>
+    specs
+        .filter(({ divisor }) => n % divisor == 0)
+        .map(({ code }) => code)
+        .join("") || String(n);
 range(35)
     .map((x) => x + 1)
     .forEach((n) => console.log(fizzbuzz(n)));
