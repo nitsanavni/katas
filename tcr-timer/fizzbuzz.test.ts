@@ -1,6 +1,8 @@
 const fizzbuzz = (n: number) => {
     let ret = "";
 
+    const divisor = 3;
+
     if (n % 3 == 0) {
         ret += "Fizz";
     }
