@@ -1,1 +1,2 @@
+echo restart timer
 date +%s > timer
