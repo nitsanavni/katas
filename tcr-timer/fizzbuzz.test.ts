@@ -1,3 +1,3 @@
 const fizzbuzz = (n: number) => String(n);
 
-console.log("1");
+console.log(fizzbuzz(1));
