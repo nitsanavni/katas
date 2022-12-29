@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+
+# this is a simple rotation timer
+# it opens itself every X seconds
+
+# re-arrange the following list, when this happens
+
+# John
+# -- typing ---->
+# George
+# Ringo
+# Paul
+
+two_minutes=120
+every="${1:-$two_minutes}"
+editor="${2:-$EDITOR}"
+watch -n $every $editor $BASH_SOURCE
