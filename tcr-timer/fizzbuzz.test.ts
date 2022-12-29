@@ -1,6 +1,9 @@
-const fizzbuzz = (n: number) => String(n);
+const fizzbuzz = (n: number) => {
+    if (n == 3) return "Fizz";
+    return String(n);
+};
 
-range(2)
+range(3)
     .map((x) => x + 1)
     .forEach((n) => console.log(fizzbuzz(n)));
 
