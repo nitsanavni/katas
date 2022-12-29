@@ -5,7 +5,7 @@ const fizzbuzz = (n: number) => {
     const code = "Fizz";
 
     if (n % divisor == 0) {
-        ret += "Fizz";
+        ret += code;
     }
 
     if (n % 5 == 0) {
