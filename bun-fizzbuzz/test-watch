@@ -1,0 +1,1 @@
+ls fizzbuzz.test.ts fizzbuzz.approved | entr -c ./test

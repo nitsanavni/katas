@@ -1,0 +1,1 @@
+bun run fizzbuzz.test.ts | ../verify-cli-bash/verify -t fizzbuzz
