@@ -12,7 +12,7 @@ const fizzbuzz = (n: number) => {
         return "Buzz";
     }
 
-    return String(n);
+    return ret || String(n);
 };
 
 range(35)
