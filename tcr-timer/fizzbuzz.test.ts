@@ -1,8 +1,5 @@
 const fizzbuzz = (n: number) => {
     let ret = "";
-    if (n % 15 == 0) {
-        return "FizzBuzz";
-    }
     if (n % 3 == 0) {
         ret += "Fizz";
     }
