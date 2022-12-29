@@ -12,7 +12,7 @@ const fizzbuzz = (n: number) => {
     return String(n);
 };
 
-range(14)
+range(15)
     .map((x) => x + 1)
     .forEach((n) => console.log(fizzbuzz(n)));
 
