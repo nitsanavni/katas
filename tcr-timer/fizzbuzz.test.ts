@@ -6,7 +6,7 @@ const fizzbuzz = (n: number) => {
 
     const fizz = { divisor, code };
 
-    if (n % divisor == 0) {
+    if (n % fizz.divisor == 0) {
         ret += code;
     }
 
