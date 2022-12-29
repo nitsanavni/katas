@@ -11,14 +11,6 @@ const fizzbuzz = (n: number) => {
         .map(({ code }) => code)
         .join("");
 
-    // if (n % fizz.divisor == 0) {
-    //     ret += fizz.code;
-    // }
-
-    // if (n % buzz.divisor == 0) {
-    //     ret += buzz.code;
-    // }
-
     return ret || String(n);
 };
 
