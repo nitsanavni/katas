@@ -1,9 +1,9 @@
+const fizz = { divisor: 3, code: "Fizz" };
+const buzz = { divisor: 5, code: "Buzz" };
+
+const specs = [fizz, buzz];
+
 const fizzbuzz = (n: number) => {
-    const fizz = { divisor: 3, code: "Fizz" };
-    const buzz = { divisor: 5, code: "Buzz" };
-
-    const specs = [fizz, buzz];
-
     return (
         specs
             .filter(({ divisor }) => n % divisor == 0)
