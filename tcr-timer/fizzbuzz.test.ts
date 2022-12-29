@@ -3,10 +3,14 @@ const fizzbuzz = (n: number) => {
         return "Fizz";
     }
 
+    if (n == 5) {
+        return "Buzz";
+    }
+
     return String(n);
 };
 
-range(4)
+range(5)
     .map((x) => x + 1)
     .forEach((n) => console.log(fizzbuzz(n)));
 
