@@ -1,4 +1,5 @@
 const fizzbuzz = (n: number) => String(n);
+
 range(1)
     .map((x) => x + 1)
     .forEach((n) => console.log(fizzbuzz(n)));
