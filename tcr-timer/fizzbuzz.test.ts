@@ -5,7 +5,6 @@ const fizzbuzz = (n: number) => {
     }
     if (n % 3 == 0) {
         ret += "Fizz";
-        return "Fizz";
     }
     if (n % 5 == 0) {
         ret += "Buzz";
