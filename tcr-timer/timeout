@@ -1,1 +1,1 @@
-exit $(($(date +%s) - $(cat timer) < 60))
+exit $(($(date +%s) - $(cat timer) < 8))
