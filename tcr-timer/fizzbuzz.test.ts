@@ -1,4 +1,6 @@
-const fizzbuzz = (n: number) => String(n);
+const fizzbuzz = (n: number) => {
+    return String(n);
+};
 
 range(2)
     .map((x) => x + 1)
