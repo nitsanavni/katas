@@ -1,5 +1,5 @@
 const fizzbuzz = (n: number) => {
-    if (n == 3) return 3;
+    if (n == 3) return "Fizz";
     return String(n);
 };
 
