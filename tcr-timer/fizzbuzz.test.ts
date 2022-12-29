@@ -8,6 +8,7 @@ const fizzbuzz = (n: number) =>
         .filter(({ divisor }) => n % divisor == 0)
         .map(({ code }) => code)
         .join("") || String(n);
+
 range(35)
     .map((x) => x + 1)
     .forEach((n) => console.log(fizzbuzz(n)));
