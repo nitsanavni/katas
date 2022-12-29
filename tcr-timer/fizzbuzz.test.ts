@@ -6,12 +6,12 @@ const fizzbuzz = (n: number) => {
 
     const specs = [fizz, buzz];
 
-    ret = specs
-        .filter(({ divisor }) => n % divisor == 0)
-        .map(({ code }) => code)
-        .join("");
-
-    return ret || String(n);
+    return (
+        specs
+            .filter(({ divisor }) => n % divisor == 0)
+            .map(({ code }) => code)
+            .join("") || String(n)
+    );
 };
 
 range(35)
