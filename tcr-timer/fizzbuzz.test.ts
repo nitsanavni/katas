@@ -8,7 +8,6 @@ const fizzbuzz = (n: number) => {
     }
     if (n % 5 == 0) {
         ret += "Buzz";
-        return "Buzz";
     }
 
     return ret || String(n);
