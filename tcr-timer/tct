@@ -1,2 +1,2 @@
-./timeout && ./revert && ./restart-timer
 ./test && ./commit && ./restart-timer
+./timeout && ./revert && ./restart-timer
