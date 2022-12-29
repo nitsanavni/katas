@@ -1,0 +1,1 @@
+ls fractions.approved fractions.test.ts | entr -c ./test
