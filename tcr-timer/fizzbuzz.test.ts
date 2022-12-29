@@ -6,7 +6,10 @@ const fizzbuzz = (n: number) => {
 
     const specs = [fizz, buzz];
 
-    specs.filter(({ divisor }) => n % fizz.divisor == 0);
+    specs
+        .filter(({ divisor }) => n % fizz.divisor == 0)
+        .map(({ code }) => code);
+
     if (n % fizz.divisor == 0) {
         ret += fizz.code;
     }
