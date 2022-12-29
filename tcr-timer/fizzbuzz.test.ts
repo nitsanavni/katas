@@ -3,7 +3,7 @@ const fizzbuzz = (n: number) => {
 
     const divisor = 3;
 
-    if (n % 3 == 0) {
+    if (n % divisor == 0) {
         ret += "Fizz";
     }
 
