@@ -6,18 +6,18 @@ const fizzbuzz = (n: number) => {
 
     const specs = [fizz, buzz];
 
-    specs
+    ret = specs
         .filter(({ divisor }) => n % divisor == 0)
         .map(({ code }) => code)
         .join("");
 
-    if (n % fizz.divisor == 0) {
-        ret += fizz.code;
-    }
+    // if (n % fizz.divisor == 0) {
+    //     ret += fizz.code;
+    // }
 
-    if (n % buzz.divisor == 0) {
-        ret += buzz.code;
-    }
+    // if (n % buzz.divisor == 0) {
+    //     ret += buzz.code;
+    // }
 
     return ret || String(n);
 };
