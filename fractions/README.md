@@ -1,8 +1,15 @@
-dev:
+# fractions
 
+To install dependencies:
+
+```bash
+bun install
 ```
-$ cd fractions
-$ npx tsc -w &
-$ docker run -it --rm -d -p 8080:80 --name coverage -v $PWD/coverage:/usr/share/nginx/html:ro nginx
-$ ls test.js | entr parallel --tty -j+0 ::: "npx c8 --all -x '.eslintrc.js' -x coverage -r html -r text ava" "npx eslint ."
+
+To run:
+
+```bash
+bun run fractions.test.ts
 ```
+
+This project was created using `bun init` in bun v0.4.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
