@@ -7,7 +7,7 @@ const fizzbuzz = (n: number) => {
     const specs = [fizz, buzz];
 
     specs
-        .filter(({ divisor }) => n % fizz.divisor == 0)
+        .filter(({ divisor }) => n % divisor == 0)
         .map(({ code }) => code)
         .join("");
 
