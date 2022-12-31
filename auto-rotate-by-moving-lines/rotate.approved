@@ -1,0 +1,26 @@
+test: rm typing indication
+Bob
+-- typing -->
+Alice
+-----
+Bob
+Alice
+
+
+test: move line down
+a
+b
+c
+-----
+a
+c
+b
+
+
+test: jq filter as bash var
+1
+2
+5
+10
+17
+

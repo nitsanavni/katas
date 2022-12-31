@@ -1,0 +1,1 @@
+ls test.sh | entr -c ./test
