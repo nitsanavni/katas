@@ -7,14 +7,20 @@ Bob
 Alice
 
 
-test: move line down
+test: swap lines
 a
 b
 c
 -----
+swap(1;2)
 a
 c
 b
+
+swap(0;2)
+c
+b
+a
 
 
 test: jq filter as bash var

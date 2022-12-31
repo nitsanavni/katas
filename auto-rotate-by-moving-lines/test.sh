@@ -1,11 +1,12 @@
 #!/usr/bin/bash
 
+lib=$(cat lib.jq)
+
 cat_input() {
 cat << EOF
 $input
 EOF
 }
-
 
 echo test: rm typing indication
 
@@ -18,14 +19,17 @@ cat_input | jaq -sRr 'split("\n")[] | select(test("typing")|not)'
 echo ""
 
 
-echo test: move line down
+echo test: swap lines
 
 input="a
 b
 c"
 cat_input
 echo -----
-cat_input | jaq -sRr 'split("\n") | .[1] as $tmp | .[1] = .[2] | .[2] = $tmp | .[]'
+echo 'swap(1;2)'
+cat_input | jaq -sRr "$lib"'split("\n") | swap(1;2) | .[]'
+echo 'swap(0;2)'
+cat_input | jaq -sRr "$lib"'split("\n") | swap(0;2) | .[]'
 echo ""
 
 
