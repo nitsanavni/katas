@@ -2,26 +2,21 @@ test: rm typing indication
 Bob
 -- typing -->
 Alice
------
+------------------------
 Bob
 Alice
 
 
 test: swap lines
-a
-b
-c
------
+------------------------
 swap(1;2)
 a
 c
 b
-
 swap(0;2)
 c
 b
 a
-
 
 test: jq filter as bash var
 1
@@ -29,4 +24,14 @@ test: jq filter as bash var
 5
 10
 17
+
+test: line index by regex
+------------------------
+1
+
+test: move regexed line one line down
+------------------------
+a
+c
+b
 

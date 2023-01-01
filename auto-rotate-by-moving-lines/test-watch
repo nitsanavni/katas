@@ -1,1 +1,1 @@
-ls test.sh | entr -c ./test
+ls test.sh lib.jq rotate.approve | entr -c ./test
