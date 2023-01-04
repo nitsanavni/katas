@@ -13,3 +13,9 @@ curl -o verify.sh https://raw.githubusercontent.com/approvals/ApprovalTests.shel
 ```shell
 ./test.sh
 ```
+
+## Watch
+
+```shell
+ls *.c | entr -c ./test.sh
+```

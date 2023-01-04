@@ -6,3 +6,4 @@ cc -g -Wall -Wextra -ftest-coverage -fprofile-arcs test.c GildedRose.c
 
 # coverage
 gcov -b GildedRose.c | grep executed
+code GildedRose.c.gcov
