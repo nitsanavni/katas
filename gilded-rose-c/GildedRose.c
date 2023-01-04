@@ -15,59 +15,77 @@ extern char *print_item(char *buffer, Item *item) {
   return buffer;
 }
 
+void update_regular_item(Item *item) {
+  if (item->quality > 0) {
+    item->quality = item->quality - 1;
+  }
+
+  item->sellIn = item->sellIn - 1;
+
+  if (item->sellIn < 0) {
+    if (item->quality > 0) {
+      item->quality = item->quality - 1;
+    }
+  }
+}
+
+void update_backstage(Item *item) {
+  if (item->quality < 50) {
+    item->quality = item->quality + 1;
+
+    if (item->sellIn < 11) {
+      if (item->quality < 50) {
+        item->quality = item->quality + 1;
+      }
+    }
+
+    if (item->sellIn < 6) {
+      if (item->quality < 50) {
+        item->quality = item->quality + 1;
+      }
+    }
+  }
+
+  item->sellIn = item->sellIn - 1;
+
+  if (item->sellIn < 0) {
+    item->quality = item->quality - item->quality;
+  }
+}
+void update_brie(Item *item) {
+  if (item->quality < 50) {
+    item->quality = item->quality + 1;
+  }
+
+  item->sellIn = item->sellIn - 1;
+
+  if (item->sellIn < 0) {
+    if (item->quality < 50) {
+      item->quality = item->quality + 1;
+    }
+  }
+}
+
+int is_brie(Item *item) { return !strcmp(item->name, "Aged Brie"); }
+
+int is_backstage(Item *item) {
+  return !strcmp(item->name, "Backstage passes to a TAFKAL80ETC concert");
+}
+
+void update_item(Item *item) {
+  if (is_brie(item)) {
+    update_brie(item);
+  } else if (is_backstage(item)) {
+    update_backstage(item);
+  } else if (!strcmp(item->name, "Sulfuras, Hand of Ragnaros")) {
+    // do nothing!
+  } else {
+    update_regular_item(item);
+  }
+}
+
 void update_quality(Item items[], int size) {
-  int i;
-
-  for (i = 0; i < size; i++) {
-    if (strcmp(items[i].name, "Aged Brie") &&
-        strcmp(items[i].name, "Backstage passes to a TAFKAL80ETC concert")) {
-      if (items[i].quality > 0) {
-        if (strcmp(items[i].name, "Sulfuras, Hand of Ragnaros")) {
-          items[i].quality = items[i].quality - 1;
-        }
-      }
-    } else {
-      if (items[i].quality < 50) {
-        items[i].quality = items[i].quality + 1;
-
-        if (!strcmp(items[i].name,
-                    "Backstage passes to a TAFKAL80ETC concert")) {
-          if (items[i].sellIn < 11) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1;
-            }
-          }
-
-          if (items[i].sellIn < 6) {
-            if (items[i].quality < 50) {
-              items[i].quality = items[i].quality + 1;
-            }
-          }
-        }
-      }
-    }
-
-    if (strcmp(items[i].name, "Sulfuras, Hand of Ragnaros")) {
-      items[i].sellIn = items[i].sellIn - 1;
-    }
-
-    if (items[i].sellIn < 0) {
-      if (strcmp(items[i].name, "Aged Brie")) {
-        if (strcmp(items[i].name,
-                   "Backstage passes to a TAFKAL80ETC concert")) {
-          if (items[i].quality > 0) {
-            if (strcmp(items[i].name, "Sulfuras, Hand of Ragnaros")) {
-              items[i].quality = items[i].quality - 1;
-            }
-          }
-        } else {
-          items[i].quality = items[i].quality - items[i].quality;
-        }
-      } else {
-        if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1;
-        }
-      }
-    }
+  for (Item *item = items; item < items + size; item++) {
+    update_item(item);
   }
 }
