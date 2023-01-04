@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+jaq -sRrji "$(cat lib.jq)"'rotate("typing")' $1

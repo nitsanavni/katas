@@ -73,3 +73,16 @@ test: move our line - move(re)
 |a|
 |a|
 
+test: rotate
+------------------------
+_
+
+b
+a
+c
+d
+e
+
+‾
+
+

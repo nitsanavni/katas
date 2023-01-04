@@ -37,3 +37,8 @@ def move(re):
     else
         swap($b.b; $b.b + 1)
     end;
+
+def rotate(re):
+    split("\n") |
+    move(re) |
+    join("\n");

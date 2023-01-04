@@ -89,3 +89,9 @@ jaq -sRr "$lib"'split("\n")[0:-1] |
     move("\\ba\\b") |
     add'
 echo ""
+
+echo 'test: rotate'
+echo ------------------------
+jaq -nr '"_","","a","b","c","d","e","","‾"' |\
+jaq -sRr "$lib"'rotate("\\ba\\b")'
+echo ""
