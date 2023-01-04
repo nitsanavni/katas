@@ -43,11 +43,49 @@ echo ""
 
 echo test: move regexed line one line down
 echo ------------------------
-jaq -nr '"a","b","c"' | jaq -sRr "$lib"'split("\n")[0:-1] | move_line_down("b") | .[]' 
+jaq -nr '"a","b","c"' | jaq -sRr "$lib"'split("\n")[0:-1] | move_line_down("b") | .[]'
 echo ""
 
 echo test: find our block
 echo ------------------------
-jaq -nr '(range(3)|"before"),"","a","b","c","",range(3)' |\
+jaq -nr '(range(3)|"before"),"","a","b","c","",(range(3)|"after")' |\
 jaq -sRr "$lib"'split("\n")[0:-1] | block("\\bb\\b")'
+jaq -nr '"a","b","c","",(range(3)|"after")' |\
+jaq -sRr "$lib"'split("\n")[0:-1] | block("\\bb\\b")'
+jaq -nr '"a","b","c"' |\
+jaq -sRr "$lib"'split("\n")[0:-1] | block("\\bb\\b")'
+echo ""
+
+echo test: show blocked lines
+echo ------------------------
+jaq -nr '(range(3)|"before"),"","a","b","c","",(range(3)|"after")' |\
+jaq -sRr "$lib"'split("\n")[0:-1] | [.[block("\\bb\\b") | .s,.b,.e]] | add'
+jaq -nr '"a","b","c","",(range(3)|"after")' |\
+jaq -sRr "$lib"'split("\n")[0:-1] | [.[block("\\bb\\b") | .s,.b,.e]] | add'
+jaq -nr '"a","b","c"' |\
+jaq -sRr "$lib"'split("\n")[0:-1] | [.[block("\\bb\\b") | .s,.b,.e]] | add'
+echo ""
+
+echo 'test: move our line - move(re)'
+echo ------------------------
+jaq -nr '"|","","a","b","c","d","e","","|"' |\
+jaq -sRr "$lib"'split("\n")[0:-1] |
+    .,
+    move("\\ba\\b"),
+    move("\\bb\\b"),
+    move("\\bc\\b"),
+    move("\\bd\\b"),
+    move("\\be\\b") |
+    add'
+jaq -nr '"|","","a","b","","|"' |\
+jaq -sRr "$lib"'split("\n")[0:-1] |
+    .,
+    move("\\ba\\b"),
+    move("\\bb\\b") |
+    add'
+jaq -nr '"|","","a","","|"' |\
+jaq -sRr "$lib"'split("\n")[0:-1] |
+    .,
+    move("\\ba\\b") |
+    add'
 echo ""

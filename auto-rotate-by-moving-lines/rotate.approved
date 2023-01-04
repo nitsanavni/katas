@@ -39,7 +39,37 @@ test: find our block
 ------------------------
 {
   "s": 4,
-  "e": 7,
+  "e": 6,
   "b": 5
 }
+{
+  "s": 0,
+  "e": 2,
+  "b": 1
+}
+{
+  "s": 0,
+  "e": -1,
+  "b": 1
+}
+
+test: show blocked lines
+------------------------
+abc
+abc
+abc
+
+test: move our line - move(re)
+------------------------
+|abcde|
+|bacde|
+|acbde|
+|abdce|
+|dabce|
+|eabcd|
+|ab|
+|ab|
+|ba|
+|a|
+|a|
 
