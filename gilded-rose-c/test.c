@@ -2,6 +2,9 @@
 
 #include "./GildedRose.h"
 
+#define S(array) (sizeof(array) / sizeof((array)[0]))
+#define E(array) (array + S(array))
+
 int main() {
   Item item;
   update_quality(&item, 0);
@@ -12,11 +15,11 @@ int main() {
   const int sellIns[] = {-1, 0, 11};
   const int qualities[] = {0, 1, 49, 50};
 
-  for (const char **name = names; name < names + 4; name++) {
+  for (const char **name = names; name < E(names); name++) {
     printf("%s\n", *name);
 
-    for (const int *sellIn = sellIns; sellIn < sellIns + 3; sellIn++) {
-      for (const int *quality = qualities; quality < qualities + 4; quality++) {
+    for (const int *sellIn = sellIns; sellIn < E(sellIns); sellIn++) {
+      for (const int *quality = qualities; quality < E(qualities); quality++) {
         init_item(&item, *name, *sellIn, *quality);
 
         printf("%d %d -> ", item.sellIn, item.quality);
