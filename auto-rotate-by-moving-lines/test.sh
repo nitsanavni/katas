@@ -43,5 +43,11 @@ echo ""
 
 echo test: move regexed line one line down
 echo ------------------------
-jaq -sRr "$lib"'split("\n") | move_line_down("b") | .[]' abc
+jaq -nr '"a","b","c"' | jaq -sRr "$lib"'split("\n")[0:-1] | move_line_down("b") | .[]' 
+echo ""
+
+echo test: find our block
+echo ------------------------
+jaq -nr '(range(3)|"before"),"","a","b","c","",range(3)' |\
+jaq -sRr "$lib"'split("\n")[0:-1] | block("\\bb\\b")'
 echo ""
