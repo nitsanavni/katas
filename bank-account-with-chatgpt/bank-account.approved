@@ -1,13 +1,13 @@
 Test: print statement of a new account
-Date       || Amount || Balance
+      Date ||  Amount || Balance
 
 Test: print statement after single deposit
-Date       || Amount || Balance
-           ||     1000    ||     1000
+      Date ||  Amount || Balance
+           ||    1000 ||    1000
 
 Test: print statement after multiple deposits
-Date       || Amount || Balance
-           ||     1000    ||     1000
-           ||     1000    ||     2000
-           ||     2000    ||     4000
-           ||     -500    ||     3500
+      Date ||  Amount || Balance
+           ||    1000 ||    1000
+           ||    1000 ||    2000
+           ||    2000 ||    4000
+           ||    -500 ||    3500
