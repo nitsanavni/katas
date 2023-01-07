@@ -1,15 +1,9 @@
 class BankAccount:
-    def deposit(self, amount):
-        pass
-
-    def withdraw(self, amount):
-        pass
-
-    def balance(self):
+    def print_statement(self):
         pass
 
 
 account = BankAccount()
-balance = account.balance()
-print("Test: check balance of a new account")
-print(f"The balance of the bank account is\n{balance}")
+statement = account.print_statement()
+print(f"Test: print statement of a new account")
+print(f"The statement of the bank account is:\n{statement}")
