@@ -3,15 +3,14 @@ class BankAccount:
         self.transactions = []
 
     def deposit(self, amount):
-        self.transactions.append(amount)
+        self.transactions.append((amount,))
 
     def print_statement(self):
         print("Date       || Amount || Balance")
-        for i, t in enumerate(self.transactions):
-            balance = sum(self.transactions[:i+1])
-            print(f"           || {t}    || {balance}")
-
-# Test: print statement of a new account
+        balance = 0
+        for t in self.transactions:
+            balance += t[0]
+            print(f"           || {t[0]:>7}    || {balance:>7}")
 
 
 print("Test: print statement of a new account")
@@ -20,9 +19,7 @@ account = BankAccount()
 
 account.print_statement()
 
-# Test: print statement after single deposit
-
-print("Test: print statement after single deposit")
+print("\nTest: print statement after single deposit")
 
 account.deposit(1000)
 

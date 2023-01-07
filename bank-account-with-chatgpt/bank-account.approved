@@ -1,5 +1,6 @@
 Test: print statement of a new account
 Date       || Amount || Balance
+
 Test: print statement after single deposit
 Date       || Amount || Balance
-           || 1000    || 1000
+           ||    1000    ||    1000
