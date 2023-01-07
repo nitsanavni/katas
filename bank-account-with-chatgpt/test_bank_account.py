@@ -2,15 +2,21 @@ class BankAccount:
     def print_statement(self):
         print("Date       || Amount || Balance")
 
+    def deposit(self, amount):
+        pass
+
 
 print("Test: print statement of a new account")
-print("------------------------")
 
 account = BankAccount()
+
 account.print_statement()
 
-print("\nTest: print statement after single deposit")
 print("------------------------")
 
-# code for depositing into account here
+
+print("Test: print statement after single deposit")
+
+account.deposit(100)
+
 account.print_statement()
