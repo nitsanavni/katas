@@ -21,10 +21,13 @@ account = BankAccount()
 account.print_statement()
 
 print("\nTest: print statement after single deposit")
+account = BankAccount()
 account.deposit(1000)
 account.print_statement()
 
 print("\nTest: print statement after multiple deposits")
+account = BankAccount()
+account.deposit(1000)
 account.deposit(1000)
 account.deposit(2000)
 account.withdraw(500)
