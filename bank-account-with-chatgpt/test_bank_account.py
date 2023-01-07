@@ -8,9 +8,9 @@ class BankAccount:
     def print_statement(self):
         print("Date       || Amount || Balance")
         balance = 0
-        for transaction in self.transactions:
-            balance += transaction
-            print(f"           || {transaction:>7}    || {balance:>7}")
+        for t in self.transactions:
+            balance += t
+            print("           ||    %5d    ||    %5d" % (t, balance))
 
 
 print("Test: print statement of a new account")
@@ -19,13 +19,13 @@ account = BankAccount()
 
 account.print_statement()
 
-print("Test: print statement after single deposit")
+print("\nTest: print statement after single deposit")
 
 account.deposit(1000)
 
 account.print_statement()
 
-print("Test: print statement after multiple deposits")
+print("\nTest: print statement after multiple deposits")
 
 account.deposit(1000)
 account.deposit(2000)
