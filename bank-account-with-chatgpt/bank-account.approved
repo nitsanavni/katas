@@ -1,3 +1,2 @@
 Test: print statement of a new account
-The statement of the bank account is:
-None
+Date       || Amount || Balance
