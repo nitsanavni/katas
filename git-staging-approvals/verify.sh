@@ -1,16 +1,21 @@
-cat - > received
+#!/bin/bash -i
 
-touch approved
+eval "$1" > result
 
-diff -q received approved > /dev/null \
+git add --intent-to-add result
+
+git diff --exit-code result > /dev/null \
     && \
         ( \
             echo "test passed"; \
-            rm received; \
         ) \
     || \
         ( \
-            echo "test failed"; \
-            eval "diff received approved"; \
+            echo ""; \
+            echo ""; \
+            echo "*** test failed ***"; \
+            echo ""; \
+            echo ""; \
+            bash -c "git add -p result"; \
             false \
         )
