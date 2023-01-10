@@ -1,1 +1,1 @@
-jaq -nf fizzbuzz.jq
+jaq -nrf fizzbuzz.jq
