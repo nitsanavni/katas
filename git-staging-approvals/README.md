@@ -8,6 +8,10 @@ The working tree version acts like the received file.
 
 The index version acts like the approved file.
 
+# See it in Action
+
+https://youtu.be/MxW64uxPZmM
+
 # Use it
 
 ```shell
