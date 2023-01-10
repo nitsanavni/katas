@@ -18,6 +18,6 @@ git diff --exit-code result > /dev/null \
     || \
         ( \
             echo "*** test failed ***"; \
-            bash -c "git add --patch result"; \
+            git add --patch result; \
             false \
         )
