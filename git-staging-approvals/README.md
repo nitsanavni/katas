@@ -10,7 +10,7 @@ The index version acts like the approved file.
 
 # See it in Action
 
-https://youtu.be/MxW64uxPZmM
+[![Demo of The Concept with FizzBuzz](https://img.youtube.com/vi/MxW64uxPZmM/0.jpg)](https://youtu.be/MxW64uxPZmM)
 
 # Use it
 
