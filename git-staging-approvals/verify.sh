@@ -1,7 +1,7 @@
 #!/bin/bash -i
 
-# run the test and store to 'result' file
-# test is secified as the first arg to this script
+# run the test and store the output to 'result' file
+# the test executable is secified as the first arg to this script
 eval "$1" > result
 
 # add result file to the index (not its contents)
