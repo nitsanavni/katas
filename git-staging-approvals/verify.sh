@@ -10,7 +10,7 @@ git add --intent-to-add result
 # compare the working tree version to the index version
 # if they're identical -> test passed
 # if they're different -> test failed and allow to patch the index interactively (aka "approve" the new result)
-git diff --exit-code result > /dev/null \
+git diff --quiet result \
     && \
         ( \
             echo "*** test passed ***"; \
