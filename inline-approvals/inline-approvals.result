@@ -1,0 +1,10 @@
+test: adds multiline comment after verify
+GIVEN this test script (test-script.sh):
+```bash
+echo --- verify result 1 ---
+echo hello world!
+```
+WHEN running ./inline.sh 'bash test-script.sh'
+THEN the inlined output is:
+echo --- verify result 1 ---
+echo hello world!

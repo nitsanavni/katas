@@ -1,3 +1,9 @@
+## run tests
+
+```shell
+./verify.sh inline-approvals ./test.sh
+```
+
 ## flow
 
 -   multiple `verify` calls in a single test file
