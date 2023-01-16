@@ -3,8 +3,16 @@ GIVEN this test script (test-script.sh):
 ```bash
 echo --- verify result 1 ---
 echo hello world!
+: 'verify result
+'
 ```
-WHEN running ./inline.sh 'bash test-script.sh'
+WHEN running ./inline.sh 'bash test-script.sh' test-script.sh
 THEN the inlined output is:
+cat $2
 echo --- verify result 1 ---
 echo hello world!
+: 'verify result
+'
+eval $1
+--- verify result 1 ---
+hello world!

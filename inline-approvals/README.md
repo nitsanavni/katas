@@ -4,6 +4,12 @@
 ./verify.sh inline-approvals ./test.sh
 ```
 
+### watch
+
+```shell
+ls test.sh inline.sh | entr -c ./verify.sh inline-approvals ./test.sh
+```
+
 ## flow
 
 -   multiple `verify` calls in a single test file
