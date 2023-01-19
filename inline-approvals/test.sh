@@ -3,7 +3,7 @@
 echo "test: adds multiline comment after verify"
 
 tmp=$(mktemp)
-echo "echo --- verify result 1 ---" >> $tmp
+echo "echo --- verify result ---" >> $tmp
 echo "echo hello world!" >> $tmp
 echo ": 'verify result" >> $tmp
 echo "'" >> $tmp
@@ -16,4 +16,4 @@ echo '```'
 echo "WHEN running ./inline.sh 'bash test-script.sh' test-script.sh"
 echo "THEN the inlined output is:"
 
-./inline.sh "bash $tmp" $tmp
+./inline.sh $tmp

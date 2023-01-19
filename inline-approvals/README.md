@@ -1,3 +1,9 @@
+## installs
+
+```shell
+cargo install --locked --git https://github.com/01mf02/jaq
+```
+
 ## run tests
 
 ```shell
