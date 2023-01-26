@@ -2,3 +2,4 @@
 verify.sh
 *.received*
 *.gc*
+test-gilded-rose
