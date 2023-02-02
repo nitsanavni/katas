@@ -1,0 +1,1 @@
+bun run test-gilded-rose.ts | ./verify.sh -t gilded-rose

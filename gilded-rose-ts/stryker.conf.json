@@ -7,7 +7,7 @@
     "testRunner_comment": "Take a look at (missing 'homepage' URL in package.json) for information about the command plugin.",
     "coverageAnalysis": "perTest",
     "commandRunner": {
-        "command": "bun run test-gilded-rose.ts | ./verify.sh -t gilded-rose"
+        "command": "bun run test-gilded-rose.ts | ./verify.sh -t gilded-rose -d true"
     },
     "mutate": ["*.ts"]
 }
