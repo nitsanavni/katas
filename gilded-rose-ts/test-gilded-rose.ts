@@ -1,11 +1,14 @@
 import { Item, updateQuality } from "./gilded-rose";
+import product from "./product";
 
-let item: Item = { name: "name", sellIn: 1, quality: 1 };
+product(["name"], [1], [1]).forEach(([name, sellIn, quality]) => {
+    let item: Item = { name, sellIn, quality };
 
-const before = `${item.name} ${item.sellIn} ${item.quality}`;
+    const before = `${item.name} ${item.sellIn} ${item.quality}`;
 
-updateQuality([item]);
+    updateQuality([item]);
 
-const after = `${item.name} ${item.sellIn} ${item.quality}`;
+    const after = `${item.name} ${item.sellIn} ${item.quality}`;
 
-console.log(`${before} -> ${after}`);
+    console.log(`${before} -> ${after}`);
+});

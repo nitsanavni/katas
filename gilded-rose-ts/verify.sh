@@ -1,23 +1,29 @@
-#!/bin/bash -i
+#!/bin/bash
 
-# run the test and store the output to 'result' file
-# the test executable is secified as the first arg to this script
-eval "$1" > result
+default_diff_tool="code --diff"
+diff_tool=$default_diff_tool
 
-# add result file to the index (not its contents)
-git add --intent-to-add result
+while getopts ":r:t:d:" opt; do
+  case $opt in
+    d) diff_tool=$OPTARG;;
+    r) received_text=$OPTARG;;
+    t) test_name=$OPTARG;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+  esac
+done
 
-# compare the working tree version to the index version
-# if they're identical -> test passed
-# if they're different -> test failed and allow to patch the index interactively (aka "approve" the new result)
-git diff --quiet result \
-    && \
-        ( \
-            echo "*** test passed ***"; \
-        ) \
-    || \
-        ( \
-            echo "*** test failed ***"; \
-            git add --patch result; \
-            false \
-        )
+received="$test_name.received"
+approved="$test_name.approved"
+
+if [ "$received_text" == "" ];
+then
+    cat - > "$received"
+else
+    echo "$received_text" > "$received"
+fi
+
+touch "$approved"
+
+diff -q "$received" "$approved" > /dev/null \
+    && (echo "test passed"; rm "$received") \
+    || (echo "test failed"; eval "$diff_tool '$received' '$approved'"; false)

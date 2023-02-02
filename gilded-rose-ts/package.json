@@ -1,8 +1,13 @@
 {
   "name": "gilded-rose-ts",
   "module": "test-gilded-rose.ts",
-  "type": "module",
   "devDependencies": {
     "bun-types": "^0.4.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@stryker-mutator/core": "^6.3.1",
+    "stryker-cli": "^1.0.2",
+    "typescript": "^4.9.5"
   }
 }

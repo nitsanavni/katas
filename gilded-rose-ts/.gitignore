@@ -1,3 +1,4 @@
+reports
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
 # Logs
@@ -167,3 +168,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.\*
+
+# stryker temp files
+.stryker-tmp
