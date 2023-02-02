@@ -1,10 +1,10 @@
 export type Item = {
-    name: string;
+    readonly name: string;
     sellIn: number;
     quality: number;
 };
 
-function updateQuality(items: Item[]): void {
+export function updateQuality(items: Item[]): void {
     for (let i = 0; i < items.length; i++) {
         if (
             items[i].name != "Aged Brie" &&
