@@ -17,3 +17,9 @@ mutation test
 ```shell
 mutatest -m f --src . -t 'sh -c "python test_parrot.py | diff - expected"' -n 1000
 ```
+
+watch mode
+
+```shell
+ls parrot.py | entr -cs 'python test_parrot.py | diff - expected'
+```
