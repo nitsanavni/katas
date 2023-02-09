@@ -1,0 +1,4 @@
+executable:${TEXTTEST_HOME}/hello.py
+interpreter:python
+filename_convention_scheme:standard
+full_name:Hello World
