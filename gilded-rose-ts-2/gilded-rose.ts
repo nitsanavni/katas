@@ -1,75 +1,83 @@
 export class Item {
-    name: string;
-    sellIn: number;
-    quality: number;
+    constructor(public name, public sellIn, public quality) {}
+}
 
-    constructor(name, sellIn, quality) {
-        this.name = name;
-        this.sellIn = sellIn;
-        this.quality = quality;
+abstract class ItemWrapper {
+    constructor(protected readonly item: Item) {}
+
+    protected decQuality() {
+        this.item.quality > 0 && this.item.quality--;
+    }
+
+    protected incQuality() {
+        this.item.quality < 50 && this.item.quality++;
+    }
+
+    public abstract update();
+}
+
+class Default extends ItemWrapper {
+    public update() {
+        this.decQuality();
+
+        this.item.sellIn--;
+
+        if (this.item.sellIn < 0) {
+            this.decQuality();
+        }
+    }
+}
+
+class Sulfuras extends ItemWrapper {
+    public update() {
+        // do nothing
+    }
+}
+
+class Backstage extends ItemWrapper {
+    public update() {
+        this.incQuality();
+
+        if (this.item.sellIn < 11) {
+            this.incQuality();
+        }
+
+        if (this.item.sellIn < 6) {
+            this.incQuality();
+        }
+
+        this.item.sellIn--;
+
+        if (this.item.sellIn < 0) {
+            this.item.quality = 0;
+        }
+    }
+}
+
+class Brie extends ItemWrapper {
+    public update() {
+        this.incQuality();
+
+        this.item.sellIn--;
+
+        if (this.item.sellIn < 0) {
+            this.incQuality();
+        }
     }
 }
 
 export class GildedRose {
-    items: Array<Item>;
-
-    constructor(items = [] as Array<Item>) {
-        this.items = items;
-    }
+    constructor(private items = [] as Array<Item>) {}
 
     updateQuality() {
-        for (let i = 0; i < this.items.length; i++) {
-            const item = this.items[i];
-            if (
-                item.name != "Aged Brie" &&
-                item.name != "Backstage passes to a TAFKAL80ETC concert"
-            ) {
-                if (item.quality > 0) {
-                    if (item.name != "Sulfuras, Hand of Ragnaros") {
-                        item.quality--;
-                    }
-                }
-            } else {
-                if (item.quality < 50) {
-                    item.quality++;
-                    if (
-                        item.name == "Backstage passes to a TAFKAL80ETC concert"
-                    ) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality++;
-                            }
-                        }
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality++;
-                            }
-                        }
-                    }
-                }
-            }
-            if (item.name != "Sulfuras, Hand of Ragnaros") {
-                item.sellIn--;
-            }
-            if (item.sellIn < 0) {
-                if (item.name != "Aged Brie") {
-                    if (
-                        item.name != "Backstage passes to a TAFKAL80ETC concert"
-                    ) {
-                        if (item.quality > 0) {
-                            if (item.name != "Sulfuras, Hand of Ragnaros") {
-                                item.quality--;
-                            }
-                        }
-                    } else {
-                        item.quality = 0;
-                    }
-                } else {
-                    if (item.quality < 50) {
-                        item.quality++;
-                    }
-                }
-            }
+        this.items.map(wrap).forEach((item) => item.update());
+
+        function wrap(item: Item) {
+            return new ({
+                "Aged Brie": Brie,
+                "Backstage passes to a TAFKAL80ETC concert": Backstage,
+                "Sulfuras, Hand of Ragnaros": Sulfuras,
+            }[item.name] || Default)(item);
         }
     }
 }
