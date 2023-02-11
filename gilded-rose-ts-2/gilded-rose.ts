@@ -3,7 +3,7 @@ export class Item {
 }
 
 abstract class ItemWrapper {
-    constructor(protected readonly item: Item) {}
+    constructor(private readonly item: Item) {}
 
     protected decQuality() {
         this.item.quality > 0 && this.item.quality--;
@@ -13,56 +13,80 @@ abstract class ItemWrapper {
         this.item.quality < 50 && this.item.quality++;
     }
 
-    public abstract update();
-}
+    protected resetQuality() {
+        this.item.quality = 0;
+    }
 
-class Default extends ItemWrapper {
-    public update() {
-        this.decQuality();
-
+    private decSellIn() {
         this.item.sellIn--;
+    }
+
+    protected get sellIn() {
+        return this.item.sellIn;
+    }
+
+    public update() {
+        this.updateTemplate();
+    }
+
+    protected sellDatePassedUpdate() {}
+    protected sellUpdate() {}
+
+    protected updateTemplate() {
+        this.decSellIn();
 
         if (this.item.sellIn < 0) {
-            this.decQuality();
+            this.sellDatePassedUpdate();
+        } else {
+            this.sellUpdate();
         }
     }
 }
 
+class Default extends ItemWrapper {
+    protected sellDatePassedUpdate() {
+        this.decQuality();
+        this.decQuality();
+    }
+
+    protected sellUpdate() {
+        this.decQuality();
+    }
+}
+
 class Sulfuras extends ItemWrapper {
-    public update() {
+    protected updateTemplate() {
         // do nothing
     }
 }
 
 class Backstage extends ItemWrapper {
-    public update() {
-        this.incQuality();
+    protected sellDatePassedUpdate(): void {
+        this.resetQuality();
+    }
 
-        if (this.item.sellIn < 11) {
+    protected sellUpdate(): void {
+        if (this.sellIn < 5) {
             this.incQuality();
-        }
-
-        if (this.item.sellIn < 6) {
             this.incQuality();
-        }
-
-        this.item.sellIn--;
-
-        if (this.item.sellIn < 0) {
-            this.item.quality = 0;
+            this.incQuality();
+        } else if (this.sellIn < 10) {
+            this.incQuality();
+            this.incQuality();
+        } else {
+            this.incQuality();
         }
     }
 }
 
 class Brie extends ItemWrapper {
-    public update() {
+    protected sellDatePassedUpdate(): void {
         this.incQuality();
+        this.incQuality();
+    }
 
-        this.item.sellIn--;
-
-        if (this.item.sellIn < 0) {
-            this.incQuality();
-        }
+    protected sellUpdate(): void {
+        this.incQuality();
     }
 }
 
