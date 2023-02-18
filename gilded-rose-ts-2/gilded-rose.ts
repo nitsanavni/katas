@@ -43,16 +43,17 @@ abstract class ItemWrapper {
     }
 }
 
-class Default extends ItemWrapper {
-    protected sellDatePassedUpdate() {
-        this.decQuality();
-        this.decQuality();
-    }
-
-    protected sellUpdate() {
-        this.decQuality();
-    }
-}
+const Default = (item: Item) => ({
+    update: () => {
+        item.sellIn--;
+        if (item.sellIn < 0) {
+            item.quality > 0 && item.quality--;
+            item.quality > 0 && item.quality--;
+        } else {
+            item.quality > 0 && item.quality--;
+        }
+    },
+});
 
 class Sulfuras extends ItemWrapper {
     protected updateTemplate() {
@@ -97,11 +98,15 @@ export class GildedRose {
         this.items.map(wrap).forEach((item) => item.update());
 
         function wrap(item: Item) {
-            return new ({
-                "Aged Brie": Brie,
-                "Backstage passes to a TAFKAL80ETC concert": Backstage,
-                "Sulfuras, Hand of Ragnaros": Sulfuras,
-            }[item.name] || Default)(item);
+            return (
+                {
+                    "Aged Brie": new Brie(item),
+                    "Backstage passes to a TAFKAL80ETC concert": new Backstage(
+                        item
+                    ),
+                    "Sulfuras, Hand of Ragnaros": new Sulfuras(item),
+                }[item.name] || Default(item)
+            );
         }
     }
 }
