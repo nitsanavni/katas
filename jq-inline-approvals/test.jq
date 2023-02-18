@@ -1,3 +1,26 @@
+def fizzbuzz:
+    (if . % 3 == 0 then "Fizz" else "" end +
+    if . % 5 == 0 then "Buzz" else "" end) as $s |
+    if ($s | length > 0) then $s else . end;
+
+def interpolate:
+    map(tostring)|add;
+
+def s: interpolate;
+
+def test_fizzbuzz:
+# 10 -> Buzz
+# 11 -> 11
+# 12 -> Fizz
+# 13 -> 13
+# 14 -> 14
+# 15 -> FizzBuzz
+# 16 -> 16
+# 17 -> 17
+# 18 -> Fizz
+# 19 -> 19
+    range(10) + 10 | [., " -> ", fizzbuzz] | s;
+
 def one: { w: 1 };
 def one_half: { n: 1 , d: 2 };
 def one_and_a_half: { w: 1, n: 1 , d: 2 };
