@@ -2,11 +2,20 @@ export class Item {
     constructor(public name, public sellIn, public quality) {}
 }
 
+const wrapper = (item: Item) => ({
+    decQuality: () => item.quality > 0 && item.quality--,
+    decSellIn: () => item.sellIn--,
+});
+
 abstract class ItemWrapper {
-    constructor(private readonly item: Item) {}
+    private readonly w: ReturnType<typeof wrapper>;
+
+    constructor(private readonly item: Item) {
+        this.w = wrapper(item);
+    }
 
     protected decQuality() {
-        this.item.quality > 0 && this.item.quality--;
+        this.decQuality();
     }
 
     protected incQuality() {
@@ -18,7 +27,7 @@ abstract class ItemWrapper {
     }
 
     private decSellIn() {
-        this.item.sellIn--;
+        this.w.decSellIn();
     }
 
     protected get sellIn() {
@@ -43,17 +52,29 @@ abstract class ItemWrapper {
     }
 }
 
-const Default = (item: Item) => ({
-    update: () => {
-        item.sellIn--;
-        if (item.sellIn < 0) {
-            item.quality > 0 && item.quality--;
-            item.quality > 0 && item.quality--;
-        } else {
-            item.quality > 0 && item.quality--;
-        }
-    },
-});
+const Default = (item: Item) => {
+    const { decQuality, decSellIn } = wrapper(item);
+
+    const preSellDate = () => {
+        decQuality();
+    };
+
+    const postSellDate = () => {
+        decQuality();
+        decQuality();
+    };
+
+    return {
+        update: () => {
+            decSellIn();
+            if (item.sellIn < 0) {
+                postSellDate();
+            } else {
+                preSellDate();
+            }
+        },
+    };
+};
 
 class Sulfuras extends ItemWrapper {
     protected updateTemplate() {
