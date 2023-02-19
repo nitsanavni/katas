@@ -2,132 +2,60 @@ export class Item {
     constructor(public name, public sellIn, public quality) {}
 }
 
-const wrapper = (item: Item) => ({
-    decQuality: () => item.quality > 0 && item.quality--,
-    decSellIn: () => item.sellIn--,
+type Action = (item: Item) => void;
+
+const decQuality: Action = (item) => item.quality > 0 && item.quality--;
+const incQuality: Action = (item) => item.quality < 50 && item.quality++;
+
+const times = (n: number, fn: () => void) =>
+    Array.from({ length: n }).forEach(() => fn());
+
+const template =
+    ({ post, pre }: { post: Action; pre: Action }): Action =>
+    (item: Item) => {
+        item.sellIn--;
+        if (item.sellIn < 0) {
+            post(item);
+        } else {
+            pre(item);
+        }
+    };
+
+const updateDefault = template({
+    pre: decQuality,
+    post: (item) => times(2, () => decQuality(item)),
 });
 
-abstract class ItemWrapper {
-    private readonly w: ReturnType<typeof wrapper>;
+const noop = () => {};
+const updateSulfuras = noop;
 
-    constructor(private readonly item: Item) {
-        this.w = wrapper(item);
-    }
+const updateBackstage = template({
+    post: (item) => (item.quality = 0),
+    pre: (item) => {
+        const inc = item.sellIn < 5 ? 3 : item.sellIn < 10 ? 2 : 1;
+        times(inc, () => incQuality(item));
+    },
+});
 
-    protected decQuality() {
-        this.decQuality();
-    }
-
-    protected incQuality() {
-        this.item.quality < 50 && this.item.quality++;
-    }
-
-    protected resetQuality() {
-        this.item.quality = 0;
-    }
-
-    private decSellIn() {
-        this.w.decSellIn();
-    }
-
-    protected get sellIn() {
-        return this.item.sellIn;
-    }
-
-    public update() {
-        this.updateTemplate();
-    }
-
-    protected sellDatePassedUpdate() {}
-    protected sellUpdate() {}
-
-    protected updateTemplate() {
-        this.decSellIn();
-
-        if (this.item.sellIn < 0) {
-            this.sellDatePassedUpdate();
-        } else {
-            this.sellUpdate();
-        }
-    }
-}
-
-const Default = (item: Item) => {
-    const { decQuality, decSellIn } = wrapper(item);
-
-    const preSellDate = () => {
-        decQuality();
-    };
-
-    const postSellDate = () => {
-        decQuality();
-        decQuality();
-    };
-
-    return {
-        update: () => {
-            decSellIn();
-            if (item.sellIn < 0) {
-                postSellDate();
-            } else {
-                preSellDate();
-            }
-        },
-    };
-};
-
-class Sulfuras extends ItemWrapper {
-    protected updateTemplate() {
-        // do nothing
-    }
-}
-
-class Backstage extends ItemWrapper {
-    protected sellDatePassedUpdate(): void {
-        this.resetQuality();
-    }
-
-    protected sellUpdate(): void {
-        if (this.sellIn < 5) {
-            this.incQuality();
-            this.incQuality();
-            this.incQuality();
-        } else if (this.sellIn < 10) {
-            this.incQuality();
-            this.incQuality();
-        } else {
-            this.incQuality();
-        }
-    }
-}
-
-class Brie extends ItemWrapper {
-    protected sellDatePassedUpdate(): void {
-        this.incQuality();
-        this.incQuality();
-    }
-
-    protected sellUpdate(): void {
-        this.incQuality();
-    }
-}
+const updateBrie = template({
+    pre: incQuality,
+    post: (item) => times(2, () => incQuality(item)),
+});
 
 export class GildedRose {
     constructor(private items = [] as Array<Item>) {}
 
     updateQuality() {
-        this.items.map(wrap).forEach((item) => item.update());
-
-        function wrap(item: Item) {
-            return (
+        this.items.forEach((item) => {
+            const updateAction =
                 {
-                    "Aged Brie": new Brie(item),
-                    "Backstage passes to a TAFKAL80ETC concert": new Backstage(
-                        item
-                    ),
-                    "Sulfuras, Hand of Ragnaros": new Sulfuras(item),
-                }[item.name] || Default(item)
-            );
-        }
+                    "Aged Brie": updateBrie,
+                    "Backstage passes to a TAFKAL80ETC concert":
+                        updateBackstage,
+                    "Sulfuras, Hand of Ragnaros": updateSulfuras,
+                }[item.name as string] || updateDefault;
+
+            updateAction(item);
+        });
     }
 }
