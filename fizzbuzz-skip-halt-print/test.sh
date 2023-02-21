@@ -1,0 +1,1 @@
+date +%R:%S; bun run index.ts | diff -s - result
