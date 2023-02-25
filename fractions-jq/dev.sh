@@ -1,0 +1,1 @@
+ls fractions.jq result | entr -cs 'date;./diff.sh'

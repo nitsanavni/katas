@@ -1,0 +1,1 @@
+./test.sh || (./run.sh > received; code --diff received result)
