@@ -61,4 +61,9 @@ class TripService {
     }
 }
 
+import { stub } from "sinon";
+
 console.log("test");
+const service = new TripService();
+stub(UserSession, "getLoggedUser");
+service.getTripsByUser(null);
