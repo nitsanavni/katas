@@ -1,0 +1,11 @@
+{
+  "name": "bun-log-update",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "^0.5.0"
+  },
+  "dependencies": {
+    "log-update": "^5.0.1"
+  }
+}
