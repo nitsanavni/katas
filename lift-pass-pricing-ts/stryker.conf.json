@@ -4,8 +4,8 @@
     "packageManager": "npm",
     "reporters": ["html", "clear-text", "progress"],
     "testRunner": "command",
-    "commandRunner": { "command": "./test-e2e.sh" },
+    "commandRunner": { "command": "./test-logic.sh" },
     "testRunner_comment": "Take a look at (missing 'homepage' URL in package.json) for information about the command plugin.",
     "coverageAnalysis": "off",
-    "mutate": ["prices.js"]
+    "mutate": ["logic.ts"]
 }
