@@ -6,4 +6,6 @@ bun install
 
 ```shell
 bunx tsc
+./e2e.sh > e2e-result
+bunx stryker run -c 1
 ```
