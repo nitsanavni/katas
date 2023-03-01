@@ -1,4 +1,5 @@
 import mysql from "mysql2/promise";
+import { data } from "./data.js";
 
 import { logic as makeLogic } from "./logic.js";
 
@@ -10,7 +11,7 @@ let connectionOptions = {
 };
 const connection = await mysql.createConnection(connectionOptions);
 
-const logic = makeLogic(connection);
+const logic = makeLogic(data(connection));
 
 for (const type of ["1jour", "night"]) {
     for (const age of [undefined, 5, 6, 7, 15, 16, 64, 65]) {

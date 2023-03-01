@@ -1,69 +1,37 @@
-import mysql from "mysql2/promise";
+import { Data } from "./data.js";
 
 export const logic =
-    (connection: mysql.Connection) =>
+    (data: Data) =>
     async ({ type, age, date }: any) => {
-        const q = await connection.query(
-            "SELECT cost FROM `base_price` " + "WHERE `type` = ? ",
-            [type]
-        );
+        const basePrice = await data.basePrice(type);
 
-        // console.log(inspect(q));
-        // @ts-ignore
-        const result = q[0][0];
-
-        if ((age as any) < 6) {
-            return { cost: 0 };
+        if (isInfant(age)) {
+            return { cost: infantPricing() };
         } else {
             if (type !== "night") {
-                const holidays = (
-                    await connection.query("SELECT * FROM `holidays`")
-                )[0] as mysql.RowDataPacket[];
+                const holidays = await data.holidays();
 
-                let isHoliday;
-                let reduction = 0;
-                for (let row of holidays) {
-                    let holiday = row.holiday;
-                    if (date) {
-                        let d = new Date(date as string);
-                        if (
-                            d.getFullYear() === holiday.getFullYear() &&
-                            d.getMonth() === holiday.getMonth() &&
-                            d.getDate() === holiday.getDate()
-                        ) {
-                            isHoliday = true;
-                        }
-                    }
-                }
-
-                if (!isHoliday && new Date(date as string).getDay() === 1) {
-                    reduction = 35;
-                }
+                const reduction = holidayReduction(holidays, date);
 
                 // TODO apply reduction for others
                 if ((age as any) < 15) {
-                    return { cost: Math.ceil(result.cost * 0.7) };
+                    return { cost: Math.ceil(basePrice.cost * 0.7) };
                 } else {
-                    if (age === undefined) {
-                        let cost = result.cost * (1 - reduction / 100);
-                        return { cost: Math.ceil(cost) };
+                    if (isSenior(age)) {
+                        return {
+                            cost: seniorPricing(basePrice, reduction),
+                        };
                     } else {
-                        if ((age as any) > 64) {
-                            let cost =
-                                result.cost * 0.75 * (1 - reduction / 100);
-                            return { cost: Math.ceil(cost) };
-                        } else {
-                            let cost = result.cost * (1 - reduction / 100);
-                            return { cost: Math.ceil(cost) };
-                        }
+                        let cost = basePrice.cost * (1 - reduction / 100);
+                        return { cost: Math.ceil(cost) };
                     }
                 }
             } else {
                 if ((age as any) >= 6) {
                     if ((age as any) > 64) {
-                        return { cost: Math.ceil(result.cost * 0.4) };
+                        return { cost: Math.ceil(basePrice.cost * 0.4) };
                     } else {
-                        return result;
+                        return basePrice;
                     }
                 } else {
                     return { cost: 0 };
@@ -71,3 +39,46 @@ export const logic =
             }
         }
     };
+
+function infantPricing() {
+    return 0;
+}
+
+function isInfant(age: any) {
+    return (age as any) < 6;
+}
+
+function seniorPricing(basePrice: any, reduction: number) {
+    return Math.ceil(basePrice.cost * 0.75 * (1 - reduction / 100));
+}
+
+function isSenior(age: any) {
+    return (age as any) > 64;
+}
+
+function holidayReduction(holidays, date: any) {
+    let reduction = 0;
+
+    if (!isHoliday(holidays, date) && isMonday(date)) {
+        reduction = 35;
+    }
+    return reduction;
+}
+
+function isHoliday(holidays, date: any) {
+    return holidays.some(({ holiday }) =>
+        sameDate(new Date(date as string), holiday)
+    );
+}
+
+function sameDate(d: Date, holiday: any) {
+    return (
+        d.getFullYear() === holiday.getFullYear() &&
+        d.getMonth() === holiday.getMonth() &&
+        d.getDate() === holiday.getDate()
+    );
+}
+
+function isMonday(date: any) {
+    return new Date(date as string).getDay() === 1;
+}

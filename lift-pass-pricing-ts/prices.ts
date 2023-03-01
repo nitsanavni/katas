@@ -1,6 +1,7 @@
 // import { inspect } from "bun";
 import express from "express";
 import mysql from "mysql2/promise";
+import { data } from "./data.js";
 
 import { logic } from "./logic.js";
 
@@ -27,7 +28,7 @@ async function createApp() {
         res.json();
     });
     app.get("/prices", async (req, res) => {
-        res.json(await logic(connection)(req.query));
+        res.json(await logic(data(connection))(req.query));
     });
     return { app, connection };
 }
