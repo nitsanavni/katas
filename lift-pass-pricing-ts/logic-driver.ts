@@ -1,17 +1,7 @@
-import mysql from "mysql2/promise";
-import { data } from "./data.js";
-
 import { logic as makeLogic } from "./logic.js";
+import { data } from "./data-stub.js";
 
-let connectionOptions = {
-    host: "localhost",
-    user: "root",
-    database: "lift_pass",
-    password: "mysql",
-};
-const connection = await mysql.createConnection(connectionOptions);
-
-const logic = makeLogic(data(connection));
+const logic = makeLogic(data);
 
 const promises = [];
 
@@ -38,5 +28,3 @@ for (const type of ["1jour", "night"]) {
 }
 
 (await Promise.all(promises)).forEach((x) => console.log(JSON.stringify(x)));
-
-connection.end();
