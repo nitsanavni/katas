@@ -7,38 +7,56 @@ export const logic =
 
         if (isInfant(age)) {
             return { cost: infantPricing() };
-        } else {
-            if (type !== "night") {
-                const holidays = await data.holidays();
+        }
 
-                const reduction = holidayReduction(holidays, date);
+        if (type === "1jour") {
+            const reductionFactor = holidayReductionFactor(
+                await data.holidays(),
+                date
+            );
 
-                // TODO apply reduction for others
-                if ((age as any) < 15) {
-                    return { cost: Math.ceil(basePrice.cost * 0.7) };
-                } else {
-                    if (isSenior(age)) {
-                        return {
-                            cost: seniorPricing(basePrice, reduction),
-                        };
-                    } else {
-                        let cost = basePrice.cost * (1 - reduction / 100);
-                        return { cost: Math.ceil(cost) };
-                    }
-                }
-            } else {
-                if ((age as any) >= 6) {
-                    if ((age as any) > 64) {
-                        return { cost: Math.ceil(basePrice.cost * 0.4) };
-                    } else {
-                        return basePrice;
-                    }
-                } else {
-                    return { cost: 0 };
-                }
+            // TODO apply reduction for others
+            if (isChild(age)) {
+                return { cost: childPricing(basePrice) };
             }
+
+            if (isSenior(age)) {
+                return {
+                    cost: seniorPricing(basePrice, reductionFactor),
+                };
+            }
+
+            return { cost: Math.ceil(basePrice.cost * reductionFactor) };
+        } else if (type === "night") {
+            if (age == undefined) {
+                return { cost: infantPricing() };
+            }
+
+            if (isSenior(age)) {
+                return { cost: Math.ceil(basePrice.cost * 0.4) };
+            }
+
+            return basePrice;
         }
     };
+
+function holidayReductionFactor(
+    holidays: {
+        // TODO apply reduction for others
+        holiday: Date;
+    }[],
+    date: any
+) {
+    return 1 - holidayReduction(holidays, date) / 100;
+}
+
+function childPricing(basePrice: any) {
+    return Math.ceil(basePrice.cost * 0.7);
+}
+
+function isChild(age: any) {
+    return (age as any) < 15;
+}
 
 function infantPricing() {
     return 0;
@@ -48,30 +66,27 @@ function isInfant(age: any) {
     return (age as any) < 6;
 }
 
-function seniorPricing(basePrice: any, reduction: number) {
-    return Math.ceil(basePrice.cost * 0.75 * (1 - reduction / 100));
+function seniorPricing(basePrice: any, reductionFactor: number) {
+    return Math.ceil(basePrice.cost * 0.75 * reductionFactor);
 }
 
 function isSenior(age: any) {
     return (age as any) > 64;
 }
 
-function holidayReduction(holidays, date: any) {
-    let reduction = 0;
-
-    if (!isHoliday(holidays, date) && isMonday(date)) {
-        reduction = 35;
-    }
-    return reduction;
+function holidayReduction(holidays: { holiday: Date }[], date: any) {
+    return isNonHolidayMonday(holidays, date) ? 35 : 0;
 }
 
-function isHoliday(holidays, date: any) {
-    return holidays.some(({ holiday }) =>
-        sameDate(new Date(date as string), holiday)
-    );
+function isNonHolidayMonday(holidays: { holiday: Date }[], date: any) {
+    return !isHoliday(holidays, date) && isMonday(date);
 }
 
-function sameDate(d: Date, holiday: any) {
+function isHoliday(holidays: { holiday: Date }[], date: string) {
+    return holidays.some(({ holiday }) => sameDate(new Date(date), holiday));
+}
+
+function sameDate(d: Date, holiday: Date) {
     return (
         d.getFullYear() === holiday.getFullYear() &&
         d.getMonth() === holiday.getMonth() &&

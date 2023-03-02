@@ -9,12 +9,11 @@ export const data = (connection: mysql.Connection) => ({
             [type]
         );
 
-        // console.log(inspect(q));
         // @ts-ignore
         return q[0][0];
     },
     holidays: async () =>
-        (
-            await connection.query("SELECT * FROM `holidays`")
-        )[0] as mysql.RowDataPacket[],
+        (await connection.query("SELECT * FROM `holidays`"))[0] as {
+            holiday: Date;
+        }[],
 });
