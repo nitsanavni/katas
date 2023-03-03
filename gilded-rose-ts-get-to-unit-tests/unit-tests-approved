@@ -23,3 +23,27 @@ test: updates all items in the given items array
   }
 ]
 
+test: regular item - quality degrades, sell-in decreases
+{
+  name: "regular item",
+  sellIn: 3,
+  quality: 3
+}
+{
+  name: "regular item",
+  sellIn: 2,
+  quality: 2
+}
+
+test: regular item - once sell-in reaches zero, quality degrades twice as fast
+{
+  name: "regular item",
+  sellIn: -3,
+  quality: 3
+}
+{
+  name: "regular item",
+  sellIn: -4,
+  quality: 1
+}
+

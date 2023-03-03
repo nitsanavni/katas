@@ -19,3 +19,17 @@ test("updates all items in the given items array", () => {
     new GildedRose(items).updateQuality();
     l(items);
 });
+
+test("regular item - quality degrades, sell-in decreases", () => {
+    const item = { name: "regular item", sellIn: 3, quality: 3 };
+    l(item);
+    new GildedRose([item]).updateQuality();
+    l(item);
+});
+
+test("regular item - once sell-in reaches zero, quality degrades twice as fast", () => {
+    const item = { name: "regular item", sellIn: -3, quality: 3 };
+    l(item);
+    new GildedRose([item]).updateQuality();
+    l(item);
+});

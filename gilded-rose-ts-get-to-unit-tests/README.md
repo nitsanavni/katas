@@ -39,5 +39,9 @@ build-up unit tests
     -   should probably be in a separate file
 
 ```shell
-ls unit-tests.ts unit-tests-approved gilded-rose.ts | entr -c ./unit-tests.sh
+ls unit-tests.ts unit-tests-approved gilded-rose.ts | entr ./unit-tests.sh
 ```
+
+# Learnings
+
+-   getting to full coverage - can be accelerated with a file watching aided workflow
