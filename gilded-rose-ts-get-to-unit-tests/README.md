@@ -14,5 +14,5 @@ bun install
 # cover
 
 ```shell
-bunx stryker run
+ls test.ts | entr -c ./cover.sh
 ```

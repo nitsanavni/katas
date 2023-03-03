@@ -1,0 +1,1 @@
+bun run test.ts > test-result && bunx stryker run
