@@ -1,0 +1,25 @@
+gilded rose unit tests
+test: updates all items in the given items array
+[
+  {
+    name: "item 1",
+    sellIn: 0,
+    quality: 0
+  }, {
+    name: "item 2",
+    sellIn: 2,
+    quality: 2
+  }
+]
+[
+  {
+    name: "item 1",
+    sellIn: -1,
+    quality: 0
+  }, {
+    name: "item 2",
+    sellIn: 1,
+    quality: 1
+  }
+]
+
