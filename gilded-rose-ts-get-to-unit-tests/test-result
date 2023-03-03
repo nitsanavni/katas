@@ -1,0 +1,10 @@
+{
+  name: "an item",
+  sellIn: 0,
+  quality: 0
+}
+{
+  name: "an item",
+  sellIn: -1,
+  quality: 0
+}

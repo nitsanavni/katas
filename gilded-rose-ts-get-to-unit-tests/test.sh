@@ -1,0 +1,1 @@
+bun run test.ts | diff -s - test-result
