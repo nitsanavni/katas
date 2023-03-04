@@ -42,6 +42,9 @@ build-up unit tests
 ls unit-tests.ts unit-tests-approved gilded-rose.ts | entr ./unit-tests.sh
 ```
 
-# Learnings
+# Learnings, Thoughts
 
 -   getting to full coverage - can be accelerated with a file watching aided workflow
+-   unit tests, that serve as executable documentation might be more readable with inline approvals
+    -   I think it doesn't need to be implemented using a subprocess...
+-   `stryker run -c 1` is more reliable (specifically the `-c 1`)

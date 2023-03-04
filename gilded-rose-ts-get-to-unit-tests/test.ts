@@ -1,7 +1,7 @@
 import { GildedRose } from "./gilded-rose.js";
 
 for (const name of [
-    "an item",
+    // "an item",
     "Aged Brie",
     "Backstage passes to a TAFKAL80ETC concert",
     "Sulfuras, Hand of Ragnaros",

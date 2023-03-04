@@ -3,6 +3,6 @@
     "packageManager": "npm",
     "reporters": ["html", "clear-text", "progress"],
     "testRunner": "command",
-    "commandRunner": { "command": "./test.sh" },
+    "commandRunner": { "command": "./test.sh && ./unit-tests.sh" },
     "mutate": ["gilded-rose.ts"]
 }
