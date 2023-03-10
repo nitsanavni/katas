@@ -1,8 +1,25 @@
-import { test } from "bun:test";
+import { test } from "./approvals.js";
 
-import { approval } from "./approvals.js";
-import { driver } from "./bank-account-driver.js";
+import { make } from "./bank-account.js";
 
-test("empty statement", async () => {
-    await approval("empty-statement").verify(await driver().printStatement());
+const noop = () => {};
+const counter =
+    (n = 0) =>
+    () =>
+        String(n++);
+const bankAccount = make({
+    log: noop,
+    date: counter(),
+});
+
+test("empty statement", async ({ verify }) => {
+    await verify(bankAccount().formatStatement());
+});
+
+test("one deposit", async ({ verify }) => {
+    const account = bankAccount();
+
+    account.deposit(1000);
+
+    await verify(account.formatStatement());
 });

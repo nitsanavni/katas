@@ -1,13 +1,20 @@
-import { env, file, write } from "bun";
-import { expect } from "bun:test";
+import { env, file, spawn, write } from "bun";
+import { expect, test as bunTest } from "bun:test";
 
 export const approval = (baseName: string) => {
-    const approvedFile = () => file(`${baseName}.approved`);
+    const approvedFilePath = () => `${baseName}.approved`;
+    const receivedFilePath = () => `${baseName}.received`;
+    const approvedFile = () => file(approvedFilePath());
 
     const approvedText = async (): Promise<string> => {
         const f = approvedFile();
 
-        return f.size == 0 ? "" : await f.text();
+        if (f.size == 0) {
+            await write(f, "");
+            return "";
+        }
+
+        return f.text();
     };
 
     const update = (received: string) => write(approvedFile(), received);
@@ -16,9 +23,23 @@ export const approval = (baseName: string) => {
         if (env.UPDATE) {
             await update(received);
         } else {
-            expect(await approvedText()).toEqual(received);
+            if ((await approvedText()) != received) {
+                await write(receivedFilePath(), received);
+                spawn([
+                    "code",
+                    "--diff",
+                    receivedFilePath(),
+                    approvedFilePath(),
+                ]);
+                expect(received).toEqual(await approvedText());
+            }
         }
     };
 
     return { verify };
 };
+
+export const test = (
+    label: string,
+    t: (a: ReturnType<typeof approval>) => void | Promise<any>
+) => bunTest(label, () => t(approval(label)));
