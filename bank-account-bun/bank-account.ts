@@ -42,7 +42,9 @@ export const make =
         const deposit = (amount: number) =>
             movements.push({ amount, date: date() });
 
-        return { formatStatement, printStatement, deposit };
+        const withdraw = (amount: number) => deposit(-amount);
+
+        return { formatStatement, printStatement, deposit, withdraw };
     };
 
 const defaultDeps: Deps = { log, date: () => new Date().toDateString() };
