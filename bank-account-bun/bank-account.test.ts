@@ -1,4 +1,6 @@
-import { test } from "./approvals.js";
+import { expect, test } from "bun:test";
+
+import { test as approvalTest } from "./approvals.js";
 
 import { make } from "./bank-account.js";
 
@@ -13,11 +15,13 @@ const bankAccount = () =>
         date: counter(),
     })();
 
-test("empty statement", async ({ verify }) => {
+test.skip("just a test", () => {});
+
+approvalTest("empty statement", async ({ verify }) => {
     await verify(bankAccount().formatStatement());
 });
 
-test("one deposit", async ({ verify }) => {
+approvalTest("one deposit", async ({ verify }) => {
     const account = bankAccount();
 
     account.deposit(1000);
@@ -25,7 +29,7 @@ test("one deposit", async ({ verify }) => {
     await verify(account.formatStatement());
 });
 
-test("multi deposits", async ({ verify }) => {
+approvalTest("multi deposits", async ({ verify }) => {
     const account = bankAccount();
 
     account.deposit(1000);
@@ -37,7 +41,7 @@ test("multi deposits", async ({ verify }) => {
     await verify(account.formatStatement());
 });
 
-test("withdraws", async ({ verify }) => {
+approvalTest("withdraws", async ({ verify }) => {
     const account = bankAccount();
 
     account.deposit(1);
