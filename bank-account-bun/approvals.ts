@@ -39,7 +39,9 @@ export const approval = (baseName: string) => {
     return { verify };
 };
 
+type Approval = ReturnType<typeof approval>;
+
 export const test = (
     label: string,
-    t: (a: ReturnType<typeof approval>) => void | Promise<any>
-) => bunTest(label, () => t(approval(label)));
+    test: (approval: Approval) => Promise<void>
+) => bunTest(label, () => test(approval(label)));

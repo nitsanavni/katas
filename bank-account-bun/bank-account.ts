@@ -1,5 +1,6 @@
 import { log } from "console";
 import { EOL } from "os";
+import { table } from "./table.js";
 
 type Log = typeof log;
 
@@ -30,9 +31,11 @@ export const make =
                 .reverse();
 
         const formatStatement = (): string =>
-            statementLines()
-                .map((v) => JSON.stringify(v))
-                .join(EOL);
+            table(statementLines(), [
+                { key: "date", label: "Date" },
+                { key: "amount", label: "Amount" },
+                { key: "balance", label: "Balance" },
+            ]);
 
         const printStatement = () => log(formatStatement());
 
