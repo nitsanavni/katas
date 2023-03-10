@@ -1,10 +1,8 @@
-import { expect, test } from "bun:test";
+import { test } from "bun:test";
+
+import { approval } from "./approvals.js";
 import { driver } from "./bank-account-driver.js";
 
-type Account = {
-    printStatement: () => void;
-};
-
 test("empty statement", async () => {
-    expect(await driver().printStatement()).toEqual("an expected result");
+    await approval("empty-statement").verify(await driver().printStatement());
 });
