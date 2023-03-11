@@ -69,4 +69,6 @@ const defaultDeps: Deps = {
     date: () => dateFormat(new Date()),
 };
 
+// this initialization / assembly is tested dynamically via the integration test
+// how can we test it statically?
 export const bankAccount = make(defaultDeps);

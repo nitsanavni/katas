@@ -1,16 +1,25 @@
 import { describe } from "bun:test";
-
 import { test } from "./approvals.js";
 
-import { make } from "./bank-account.js";
+import { make as makeBankAccount } from "./bank-account.js";
 
 const noop = () => {};
 const counter =
     (n = 0) =>
     () =>
         String(n++);
+
+// this test is injecting the two offenders:
+// - iso dates we inject a counter (a fake) - making it repeatable
+// - iso console.log we inject noop (a stub)
+// we access the statement string via an extra exposed function `formatStatement`
+// (another way to do that would be to inject our own logger and use it to verify,
+// but that would make it more like a mock)
+// so we're testing all the logic except:
+// - the integration with `console.log` and `new Date()` - tested in the integration test
+// - date formatting - tested separately
 const bankAccount = () =>
-    make({
+    makeBankAccount({
         log: noop,
         date: counter(),
     })();

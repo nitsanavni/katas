@@ -6,12 +6,12 @@
 # Test
 
 ```shell
-bun test.ts bank-account.test.ts
+bun test
 ```
 
 # Thoughts
 
--   idea - in `approvals:test` could simply return the received string, iso calling `verify`
+-   ✅ idea - in `approvals:test` could simply return the received string, iso calling `verify`
 -   workflow
     -   TDD
     -   small steps
