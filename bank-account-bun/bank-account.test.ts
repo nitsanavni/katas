@@ -1,6 +1,6 @@
-import { expect, test } from "bun:test";
+import { describe } from "bun:test";
 
-import { test as approvalTest } from "./approvals.js";
+import { test } from "./approvals.js";
 
 import { make } from "./bank-account.js";
 
@@ -15,42 +15,40 @@ const bankAccount = () =>
         date: counter(),
     })();
 
-test.skip("just a test", () => {});
+describe("bank account", () => {
+    test("empty statement", () => bankAccount().formatStatement());
 
-approvalTest("empty statement", async ({ verify }) => {
-    await verify(bankAccount().formatStatement());
-});
+    test("one deposit", () => {
+        const account = bankAccount();
 
-approvalTest("one deposit", async ({ verify }) => {
-    const account = bankAccount();
+        account.deposit(1000);
 
-    account.deposit(1000);
+        return account.formatStatement();
+    });
 
-    await verify(account.formatStatement());
-});
+    test("multi deposits", () => {
+        const account = bankAccount();
 
-approvalTest("multi deposits", async ({ verify }) => {
-    const account = bankAccount();
+        account.deposit(1000);
+        account.deposit(1001);
+        account.deposit(1010);
+        account.deposit(1100);
+        account.deposit(20000);
 
-    account.deposit(1000);
-    account.deposit(1001);
-    account.deposit(1010);
-    account.deposit(1100);
-    account.deposit(20000);
+        return account.formatStatement();
+    });
 
-    await verify(account.formatStatement());
-});
+    test("withdraws", () => {
+        const account = bankAccount();
 
-approvalTest("withdraws", async ({ verify }) => {
-    const account = bankAccount();
+        account.deposit(1);
+        account.withdraw(2);
+        account.deposit(4);
+        account.withdraw(8);
+        account.deposit(16);
+        account.withdraw(32);
+        account.deposit(64);
 
-    account.deposit(1);
-    account.withdraw(2);
-    account.deposit(4);
-    account.withdraw(8);
-    account.deposit(16);
-    account.withdraw(32);
-    account.deposit(64);
-
-    await verify(account.formatStatement());
+        return account.formatStatement();
+    });
 });

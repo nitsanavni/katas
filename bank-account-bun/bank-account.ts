@@ -16,19 +16,21 @@ export const make =
     () => {
         const movements: Movement[] = [];
 
-        const statementLines = () =>
-            movements
-                .reduce(
-                    (a, c) => [
-                        ...a,
-                        {
-                            ...c,
-                            balance: c.amount + (last(a)?.amount || 0),
-                        },
-                    ],
-                    [] as StatementLine[]
-                )
-                .reverse();
+        const calcBalance = () =>
+            // can use map? scan?
+            // reconstructing the array seems redundant
+            movements.reduce(
+                (a, c) => [
+                    ...a,
+                    {
+                        ...c,
+                        balance: c.amount + (last(a)?.amount || 0),
+                    },
+                ],
+                [] as StatementLine[]
+            );
+
+        const statementLines = () => calcBalance().reverse();
 
         const formatStatement = (): string =>
             table(statementLines(), [
@@ -44,7 +46,13 @@ export const make =
 
         const withdraw = (amount: number) => deposit(-amount);
 
-        return { formatStatement, printStatement, deposit, withdraw };
+        return {
+            printStatement,
+            deposit,
+            withdraw,
+            // exposed for testing
+            formatStatement,
+        };
     };
 
 const defaultDeps: Deps = { log, date: () => new Date().toDateString() };

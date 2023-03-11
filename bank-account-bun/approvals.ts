@@ -39,9 +39,7 @@ export const approval = (baseName: string) => {
     return { verify };
 };
 
-type Approval = ReturnType<typeof approval>;
+type Received = string;
 
-export const test = (
-    label: string,
-    test: (approval: Approval) => Promise<void>
-) => bunTest(label, () => test(approval(label)));
+export const test = (label: string, test: () => Received | Promise<Received>) =>
+    bunTest(label, async () => approval(label).verify(await test()));

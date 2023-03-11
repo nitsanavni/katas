@@ -11,6 +11,23 @@ bun test.ts bank-account.test.ts
 
 # Thoughts
 
+-   idea - in `approvals:test` could simply return the received string, iso calling `verify`
+-   workflow
+    -   TDD
+    -   small steps
+    -
+-   design
+    -   strong types
+    -   try to make functions as **pure** as possible (including not accessing class fields)
+        -   `table(arr, headers)` -> `table(headers)(arr)`
+        -   `calcBalance()` -> `calcBalance(movements)`
+    -   compose with `pipe`
+    -   initialize with static structure
+        -   have an explicit initializer
+        -   assembles and combines small components
+    -   testability
+        -   challenges: implicit inputs (date) and outputs (stdout)
+        -   avoid mocking own interfaces
 -   challenges
     -   `printStatement` logs to stdout (by definition) - implicit output
         -   integration test - child process stdout
@@ -20,6 +37,7 @@ bun test.ts bank-account.test.ts
     -   creating a string table
         -   determine columns width, then print table
 -   nice pattern - wrapping `bun:test` with our own `approvals:test`
+    -   using `describe` helps bun in finding all the tests
 -   if we have a cli wrapper, and we process every command at a time (every command is a new process), then we need extra persistence of the account state
 -   using approvals with dates in the statement :/
     -   scrubber?
