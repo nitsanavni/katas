@@ -18,6 +18,7 @@ bun test.ts bank-account.test.ts
     -
 -   design
     -   strong types
+    -   primitives e.g. `movements = []`
     -   try to make functions as **pure** as possible (including not accessing class fields)
         -   `table(arr, headers)` -> `table(headers)(arr)`
         -   `calcBalance()` -> `calcBalance(movements)`
