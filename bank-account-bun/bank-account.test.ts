@@ -1,9 +1,8 @@
 import { describe } from "bun:test";
 import { test } from "./approvals.js";
 
-import { make as makeBankAccount } from "./bank-account.js";
+import { core as makeCore } from "./bank-account.js";
 
-const noop = () => {};
 const counter =
     (n = 0) =>
     () =>
@@ -18,17 +17,13 @@ const counter =
 // so we're testing all the logic except:
 // - the integration with `console.log` and `new Date()` - tested in the integration test
 // - date formatting - tested separately
-const bankAccount = () =>
-    makeBankAccount({
-        log: noop,
-        date: counter(),
-    })();
+const bankAccountCore = () => makeCore({ date: counter() });
 
 describe("bank account", () => {
-    test("empty statement", () => bankAccount().formatStatement());
+    test("empty statement", () => bankAccountCore().formatStatement());
 
     test("one deposit", () => {
-        const account = bankAccount();
+        const account = bankAccountCore();
 
         account.deposit(1000);
 
@@ -36,7 +31,7 @@ describe("bank account", () => {
     });
 
     test("multi deposits", () => {
-        const account = bankAccount();
+        const account = bankAccountCore();
 
         account.deposit(1000);
         account.deposit(1001);
@@ -48,7 +43,7 @@ describe("bank account", () => {
     });
 
     test("withdraws", () => {
-        const account = bankAccount();
+        const account = bankAccountCore();
 
         account.deposit(1);
         account.withdraw(2);

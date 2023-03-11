@@ -2,12 +2,6 @@ import { log } from "console";
 
 import { table as tableWithHeaders } from "./table.js";
 
-type Deps = {
-    log: typeof log;
-    // dates as strings allows us to inject any string for testing
-    date: () => string;
-};
-
 type Movement = { amount: number; date: string };
 
 const statementTable = tableWithHeaders([
@@ -34,41 +28,41 @@ const formatStatementLines = (movements: Movement[]) =>
     statementTable(statementLines(movements));
 
 // exposed for testing
-export const make =
-    ({ log, date }: Deps) =>
-    () => {
-        // primitive?
-        const movements: Movement[] = [];
+export const core = ({ date }: { date: () => string }) => {
+    // primitive?
+    const movements: Movement[] = [];
 
-        const formatStatement = () => formatStatementLines(movements);
+    const formatStatement = () => formatStatementLines(movements);
 
-        const printStatement = () => log(formatStatement());
+    const move = (amount: number) => movements.push({ amount, date: date() });
 
-        const move = (amount: number) =>
-            movements.push({ amount, date: date() });
+    const deposit = move;
 
-        const deposit = move;
+    const withdraw = (amount: number) => move(-amount);
 
-        const withdraw = (amount: number) => move(-amount);
-
-        return {
-            printStatement,
-            deposit,
-            withdraw,
-            // exposed for testing
-            formatStatement,
-        };
+    return {
+        formatStatement,
+        deposit,
+        withdraw,
     };
+};
 
 // thanks ChatGPT
 // exposed for testing
 export const dateFormat = (date: Date) => date.toISOString().substring(0, 10);
 
-const defaultDeps: Deps = {
-    log,
-    date: () => dateFormat(new Date()),
-};
-
 // this initialization / assembly is tested dynamically via the integration test
 // how can we test it statically?
-export const bankAccount = make(defaultDeps);
+export const bankAccount = () => {
+    const { deposit, withdraw, formatStatement } = core({
+        date: () => dateFormat(new Date()),
+    });
+
+    const printStatement = () => log(formatStatement());
+
+    return {
+        printStatement,
+        deposit,
+        withdraw,
+    };
+};
