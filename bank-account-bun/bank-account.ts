@@ -55,10 +55,13 @@ export const make =
         };
     };
 
+// thanks ChatGPT
+// exposed for testing
+export const dateFormat = (date: Date) => date.toISOString().substring(0, 10);
+
 const defaultDeps: Deps = {
     log,
-    // thanks ChatGPT
-    date: () => new Date().toISOString().substring(0, 10),
+    date: () => dateFormat(new Date()),
 };
 
 export const bankAccount = make(defaultDeps);
