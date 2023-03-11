@@ -11,6 +11,8 @@ bun test
 
 # Thoughts
 
+-   learned - it's much cleaner to approval test a date formatter
+    -   could have `expect(format("2012-03-14")).toEqual("2012-03-14")` - maybe even cleaner
 -   ✅ idea - in `approvals:test` could simply return the received string, iso calling `verify`
 -   workflow
     -   TDD
@@ -28,10 +30,11 @@ bun test
     -   testability
         -   challenges: implicit inputs (date) and outputs (stdout)
         -   avoid mocking own interfaces
+    -   speak the domain
 -   challenges
     -   `printStatement` logs to stdout (by definition) - implicit output
         -   integration test - child process stdout
-        -   unit tests - internal method `formatStatement`
+        -   unit tests - internal method `formatStatement` / internal class `core`
     -   dates in the statement - implicit input
     -   approvals + dates: need scrubber / stubs
     -   creating a string table

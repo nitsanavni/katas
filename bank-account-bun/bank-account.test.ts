@@ -3,10 +3,7 @@ import { test } from "./approvals.js";
 
 import { core as makeCore } from "./bank-account.js";
 
-const counter =
-    (n = 0) =>
-    () =>
-        String(n++);
+const date = new Date("2023-03-13");
 
 // this test is injecting the two offenders:
 // - iso dates we inject a counter (a fake) - making it repeatable
@@ -17,7 +14,7 @@ const counter =
 // so we're testing all the logic except:
 // - the integration with `console.log` and `new Date()` - tested in the integration test
 // - date formatting - tested separately
-const bankAccountCore = () => makeCore({ date: counter() });
+const bankAccountCore = () => makeCore();
 
 describe("bank account", () => {
     test("empty statement", () => bankAccountCore().formatStatement());
@@ -25,7 +22,7 @@ describe("bank account", () => {
     test("one deposit", () => {
         const account = bankAccountCore();
 
-        account.deposit(1000);
+        account.deposit(1000, date);
 
         return account.formatStatement();
     });
@@ -33,11 +30,11 @@ describe("bank account", () => {
     test("multi deposits", () => {
         const account = bankAccountCore();
 
-        account.deposit(1000);
-        account.deposit(1001);
-        account.deposit(1010);
-        account.deposit(1100);
-        account.deposit(20000);
+        account.deposit(1000, date);
+        account.deposit(1001, date);
+        account.deposit(1010, date);
+        account.deposit(1100, date);
+        account.deposit(20000, date);
 
         return account.formatStatement();
     });
@@ -45,13 +42,13 @@ describe("bank account", () => {
     test("withdraws", () => {
         const account = bankAccountCore();
 
-        account.deposit(1);
-        account.withdraw(2);
-        account.deposit(4);
-        account.withdraw(8);
-        account.deposit(16);
-        account.withdraw(32);
-        account.deposit(64);
+        account.deposit(1, date);
+        account.withdraw(2, date);
+        account.deposit(4, date);
+        account.withdraw(8, date);
+        account.deposit(16, date);
+        account.withdraw(32, date);
+        account.deposit(64, date);
 
         return account.formatStatement();
     });

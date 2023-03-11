@@ -27,18 +27,23 @@ const statementLines = (movements: Movement[]) =>
 const formatStatementLines = (movements: Movement[]) =>
     statementTable(statementLines(movements));
 
+// thanks ChatGPT
 // exposed for testing
-export const core = ({ date }: { date: () => string }) => {
+export const dateFormat = (date: Date) => date.toISOString().substring(0, 10);
+
+// exposed for testing
+export const core = () => {
     // primitive?
     const movements: Movement[] = [];
 
     const formatStatement = () => formatStatementLines(movements);
 
-    const move = (amount: number) => movements.push({ amount, date: date() });
+    const move = (amount: number, date = new Date()) =>
+        movements.push({ amount, date: dateFormat(date) });
 
     const deposit = move;
 
-    const withdraw = (amount: number) => move(-amount);
+    const withdraw = (amount: number, date = new Date()) => move(-amount, date);
 
     return {
         formatStatement,
@@ -47,16 +52,10 @@ export const core = ({ date }: { date: () => string }) => {
     };
 };
 
-// thanks ChatGPT
-// exposed for testing
-export const dateFormat = (date: Date) => date.toISOString().substring(0, 10);
-
 // this initialization / assembly is tested dynamically via the integration test
 // how can we test it statically?
 export const bankAccount = () => {
-    const { deposit, withdraw, formatStatement } = core({
-        date: () => dateFormat(new Date()),
-    });
+    const { deposit, withdraw, formatStatement } = core();
 
     const printStatement = () => log(formatStatement());
 

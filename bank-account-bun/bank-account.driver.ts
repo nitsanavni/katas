@@ -9,7 +9,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     );
 
     const account = bankAccount();
-    seq.forEach(account.deposit);
+    seq.forEach((amount) => account.deposit(amount));
     account.printStatement();
 }
 
