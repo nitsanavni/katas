@@ -2,7 +2,11 @@ import { log } from "console";
 
 import { table as tableWithHeaders } from "./table.js";
 
-type Deps = { log: typeof log; date: () => string };
+type Deps = {
+    log: typeof log;
+    // dates as strings allows us to inject any string for testing
+    date: () => string;
+};
 
 type Movement = { amount: number; date: string };
 
@@ -29,6 +33,7 @@ const statementLines = (movements: Movement[]) =>
 const formatStatementLines = (movements: Movement[]) =>
     statementTable(statementLines(movements));
 
+// exposed for testing
 export const make =
     ({ log, date }: Deps) =>
     () => {
