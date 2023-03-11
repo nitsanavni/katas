@@ -1,6 +1,6 @@
 import { log } from "console";
 import { EOL } from "os";
-import { table } from "./table.js";
+import { table as tableWithHeaders } from "./table.js";
 
 type Log = typeof log;
 
@@ -11,40 +11,48 @@ type StatementLine = Movement & { balance: number };
 
 const last = <T>(a: T[]) => a.slice(-1)[0];
 
+const statementTable = tableWithHeaders([
+    { key: "date", label: "Date" },
+    { key: "amount", label: "Amount" },
+    { key: "balance", label: "Balance" },
+]);
+
+const calcBalance = (movements: Movement[]) =>
+    // can use map? scan?
+    // reconstructing the array seems redundant
+    movements.reduce(
+        (a, c) => [
+            ...a,
+            {
+                ...c,
+                balance: c.amount + (last(a)?.amount || 0),
+            },
+        ],
+        [] as StatementLine[]
+    );
+
+const statementLines = (movements: Movement[]) =>
+    calcBalance(movements).reverse();
+
+const formatStatementLines = (movements: Movement[]) =>
+    statementTable(statementLines(movements));
+
 export const make =
     ({ log, date }: Deps) =>
     () => {
+        // primitive
         const movements: Movement[] = [];
 
-        const calcBalance = () =>
-            // can use map? scan?
-            // reconstructing the array seems redundant
-            movements.reduce(
-                (a, c) => [
-                    ...a,
-                    {
-                        ...c,
-                        balance: c.amount + (last(a)?.amount || 0),
-                    },
-                ],
-                [] as StatementLine[]
-            );
-
-        const statementLines = () => calcBalance().reverse();
-
-        const formatStatement = (): string =>
-            table(statementLines(), [
-                { key: "date", label: "Date" },
-                { key: "amount", label: "Amount" },
-                { key: "balance", label: "Balance" },
-            ]);
+        const formatStatement = () => formatStatementLines(movements);
 
         const printStatement = () => log(formatStatement());
 
-        const deposit = (amount: number) =>
+        const move = (amount: number) =>
             movements.push({ amount, date: date() });
 
-        const withdraw = (amount: number) => deposit(-amount);
+        const deposit = move;
+
+        const withdraw = (amount: number) => move(-amount);
 
         return {
             printStatement,
