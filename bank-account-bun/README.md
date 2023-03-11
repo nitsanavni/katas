@@ -15,7 +15,6 @@ bun test.ts bank-account.test.ts
 -   workflow
     -   TDD
     -   small steps
-    -
 -   design
     -   strong types
     -   primitives e.g. `movements = []`

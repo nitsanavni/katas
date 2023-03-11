@@ -1,5 +1,4 @@
 import { log } from "console";
-import { EOL } from "os";
 import { table as tableWithHeaders } from "./table.js";
 
 type Log = typeof log;
@@ -7,9 +6,6 @@ type Log = typeof log;
 type Deps = { log: Log; date: () => string };
 
 type Movement = { amount: number; date: string };
-type StatementLine = Movement & { balance: number };
-
-const last = <T>(a: T[]) => a.slice(-1)[0];
 
 const statementTable = tableWithHeaders([
     { key: "date", label: "Date" },
@@ -18,17 +14,14 @@ const statementTable = tableWithHeaders([
 ]);
 
 const calcBalance = (movements: Movement[]) =>
-    // can use map? scan?
-    // reconstructing the array seems redundant
-    movements.reduce(
-        (a, c) => [
-            ...a,
-            {
-                ...c,
-                balance: c.amount + (last(a)?.amount || 0),
-            },
-        ],
-        [] as StatementLine[]
+    movements.map(
+        (
+            (balance = 0) =>
+            (movement) => ({
+                ...movement,
+                balance: (balance += movement.amount),
+            })
+        )()
     );
 
 const statementLines = (movements: Movement[]) =>
@@ -40,7 +33,7 @@ const formatStatementLines = (movements: Movement[]) =>
 export const make =
     ({ log, date }: Deps) =>
     () => {
-        // primitive
+        // primitive?
         const movements: Movement[] = [];
 
         const formatStatement = () => formatStatementLines(movements);
