@@ -1,9 +1,8 @@
 import { log } from "console";
+
 import { table as tableWithHeaders } from "./table.js";
 
-type Log = typeof log;
-
-type Deps = { log: Log; date: () => string };
+type Deps = { log: typeof log; date: () => string };
 
 type Movement = { amount: number; date: string };
 
@@ -56,6 +55,10 @@ export const make =
         };
     };
 
-const defaultDeps: Deps = { log, date: () => new Date().toDateString() };
+const defaultDeps: Deps = {
+    log,
+    // thanks ChatGPT
+    date: () => new Date().toISOString().substring(0, 10),
+};
 
 export const bankAccount = make(defaultDeps);
