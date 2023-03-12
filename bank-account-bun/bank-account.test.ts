@@ -1,7 +1,7 @@
 import { describe } from "bun:test";
 import { test } from "./approvals.js";
 
-import { core as makeCore } from "./bank-account.js";
+import { statefulCore as makeCore } from "./bank-account.js";
 
 const date = new Date("2023-03-13");
 
