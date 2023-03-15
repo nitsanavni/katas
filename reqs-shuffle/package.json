@@ -1,0 +1,12 @@
+{
+  "name": "reqs-shuffle",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "^0.5.0"
+  },
+  "dependencies": {
+    "@types/yargs": "^17.0.22",
+    "yargs": "^17.7.1"
+  }
+}
