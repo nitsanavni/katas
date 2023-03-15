@@ -23,6 +23,11 @@ const makeFizzbuzz = () => {
     };
 };
 
+test("result is a string or number", () => {
+    expect(pure(7)).toEqual("Whizz");
+    expect(pure(8)).toEqual(8);
+});
+
 test("if n is a multiple of 7 result is Whizz", () => {
     expect(pure(7)).toEqual("Whizz");
     expect(pure(14)).toEqual("Whizz");
