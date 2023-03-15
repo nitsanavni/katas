@@ -13,7 +13,8 @@ test("counter", () => {
     expect(counter()).toEqual(2);
 });
 
-const pure = (n: number) => (n % 7 == 0 ? "Whizz" : n);
+const pure = (n: number) =>
+    n % 7 == 0 ? "Whizz" : /7/.test(String(n)) ? "Whizz" : n;
 
 const makeFizzbuzz = () => {
     const counter = makeCounter(1);
@@ -22,6 +23,12 @@ const makeFizzbuzz = () => {
         return pure(counter());
     };
 };
+
+test("if n contains the digit `7` result is Whizz", () => {
+    expect(pure(7)).toEqual("Whizz");
+    expect(pure(17)).toEqual("Whizz");
+    expect(pure(76)).toEqual("Whizz");
+});
 
 test("result is a string or number", () => {
     expect(pure(7)).toEqual("Whizz");

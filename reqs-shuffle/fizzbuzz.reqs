@@ -1,3 +1,4 @@
+if n contains the digit `7` result is `"Whizz"`
 returns the result
 prints the result to stdout
 result is a string or number
