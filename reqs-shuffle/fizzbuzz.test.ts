@@ -23,6 +23,10 @@ const makeFizzbuzz = () => {
     };
 };
 
+test("if n is a multiple of 7 result is Whizz", () => {
+    expect(pure(7)).toEqual("Whizz");
+});
+
 test("returns the result", () => {
     const fb = makeFizzbuzz();
 
