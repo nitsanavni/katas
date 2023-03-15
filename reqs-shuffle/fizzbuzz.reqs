@@ -1,3 +1,5 @@
+returns the result
+prints the result to stdout
 result is a string or number
 if n is a multiple of 7 result is `"Whizz"`
 does not get a input, tracks the number of calls internally

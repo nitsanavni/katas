@@ -18,3 +18,9 @@ FizzBuzz requirements bank - [fizzbuzz.bank](./fizzbuzz.bank)
 ```shell
 ./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank
 ```
+
+## Reminder to Shuffle in 5 min
+
+```shell
+sleep 5m && code README.md &
+```
