@@ -1,3 +1,4 @@
+if n is a multiple of 3 result is `"Fizz"`
 if n contains the digit `7` result is `"Whizz"`
 returns the result
 prints the result to stdout
