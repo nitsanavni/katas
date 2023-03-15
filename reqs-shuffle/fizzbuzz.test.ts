@@ -1,9 +1,5 @@
 import { test, expect } from "bun:test";
-
-const makeCounter =
-    (i = 0) =>
-    () =>
-        i++;
+import { makeCounter, makeFizzbuzz, pure } from "./fizzbuzz.js";
 
 test("counter", () => {
     const counter = makeCounter();
@@ -12,17 +8,6 @@ test("counter", () => {
     expect(counter()).toEqual(1);
     expect(counter()).toEqual(2);
 });
-
-const pure = (n: number) =>
-    n % 7 == 0 ? "Whizz" : /7/.test(String(n)) ? "Whizz" : n;
-
-const makeFizzbuzz = () => {
-    const counter = makeCounter(1);
-
-    return () => {
-        return pure(counter());
-    };
-};
 
 test("if n contains the digit `7` result is Whizz", () => {
     expect(pure(7)).toEqual("Whizz");
