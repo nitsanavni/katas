@@ -22,5 +22,5 @@ FizzBuzz requirements bank - [fizzbuzz.bank](./fizzbuzz.bank)
 ## Reminder to Shuffle in 5 min
 
 ```shell
-sleep 5m && code README.md &
+sleep 5m && ./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank && code fizzbuzz.reqs &
 ```
