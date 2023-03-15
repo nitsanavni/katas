@@ -13,7 +13,7 @@ test("counter", () => {
     expect(counter()).toEqual(2);
 });
 
-const pure = (n: number) => n;
+const pure = (n: number) => (n % 7 == 0 ? "Whizz" : n);
 
 const makeFizzbuzz = () => {
     const counter = makeCounter(1);
@@ -25,6 +25,7 @@ const makeFizzbuzz = () => {
 
 test("if n is a multiple of 7 result is Whizz", () => {
     expect(pure(7)).toEqual("Whizz");
+    expect(pure(14)).toEqual("Whizz");
 });
 
 test("returns the result", () => {
