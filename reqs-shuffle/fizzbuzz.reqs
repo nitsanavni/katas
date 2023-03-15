@@ -1,9 +1,3 @@
-fizzbuzz is a pure function
-if n is a multiple of 3 result is `"Fizz"`
-if n contains the digit `7` result is `"Whizz"`
-returns the result
-prints the result to stdout
-result is a string or number
-if n is a multiple of 7 result is `"Whizz"`
+if n is a multiple of 11 result is `"Bang"` with 0.9 chance, and `"Zbang"` with 0.1 chance
+if n is a multiple of 5 result is `"Buzz"`
 does not get a input, tracks the number of calls internally
-fizzbuzz gets an integer as input
