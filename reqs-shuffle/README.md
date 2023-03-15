@@ -14,3 +14,7 @@ Given a bank of potential requirement segments (bank), when we call `./shuffle.t
 # Example - FizzBuzz
 
 FizzBuzz requirements bank - [fizzbuzz.bank](./fizzbuzz.bank)
+
+```shell
+./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank
+```
