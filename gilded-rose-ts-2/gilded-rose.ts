@@ -1,5 +1,9 @@
 export class Item {
-    constructor(public name, public sellIn, public quality) {}
+    constructor(
+        public name: string,
+        public sellIn: number,
+        public quality: number
+    ) {}
 }
 
 type Action = (item: Item) => void;
@@ -42,20 +46,17 @@ const updateBrie = template({
     post: (item) => times(2, () => incQuality(item)),
 });
 
+const updateActionFor = (item: Item) =>
+    ({
+        "Aged Brie": updateBrie,
+        "Backstage passes to a TAFKAL80ETC concert": updateBackstage,
+        "Sulfuras, Hand of Ragnaros": updateSulfuras,
+    }[item.name] || updateDefault);
+
 export class GildedRose {
     constructor(private items = [] as Array<Item>) {}
 
     updateQuality() {
-        this.items.forEach((item) => {
-            const updateAction =
-                {
-                    "Aged Brie": updateBrie,
-                    "Backstage passes to a TAFKAL80ETC concert":
-                        updateBackstage,
-                    "Sulfuras, Hand of Ragnaros": updateSulfuras,
-                }[item.name as string] || updateDefault;
-
-            updateAction(item);
-        });
+        this.items.forEach((item) => updateActionFor(item)(item));
     }
 }

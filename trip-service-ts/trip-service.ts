@@ -112,6 +112,8 @@ console.log("test 4");
     u.addTrip(new Trip());
     f.addFriend(u);
     f.addTrip(new Trip());
+
+    stub(TripDAO, "findTripsByUser");
     stub(UserSession, "getLoggedUser").callsFake(() => u);
     console.log(service.getTripsByUser(u));
     console.log(u.getTrips());
