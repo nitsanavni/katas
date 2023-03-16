@@ -1,8 +1,8 @@
-# The Requirements Shuffle Meta-Kata
+# Requirements Shuffle Meta-Kata
 
 Practice changing requirements.
 
-# Explanation
+# Description
 
 Given a bank of potential requirement segments, randomly sample a new requirement in a repeating cadence to be added to the requirements document.
 
@@ -21,7 +21,7 @@ graph LR
     - --> d
 ```
 
-Formalizing further, the way to "sense" the current behavior, is using (automated) tests.
+Formalizing further, we "sense" the current behavior by using (automated) tests.
 
 ```mermaid
 graph LR
@@ -34,12 +34,20 @@ graph LR
 
 # Things to Practice
 
+## Mindset 😌
+
+-   Mindfulness
+-   [Embrace Change](https://www.oreilly.com/library/view/extreme-programming-explained/0201616416/)
+
+## Technical
+
 -   TDD
--   Small Steps, small commits
+-   Small things - steps, commits, code entities, iterations
 -   Refactoring
 -   Domain Language
 -   [First make the change easy (warning, this might be hard), then make the easy change.](https://twitter.com/KentBeck/status/250733358307500032?s=20)
 -   Release vs Deploy, Feature Toggles
+-   More?
 
 # Example - FizzBuzz
 
@@ -62,3 +70,4 @@ sleep 5m && ./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank && code fizzbuzz.reqs
 -   Have a LLM generate the next top priority requirement
 -   Points system - +1pt. on requirement met, -1pt. on requirement not met yet, -5pt. on found bug
 -   Start with a random set of requirements vs. start with a designed starting position
+-   Cadence - change the req every 5 minutes vs. every 30 minutes
