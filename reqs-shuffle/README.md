@@ -9,7 +9,8 @@ Given a bank of potential requirement segments, randomly sample a new requiremen
 -   Requirements segments may be vague, and even contradicting
 -   New requirements are always more important than older requirements (and more urgent of course)
 -   Although, our legacy should be maintained
--   Keep it simple
+
+It's a [control problem](https://commons.wikimedia.org/wiki/File:Feedback_loop_with_descriptions.svg#/media/File:Feedback_loop_with_descriptions.svg), where the development effort is attempting to track a moving target - the ever changing requirements. The feedback signal is the gap between the current system's behavior and the current requirements.
 
 ```mermaid
 graph LR
@@ -20,13 +21,25 @@ graph LR
     - --> d
 ```
 
+Formalizing further, the way to "sense" the current behavior, is using (automated) tests.
+
+```mermaid
+graph LR
+    r(Shuffle) --> |Requirements| -{"-"}
+    d(Development) --> |Release| sw[Working Software]
+    sw --> |Behavior| t(Tests)
+    t --> |Tested| -
+    - --> d
+```
+
 # Things to Practice
 
 -   TDD
--   small steps
--   domain language
--   First make the change easy (warning, this might be hard), then make the easy change.
--   Feature Toggles
+-   Small Steps, small commits
+-   Refactoring
+-   Domain Language
+-   [First make the change easy (warning, this might be hard), then make the easy change.](https://twitter.com/KentBeck/status/250733358307500032?s=20)
+-   Release vs Deploy, Feature Toggles
 
 # Example - FizzBuzz
 
@@ -47,4 +60,5 @@ sleep 5m && ./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank && code fizzbuzz.reqs
 # Flavors / Variants
 
 -   Have a LLM generate the next top priority requirement
--   Points system -
+-   Points system - +1pt. on requirement met, -1pt. on requirement not met yet, -5pt. on found bug
+-   Start with a random set of requirements vs. start with a designed starting position
