@@ -1,17 +1,21 @@
 fizzbuzz is a pure function
 fizzbuzz gets an integer as input
 result is a string
-result is a string or number
-does not get a input, tracks the number of calls internally
 returns the result
-prints the result to stdout
 default result is `n`
 if n is a multiple of 3 result is `"Fizz"`
 if n is a multiple of 5 result is `"Buzz"`
-if n is a multiple of 7 result is `"Whizz"`
-if n is a multiple of 7 result is the current day-of-week
-if n is a multiple of 11 result is `"Bang"`
-if n is a multiple of 11 result is `"Bang"` with 0.9 chance, and `"Zbang"` with 0.1 chance
 if n satisfies multiple special conditions - concatenate the results - e.g. `15` -> `"FizzBuzz"`
+if n is a multiple of 7 result is `"Whizz"`
+if n is a multiple of 11 result is `"Bang"`
+result is a string or number
+does not get a input, tracks the number of calls internally
+prints the result to stdout
+if n is a multiple of 7 result is the current day-of-week
+if n is a multiple of 11 result is `"Bang"` with 0.9 chance, and `"Zbang"` with 0.1 chance
 if n satisfies multiple special conditions - the latest requirement wins
 if n contains the digit `7` result is `"Whizz"`
+Change the input format to accept an array of numbers instead of a single number.
+Change the output format to include not just the result, but also the input number and the time the result was calculated.
+should be able to handle negative input numbers
+add a cli: input passed as cli arg, output printed to stdout

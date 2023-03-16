@@ -39,7 +39,7 @@ graph LR
 -   Mindfulness
 -   [Embrace Change](https://www.oreilly.com/library/view/extreme-programming-explained/0201616416/)
 
-## Technical
+## Technical 🔧
 
 -   TDD
 -   Small things - steps, commits, code entities, iterations
@@ -59,10 +59,10 @@ FizzBuzz requirements bank - [fizzbuzz.bank](./fizzbuzz.bank)
 ./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank
 ```
 
-## Example - shuffle again in 5 min
+## Example - shuffle again in 10 min
 
 ```shell
-sleep 5m && ./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank && code fizzbuzz.reqs &
+sleep 10m && ./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank && code fizzbuzz.reqs &
 ```
 
 # Flavors / Variants
