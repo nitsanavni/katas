@@ -2,6 +2,12 @@
 
 Practice changing requirements.
 
+**Note:** this meta-kata is in an experimental / RFC stage.
+
+# Context
+
+It helps being familiar with the original kata before doing the shuffle.
+
 # Description
 
 Given a bank of potential requirement segments, randomly sample a new requirement in a repeating cadence to be added to the requirements document.
@@ -49,7 +55,7 @@ graph LR
 -   Release vs Deploy, Feature Toggles
 -   More?
 
-# Example - FizzBuzz
+# Example - [FizzBuzz](https://sammancoaching.org/kata_descriptions/fizzbuzz.html)
 
 FizzBuzz requirements bank - [fizzbuzz.bank](./fizzbuzz.bank)
 
@@ -65,7 +71,7 @@ FizzBuzz requirements bank - [fizzbuzz.bank](./fizzbuzz.bank)
 sleep 10m && ./shuffle.ts -r fizzbuzz.reqs -b fizzbuzz.bank && code fizzbuzz.reqs &
 ```
 
-# Flavors / Variants
+# Flavors / Variants / Extensions
 
 -   Have a LLM generate the next top priority requirement
 -   Points system - +1pt. on requirement met, -1pt. on requirement not met yet, -5pt. on found bug
