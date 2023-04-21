@@ -3,10 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>htmx Bun App</title>
-        <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+        <title>htmx Bun Chat App</title>
+        <script src="https://unpkg.com/htmx.org@1.9.0"></script>
     </head>
     <body>
-        <h1>htmx Bun App</h1>
+        <h1>htmx Bun Chat App</h1>
+        <form hx-post="/messages" hx-trigger="submit" hx-target="#messages">
+            <input type="text" name="message" required />
+            <button type="submit">Send</button>
+        </form>
+        <div id="messages"></div>
     </body>
 </html>

@@ -19,6 +19,14 @@ serve({
             });
         }
 
+        if (url.pathname === "/messages" && req.method === "POST") {
+            const formData = await req.formData();
+            const message = formData.get("message");
+            return new Response(`<div>${message}</div>`, {
+                headers: { "Content-Type": "text/html" },
+            });
+        }
+
         return new Response(`Bun!`);
     },
 });

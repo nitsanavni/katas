@@ -1,15 +1,9 @@
 # htmx-bun-app
 
-To install dependencies:
-
-```bash
-bun install
+```shell
+bun index.ts --hot &
 ```
 
-To run:
-
-```bash
-bun run index.ts
+```shell
+docker run --rm --network="host" -v "$(pwd):/app" -w "/app" mcr.microsoft.com/playwright npx playwright test
 ```
-
-This project was created using `bun init` in bun v0.5.9. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
