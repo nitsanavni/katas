@@ -1,0 +1,13 @@
+{
+  "name": "htmx-bun-app",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "^0.5.0"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.32.3",
+    "ejs": "^3.1.9",
+    "playwright": "^1.32.3"
+  }
+}
