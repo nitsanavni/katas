@@ -1,0 +1,13 @@
+    1  pwd
+    2  mkdir jaq-run-tests
+    3  cd jaq-run-tests/
+    4  jaq --version
+    5  jaq --help
+    6  which jaq
+    7  cargo install --locked --git https://github.com/01mf02/jaq --tag v1.0.0-alpha
+    8  jaq --version
+    9  code test.jq
+   10  jaq --run-tests test.jq 
+   11  time jaq --run-tests test.jq 
+   12  h
+   13  h > h
