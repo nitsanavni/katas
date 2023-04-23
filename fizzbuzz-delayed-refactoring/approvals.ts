@@ -1,5 +1,6 @@
 import { env, file, spawn, write } from "bun";
 import { expect, test as bunTest } from "bun:test";
+import { EOL } from "os";
 
 export const approval = (baseName: string) => {
     const approvedFilePath = () => `${baseName}.approved`;
@@ -31,7 +32,9 @@ export const approval = (baseName: string) => {
                 //     receivedFilePath(),
                 //     approvedFilePath(),
                 // ]);
-                expect(received).toEqual(await approvedText());
+                expect(received.split(EOL)).toEqual(
+                    (await approvedText()).split(EOL)
+                );
             }
         }
     };
