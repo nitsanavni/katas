@@ -5,3 +5,7 @@ This repository contains our working agreements and conversation logs for a code
 ## Working Agreements
 
 Refer to [pairing-working-agreements.md](pairing-working-agreements.md) for the complete list of our working agreements.
+
+## Code Kata
+
+We're working on the [String Calculator kata](http://osherove.com/tdd-kata-1/), practicing TDD and incremental development.

@@ -104,3 +104,149 @@ As for the kata, let's work on the "String Calculator" kata, which is a popular 
 Once you've decided on the kata, go ahead and initialize the bun.js project and add the approvals utility. Then, let's get started on the kata!
 
 # Nitsan 3
+
+-   working agreements: Please call me Nitsan (and not "user")
+-   env: I've created our first commit, and initialized an empty bun project, with the approvals.ts utility
+-   how approvals work: I will paste the contents of this utility for you to understand how to use it, but I can also provide an example if you like
+-   working agreements: is it helpful for you that I give each statement a prefix with the relevant context / abstraction level / conversation level (e.g. "env")?
+-   task: the string calc seems like a cool kata to try, haven't tried it yet, should be interesting; we should update our README with this decision
+-   todo: also update the working agreements as you see fit
+-   working agreements: in strong style, we try to provide intention over detailed instructions, assume the other knows _how_ to do something (for example you don't need to tell me how to create a new file, unless I explicitly ask you for more guidance, or you see I'm struggling)
+
+---
+
+gitpod /workspace/katas/chatgpt-working-agreements (main) $ code string-calculator-test.ts
+gitpod /workspace/katas/chatgpt-working-agreements (main) $ bun test
+bun test v0.5.9 (f3ab445c)
+No tests found! Tests need ".test", "_test_", ".spec" or "_spec_" in the filename (ex: "MyApp.test.ts")
+[4.00ms] 10 files searched
+gitpod /workspace/katas/chatgpt-working-agreements (main) $ mv string-calculator-test.ts string-calculator.test.ts
+gitpod /workspace/katas/chatgpt-working-agreements (main) $ bun test
+bun test v0.5.9 (f3ab445c)
+
+string-calculator.test.ts:
+30 | // "code",
+31 | // "--diff",
+32 | // receivedFilePath(),
+33 | // approvedFilePath(),
+34 | // ]);
+35 | expect(received.split(EOL)).toEqual(
+^
+error: expect(received).toEqual(expected)
+
+[
+
+-   "this string will be verified"
+
+*   ""
+    ]
+
+*   Expected - 1
+
+-   Received + 1
+
+          at /workspace/katas/chatgpt-working-agreements/approvals.ts:35:16
+
+    ✗ just an example test
+
+0 pass
+1 fail
+1 expect() calls
+Ran 1 tests across 1 files [15.00ms]
+gitpod /workspace/katas/chatgpt-working-agreements (main) $ ls
+approvals.ts index.ts node_modules README.md
+bun.lockb 'just an example test.approved' package.json string-calculator.test.ts
+conversation.md 'just an example test.received' pairing-working-agreements.md tsconfig.json
+gitpod /workspace/katas/chatgpt-working-agreements (main) $ cat just\ an\ example\ test.received
+this string will be verifiedgitpod /workspace/katas/chatgpt-working-agreements (main) $ cat just\ an\ example\ test.approved
+gitpod /workspace/katas/chatgpt-working-agreements (main) $ cat approvals.ts
+import { env, file, spawn, write } from "bun";
+import { expect, test as bunTest } from "bun:test";
+import { EOL } from "os";
+
+export const approval = (baseName: string) => {
+const approvedFilePath = () => `${baseName}.approved`;
+const receivedFilePath = () => `${baseName}.received`;
+const approvedFile = () => file(approvedFilePath());
+
+    const approvedText = async (): Promise<string> => {
+        const f = approvedFile();
+
+        if (f.size == 0) {
+            await write(f, "");
+            return "";
+        }
+
+        return f.text();
+    };
+
+    const update = (received: string) => write(approvedFile(), received);
+
+    const verify = async (received: string) => {
+        if (env.UPDATE) {
+            await update(received);
+        } else {
+            if ((await approvedText()) != received) {
+                await write(receivedFilePath(), received);
+                // spawn([
+                //     "code",
+                //     "--diff",
+                //     receivedFilePath(),
+                //     approvedFilePath(),
+                // ]);
+                expect(received.split(EOL)).toEqual(
+                    (await approvedText()).split(EOL)
+                );
+            }
+        }
+    };
+
+    return { verify };
+
+};
+
+type Received = string;
+
+export const test = (label: string, test: () => Received | Promise<Received>) =>
+bunTest(label, async () => approval(label).verify(await test()));
+gitpod /workspace/katas/chatgpt-working-agreements (main) $ cat string-calculator.test.ts
+import { test } from "./approvals";
+
+test("just an example test", () => "this string will be verified");
+
+# ChatGPT 3
+
+Nitsan, thank you for the context and suggestions. I will address each point accordingly:
+
+I apologize for referring to you as "user"; from now on, I will address you as Nitsan.
+Great, you've set up the environment and added the approvals utility.
+Thank you for sharing the contents of the approvals utility. I understand how it works now, but if we need an example later, I will let you know.
+Prefixing statements with context (e.g., "env") is helpful and will make our communication clearer.
+I will update the README with our decision to work on the String Calculator kata.
+I will keep the working agreements as they are, for now.
+I appreciate the clarification about strong-style pairing and providing intention over detailed instructions.
+Now that we're set up, let's get started on the String Calculator kata. First, update the README:
+
+```less
+## Code Kata
+
+We're working on the [String Calculator kata](http://osherove.com/tdd-kata-1/), practicing TDD and incremental development.
+```
+
+Now that we have an example test, let's write the first test for the String Calculator kata. The first step in the kata is to create a function add that takes a string and returns 0 for an empty string. Here's the test:
+
+```typescript
+import { test } from "./approvals";
+
+test("add returns 0 for an empty string", async () => {
+    const result = add("");
+    return `Result: ${result}`;
+});
+```
+
+Add this test to string-calculator.test.ts and let's proceed with the implementation.
+
+# Nitsan 4
+
+-   pairing: I think you should be the first talker, that means only give me directions and intentions in English, no code snippets at all - please add this to the working agreements
+-   pairing: I will also add a file to show who's talking and who's typing
