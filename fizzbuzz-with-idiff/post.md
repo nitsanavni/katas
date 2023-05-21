@@ -109,15 +109,8 @@ None of those options is what I want in the context of "making the change easy".
 
 Actually, there are two kinds refactorings.
 
-### 1. General
-
-General betterment of the code for prosperity (e.g. readability). Preparing for change _in general_.
-
-For example renaming
-
-### 2. Preparatory
-
-Preparing for a _specific_ change - the next (micro) requirement
+1. **General:** General betterment of the code for prosperity (e.g. readability). Preparing for change _in general_.
+2. **Preparatory:** Preparing for a _specific_ change - the next (micro) requirement
 
 The first should be done in Green, meaning _all_ tests passing.  
 The second, I propose, should be done in _Orange_.
