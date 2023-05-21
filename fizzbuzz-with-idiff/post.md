@@ -103,7 +103,7 @@ I could disable the failing test, and refactor in Green.
 
 I could make the failing test pass with the minimal simplest change, and then refactor.
 
-None of those options is what I want in the context of "making the change easy".
+None of these options is what I want in the context of "making the change easy".
 
 ## Preparatory Refactorings
 
