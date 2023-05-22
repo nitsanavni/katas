@@ -8,6 +8,8 @@ I was working on the [fizzbuzz](https://github.com/nitsanavni/katas/tree/main/fi
 
 At some point during the implementation I wanted to ["make the change easy"](https://twitter.com/KentBeck/status/250733358307500032?s=20).
 
+Here's how I got there.
+
 The way I've built up the functionality was by extending the range of inputs I was approval-testing - with each TDD iteration the range increases by 1. Meaning - the first testing iteration was for `fizzbuzz(1)`, the next added the `2` - `fizzbuzz(1, 2)` (pseudo speaking), etc.
 
 Now I had gone up to `5`, and the code looked something like this:
@@ -30,7 +32,7 @@ It was time for **Red** again, so I've extended the test to include `6`:
 + range(6) + 1 | fizzbuzz
 ```
 
-And it goes -
+I now have a failing test, and the approval testing framework shows me this diff to be approved:
 
 ```diff
 @@ -3,3 +3,4 @@
@@ -40,13 +42,10 @@ And it goes -
 +6
 ```
 
-Great ape (me):
+Seeing this new `6` makes me think:
 
-> Right... 🤔  
-> ... I think that should be...  
-> Fizz again  
-> ...  
-> I know how to do that!
+> This `6` should actually be a `Fizz`, and...
+> I know how to achieve that!
 
 ```diff
 @@ -2,7 +2,7 @@ def fizz: {d:3,c:"Fizz"};
@@ -60,40 +59,48 @@ Great ape (me):
    end;
 ```
 
-And as I started typing this wonderful solution, I thought:
+And as I started typing, I thought:
 
 > Wait! Can I make this change easy?  
 > ... _How_ can I make this change easy?
 
+## Making Changes Easy
+
+Making a change easy means refactoring the code to a design that will lend itself better to the specific anticipated change.
+
+I use the word "refactoring" for - modifying the code's structure while preserving its behavior exactly.
+
+Refactorings traditionally should only be done while all test are passing.
+
 ## But... I shouldn't refactor while in Red
 
-And now I got into an internal dialog loop.
+I am now in Red, so traditionally I should now write the simplest code to make the test pass. Then I'll get to refactor.
 
-Here is sample of my conflicting thoughts:
+So I was in conflict. Because I like how the impetus for changing the code's behavior comes from a failing test.
 
--   Getting to Green requires writing the simplest code possible, as I did above. However, this approach doesn't necessarily make the change easy.
--   What does "easy" even mean in this context? I was imagining an obvious and natural place to host and isolate the change - e.g. a new function\* like:
+I want to both:
 
-    ```jq
-    def condition(d): . == d;
-    ```
+1. Keep my failing test
+2. Be able to refactor safely towards the better design, where the change would be "easy"
 
-    It would later become:
+## What does "Easy" even Mean?
 
-    ```diff
-    - def condition(d): . == d;
-    + def condition(d): . % d == 0;
-    ```
+I was imagining having an obvious and natural place to host and isolate the change - e.g. a new function\* like:
 
-    In some sense, it's an "easier" change than my original trivial change (directly changing the code in the `fizzbuzz` function).
+```jq
+def condition(d): . == d;
+```
 
-    \* jq doesn't really have "functions" per se, but it does have "filters" which for the purposes of this discussion serve the same function (he he).
+It would later become:
 
--   Refactoring, including "making changes easy", should be done when tests are passing
--   On the other hand, "making the change easy" is about the state of the code _before_ the change, not after it
--   Deciding on the next micro-requirement is done using a new failing test
--   An even stronger statement - **the impetus for changing the code's behavior comes from a failing test**. It is our constant reminder and driver towards the next micro increment.
--   I don't want to refactor in Red
+```diff
+- def condition(d): . == d;
++ def condition(d): . % d == 0;
+```
+
+In some sense, it's an "easier" change than my original trivial change (directly changing the code in the `fizzbuzz` function), because it's obvious where the change should be done.
+
+\* jq doesn't really have "functions" per se, but it does have "filters" which for the purposes of this discussion serve the same function (he he).
 
 ## What are my options?
 
@@ -107,10 +114,10 @@ None of these options is what I want in the context of "making the change easy".
 
 ## Preparatory Refactorings
 
-Actually, there are two kinds refactorings.
+Consider the following Refactoring Categories:
 
-1. **General:** General betterment of the code for prosperity (e.g. readability). Preparing for change _in general_.
-2. **Preparatory:** Preparing for a _specific_ change - the next (micro) requirement
+1. **General:** General betterment of the code for prosperity (e.g. readability), preparing for change _in general_
+2. **Preparatory:** Preparing for a _specific_ change - the next requirement
 
 The first should be done in Green, meaning _all_ tests passing.  
 The second, I propose, should be done in _Orange_.
@@ -120,7 +127,7 @@ The second, I propose, should be done in _Orange_.
 'Orange' is a state where:
 
 > 1. All previous tests are passing
-> 2. One new test is failing, knowingly, expectedly and for a known, expected reason
+> 2. One new test is failing expectedly
 
 As opposed to 'Red' being:
 
@@ -128,7 +135,7 @@ As opposed to 'Red' being:
 
 ## Testing Frameworks
 
-Some testing frameworks like [ava](https://github.com/avajs/ava/blob/main/docs/01-writing-tests.md#failing-tests) have the notion of failing tests - they are expected to fail, and cause an error if they pass.
+Some testing frameworks have the notion of [failing tests](https://github.com/avajs/ava/blob/main/docs/01-writing-tests.md#failing-tests) - they are expected to fail, and even cause an error if they pass.
 
 With approval tests there's a pattern I like where an incorrect result is intentionally, temporarily approved so that when the behavior is implemented the change is highlighted by the diff tool.
 
@@ -217,11 +224,52 @@ And now we can **refactor generally**, for example extract another method `isMul
    if condition(fizz.d) then fizz.c
 ```
 
+## r, r, r, F
+
+You might have noticed that the code changes above adheres to a specific style of Preparatory Refactoring. Making a sequence of small refactorings (r) followed by a single small behavior change (F):
+
+```
+r, r, r, F
+```
+
+I think I've learned this from [Arlo Belshee](https://jay.bazuzi.com/why-acn/).
+
+Here's our history. I've added an indication of the tests status (Green / Orange):
+
+```
+G r extract function `isMultiple`
+G F condition: check if d is multiple of n
+O r use new function `condition`
+O r introduce function `condition`
+O t test(fizzbuzz(6))
+G r ...
+```
+
+Legend: **G**reen, **O**range, **r**efactoring, **t**est, **F**eature
+
+Notice:
+
+-   `G r` - these are General Refactorings
+-   `O r` - these are Preparatory Refactorings
+-   Getting from Green to Orange is done via a new failing test (`O t`)
+-   Getting back to Green is done using the "easy change" (`G F`)
+
 ## Conclusion
 
-Sometimes one might want to **refactor** towards a specific change, driven by an intentionally failing test.  
+Sometimes one might want to **refactor** in preparation to a specific change, driven by an intentionally failing test.  
 That's the **Orange** state of TDD.
 
-## Acknowledgement
+## Resources
+
+[TDD](https://www.google.com/search?q=tdd)  
+[The Three Rule Of TDD](http://www.butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd)  
+[Preparatory Refactoring Example](https://martinfowler.com/articles/preparatory-refactoring-example.html)  
+[Approvals Tests](https://approvaltests.com/)  
+[Arlo's Commit Notation](https://github.com/RefactoringCombos/ArlosCommitNotation)  
+[The FizzBuzz kata](https://sammancoaching.org/kata_descriptions/fizzbuzz.html) - great for practicing TDD  
+[jq](https://stedolan.github.io/jq) - a programming language for processing JSON docs  
+[jaq](https://github.com/01mf02/jaq) - an implementation of jq I like using
+
+## Acknowledgements
 
 Thanks Johan Lodin for a super discussion about the Orange state!
