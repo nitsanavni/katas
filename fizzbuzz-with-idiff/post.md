@@ -226,7 +226,7 @@ And now we can **refactor generally**, for example extract another method `isMul
 
 ## r, r, r, F
 
-You might have noticed that the code changes above adheres to a specific style of Preparatory Refactoring. Making a sequence of small refactorings (r) followed by a single small behavior change (F):
+You might have noticed that the code changes above adhere to a specific style of Preparatory Refactoring. Making a sequence of small refactorings (r) followed by a single small behavior change (F):
 
 ```
 r, r, r, F
