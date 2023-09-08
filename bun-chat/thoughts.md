@@ -1,0 +1,11 @@
+-   I feel like there's a workflow to be developed here
+    -   gpt takes some of the mental load off us when evaluating large texts
+        -   subsequent runs could use diffs as part of the prompt
+    -   `verify(result)`
+        -   it could be approved already - in that case is passes - a quick pass (like in command approvals)
+        -   it could have a diff - we first feed this diff through gpt
+            -   we choose the more compact of the two representations
+                -   approved + diff
+                -   approved + received
+        -   code diff could also be part of the context
+        -
