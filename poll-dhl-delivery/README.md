@@ -76,3 +76,8 @@ $ curl --help | grep sile
  -s, --silent        Silent mode
 ```
 
+finally, I guess that's where we're at:
+
+```shell
+watch -gd -n 60 ./poll.sh
+```
