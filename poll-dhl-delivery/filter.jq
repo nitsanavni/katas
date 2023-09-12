@@ -1,0 +1,1 @@
+.Seguimiento[] | .Fecha + " " + .Hora + " " + .Descripcion
