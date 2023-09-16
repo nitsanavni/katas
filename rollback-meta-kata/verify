@@ -1,0 +1,69 @@
+#!/bin/bash
+
+default_diff_tool="code --diff"
+diff_tool=$default_diff_tool
+doing_enabled=false
+
+while getopts ":r:t:d:" opt; do
+  case $opt in
+    d) diff_tool=$OPTARG;;
+    r) received_text=$OPTARG;;
+    t) test_name=$OPTARG;;
+    \?) echo "Invalid option: -$OPTARG" >&2;;
+  esac
+done
+
+received="$test_name.received"
+approved="$test_name.approved"
+doing="$test_name.doing"
+
+if [ "$received_text" == "" ]; then
+    cat - > "$received"
+else
+    echo "$received_text" > "$received"
+fi
+
+touch "$approved"
+
+if [ "$APPROVALS_DOING" = true ]; then
+    diff -q "$received" "$approved" > /dev/null
+    if [ $? -eq 0 ]; then
+        rm -f "$received" "$doing"
+        echo "Green - test passed!"
+        sleep 1
+        exit 0
+    else
+        if [ ! -f "$doing" ]; then
+            echo "Initializing 'doing' from 'approved'..."
+            cp "$approved" "$doing"
+        fi
+        diff -q "$received" "$doing" > /dev/null
+        if [ $? -eq 0 ]; then
+            rm -f "$received"
+            echo "Orange - We're doing this:"
+            diff -u "$doing" "$approved"
+            sleep 1
+            exit 0
+        else
+            echo "Test failed. Differences found."
+            echo "Doing?"
+            $diff_tool "$received" "$doing" </dev/tty
+            echo "Approve?"
+            $diff_tool "$received" "$approved" </dev/tty
+            exit 1
+        fi
+    fi
+fi
+
+if [ "$APPROVALS_DOING" != true ]; then
+    diff -q "$received" "$approved" > /dev/null
+    if [ $? -eq 0 ]; then
+        rm -f "$received"
+        echo "Test passed. No differences found."
+        sleep 1
+    else
+        echo "Test failed. Differences found."
+        $diff_tool "$received" "$approved" </dev/tty
+        exit 1
+    fi
+fi

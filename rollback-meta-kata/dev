@@ -1,0 +1,1 @@
+ls fizzbuzz-test.jq | entr -cs '(jaq -rnf fizzbuzz-test.jq | ./verify -t fb -d ./idiff); vi fizzbuzz-test.jq'

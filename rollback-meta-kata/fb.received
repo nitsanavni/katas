@@ -1,0 +1,168 @@
+[
+  {
+    "d": 1155,
+    "c": "FizzBuzzWhizzBang"
+  },
+  {
+    "d": 231,
+    "c": "FizzWhizzBang"
+  },
+  {
+    "d": 385,
+    "c": "BuzzWhizzBang"
+  },
+  {
+    "d": 165,
+    "c": "FizzBuzzBang"
+  },
+  {
+    "d": 33,
+    "c": "FizzBang"
+  },
+  {
+    "d": 55,
+    "c": "BuzzBang"
+  },
+  {
+    "d": 77,
+    "c": "WhizzBang"
+  },
+  {
+    "d": 105,
+    "c": "FizzBuzzWhizz"
+  },
+  {
+    "d": 21,
+    "c": "FizzWhizz"
+  },
+  {
+    "d": 35,
+    "c": "BuzzWhizz"
+  },
+  {
+    "d": 15,
+    "c": "FizzBuzz"
+  },
+  {
+    "d": 3,
+    "c": "Fizz"
+  },
+  {
+    "d": 5,
+    "c": "Buzz"
+  },
+  {
+    "d": 7,
+    "c": "Whizz"
+  },
+  {
+    "d": 11,
+    "c": "Bang"
+  }
+]
+1
+2
+Fizz
+4
+Buzz
+Fizz
+Whizz
+8
+Fizz
+Buzz
+Bang
+Fizz
+13
+Whizz
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
+FizzWhizz
+Bang
+23
+Fizz
+Buzz
+26
+Fizz
+Whizz
+29
+FizzBuzz
+31
+32
+FizzBang
+34
+BuzzWhizz
+Fizz
+37
+38
+Fizz
+Buzz
+41
+FizzWhizz
+43
+Bang
+FizzBuzz
+46
+47
+Fizz
+Whizz
+Buzz
+Fizz
+52
+53
+Fizz
+BuzzBang
+Whizz
+Fizz
+58
+59
+FizzBuzz
+61
+62
+FizzWhizz
+64
+Buzz
+FizzBang
+67
+68
+Fizz
+BuzzWhizz
+71
+Fizz
+73
+74
+FizzBuzz
+76
+WhizzBang
+Fizz
+79
+Buzz
+Fizz
+82
+83
+FizzWhizz
+Buzz
+86
+Fizz
+Bang
+89
+FizzBuzz
+Whizz
+92
+Fizz
+94
+Buzz
+Fizz
+97
+Whizz
+FizzBang
+Buzz
+101
+Fizz
+103
+104
+FizzBuzzWhizz
+106
