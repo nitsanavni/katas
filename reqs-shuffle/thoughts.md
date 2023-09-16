@@ -1,0 +1,1 @@
+-   points system could be automated - given the same exact req name in the test description

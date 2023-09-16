@@ -1,0 +1,19 @@
+if n is a multiple of 11 result is `"Bang"` with 0.9 chance, and `"Zbang"` with 0.1 chance
+fizzbuzz is a pure function
+does not get a input, tracks the number of calls internally
+Change the input format to accept an array of numbers instead of a single number.
+if n is a multiple of 3 result is `"Fizz"`
+should be able to handle negative input numbers
+does not get a input, tracks the number of calls internally
+result is a string
+returns the result
+
+1
+2
+3
+4
+5
+6
+7
+8
+9

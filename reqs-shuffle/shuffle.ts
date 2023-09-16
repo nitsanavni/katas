@@ -21,4 +21,6 @@ const reqs = await lines(reqsFile as string);
 
 const sample = <T>(a: T[]) => a[Math.floor(Math.random() * a.length)];
 
+// TODO - avoid dups in reqs
+
 await write(file(reqsFile as string), [sample(bank), ...reqs].join(EOL));
