@@ -1,0 +1,227 @@
+gitpod /workspace/katas (main) $ mkdir fizzbuzz-idiff
+gitpod /workspace/katas (main) $ cd fizzbuzz-i
+fizzbuzz-idiff/                fizzbuzz-inside-out/           fizzbuzz-inside-out-approvals/ 
+gitpod /workspace/katas (main) $ cd fizzbuzz-idiff/
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ code README.md
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ cp ../fizzbuzz-with-idiff/idiff ../fizzbuzz-with-idiff/verify ../utils/
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ export PATH=/wo:$PATH
+Display all 233 possibilities? (y or n)
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ export PATH=/wor:$PATH
+Display all 233 possibilities? (y or n)
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ export PATH=/workspace/ :$PATH
+.cargo/         .gitpod/        katas/          .pyenv_mirror/  .vscode-remote/ 
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ export PATH=/workspace/katas/utils:$PATH
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ 
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ idiff
+Usage: idiff src dst
+Interactively patch dst from src, using 'git add --patch'
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ verify
+
+
+^C
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ jaq
+
+^C
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ jaq --version
+jaq 0.9.0
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ cargor install jaq
+bash: cargor: command not found
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ cargo install jaq
+    Updating crates.io index
+  Downloaded jaq v0.10.1
+  Downloaded 1 crate (19.4 KB) in 0.84s
+  Installing jaq v0.10.1
+  Downloaded anstyle-query v1.0.0
+  Downloaded log v0.4.20
+  Downloaded memmap2 v0.5.10
+  Downloaded rustix v0.38.13
+  Downloaded serde_json v1.0.107
+  Downloaded yansi v0.5.1
+  Downloaded colorchoice v1.0.0
+  Downloaded errno v0.3.3
+  Downloaded strsim v0.10.0
+  Downloaded tempfile v3.8.0
+  Downloaded colored_json v3.2.0
+  Downloaded hashbrown v0.14.0
+  Downloaded bincode v1.3.3
+  Downloaded libmimalloc-sys v0.1.35
+  Downloaded jaq-std v0.10.0
+  Downloaded jaq-parse v0.10.0
+  Downloaded regex-syntax v0.7.5
+  Downloaded aho-corasick v1.1.0
+  Downloaded clap_derive v4.4.2
+  Downloaded libc v0.2.148
+  Downloaded linux-raw-sys v0.4.7
+  Downloaded cc v1.0.83
+  Downloaded mimalloc v0.1.39
+  Downloaded itertools v0.10.5
+  Downloaded env_logger v0.10.0
+  Downloaded ahash v0.7.6
+  Downloaded serde_derive v1.0.188
+  Downloaded serde v1.0.188
+  Downloaded regex v1.9.5
+  Downloaded quote v1.0.33
+  Downloaded proc-macro2 v1.0.67
+  Downloaded once_cell v1.18.0
+  Downloaded memchr v2.6.3
+  Downloaded itoa v1.0.9
+  Downloaded is-terminal v0.4.9
+  Downloaded indexmap v2.0.0
+  Downloaded indexmap v1.9.3
+  Downloaded heck v0.4.1
+  Downloaded hashbrown v0.12.3
+  Downloaded getrandom v0.2.10
+  Downloaded fastrand v2.0.0
+  Downloaded dyn-clone v1.0.14
+  Downloaded equivalent v1.0.1
+  Downloaded either v1.9.0
+  Downloaded clap_lex v0.5.1
+  Downloaded clap_builder v4.4.4
+  Downloaded clap v4.4.4
+  Downloaded cfg-if v1.0.0
+  Downloaded bitflags v2.4.0
+  Downloaded autocfg v1.1.0
+  Downloaded atty v0.2.14
+  Downloaded anstyle-parse v0.2.1
+  Downloaded anstyle v1.0.3
+  Downloaded anstream v0.5.0
+  Downloaded version_check v0.9.4
+  Downloaded utf8parse v0.2.1
+  Downloaded unicode-ident v1.0.12
+  Downloaded syn v2.0.37
+  Downloaded regex-automata v0.3.8
+  Downloaded ryu v1.0.15
+  Downloaded ariadne v0.1.5
+  Downloaded hifijson v0.2.0
+  Downloaded jaq-core v0.10.1
+  Downloaded chumsky v0.9.2
+  Downloaded 64 crates (6.3 MB) in 1.12s (largest was `linux-raw-sys` at 1.4 MB)
+error: failed to compile `jaq v0.10.1`, intermediate artifacts can be found at `/tmp/cargo-installemTxQr`
+
+Caused by:
+  package `clap_builder v4.4.4` cannot be built because it requires rustc 1.70.0 or newer, while the currently active rustc version is 1.66.0
+  Try re-running cargo install with `--locked`
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ cargo install jaq
+    Updating crates.io index
+  Installing jaq v0.10.1
+error: failed to compile `jaq v0.10.1`, intermediate artifacts can be found at `/tmp/cargo-installz4m5fn`
+
+Caused by:
+  package `anstream v0.5.0` cannot be built because it requires rustc 1.70.0 or newer, while the currently active rustc version is 1.66.0
+  Try re-running cargo install with `--locked`
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ cargo install jaq --locked
+    Updating crates.io index
+  Installing jaq v0.10.1
+  Downloaded dyn-clone v1.0.11
+  Downloaded proc-macro2 v1.0.51
+  Downloaded mimalloc v0.1.34
+  Downloaded remove_dir_all v0.5.3
+  Downloaded fastrand v1.9.0
+  Downloaded proc-macro-error-attr v1.0.4
+  Downloaded itoa v1.0.6
+  Downloaded once_cell v1.17.1
+  Downloaded bitflags v1.3.2
+  Downloaded indexmap v1.9.2
+  Downloaded termcolor v1.2.0
+  Downloaded tempfile v3.3.0
+  Downloaded either v1.8.1
+  Downloaded proc-macro-error v1.0.4
+  Downloaded clap_lex v0.3.2
+  Downloaded getrandom v0.2.8
+  Downloaded clap_derive v4.0.21
+  Downloaded ryu v1.0.13
+  Downloaded log v0.4.17
+  Downloaded serde_derive v1.0.152
+  Downloaded cc v1.0.79
+  Downloaded os_str_bytes v6.4.1
+  Downloaded unicode-ident v1.0.8
+  Downloaded serde v1.0.152
+  Downloaded memchr v2.5.0
+  Downloaded quote v1.0.23
+  Downloaded aho-corasick v1.0.2
+  Downloaded serde_json v1.0.94
+  Downloaded clap v4.0.22
+  Downloaded syn v1.0.109
+  Downloaded regex-syntax v0.7.4
+  Downloaded regex-automata v0.3.3
+  Downloaded regex v1.9.1
+  Downloaded libmimalloc-sys v0.1.30
+  Downloaded libc v0.2.139
+  Downloaded colored_json v3.0.1
+  Downloaded 36 crates (4.6 MB) in 0.83s (largest was `libmimalloc-sys` at 1.1 MB)
+   Compiling libc v0.2.139
+   Compiling version_check v0.9.4
+   Compiling proc-macro2 v1.0.51
+   Compiling unicode-ident v1.0.8
+   Compiling quote v1.0.23
+   Compiling syn v1.0.109
+   Compiling serde v1.0.152
+   Compiling serde_derive v1.0.152
+   Compiling cfg-if v1.0.0
+   Compiling once_cell v1.17.1
+   Compiling memchr v2.5.0
+   Compiling autocfg v1.1.0
+   Compiling log v0.4.17
+   Compiling serde_json v1.0.94
+   Compiling cc v1.0.79
+   Compiling regex-syntax v0.7.4
+   Compiling itoa v1.0.6
+   Compiling ryu v1.0.13
+   Compiling either v1.8.1
+   Compiling os_str_bytes v6.4.1
+   Compiling ahash v0.7.6
+   Compiling proc-macro-error-attr v1.0.4
+   Compiling indexmap v1.9.2
+   Compiling proc-macro-error v1.0.4
+   Compiling heck v0.4.1
+   Compiling yansi v0.5.1
+   Compiling itertools v0.10.5
+   Compiling termcolor v1.2.0
+   Compiling aho-corasick v1.0.2
+   Compiling clap_lex v0.3.2
+   Compiling hifijson v0.2.0
+   Compiling dyn-clone v1.0.11
+   Compiling strsim v0.10.0
+   Compiling bitflags v1.3.2
+   Compiling fastrand v1.9.0
+   Compiling remove_dir_all v0.5.3
+   Compiling ariadne v0.1.5
+   Compiling env_logger v0.10.0
+   Compiling getrandom v0.2.8
+   Compiling libmimalloc-sys v0.1.30
+   Compiling atty v0.2.14
+   Compiling memmap2 v0.5.10
+   Compiling tempfile v3.3.0
+   Compiling hashbrown v0.12.3
+   Compiling regex-automata v0.3.3
+   Compiling chumsky v0.9.2
+   Compiling regex v1.9.1
+   Compiling mimalloc v0.1.34
+   Compiling clap_derive v4.0.21
+   Compiling clap v4.0.22
+   Compiling jaq-parse v0.10.0
+   Compiling bincode v1.3.3
+   Compiling jaq-core v0.10.1
+   Compiling colored_json v3.0.1
+   Compiling jaq-std v0.10.0
+   Compiling jaq v0.10.1
+    Finished release [optimized] target(s) in 57.06s
+  Installing /workspace/.cargo/bin/jaq
+   Installed package `jaq v0.10.1` (executable `jaq`)
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ echo 1
+1
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ echo 1 | verify -t fb -d idiff
+test failed
+diff --git a/temp b/temp
+index e69de29..d00491f 100644
+--- a/temp
++++ b/temp
+@@ -0,0 +1 @@
++1
+(1/1) Stage this hunk [y,n,q,a,d,e,?]? y
+
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ echo 1 | verify -t fb -d idiff
+test passed
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ jaq -rn '1' | verify -t fb -d idiff
+test passed
+gitpod /workspace/katas/fizzbuzz-idiff (main) $ 
