@@ -1,8 +1,7 @@
 def fizzbuzz:
-    if . % 3 == 0 then "Fizz"
-    elif . % 5 == 0 then "Buzz"
-    else .
-    end;
+    (if . % 3 == 0 then "Fizz" else null end +
+    if . % 5 == 0 then "Buzz" else null end)
+    // .;
 
 def test_up_to: 15;
 def test_input: range(test_up_to) + 1;
