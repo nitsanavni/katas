@@ -1,5 +1,7 @@
+def fizz: if . % 3 == 0 then "Fizz" else null end;
+
 def fizzbuzz:
-    (if . % 3 == 0 then "Fizz" else null end +
+    (fizz +
     if . % 5 == 0 then "Buzz" else null end)
     // .;
 
