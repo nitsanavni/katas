@@ -1,0 +1,1 @@
+jaq -rnf fizzbuzz.jq | verify -t fb -d idiff

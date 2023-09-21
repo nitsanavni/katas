@@ -1,0 +1,2 @@
+echo revert
+git reset --hard > /dev/null
