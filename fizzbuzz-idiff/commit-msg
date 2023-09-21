@@ -1,0 +1,7 @@
+#!/bin/bash
+
+chat "
+$(cat commit-msg-prompt)
+
+$ git diff --cached
+$(git diff --cached)"

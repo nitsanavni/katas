@@ -1,0 +1,7 @@
+Based on the following staged git changes, suggest a commit message
+
+formatting:
+- lower case
+- present tense ("extract" rather than "extracted")
+- short descriptions
+- some useful verbs: inline, extract, implement, add

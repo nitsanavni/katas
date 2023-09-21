@@ -1,0 +1,20 @@
+let's write a bash script
+the purpose of this script is to call chatgpt using the `chat` cli script (example bellow) in order to prompt it to name a commit
+
+call the new script `commit-msg`
+
+it uses the following commands:
+
+## chat
+
+this script all the openai api and gets a response
+
+```shell
+$ chat hello
+Hello! How can I assist you today?
+```
+
+## other tools to use
+
+-   `git diff --cached` - this will tell gpt
+-   `ls -al`
