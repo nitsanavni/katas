@@ -1,4 +1,5 @@
 ```shell
 export PATH=/workspace/katas/utils:$PATH
-cargo install jaq
+export PATH=/workspace/katas/utils/tcr:$PATH
+cargo install jaq --locked
 ```
