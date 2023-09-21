@@ -26,4 +26,9 @@ update fizzbuzz to return fizz for three
 better (shorter, location is implied):
 return fizz for three
 
+ok:
+add fizzbuzz example to commit message prompt
+better:
+add example to commit message prompt
+
 ## git diff --cached
