@@ -1,6 +1,6 @@
 def fizzbuzz: .;
 
-def test_input: 1,2;
+def test_input: range(2) + 1;
 
 def printer: [(., " -> ", fizzbuzz) | tostring] | add;
 
