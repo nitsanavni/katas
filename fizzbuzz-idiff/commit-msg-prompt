@@ -15,3 +15,8 @@ ok:
 "update commit message guidelines in readme"
 better:
 update commit message guidelines
+
+ok:
+add examples to commit message guidelines
+better:
+add examples to commit message prompt
