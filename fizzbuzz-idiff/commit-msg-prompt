@@ -11,4 +11,7 @@ Based on the following staged git changes, suggest a commit message
 
 ## examples
 
-no examples yet
+ok:
+"update commit message guidelines in readme"
+better:
+update commit message guidelines
