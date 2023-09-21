@@ -1,7 +1,14 @@
+## Task
+
 Based on the following staged git changes, suggest a commit message
 
-formatting:
+## formatting:
+
 - lower case
 - present tense ("extract" rather than "extracted")
 - short descriptions
 - some useful verbs: inline, extract, implement, add
+
+## examples
+
+no examples yet
