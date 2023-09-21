@@ -5,18 +5,20 @@ Based on the following staged git changes, suggest a commit message
 ## formatting:
 
 - lower case
-- present tense ("extract" rather than "extracted")
+- present tense \(\"extract\" rather than \"extracted\"\)
 - short descriptions
 - some useful verbs: inline, extract, implement, add
 
 ## examples
 
 ok:
-"update commit message guidelines in readme"
-better:
+\"update commit message guidelines in readme\"
+better \(no quotes, location is usually implied\):
 update commit message guidelines
 
 ok:
 add examples to commit message guidelines
-better:
+better \(more precise\):
 add examples to commit message prompt
+
+## git diff --cached
