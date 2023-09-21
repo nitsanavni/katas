@@ -1,5 +1,5 @@
 def fizzbuzz: .;
 
-def test_input: range(2)+1;
+def test_input: range(3)+1;
 
 test_input | fizzbuzz
