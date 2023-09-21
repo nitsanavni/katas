@@ -9,7 +9,7 @@ Based on the following staged git changes, suggest a commit message
 - short descriptions
 - some useful verbs: inline, extract, implement, add, clean-up, remove, rename, use
 
-## previous msgs for reference
+## previous commits for reference
 
 ${GIT_LOG}
 
