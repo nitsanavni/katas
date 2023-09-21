@@ -1,7 +1,7 @@
 def part(d; name): if . % d == 0 then name else null end;
 
 def fizz: part(3; "Fizz");
-def buzz: if . % 5 == 0 then "Buzz" else null end;
+def buzz: part(5; "Buzz");
 
 def fizzbuzz: fizz + buzz // .;
 
