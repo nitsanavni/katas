@@ -7,24 +7,12 @@ Based on the following staged git changes, suggest a commit message
 - lower case
 - present tense \(\"extract\" rather than \"extracted\"\)
 - short descriptions
-- some useful verbs: inline, extract, implement, add, clean-up, remove, rename
+- some useful verbs: inline, extract, implement, add, clean-up, remove, rename, use
 
-## examples
+## previous msgs for reference
 
-"update commit message guidelines in readme"
-better:
-update commit message guidelines
-
-add examples to commit message guidelines
-better:
-add examples to commit message prompt
-
-update fizzbuzz to return fizz for three
-better:
-return fizz for three
-
-add fizzbuzz example to commit message prompt
-better:
-add example to commit message prompt
+${GIT_LOG}
 
 ## git diff --cached
+
+${GIT_DIFF}

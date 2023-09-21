@@ -1,4 +1,9 @@
 #!/bin/bash
 
-chat "$(cat commit-msg-prompt)
-$(git diff --cached)"
+GIT_DIFF=$(git diff --cached)
+GIT_LOG=$(git log --oneline -n 15)
+
+# Export variables so that envsubst can access them
+export GIT_DIFF
+export GIT_LOG
+chat "$(envsubst < commit-msg-prompt)"

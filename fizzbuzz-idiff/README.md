@@ -12,3 +12,5 @@ cargo install jaq --locked
     -   chat gpt to give the commit msg!
 -   refined: `./test && git add -p && git diff --cached && git commit -t <(./commit-msg 2>&1)`
     -   the `commit-msg` script uses gpt to title the commit
+-   more ideas for `commit-msg`
+    -   share `git log --oneline -n 15` with gpt
