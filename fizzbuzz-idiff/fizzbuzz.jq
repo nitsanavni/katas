@@ -1,6 +1,6 @@
 def fizzbuzz:
     if . % 3 == 0 then "Fizz"
-    elif . == 5 or . == 10 then "Buzz"
+    elif . % 5 == 0 then "Buzz"
     else .
     end;
 
