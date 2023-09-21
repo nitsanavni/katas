@@ -2,4 +2,6 @@ def fizzbuzz: .;
 
 def test_input: 1;
 
-test_input | [(., " -> ", fizzbuzz) | tostring] | add
+def printer: [(., " -> ", fizzbuzz) | tostring] | add;
+
+test_input | printer
