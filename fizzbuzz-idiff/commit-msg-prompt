@@ -21,4 +21,9 @@ add examples to commit message guidelines
 better \(more precise\):
 add examples to commit message prompt
 
+ok:
+update fizzbuzz to return fizz for three
+better (shorter, location is implied):
+return fizz for three
+
 ## git diff --cached
