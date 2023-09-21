@@ -11,22 +11,18 @@ Based on the following staged git changes, suggest a commit message
 
 ## examples
 
-ok:
-\"update commit message guidelines in readme\"
-better \(no quotes, location is usually implied\):
+"update commit message guidelines in readme"
+better:
 update commit message guidelines
 
-ok:
 add examples to commit message guidelines
-better \(more precise\):
+better:
 add examples to commit message prompt
 
-ok:
 update fizzbuzz to return fizz for three
-better (shorter, location is implied):
+better:
 return fizz for three
 
-ok:
 add fizzbuzz example to commit message prompt
 better:
 add example to commit message prompt
