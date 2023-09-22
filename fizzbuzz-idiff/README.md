@@ -14,3 +14,4 @@ cargo install jaq --locked
     -   the `commit-msg` script uses gpt to title the commit
 -   more ideas for `commit-msg`
     -   share `git log --oneline -n 15` with gpt
+-   tried using model gtp-3.5-turbo, it's doing worse than gpt-4 for naming commits
