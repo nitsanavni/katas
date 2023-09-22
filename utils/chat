@@ -3,11 +3,22 @@
 MODEL="gpt-4"
 API_URL="https://api.openai.com/v1/chat/completions"
 
+while getopts ":3" opt; do
+  case $opt in
+    3)
+      MODEL="gpt-3.5-turbo"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
 USER_MESSAGE="$*"
 
 JSON_SAFE_MESSAGE=$(echo -n "$USER_MESSAGE" | jq -Rs)
-
-# echo $JSON_SAFE_MESSAGE
 
 read -r -d '' PAYLOAD <<- EOM
 {
@@ -17,8 +28,6 @@ read -r -d '' PAYLOAD <<- EOM
    ]
 }
 EOM
-
-# echo $PAYLOAD
 
 RESPONSE=$(curl -sS "$API_URL" \
   -H "Content-Type: application/json" \

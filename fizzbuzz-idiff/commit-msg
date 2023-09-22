@@ -6,4 +6,4 @@ GIT_LOG=$(git log --pretty=format:"%s" -n 20)
 # Export variables so that envsubst can access them
 export GIT_DIFF
 export GIT_LOG
-chat "$(envsubst < commit-msg-prompt)"
+chat -3 "$(envsubst < commit-msg-prompt)"
