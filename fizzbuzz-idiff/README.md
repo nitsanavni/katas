@@ -30,3 +30,16 @@ cargo install jaq --locked
   - sometimes bundling docs / scripts / code
   - can selectively add to make them even smaller
   - this should be automatable with gpt too
+    - "help me selectively stage clusters of related changes"
+    - cluster/categorize: can start by analyzing the `git diff` to express an intention - which clusters are there?
+    - then, iterate over changes to classify to which cluster each of them belongs
+      - can iterate using `git add -p` (I think)
+        - maybe using python subprocess
+          - asked chat: https://chat.openai.com/c/a22b5dfd-3acb-42fd-9953-9771a1ad2020
+- commit-msg
+  - can share the original intention with chatgpt
+    - "our intention was: let's test up to 5"
+  - that also goes the other way, when stating intentions:
+    - format the intention / add a section that should work as a commit msg
+    - the `git log` context is relevant here too
+      - just guess what should be the next commit to continue previous commit sequence
