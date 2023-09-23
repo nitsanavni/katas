@@ -8,6 +8,7 @@ cargo install jaq --locked
 
 - gentler TCR-style workflow: `./test && git add -p && git diff --cached && git commit`
   - add a file watcher
+  -
   - add the diff to the commit msg?
   - chat gpt to give the commit msg!
 - refined: `./test && git add -p && git diff --cached && git commit -t <(./commit-msg 2>&1)`
