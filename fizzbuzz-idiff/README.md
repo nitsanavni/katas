@@ -43,3 +43,7 @@ cargo install jaq --locked
     - format the intention / add a section that should work as a commit msg
     - the `git log` context is relevant here too
       - just guess what should be the next commit to continue previous commit sequence
+- keep historical data in git logs
+  - could use structured annotations then parse them with jq per usage
+  - or - use `git notes --ref=gpt-suggested-commit-msg add -m 'the commit msg suggested by gpt' <commit-hash>`
+  - can then be used and parsed in further prompts
