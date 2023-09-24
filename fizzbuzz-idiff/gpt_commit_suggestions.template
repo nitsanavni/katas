@@ -1,0 +1,11 @@
+Given the following git diff, suggest potential commit messages
+one or more commits
+prefer small commits (small diffs)
+
+format:
+- one commit subject per line
+- present tense
+- short
+
+git diff:
+{git_diff}
