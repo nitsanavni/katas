@@ -1,15 +1,28 @@
 #!/usr/bin/env python3
 
+from chat import chat
 import pexpect
 
 
 def gpt_decide_to_add(git_add_current_hunk: str) -> bool:
-    # This function simulates ChatGPT's decision.
-    if "TODO" in git_add_current_hunk:
-        print("TODO detected, not adding")
-        return False
-    print("No TODO detected, adding")
-    return True
+    prompt = (
+        f"assess wheather to add the following hunk to the index\n"
+        f"\n"
+        f"!criteria for staging!:\n"
+        f"  - does not contain the word TODO\n"
+        f"\n"
+        f"format: y/n\n"
+        f"\n"
+        f"hunk:\n"
+        f"{git_add_current_hunk}\n"
+    )
+
+    response = chat(prompt)
+
+    print(f"prompt: {prompt}")
+    print(f"response: {response}")
+
+    return "y" in response.lower()
 
 
 child = None

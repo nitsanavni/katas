@@ -5,12 +5,12 @@ import json
 import argparse
 import os
 
-# Constants
 API_URL = "https://api.openai.com/v1/chat/completions"
 GPT_4_MODEL = "gpt-4"
 GPT_3_5_TURBO_MODEL = "gpt-3.5-turbo"
 
-def get_response(model, user_message):
+
+def chat(user_message: str, model=GPT_4_MODEL) -> str:
     payload = {
         "model": model,
         "messages": [
@@ -27,23 +27,27 @@ def get_response(model, user_message):
         "Authorization": f"Bearer {api_key}"
     }
 
-    response = requests.post(API_URL, headers=headers, data=json.dumps(payload))
-    return response.json()
+    response = requests.post(API_URL, headers=headers,
+                             data=json.dumps(payload))
+    content = response.json().get('choices', [{}])[
+        0].get('message', {}).get('content', '')
+
+    return content
+
 
 def get_args():
     parser = argparse.ArgumentParser(description='OpenAI API script.')
-    parser.add_argument('-3', dest='use_gpt3', action='store_true', help='Use GPT-3.5 Turbo model')
+    parser.add_argument('-3', dest='use_gpt3',
+                        action='store_true', help='Use GPT-3.5 Turbo model')
     parser.add_argument('message', nargs='+', help='User message')
-    args = parser.parse_args()    
-
+    args = parser.parse_args()
 
     return args.use_gpt3, " ".join(args.message)
-    
+
+
 if __name__ == "__main__":
     use_gpt3, user_message = get_args()
 
     model = GPT_3_5_TURBO_MODEL if use_gpt3 else GPT_4_MODEL
 
-    response = get_response(model, user_message)
-
-    print(response.get('choices', [{}])[0].get('message', {}).get('content', ''))
+    print(chat(user_message, model))
