@@ -1,0 +1,9 @@
+assess whether to add the following hunk to the index
+
+!criteria for staging!:
+{criteria_text}
+
+format: y/n
+
+hunk:
+{git_add_current_hunk}

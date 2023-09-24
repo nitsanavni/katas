@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 
+import argparse
 from chat import chat
 import pexpect
 
+# We'll now fill this from the CLI args
+CRITERIA = []
 
-def gpt_decide_to_add(git_add_current_hunk: str) -> bool:
-    prompt = (
-        f"assess wheather to add the following hunk to the index\n"
-        f"\n"
-        f"!criteria for staging!:\n"
-        f"  - does not contain the word TODO\n"
-        f"\n"
-        f"format: y/n\n"
-        f"\n"
-        f"hunk:\n"
-        f"{git_add_current_hunk}\n"
-    )
+
+def load_prompt_template(file_name: str) -> str:
+    with open(file_name, 'r') as f:
+        return f.read()
+
+
+def gpt_decide_to_add(git_add_current_hunk: str, criteria=CRITERIA) -> bool:
+    criteria_text = '\n'.join([f"  - {c}" for c in criteria])
+
+    template = load_prompt_template('gpt_assisted_add_prompt.template')
+    prompt = template.format(criteria_text=criteria_text,
+                             git_add_current_hunk=git_add_current_hunk)
 
     response = chat(prompt)
 
@@ -69,6 +72,19 @@ def continuously_check_for_prompt():
             dont_stage_hunk()
 
 
-spawn_git_add_p()
-continuously_check_for_prompt()
-print("Done!")
+def main():
+    parser = argparse.ArgumentParser(description="GPT assisted git add -p")
+    parser.add_argument('-c', '--criterion', action='append', help='Criteria to consider when deciding to stage a hunk')
+
+    args = parser.parse_args()
+
+    if args.criterion:
+        CRITERIA.extend(args.criterion)
+
+    spawn_git_add_p()
+    continuously_check_for_prompt()
+    print("Done!")
+
+
+if __name__ == '__main__':
+    main()
