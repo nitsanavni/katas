@@ -1,0 +1,1 @@
+chat hello | verify -t hello-chat -d idiff
