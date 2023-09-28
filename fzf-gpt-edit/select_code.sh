@@ -33,4 +33,4 @@ echo 'What change do you want?'
 read EDIT_TO_CODE
 echo "You want: $EDIT_TO_CODE"
 
-./chat "explain this code in a few words\n${SELECTED_CODE}"
+./chat "${EDIT_TO_CODE}\n${SELECTED_CODE}"
