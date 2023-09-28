@@ -34,3 +34,11 @@ read EDIT_TO_CODE
 echo "You want: $EDIT_TO_CODE"
 
 ./chat "${EDIT_TO_CODE}\n${SELECTED_CODE}"
+
+# put the suggested changes as a comment into the code
+GPT_MODEL_RESPONSE=$(./chat "${EDIT_TO_CODE}\n${SELECTED_CODE}")
+
+# Put the suggested changes as a comment into the code
+echo -e "# GPT model suggested:\n# $GPT_MODEL_RESPONSE" >> "$SELECTED_FILE"
+
+# test this on a diff file and commit
