@@ -29,5 +29,8 @@ fi
 
 # Display the selected range from the file
 SELECTED_CODE=$(sed -n "${START_LINE},${END_LINE}p" "$SELECTED_FILE")
+echo 'What change do you want?'
+read EDIT_TO_CODE
+echo "You want: $EDIT_TO_CODE"
 
 ./chat "explain this code in a few words\n${SELECTED_CODE}"
