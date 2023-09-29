@@ -32,8 +32,27 @@ SELECTED_CODE=$(sed -n "${START_LINE},${END_LINE}p" "$SELECTED_FILE")
 echo 'What change/edit will it be?'
 read EDIT_TO_CODE
 
-# TODO: construct a prompt for gpt; provide 1. the task/main instruction (editing a file) 2. the specific edit requested 2.5. the output format: new code only to replace the prev 3. the line numbers selected 4. the full selected with line numbers 5. the selected section 
-GPT_MODEL_RESPONSE=$(./chat "${EDIT_TO_CODE}\n${SELECTED_CODE}")
+PROMT="
+Task:
+Edit the file $SELECTED_FILE from line $START_LINE to $END_LINE
+
+The edit to perform is:
+$EDIT_TO_CODE
+
+format:
+only respond with the new code to replace the previous code, nothing else
+!important!: preserve indentation
+
+The file content is:
+$(cat -n $SELECTED_FILE)
+
+The selected section of code is:
+$SELECTED_CODE
+"
+
+echo "GPT prompt: $PROMT"
+
+GPT_MODEL_RESPONSE=$(./chat $PROMT)
 
 echo "GPT model response: $GPT_MODEL_RESPONSE"
 
