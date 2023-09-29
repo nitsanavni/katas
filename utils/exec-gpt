@@ -1,0 +1,38 @@
+#!/bin/bash
+
+query="$*"
+
+CMDS_AND_RESULTS="[]"
+
+while true; do
+    export CMDS_AND_RESULTS query
+    PROMT=$(cat "$(dirname "$0")/exec-gpt-prompt.template.md" | envsubst)
+
+    # echo "GPT prompt:"
+    # echo $PROMT
+
+    chat_cmd_response=$(chat "${PROMT}")
+    # echo "chat_cmd_response:"
+    # echo $chat_cmd_response
+
+    thinking=$(echo $chat_cmd_response | jq -r '.thinking')
+    exec=$(echo $chat_cmd_response | jq -r '.exec')
+
+    echo thinking:
+    echo $thinking
+    echo ""
+    echo exec:
+    echo $exec
+    echo ""
+
+    if [[ $exec == "echo done!" ]]; then
+        break
+    fi
+
+    EXEC_RESULT=$(eval $exec 2>&1)
+    EXEC_EXIT_CODE=$?
+
+    echo "EXEC_RESULT: $EXEC_RESULT"
+
+    CMDS_AND_RESULTS=$(echo $CMDS_AND_RESULTS | jq --arg exec "$exec" --arg result "$EXEC_RESULT" --arg exit_code "$EXIT_CODE"  '. += [{"cmd": $exec, "result": $result , "exit_code": $exit_code }]')
+done
