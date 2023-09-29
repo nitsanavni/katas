@@ -5,41 +5,11 @@ query="$*"
 CMDS_AND_RESULTS="[]"
 
 while true; do
-    PROMT="
-    # Task
+    export CMDS_AND_RESULTS query
+    PROMT=$(cat "$(dirname "$0")/exec-gpt-prompt.template.md" | envsubst)
 
-    suggest a command to execute in a bash shell, based on a given request
-    if more information is needed - construct a command to help get the information
-    if the command is more than a simple oneliner - only suggest the first step and command to execute this step
-    
-    constraint: avoid long outputs e.g. git log, use git log -n X instead
-
-    if there's nothing more to do - respond with:
-    {
-        \"thinking\": \"done!\",
-        \"summary\": \"summarize all that was done\",
-        \"exec\": \"echo done!\"
-    }
-
-    # Response format
-
-    - only respond with json!
-    - follow this json structure:
-    {
-        \"thinking\": \"your thinking here\",
-        \"exec\": \"pwd\"
-    }
-    - keep your thinking short
-
-    # Request to execute
-
-    $query
-
-    # Previous commands and results
-
-    $CMDS_AND_RESULTS
-    "
     chat_cmd_response=$(chat "${PROMT}")
+
     thinking=$(echo $chat_cmd_response | jq -r '.thinking')
     exec=$(echo $chat_cmd_response | jq -r '.exec')
 
@@ -54,12 +24,10 @@ while true; do
         break
     fi
 
-    # Execute the command
     EXEC_RESULT=$(eval $exec 2>&1)
     EXEC_EXIT_CODE=$?
 
     echo "EXEC_RESULT: $EXEC_RESULT"
 
-    # Add the command and result to the list
     CMDS_AND_RESULTS=$(echo $CMDS_AND_RESULTS | jq --arg exec "$exec" --arg result "$EXEC_RESULT" --arg exit_code "$EXIT_CODE"  '. += [{"cmd": $exec, "result": $result , "exit_code": $exit_code }]')
 done
