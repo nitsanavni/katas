@@ -1,0 +1,15 @@
+## Task
+
+Based on the following staged git changes, suggest a commit message
+
+## formatting:
+
+follow same style as previous commits
+
+## previous commits for reference
+
+${GIT_LOG}
+
+## git diff --cached
+
+${GIT_DIFF}

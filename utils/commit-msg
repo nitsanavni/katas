@@ -1,0 +1,12 @@
+#!/bin/bash
+
+GIT_DIFF=$(git diff --cached)
+# GIT_LOG=$(git log -p -n 11)
+# GIT_LOG=$(git log -p -U1 --minimal --word-diff -n 8 | grep -v '\(diff\|index \|Author:\|Date:\)')
+GIT_LOG=$(git log --oneline -n 30)
+
+# Export variables so that envsubst can access them
+export GIT_DIFF
+export GIT_LOG
+
+chat "$(envsubst < $(dirname "$0")/commit-msg-prompt)"
