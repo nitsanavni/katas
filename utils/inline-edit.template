@@ -1,0 +1,19 @@
+Task:
+Edit the file ${SELECTED_FILE} from line ${START_LINE} to ${END_LINE}
+
+The edit to perform is:
+${EDIT_TO_CODE}
+
+format:
+only respond with the new code to replace the previous code, nothing else
+don't use a code block
+!important!: preserve the exact indentation of the original, it is very important to preserve leading spaces; unless the edit is about that
+preserve original formatting and style, unless the edit is about that
+
+The file content is (note indentation):
+${FILE_CONTENT}
+
+The selected section of code is (note indentation):
+```
+${SELECTED_CODE}
+```
