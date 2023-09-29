@@ -32,23 +32,11 @@ SELECTED_CODE=$(sed -n "${START_LINE},${END_LINE}p" "$SELECTED_FILE")
 echo 'What change/edit will it be?'
 read EDIT_TO_CODE
 
-PROMT="
-Task:
-Edit the file $SELECTED_FILE from line $START_LINE to $END_LINE
+FILE_CONTENT=$(cat $SELECTED_FILE)
 
-The edit to perform is:
-$EDIT_TO_CODE
+export SELECTED_CODE EDIT_TO_CODE FILE_CONTENT START_LINE END_LINE SELECTED_FILE
 
-format:
-only respond with the new code to replace the previous code, nothing else
-!important!: preserve indentation
-
-The file content is:
-$(cat -n $SELECTED_FILE)
-
-The selected section of code is:
-$SELECTED_CODE
-"
+PROMT=$(cat inline-edit.template | envsubst)
 
 echo "GPT prompt: $PROMT"
 
