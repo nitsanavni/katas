@@ -27,18 +27,18 @@ if [ -z "$END_LINE" ]; then
     exit 1
 fi
 
-# Display the selected range from the file
 SELECTED_CODE=$(sed -n "${START_LINE},${END_LINE}p" "$SELECTED_FILE")
-echo 'What change do you want?'
+
+echo 'What change/edit will it be?'
 read EDIT_TO_CODE
-echo "You want: $EDIT_TO_CODE"
 
-./chat "${EDIT_TO_CODE}\n${SELECTED_CODE}"
-
-# put the suggested changes as a comment into the code
+# TODO: construct a prompt for gpt; provide 1. the task/main instruction (editing a file) 2. the specific edit requested 2.5. the output format: new code only to replace the prev 3. the line numbers selected 4. the full selected with line numbers 5. the selected section 
 GPT_MODEL_RESPONSE=$(./chat "${EDIT_TO_CODE}\n${SELECTED_CODE}")
 
-# Put the suggested changes as a comment into the code
-echo -e "# GPT model suggested:\n# $GPT_MODEL_RESPONSE" >> "$SELECTED_FILE"
+echo "GPT model response: $GPT_MODEL_RESPONSE"
 
-# test this on a diff file and commit
+# remove the selected lines from file
+sed -i "${START_LINE},${END_LINE}d" "$SELECTED_FILE"
+
+# insert the GPT model response at the second line
+awk -v n=$START_LINE -v s="$GPT_MODEL_RESPONSE" 'NR == n {print s} {print}' "$SELECTED_FILE" > temp && mv temp "$SELECTED_FILE"
