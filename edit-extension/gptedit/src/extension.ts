@@ -54,9 +54,6 @@ ${SELECTED_CODE}
           });
 
           const assistantMessage = response.choices[0].message.content;
-          vscode.window.showInformationMessage(
-            assistantMessage || "No response"
-          );
 
           if (assistantMessage) {
             editor.edit((editBuilder) => {
