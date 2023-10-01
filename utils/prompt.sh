@@ -1,5 +1,5 @@
 ./execsh-gpt.py "
-continue the fizzbuzz kata - up to 4
+continue the fizzbuzz kata - refactor such that each unit test is in a separate file
 only do the above, nothing else
 the code is in fizzbuzz_kata/, cd just once, you're using a shell
 follow the same style as the existing code
