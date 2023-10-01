@@ -1,5 +1,5 @@
 ./execsh-gpt.py "
-continue the fizzbuzz kata - go up to seven
+continue the fizzbuzz kata - go up to 10
 only do the above, nothing else
 the code is in fizzbuzz_kata/, cd just once - this should be your first step
 follow the same style as the existing code
@@ -9,6 +9,6 @@ always read code before changing it - \`cat\`
 don't attempt to read a file before checking it's there - \`ls\`
 work in tiny steps
 validate after each step
-change code by overwriting complete files, don't attempt to change code in place
+change code by overwriting complete files, don't attempt to change code in place; but stop!! have you read the file first? - \`cat\`?
 keep files \*very small\*
 "
