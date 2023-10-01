@@ -1,5 +1,5 @@
 ./execsh-gpt.py "
-continue the fizzbuzz kata - go up to six
+continue the fizzbuzz kata - go up to seven
 only do the above, nothing else
 the code is in fizzbuzz_kata/, cd just once - this should be your first step
 follow the same style as the existing code
