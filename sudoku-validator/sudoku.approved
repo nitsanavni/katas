@@ -1,0 +1,18 @@
+test: check a row
+
+valid row
+[1,2,3,4,5,6,7,8,9] | validate_row -> true
+
+
+test: get rows
+
+1 2 3
+4 5 6
+7 8 9 | get_rows -> [[1,2,3],[4,5,6],[7,8,9]]
+
+
+test: get columns
+
+1 2 3
+4 5 6
+7 8 9 | get_columns -> [[1,4,7],[2,5,8],[3,6,9]]
