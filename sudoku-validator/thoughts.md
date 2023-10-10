@@ -19,3 +19,12 @@ $ seq -s" " 9
 $ jq -rn '[range(9)+1]|join(" ")'
 1 2 3 4 5 6 7 8 9
 ```
+
+a matrix where each row is 1-9, but w different offsets: 1,4,7,2,5,8,3,6,9
+
+I think that's a valid sudoku
+
+```shell
+for ((i=1; i<=9; i++)); do seq -s" " 9; done | jq -sR 'split("\n")|map(select(.!=""))'
+```
+
