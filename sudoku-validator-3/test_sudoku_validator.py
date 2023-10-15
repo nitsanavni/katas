@@ -2,6 +2,7 @@ import pytest
 from typing import List
 
 Puzzle = List[List[int]]
+
 ones_puzzle: Puzzle = [[1] * 9 for _ in range(9)]
 rows_range_1_through_9 = [[i for i in range(1, 10)] for _ in range(9)]
 
