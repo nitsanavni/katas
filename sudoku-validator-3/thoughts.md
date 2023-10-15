@@ -1,0 +1,3 @@
+-   e2e, not fully driven by tests
+    -   we could've made the first e2e pass with a naive constant impl, then add a second test to highlight the missing functionality
+-   interface is obsessed with primitives
