@@ -30,6 +30,17 @@ valid_puzzle: Puzzle = [
     [2, 8, 7, 4, 1, 9, 6, 3, 5],
     [3, 4, 5, 2, 8, 6, 1, 7, 9],
 ]
+another_valid_puzzle: Puzzle = [
+    [8, 2, 7, 1, 5, 4, 3, 9, 6],
+    [9, 6, 5, 3, 2, 7, 1, 4, 8],
+    [3, 4, 1, 6, 8, 9, 7, 5, 2],
+    [5, 9, 3, 4, 6, 8, 2, 7, 1],
+    [4, 7, 2, 5, 1, 3, 6, 8, 9],
+    [6, 1, 8, 9, 7, 2, 4, 3, 5],
+    [7, 8, 6, 2, 3, 5, 9, 1, 4],
+    [1, 5, 4, 7, 9, 6, 8, 2, 3],
+    [2, 3, 9, 8, 4, 1, 5, 6, 7],
+]
 
 
 def the_base_check(vector: Vector) -> bool:
@@ -48,49 +59,20 @@ def validate_columns(puzzle):
     return all(map(the_base_check, get_columns(puzzle)))
 
 
-def validate_3x3s(puzzle):
-    grids_3x3s = [
-        [
-            puzzle[0][0],
-            puzzle[0][1],
-            puzzle[0][2],
-            puzzle[1][0],
-            puzzle[1][1],
-            puzzle[1][2],
-            puzzle[2][0],
-            puzzle[2][1],
-            puzzle[2][2],
-        ],
-        [
-            puzzle[0][3],
-            puzzle[0][4],
-            puzzle[0][5],
-            puzzle[1][3],
-            puzzle[1][4],
-            puzzle[1][5],
-            puzzle[2][3],
-            puzzle[2][4],
-            puzzle[2][5],
-        ],
-        [
-            puzzle[3][0],
-            puzzle[3][1],
-            puzzle[3][2],
-            puzzle[4][0],
-            puzzle[4][1],
-            puzzle[4][2],
-            puzzle[5][0],
-            puzzle[5][1],
-            puzzle[5][2],
-        ],
+def get_3x3s(puzzle):
+    return [
+        puzzle[r][c : c + 3] + puzzle[r + 1][c : c + 3] + puzzle[r + 2][c : c + 3]
+        for r in range(0, 9, 3)
+        for c in range(0, 9, 3)
     ]
-    print(grids_3x3s)
-    return all(map(the_base_check, grids_3x3s))
+
+
+def validate_3x3s(puzzle):
+    return all(map(the_base_check, get_3x3s(puzzle)))
 
 
 def validate(puzzle):
-    # return validate_rows(puzzle) and validate_columns(puzzle) and validate_3x3s(puzzle)
-    return False
+    return validate_rows(puzzle) and validate_columns(puzzle) and validate_3x3s(puzzle)
 
 
 def test_validate_3x3s():
@@ -112,5 +94,10 @@ def test_validate_rows():
     assert not validate_rows(columns_range_1_through_9)
 
 
-def test_validate_ones():
+def test_validate():
     assert not validate(just_ones)
+    assert not validate(rows_range_1_through_9)
+    assert not validate(columns_range_1_through_9)
+    assert not validate(grids_range_1_through_9)
+    assert validate(valid_puzzle)
+    assert validate(another_valid_puzzle)
