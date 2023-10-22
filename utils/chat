@@ -9,19 +9,19 @@ CONTINUE=false
 
 while getopts ":3c" opt; do
   case $opt in
-    3)
-      MODEL="gpt-3.5-turbo"
-      ;;
-    c)
-      CONTINUE=true
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
+  3)
+    MODEL="gpt-3.5-turbo"
+    ;;
+  c)
+    CONTINUE=true
+    ;;
+  \?)
+    echo "Invalid option: -$OPTARG" >&2
+    exit 1
+    ;;
   esac
 done
-shift $((OPTIND -1))
+shift $((OPTIND - 1))
 
 USER_MESSAGE="$*"
 
@@ -33,7 +33,7 @@ fi
 
 OLD_CONVERSATION_JSON=$(echo "$OLD_CONVERSATION_JSON" | jq --arg msg "$USER_MESSAGE" '. + [{"role": "user", "content": $msg}]')
 
-read -r -d '' PAYLOAD <<- EOM
+read -r -d '' PAYLOAD <<-EOM
 {
    "model": "$MODEL",
    "messages": $OLD_CONVERSATION_JSON
@@ -46,6 +46,6 @@ RESPONSE=$(curl -sS "$API_URL" \
   --data "$PAYLOAD")
 
 ASSISTANT_MESSAGE=$(echo "$RESPONSE" | jq -r '.choices[0].message.content')
-echo "$OLD_CONVERSATION_JSON" | jq --arg msg "$ASSISTANT_MESSAGE" '. + [{"role": "assistant", "content": $msg}]' > "$CHAT_FILE"
+echo "$OLD_CONVERSATION_JSON" | jq --arg msg "$ASSISTANT_MESSAGE" '. + [{"role": "assistant", "content": $msg}]' >"$CHAT_FILE"
 
-echo "$RESPONSE" | jq -r '(.choices[0].message.content,.error.message)//empty'
+echo "$RESPONSE" | jq -r '(.choices[0].message.content,.error.message)//empty' | (bat -l md --file-name GPT --style plain - || cat -)
