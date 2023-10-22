@@ -3,6 +3,6 @@ gpt edit selection
 ```shell
 npm i
 npm i -g vsce
-vsce package
+echo -e "y\ny\n" | vsce package
 code --install-extension *.vsix
 ```
