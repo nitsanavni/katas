@@ -12,7 +12,6 @@ export function activate(context: vscode.ExtensionContext) {
             const selection = editor.selection;
             const text = document.getText(selection);
             const selectedFile = document.fileName;
-            const selectedCode = text;
             const fileContent = document.getText();
 
             let markedText = `<selection>${text}</selection>`;
@@ -24,10 +23,12 @@ export function activate(context: vscode.ExtensionContext) {
 
             const output = vscode.window.createOutputChannel(`hello gptedit`);
 
-            output.show(true);
+            const log = <T>(arg: T): T => {
+                output.appendLine(inspect(arg));
+                return arg;
+            };
 
-            output.appendLine(inspect({ text, selectedFile }));
-            output.appendLine(fileContentWithMarkers);
+            output.show(true);
 
             const EDIT_TO_CODE = await vscode.window.showInputBox({
                 prompt: "Edit to perform",
@@ -38,12 +39,29 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
 
-            const title = await callGPT({
-                prompt: `task: only provide a title to the following user request
-format: only the title, plain text, no quotes
-user request:
-${EDIT_TO_CODE}`,
-            });
+            if (/rename/gi.test(EDIT_TO_CODE)) {
+                const newName = /rename:(\w+)/gi.exec(EDIT_TO_CODE)![1];
+
+                const edit: vscode.WorkspaceEdit =
+                    await vscode.commands.executeCommand(
+                        "vscode.executeDocumentRenameProvider",
+                        [
+                            vscode.Uri.file(document.uri.path),
+                            selection.active,
+                            newName,
+                        ]
+                    );
+
+                log(await vscode.workspace.applyEdit(edit));
+
+                // log(
+                //     await vscode.commands.executeCommand(
+                //         "editor.action.rename",
+                //         [newName]
+                //     )
+                // );
+                return;
+            }
 
             if (/indent/gi.test(EDIT_TO_CODE)) {
                 (({
@@ -105,43 +123,46 @@ ${EDIT_TO_CODE}`,
                 return;
             }
 
-            const prompt = makePrompt({
-                selectedFile,
-                EDIT_TO_CODE,
-                fileContent: fileContentWithMarkers,
-                selectedCode,
-            });
-
-            output.appendLine(prompt);
-
             const assistantMessage = await callGPT({
-                prompt: prompt,
+                prompt: log(
+                    promptToEditByReplacingSelection({
+                        selectedFile,
+                        EDIT_TO_CODE,
+                        fileContent: fileContentWithMarkers,
+                    })
+                ),
             });
 
-            if (!assistantMessage) return;
+            log(assistantMessage);
 
-            editor.edit((editBuilder) => {
-                editBuilder.replace(selection, `${assistantMessage}`);
-            });
+            assistantMessage &&
+                editor.edit((editBuilder) => {
+                    editBuilder.replace(selection, assistantMessage);
+                });
         })
     );
 }
 
-function makePrompt({
+const promptToTitle = (EDIT_TO_CODE: string): string => {
+    return `task: only provide a title to the following user request
+format: only the title, plain text, no quotes
+user request:
+${EDIT_TO_CODE}`;
+};
+
+const promptToEditByReplacingSelection = ({
     selectedFile,
     EDIT_TO_CODE,
     fileContent,
-    selectedCode,
 }: {
     selectedFile: string;
     EDIT_TO_CODE: string;
     fileContent: string;
-    selectedCode: string;
-}) {
+}) => {
     return `# Task
 
 Edit this file: ${selectedFile}
-How: replace the selected section ('selection') with new text
+How: replace the selected section (marked with <selection>...</selection>) with new text
 
 # Format
 
@@ -157,4 +178,4 @@ ${EDIT_TO_CODE}
 
 The file content is (note indentation), selection is marked with <selection>...</selection> tags, and the file is tagged with <file></file>:
 <file>${fileContent}</file>`;
-}
+};
