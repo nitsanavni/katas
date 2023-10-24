@@ -31,7 +31,8 @@ else
   OLD_CONVERSATION_JSON="[]"
 fi
 
-OLD_CONVERSATION_JSON=$(echo "$OLD_CONVERSATION_JSON" | jq --arg msg "$USER_MESSAGE" '. + [{"role": "user", "content": $msg}]')
+OLD_CONVERSATION_JSON=$(echo "$OLD_CONVERSATION_JSON" |
+  jq --arg msg "$USER_MESSAGE" '. + [{"role": "user", "content": $msg}]')
 
 read -r -d '' PAYLOAD <<-EOM
 {
@@ -40,12 +41,20 @@ read -r -d '' PAYLOAD <<-EOM
 }
 EOM
 
+# call the openai api
 RESPONSE=$(curl -sS "$API_URL" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   --data "$PAYLOAD")
 
 ASSISTANT_MESSAGE=$(echo "$RESPONSE" | jq -r '.choices[0].message.content')
-echo "$OLD_CONVERSATION_JSON" | jq --arg msg "$ASSISTANT_MESSAGE" '. + [{"role": "assistant", "content": $msg}]' >"$CHAT_FILE"
 
-echo "$RESPONSE" | jq -r '(.choices[0].message.content,.error.message)//empty' | (bat -l md --file-name GPT --style plain - || cat -)
+# save the assistant's response to the chat file
+echo "$OLD_CONVERSATION_JSON" |
+  jq --arg msg "$ASSISTANT_MESSAGE" \
+    '. + [{"role": "assistant", "content": $msg}]' >"$CHAT_FILE"
+
+# print gpt's reponse
+echo "$RESPONSE" |
+  jq -r '(.choices[0].message.content,.error.message)//empty' |
+  (bat -l md --file-name GPT --style plain - || cat -)
