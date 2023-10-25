@@ -4,7 +4,7 @@ import { inspect } from "util";
 import { callGPT } from "./callGPT";
 import { renameTo } from "./renameTo";
 import { expand } from "./expand";
-import { reveal } from "./reveal";
+import { select } from "./select";
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
@@ -43,23 +43,17 @@ export function activate(context: vscode.ExtensionContext) {
                 return;
             }
 
-            if (/\/search .+$/i.test(editToCode)) {
-                const term = /\/search (.+)$/i.exec(editToCode)![1];
-
-                const index = document.getText().indexOf(term);
-                const start = document.positionAt(index);
-                const end = document.positionAt(index + term.length);
-                editor.selection = new vscode.Selection(start, end);
+            if (/\/select .+$/i.test(editToCode)) {
+                select({ term: /\/select (.+)$/i.exec(editToCode)![1] });
                 await expand();
-                reveal();
 
                 return;
             }
 
-            if (/\/rename/gi.test(editToCode)) {
-                const newName = /rename:(\w+)/gi.exec(editToCode)![1];
-
-                await renameTo(newName);
+            if (/\/renameTo/gi.test(editToCode)) {
+                await renameTo({
+                    newName: /renameTo (\w+)/gi.exec(editToCode)![1],
+                });
 
                 return;
             }
@@ -133,7 +127,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (/\/rename/gi.test(tool)) {
                 const newName = /\/rename (.+)$/gi.exec(tool)![1];
 
-                await renameTo(newName);
+                await renameTo({ newName });
 
                 return;
             }

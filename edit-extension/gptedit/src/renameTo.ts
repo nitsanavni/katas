@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-export async function renameTo(newName: string) {
+export const renameTo = async ({ newName }: { newName: string }) => {
     await vscode.workspace.applyEdit(
         await vscode.commands.executeCommand(
             "vscode.executeDocumentRenameProvider",
@@ -9,4 +9,4 @@ export async function renameTo(newName: string) {
             newName
         )
     );
-}
+};
