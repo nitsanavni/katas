@@ -1,6 +1,6 @@
 export const promptToSelectTool = ({
     selectedFile,
-    editToCode: EDIT_TO_CODE,
+    editToCode,
     fileContent,
 }: {
     selectedFile: string;
@@ -43,7 +43,7 @@ don't use a code block
 # Context
 
 The edit to perform is:
-${EDIT_TO_CODE}
+${editToCode}
 
 The file content is (note indentation), selection is marked with <selection>...</selection> tags, and the file is tagged with <file></file>:
 <file>${fileContent}</file>`;
