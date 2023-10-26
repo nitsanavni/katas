@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# TODOs
+# - `chat --show/-s`: print the conversation
+#   use: `jq -r '.[]|("# "+.role,"",.content,"","")' ~/.chat | bat -l md --style plain`
+#   - extract it to function called print
+#   - `chat -s CHAT_FILE` - to print a specific
+# - `chat --ls/-l`: list previous conversations
+#    can use fzf, with a pretty preview
+# - when starting a new conversation (i.e. CONTINUE eq false), save the previous one
+#   to `~/.chat-${epoch}`, or use gpt-3 to give it a title `~/.chat-${title}`
+# - interactive prompt builder, file chooser (fzf), line-range chooser
+# - ~/.chat should be a folder
+# - ~/.chatrc
+
 CHAT_FILE="$HOME/.chat"
 
 MODEL="gpt-4"
@@ -57,4 +70,4 @@ echo "$OLD_CONVERSATION_JSON" |
 # print gpt's reponse
 echo "$RESPONSE" |
   jq -r '(.choices[0].message.content,.error.message)//empty' |
-  (bat -l md --file-name GPT --style plain - || cat -)
+  (bat -l md --file-name GPT --style plain --paging=never - || cat -)
