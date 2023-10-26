@@ -19,11 +19,10 @@ RUN pip install \
         approvaltests \
         pytest
 
-RUN cargo install \
-        jaq
-
 RUN go install \
         github.com/shenwei356/rush@latest
 
 RUN npm install -g \
-        zx
+        zx \
+        vsce \
+        marked
