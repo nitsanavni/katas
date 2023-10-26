@@ -12,7 +12,8 @@ RUN brew install \
         ack \
         entr \
         ttyd \
-        bat
+        bat \
+        bc
 
 RUN pip install \
         approvaltests \
