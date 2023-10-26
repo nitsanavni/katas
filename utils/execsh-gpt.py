@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import subprocess
 import sys
 import json
 import os
@@ -48,24 +49,22 @@ if there's nothing more to do - respond with:
 
 CMDS_AND_RESULTS = []
 
-# set an environment variable
-os.environ['EXECSHEOC'] = 'execsheoc'
-shell = pexpect.spawn('/bin/sh')
-# pass our entire environment to the shell
-# shell = pexpect.spawn('/bin/sh', env=os.environ)
-# shell.sendline("unset PROMPT_COMMAND")
+os.environ["EXECSHEOC"] = "execsheoc"
+shell = pexpect.spawn("/bin/sh")
 
 while True:
     query = " ".join(sys.argv[1:])
-    PROMPT = prompt_template.format(query=query, CMDS_AND_RESULTS=json.dumps(CMDS_AND_RESULTS))
+    PROMPT = prompt_template.format(
+        query=query, CMDS_AND_RESULTS=json.dumps(CMDS_AND_RESULTS)
+    )
 
-    chat_cmd_response = json.loads(pexpect.run("chat", args=[PROMPT]))
+    chat_cmd_response = json.loads(subprocess.check_output(["chat", PROMPT]))
 
-    thinking = chat_cmd_response.get('thinking', '')
-    exec_cmd = chat_cmd_response.get('exec', '')
+    thinking = chat_cmd_response.get("thinking", "")
+    exec_cmd = chat_cmd_response.get("exec", "")
 
     print("thinking:\n", thinking, "\n")
-    
+
     print("exec:\n", exec_cmd, "\n")
 
     if exec_cmd == "echo done!":
@@ -80,8 +79,10 @@ while True:
 
     print("EXEC_RESULT:", EXEC_RESULT.strip())
 
-    CMDS_AND_RESULTS.append({
-        "cmd": exec_cmd,
-        "result": EXEC_RESULT.strip(), 
-        "exit_code": str(EXEC_EXIT_CODE)
-})
+    CMDS_AND_RESULTS.append(
+        {
+            "cmd": exec_cmd,
+            "result": EXEC_RESULT.strip(),
+            "exit_code": str(EXEC_EXIT_CODE),
+        }
+    )
