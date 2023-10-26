@@ -1,4 +1,6 @@
 import * as vscode from "vscode";
+import { execSync } from "child_process";
+
 import {
     callGPT,
     renameTo,
@@ -31,6 +33,16 @@ export const handler = async (editToCode?: string) => {
     }
 
     const { log } = createOutputChannel();
+
+    if (/\/exec .+$/.test(editToCode)) {
+        const cmd = /\/exec (.+)$/.exec(editToCode)![1];
+
+        const stdout = execSync(cmd).toString();
+
+        log({ cmd, stdout });
+
+        return stdout;
+    }
 
     if (/\/select .+$/i.test(editToCode)) {
         select({ term: /\/select (.+)$/i.exec(editToCode)![1] });
