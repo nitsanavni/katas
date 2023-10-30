@@ -2,7 +2,7 @@ def fizzbuzz_logic:
     def fizz: if . % 3 == 0 then "Fizz" else null end;
     if . % 15 == 0 then
         fizz + "Buzz"
-    elif . % 3 == 0 then "Fizz"
+    elif . % 3 == 0 then fizz
     elif . % 5 == 0 then "Buzz"
     else . end;
 
