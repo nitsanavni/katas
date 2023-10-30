@@ -7,10 +7,10 @@ FILE=makeSum
 all: $(FILE)
 
 $(FILE): $(FILE).c
-        $(CC) $(FILE).c -o $(FILE)
+	$(CC) $(FILE).c -o $(FILE)
 
 run: 
-        ./$(FILE)
+	./$(FILE)
 
 clean:
-        rm -rf $(FILE)
+	rm -rf $(FILE)
