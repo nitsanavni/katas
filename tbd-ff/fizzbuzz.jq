@@ -1,6 +1,7 @@
 def fizzbuzz_logic:
-    def fizz: 
-        if . % 3 == 0 then "Fizz" else null end;
+    def fizz:
+        def d: 3;
+        if . % d == 0 then "Fizz" else null end;
     def buzz:
         if . % 5 == 0 then "Buzz" else null end;
     fizz + buzz // .;
