@@ -3,12 +3,12 @@ def fizz: part(3; "Fizz");
 def buzz: part(5; "Buzz");
 def specs: [fizz, buzz];
 
-def fizzbuzz_logic:
+def fizzbuzz_logic(opts):
     (specs | add) // .;
 
 def fizzbuzz(opts):
     range(20) + 1 |
-    fizzbuzz_logic;
+    fizzbuzz_logic(opts);
 
 "test: 1-20",
 fizzbuzz({}),
