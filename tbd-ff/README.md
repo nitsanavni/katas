@@ -1,5 +1,7 @@
 Trunk Based Development with Feature Flags
 
+[![asciicast](https://asciinema.org/a/618028.svg)](https://asciinema.org/a/618028)
+
 ## Guidelines
 
 - minimize flagged code
