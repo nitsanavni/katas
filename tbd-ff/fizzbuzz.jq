@@ -11,8 +11,7 @@ def whizzbang_specs: [whizz, bang];
 
 def fizzbuzz_logic(opts):
     def actual_specs:
-        specs +
-        if opts.do_whizzbang then whizzbang_specs else [] end;
+        specs + whizzbang_specs;
     (actual_specs | add) // .;
 
 def fizzbuzz(opts):
