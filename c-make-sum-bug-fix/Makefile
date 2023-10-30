@@ -19,9 +19,9 @@ verify: $(FILE)
 	echo ${n} | \
 	./$(FILE) | \
         perl -pe 's/\-?\d{4,}/\\d/g' | \
-	grep -vi enter | \
+	grep -v "Enter a number: " | \
 	verify -t make-sum-${n} -d idiff
 
 test: $(FILE)
-	seq -1 3 | rush -- make -s verify n={}
+	seq -1 4 | rush -- make -s verify n={}
 	make verify -s n="non-integer"

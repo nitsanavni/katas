@@ -1,5 +1,35 @@
 #include <stdio.h>
 
+/* Function prototypes */
+int compute_sum(int max);
+
+/* Main function */
+int main(void)
+{
+    int input, result;
+    printf("Enter a number: \n");
+    result = scanf("%d", &input);
+
+    /* Check if scanf read an integer successfully */
+    if(result == 1)
+    {
+        if(input <= 0)
+        {
+            printf("Invalid input. Please, enter a positive number.\n");
+        }
+        else
+        {
+            printf("The sum from 1 to %d is %d.\n", input, compute_sum(input));
+        }
+    }
+    else
+    {
+        printf("Invalid input. Please, enter a number.\n");
+    }
+    return 0;
+}
+
+/* Function to compute the sum from 1 to the given max number */
 int compute_sum(int max)
 {
     int sum = 0;
@@ -8,13 +38,4 @@ int compute_sum(int max)
         sum += i;
     }
     return sum;
-}
-
-int main(void)
-{
-    int input;
-    printf("Enter a number: \n");
-    scanf("%d", &input);
-    printf("The sum from 1 to %d is %d.\n", input, compute_sum(input));
-    return 0;
 }
