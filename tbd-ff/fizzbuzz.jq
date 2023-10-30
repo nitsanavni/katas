@@ -3,7 +3,7 @@ def fizzbuzz_logic:
     def buzz: if . % 5 == 0 then "Buzz" else null end;
     def foo: fizz + buzz // .;
     if . % 3 == 0 or . % 5 == 0 then foo
-    else . end;
+    else foo end;
 
 def fizzbuzz(opts):
     range(20) + 1 |
