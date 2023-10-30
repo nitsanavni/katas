@@ -14,7 +14,7 @@ fix bug in example code from eye-tracking research, from code reading learning h
         - [x] yes, you can. can you pass stdin to `make run`? it must be possible
         - [x] can gpt spot the reason for the hang?
 - [ ] put it under an approval test
-    - [ ] we should have a make target for this `verify`
+    - [x] we should have a make target for this `verify`
         - `echo 3 | make -s run | verify -t make-sum-3 -d idiff`
         - it would be nice to have gpt integrated into the terminal
             - maybe `chat` could have its own subshell at its disposal

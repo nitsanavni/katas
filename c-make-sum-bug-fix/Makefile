@@ -7,15 +7,15 @@ all: $(FILE)
 $(FILE): $(FILE).c
 	$(CC) $(FILE).c -o $(FILE)
 
-run: 
+run: $(FILE)
 	./$(FILE)
 
 clean:
 	rm -rf $(FILE)
 
 # a test per n: e.g. `make verify n=5`
-verify:
+verify: $(FILE)
 	echo ${n} | ./$(FILE) | verify -t make-sum-${n} -d idiff
 
-test:
+test: $(FILE)
 	seq 3 | rush make verify n={}

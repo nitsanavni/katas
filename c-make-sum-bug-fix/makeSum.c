@@ -1,17 +1,19 @@
 #include <stdio.h>
 
-int makeSum(int max) {
+int makeSum(int max)
+{
     int i, sum;
     sum = 0;
     i = 0;
-    while(i < max){
+    for (i = 1; i <= max; i++)
+    {
         sum = sum + i;
-        i = i + 1;
     }
     return sum;
 }
 
-int main(void) {
+int main(void)
+{
     int input, sum;
     scanf("%d", &input);
     sum = makeSum(input);
