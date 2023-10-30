@@ -9,14 +9,14 @@ def specs: [fizz, buzz];
 def whizzbang_specs: [whizz, bang];
 
 
-def fizzbuzz_logic(opts):
+def fizzbuzz_logic:
     def actual_specs:
         specs + whizzbang_specs;
     (actual_specs | add) // .;
 
-def fizzbuzz(opts):
+def fizzbuzz:
     range(40) + 1 |
-    fizzbuzz_logic(opts);
+    fizzbuzz_logic;
 
 "test: 1-40",
-fizzbuzz({ do_whizzbang: true })
+fizzbuzz
