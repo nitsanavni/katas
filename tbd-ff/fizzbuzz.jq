@@ -10,9 +10,7 @@ def whizzbang_specs: [whizz, bang];
 
 
 def fizzbuzz_logic:
-    def actual_specs:
-        specs + whizzbang_specs;
-    (actual_specs | add) // .;
+    (specs + whizzbang_specs | add) // .;
 
 def fizzbuzz:
     range(40) + 1 |
