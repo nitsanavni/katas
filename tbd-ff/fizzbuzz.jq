@@ -5,7 +5,9 @@ def whizz: part(7; "Whizz");
 def specs: [fizz, buzz];
 
 def fizzbuzz_logic(opts):
-    def actual_specs: specs;
+    def actual_specs:
+        specs +
+        if opts.do_whizzbang then [whizz] else [] end;
     (actual_specs | add) // .;
 
 def fizzbuzz(opts):
