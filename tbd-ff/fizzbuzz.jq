@@ -3,12 +3,13 @@ def fizz: part(3; "Fizz");
 def buzz: part(5; "Buzz");
 def whizz: part(7; "Whizz");
 def bang: part(11; "Bang");
+def whizzbang_specs: [whizz, bang];
 def specs: [fizz, buzz];
 
 def fizzbuzz_logic(opts):
     def actual_specs:
         specs +
-        if opts.do_whizzbang then [whizz, bang] else [] end;
+        if opts.do_whizzbang then whizzbang_specs else [] end;
     (actual_specs | add) // .;
 
 def fizzbuzz(opts):
