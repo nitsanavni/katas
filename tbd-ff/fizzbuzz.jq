@@ -2,12 +2,13 @@ def part(d; code): if . % d == 0 then code else null end;
 def fizz: part(3; "Fizz");
 def buzz: part(5; "Buzz");
 def whizz: part(7; "Whizz");
+def bang: part(11; "Bang");
 def specs: [fizz, buzz];
 
 def fizzbuzz_logic(opts):
     def actual_specs:
         specs +
-        if opts.do_whizzbang then [whizz] else [] end;
+        if opts.do_whizzbang then [whizz, bang] else [] end;
     (actual_specs | add) // .;
 
 def fizzbuzz(opts):
