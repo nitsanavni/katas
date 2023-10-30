@@ -4,7 +4,7 @@ def fizzbuzz_logic:
     if . % 15 == 0 then
         fizz + buzz
     elif . % 3 == 0 then fizz + buzz
-    elif . % 5 == 0 then buzz
+    elif . % 5 == 0 then fizz + buzz
     else . end;
 
 def fizzbuzz(opts):
