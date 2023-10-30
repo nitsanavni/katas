@@ -1,7 +1,8 @@
 def fizzbuzz_logic:
     def fizz: if . % 3 == 0 then "Fizz" else null end;
     def buzz: if . % 5 == 0 then "Buzz" else null end;
-    if . % 3 == 0 or . % 5 == 0 then (fizz + buzz // .)
+    def foo: fizz + buzz // .;
+    if . % 3 == 0 or . % 5 == 0 then foo
     else . end;
 
 def fizzbuzz(opts):
