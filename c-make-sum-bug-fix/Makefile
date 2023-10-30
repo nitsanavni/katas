@@ -15,7 +15,7 @@ clean:
 
 # a test per n: e.g. `make verify n=5`
 verify: $(FILE)
-	echo ${n} | ./$(FILE) | verify -t make-sum-${n} -d idiff
+	echo ${n} | ./$(FILE) | grep -vi enter | verify -t make-sum-${n} -d idiff
 
 test: $(FILE)
 	seq 3 | rush make verify n={}
