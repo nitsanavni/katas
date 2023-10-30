@@ -6,7 +6,7 @@ def whizz: part(7; "Whizz");
 def bang: part(11; "Bang");
 
 def fizzbuzz_logic:
-    ([fizz, buzz, whizz, bang] | add) // .;
+    fizz + buzz + whizz + bang // .;
 
 def fizzbuzz:
     range(40) + 1 |
