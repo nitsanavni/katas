@@ -28,3 +28,4 @@ fix bug in example code from eye-tracking research, from code reading learning h
 - vscode extension sees the env vars of the parent process whom spawned `code`
     - so, first - export env vars
     - from this shell - spawn a new `code`
+- use more `git diff` after applying the suggestions
