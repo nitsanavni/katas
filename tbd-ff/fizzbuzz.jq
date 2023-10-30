@@ -1,5 +1,6 @@
 def fizzbuzz_logic:
-    if . % 15 == 0 then "Fizz" + "Buzz"
+    if . % 15 == 0 then
+        (if . % 3 == 0 then "Fizz" else null end) + "Buzz"
     elif . % 3 == 0 then "Fizz"
     elif . % 5 == 0 then "Buzz"
     else . end;
