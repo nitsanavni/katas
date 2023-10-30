@@ -19,6 +19,26 @@ FizzBuzz
 Fizz
 19
 Buzz
+Fizz
+22
+23
+Fizz
+Buzz
+26
+Fizz
+28
+29
+FizzBuzz
+31
+32
+Fizz
+34
+Buzz
+Fizz
+37
+38
+Fizz
+Buzz
 
 feature: whizzbang
 test: 1-20
@@ -41,4 +61,24 @@ FizzBuzz
 17
 Fizz
 19
+Buzz
+FizzWhizz
+22
+23
+Fizz
+Buzz
+26
+Fizz
+Whizz
+29
+FizzBuzz
+31
+32
+Fizz
+34
+BuzzWhizz
+Fizz
+37
+38
+Fizz
 Buzz

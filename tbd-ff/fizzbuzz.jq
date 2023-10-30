@@ -11,7 +11,7 @@ def fizzbuzz_logic(opts):
     (actual_specs | add) // .;
 
 def fizzbuzz(opts):
-    range(20) + 1 |
+    range(40) + 1 |
     fizzbuzz_logic(opts);
 
 "test: 1-20",
