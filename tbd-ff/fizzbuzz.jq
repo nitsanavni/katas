@@ -1,5 +1,7 @@
 def new_fizzbuzz:
-    if . == 3 then "Fizz" else . end;
+    if . == 3 then "Fizz"
+    elif . == 3 then "Fizz"
+    else . end;
 
 def fizzbuzz(do_new_fizzbuzz):
     range(20) + 1 |
