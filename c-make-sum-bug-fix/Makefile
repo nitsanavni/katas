@@ -13,9 +13,15 @@ run: $(FILE)
 clean:
 	rm -rf $(FILE)
 
-# a test per n: e.g. `make verify n=5`
+# an approval test per n: e.g. `make verify n=5`
+# the `grep -v` and `perl` cmds are scrubbers
 verify: $(FILE)
-	echo ${n} | ./$(FILE) | grep -vi enter | verify -t make-sum-${n} -d idiff
+	echo ${n} | \
+	./$(FILE) | \
+        perl -pe 's/\-?\d{4,}/\\d/g' | \
+	grep -vi enter | \
+	verify -t make-sum-${n} -d idiff
 
 test: $(FILE)
-	seq -1 3 | rush make verify n={}
+	seq -1 3 | rush -- make -s verify n={}
+	make verify -s n="non-integer"
