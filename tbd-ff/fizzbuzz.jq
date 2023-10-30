@@ -5,7 +5,8 @@ def whizz: part(7; "Whizz");
 def specs: [fizz, buzz];
 
 def fizzbuzz_logic(opts):
-    (specs | add) // .;
+    def actual_specs: specs;
+    (actual_specs | add) // .;
 
 def fizzbuzz(opts):
     range(20) + 1 |
