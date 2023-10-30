@@ -13,8 +13,4 @@ def fizzbuzz(do_new_fizzbuzz):
     end;
 
 "test: 1-20",
-fizzbuzz(false),
-"",
-"feature: fizz, buzz, fizzbuzz - aka 'new fizzbuzz'",
-"test: 1-20, fizz, buzz, fizzbuzz",
 fizzbuzz(true)
