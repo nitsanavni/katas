@@ -5,12 +5,8 @@ def buzz: part(5; "Buzz");
 def whizz: part(7; "Whizz");
 def bang: part(11; "Bang");
 
-def specs: [fizz, buzz];
-def whizzbang_specs: [whizz, bang];
-
-
 def fizzbuzz_logic:
-    (specs + whizzbang_specs | add) // .;
+    ([fizz, buzz] + [whizz, bang] | add) // .;
 
 def fizzbuzz:
     range(40) + 1 |
