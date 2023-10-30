@@ -1,12 +1,12 @@
-def new_fizzbuzz:
+def new_fizzbuzz_logic:
     if . == 3 then "Fizz"
-    elif . == 3 then "Fizz"
+    elif . == 5 then "Buzz"
     else . end;
 
 def fizzbuzz(do_new_fizzbuzz):
     range(20) + 1 |
     if do_new_fizzbuzz then
-        new_fizzbuzz
+        new_fizzbuzz_logic
     else
         .
     end;
