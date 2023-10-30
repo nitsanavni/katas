@@ -19,9 +19,5 @@ def fizzbuzz(opts):
     range(40) + 1 |
     fizzbuzz_logic(opts);
 
-"test: 1-20",
-fizzbuzz({}),
-"",
-"feature: whizzbang",
-"test: 1-20",
+"test: 1-40",
 fizzbuzz({ do_whizzbang: true })
