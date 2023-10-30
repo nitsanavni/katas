@@ -6,11 +6,7 @@ def new_fizzbuzz_logic:
 
 def fizzbuzz(do_new_fizzbuzz):
     range(20) + 1 |
-    if do_new_fizzbuzz then
-        new_fizzbuzz_logic
-    else
-        .
-    end;
+    new_fizzbuzz_logic;
 
 "test: 1-20",
 fizzbuzz(true)
