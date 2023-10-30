@@ -4,9 +4,9 @@ def new_fizzbuzz_logic:
     elif . % 5 == 0 then "Buzz"
     else . end;
 
-def fizzbuzz(do_new_fizzbuzz):
+def fizzbuzz:
     range(20) + 1 |
     new_fizzbuzz_logic;
 
 "test: 1-20",
-fizzbuzz(true)
+fizzbuzz
