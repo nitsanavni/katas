@@ -19,3 +19,6 @@ test: 1-20
 18
 19
 20
+
+feature: fizz, buzz, fizzbuzz
+test: 1-20, fizz, buzz, fizzbuzz
