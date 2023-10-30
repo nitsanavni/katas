@@ -9,4 +9,8 @@ def fizzbuzz:
     fizzbuzz_logic;
 
 "test: 1-20",
+fizzbuzz,
+"",
+"feature: whizzbang",
+"test: 1-20",
 fizzbuzz
