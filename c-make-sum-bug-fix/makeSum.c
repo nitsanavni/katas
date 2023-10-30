@@ -1,4 +1,5 @@
-OUT OF CODE
+#include <stdio.h>
+
 int makeSum(int max) {
     int i, sum;
     sum = 0;
@@ -10,9 +11,11 @@ int makeSum(int max) {
     return sum;
 }
 
-void main(void) {
+int main(void) {
     int input, sum;
     scanf("%d", &input);
     sum = makeSum(input);
     printf("Sum from 1 to %d is %d.\n", input, sum);
+
+    return 0;
 }
