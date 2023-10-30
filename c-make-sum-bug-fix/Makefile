@@ -18,4 +18,4 @@ verify: $(FILE)
 	echo ${n} | ./$(FILE) | grep -vi enter | verify -t make-sum-${n} -d idiff
 
 test: $(FILE)
-	seq 3 | rush make verify n={}
+	seq -1 3 | rush make verify n={}
