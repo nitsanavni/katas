@@ -1,7 +1,8 @@
+def part(d; code): if . % d == 0 then code else null end;
+def fizz: part(3; "Fizz");
+def buzz: part(5; "Buzz");
+
 def fizzbuzz_logic:
-    def part(d; code): if . % d == 0 then code else null end;
-    def fizz: part(3; "Fizz");
-    def buzz: part(5; "Buzz");
     def specs: [fizz, buzz];
     (specs | add) // .;
 
