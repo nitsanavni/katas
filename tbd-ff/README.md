@@ -18,3 +18,4 @@ Trunk Based Development with Feature Flags
 ## Retro
 
 that felt good, very clean
+idea - TCR with automatic commit meaningful msg; commit before revert too
