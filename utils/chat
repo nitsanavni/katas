@@ -19,14 +19,18 @@ MODEL="gpt-4"
 API_URL="https://api.openai.com/v1/chat/completions"
 
 CONTINUE=false
+SHOW_CONVERSATION=false
 
-while getopts ":3c" opt; do
+while getopts ":3cs" opt; do
   case $opt in
   3)
     MODEL="gpt-3.5-turbo"
     ;;
   c)
     CONTINUE=true
+    ;;
+  s)
+    SHOW_CONVERSATION=true
     ;;
   \?)
     echo "Invalid option: -$OPTARG" >&2
@@ -35,6 +39,13 @@ while getopts ":3c" opt; do
   esac
 done
 shift $((OPTIND - 1))
+# echo $SHOW_CONVERSATION
+# exit 0
+
+if $SHOW_CONVERSATION; then
+  jq -r '.[]|("# "+.role,"",.content,"","")' "$CHAT_FILE" | bat -l md --style plain
+  exit 0
+fi
 
 USER_MESSAGE="$*"
 
