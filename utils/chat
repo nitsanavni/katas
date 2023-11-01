@@ -1,14 +1,13 @@
 #!/bin/bash
 
 # TODOs
-# - `chat --show/-s`: print the conversation
-#   use: `jq -r '.[]|("# "+.role,"",.content,"","")' ~/.chat | bat -l md --style plain`
-#   - extract it to function called print
-#   - `chat -s CHAT_FILE` - to print a specific
-# - `chat --ls/-l`: list previous conversations
-#    can use fzf, with a pretty preview
+# - `chat -f function-def.json -f func2.json PROMT`: to use functionn calling
+# - `chat -e PROMPT`: execute commands on host in a loop
+# - stream the responses, when tty
 # - when starting a new conversation (i.e. CONTINUE eq false), save the previous one
 #   to `~/.chat-${epoch}`, or use gpt-3 to give it a title `~/.chat-${title}`
+# - `chat --ls/-l`: list previous conversations
+#    can use fzf, with a pretty preview
 # - interactive prompt builder, file chooser (fzf), line-range chooser
 # - ~/.chat should be a folder
 # - ~/.chatrc
@@ -39,8 +38,6 @@ while getopts ":3cs" opt; do
   esac
 done
 shift $((OPTIND - 1))
-# echo $SHOW_CONVERSATION
-# exit 0
 
 if $SHOW_CONVERSATION; then
   jq -r '.[]|("# "+.role,"",.content,"","")' "$CHAT_FILE" | bat -l md --style plain
