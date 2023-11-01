@@ -4,6 +4,7 @@
 # - `chat -f function-def.json -f func2.json PROMT`: to use functionn calling
 # - `chat -e PROMPT`: execute commands on host in a loop
 # - stream the responses, when tty
+#   we should prob port to python first, see https://cookbook.openai.com/examples/how_to_stream_completions
 # - when starting a new conversation (i.e. CONTINUE eq false), save the previous one
 #   to `~/.chat-${epoch}`, or use gpt-3 to give it a title `~/.chat-${title}`
 # - `chat --ls/-l`: list previous conversations
