@@ -72,7 +72,7 @@ while True:
 
     exec_cmd_and_echo = exec_cmd + ";echo $EXECSHEOC"
     shell.sendline(exec_cmd_and_echo)
-    shell.expect("execsheoc", timeout=1)
+    shell.expect("execsheoc", timeout=10)
     # EXEC_RESULT = shell.before.decode().split(";true execsheoc", 1)[1]
     EXEC_RESULT = shell.before.decode()
     EXEC_EXIT_CODE = shell.status
