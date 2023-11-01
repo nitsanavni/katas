@@ -5,13 +5,16 @@ def buzz: part(5; "Buzz");
 def whizz: part(7; "Whizz");
 def bang: part(11; "Bang");
 
+def fizzbuzz_only: fizz + buzz;
+def whizzbang(opts):
+    if opts.revert_whizzbang then
+        null
+    else
+        (whizz + bang)
+    end;
+
 def fizzbuzz_logic(opts):
-    (fizz + buzz) as $fizzbuzz |
-    (whizz + bang) as $whizzbang |
-    $fizzbuzz + 
-    if opts.revert_whizzbang then null
-    else $whizzbang end
-    // .;
+    fizzbuzz_only + whizzbang(opts) // .;
 
 def fizzbuzz(opts):
     range(40) + 1 |
