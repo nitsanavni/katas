@@ -13,4 +13,7 @@ def fizzbuzz:
     fizzbuzz_logic;
 
 "test: 1-40",
+fizzbuzz,
+"",
+"feature: revert whizz and bang",
 fizzbuzz
