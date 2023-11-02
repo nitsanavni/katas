@@ -1,5 +1,5 @@
 #!/usr/bin/env -S jq -nrf
 
-def logic: .;
+def logic: if . == 3 then "Fizz" else . end;
 
 range(100) + 1 | logic
