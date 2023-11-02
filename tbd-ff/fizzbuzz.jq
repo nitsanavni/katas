@@ -1,3 +1,5 @@
+#!/usr/bin/env -S jq -nrf
+
 def part(d; code): if . % d == 0 then code else null end;
 
 def fizz: part(3; "Fizz");

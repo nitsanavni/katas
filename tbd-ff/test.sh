@@ -1,3 +1,3 @@
 #!/bin/bash
 
-jq -nrf fizzbuzz.jq | verify -t fizzbuzz -d idiff
+./fizzbuzz.jq | verify -t fizzbuzz -d idiff
