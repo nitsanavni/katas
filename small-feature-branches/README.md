@@ -14,7 +14,8 @@ Following [this exercise](../tbd-ff/README.md) about feature flags in trunk-base
 
 - Again, we start grenfield
 - Until first release can work directly on `main`
-- Once released, start using feature branches, `main` accumulates `r` commits
+- Once released, start using feature branches, `main` accumulates `r` commits, `feature` can have `t`, `F` commits
+- 
 
 # Thoughts
 
