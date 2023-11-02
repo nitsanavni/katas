@@ -1,3 +1,5 @@
 #!/usr/bin/env -S jq -nrf
 
-range(100) + 1 | .
+def logic: .;
+
+range(100) + 1 | logic
