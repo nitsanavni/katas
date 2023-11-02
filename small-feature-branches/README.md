@@ -15,7 +15,7 @@ Following [this exercise](../tbd-ff/README.md) about feature flags in trunk-base
 - Again, we start grenfield
 - Until first release can work directly on `main`
 - Once released, start using feature branches, `main` accumulates `r` commits, `feature` can have `t`, `F` commits
-- How to "release"? git tags? git notes? let's go with tags
+- How to "release"? git tags? git notes? let's go with tags. No let's do empty commits.
 
 # Thoughts
 
