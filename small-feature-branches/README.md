@@ -19,3 +19,4 @@ Following [this exercise](../tbd-ff/README.md) about feature flags in trunk-base
 
 # Thoughts
 
+- TCR
