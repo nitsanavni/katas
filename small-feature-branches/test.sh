@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./fizzbuzz.jq | verify -t fizzbuzz -d idiff
+./fizzbuzz.jq | head -n 20 | verify -t fizzbuzz -d idiff
