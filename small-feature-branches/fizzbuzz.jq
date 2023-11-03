@@ -1,6 +1,8 @@
 #!/usr/bin/env -S jq -nrf
 
 def special_cases: [[15, "FizzBuzz"], [5, "Buzz"], [3, "Fizz"]];
+# on main branch, this would be:
+# def special_cases: [];
 
 def logic:
     . as $n |
