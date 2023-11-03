@@ -1,8 +1,10 @@
 #!/usr/bin/env -S jq -nrf
 
+def special_cases: [[15, "FizzBuzz"], [5, "Buzz"], [3, "Fizz"]];
+
 def logic:
     . as $n |
-    [[15, "FizzBuzz"], [5, "Buzz"], [3, "Fizz"]] |
+    special_cases |
     map(select($n % .[0] == 0) | .[1]) | .[0] // $n;
 
 range(100) + 1 | logic
