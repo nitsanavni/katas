@@ -41,5 +41,7 @@ Following [this exercise](../tbd-ff/README.md) about feature flags in trunk-base
            def logic(special_cases): ...;
            ... | logic([])
            ```
-           - so should I go back to `main` with this new understanding?
-               - I think I should at least try to
+            - so should I go back to `main` with this new understanding?
+                - I think I should at least try to
+            - another option: continue on the `feature` branch until a separable design is easy, and only then take it to `main`
+- can we write it like this: `def fizzbuzz: fizz | buzz | `; I don't think so...
