@@ -15,7 +15,7 @@
 
 CHAT_FILE="$HOME/.chat"
 
-MODEL="gpt-4"
+MODEL="gpt-4-1106-preview"
 API_URL="https://api.openai.com/v1/chat/completions"
 
 CONTINUE=false

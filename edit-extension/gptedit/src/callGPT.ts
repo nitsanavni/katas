@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 
 export const callGPT = async ({ prompt }: { prompt: string }) => {
-    const model = "gpt-4";
+    const model = "gpt-4-1106-preview";
     const messages = [
         {
             role: "user" as const,
