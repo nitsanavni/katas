@@ -1,7 +1,8 @@
 def game_of_life: $transformations[.];
+def printer: . + " => " + game_of_life;
 "a dead cell stays dead",
-("_" | game_of_life ),
+("_" | printer ),
 "a live cell with two neighbours stays alive",
-("xxx" | game_of_life ),
+("xxx" | printer),
 "a live cell with no neighbours dies",
-("x" | game_of_life)
+("x" | printer)

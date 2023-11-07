@@ -1,6 +1,6 @@
 a dead cell stays dead
-_
+_ => _
 a live cell with two neighbours stays alive
-_x_
+xxx => _x_
 a live cell with no neighbours dies
-_
+x => _
