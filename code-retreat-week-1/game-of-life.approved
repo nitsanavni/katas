@@ -2,3 +2,5 @@ a dead cell stays dead
 _
 a live cell with two neighbours stays alive
 _x_
+a live cell with no neighbours dies
+_
