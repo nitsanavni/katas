@@ -1,4 +1,3 @@
-. as $transformations |
 def game_of_life: $transformations[.];
 "a dead cell stays dead",
 ("_" | game_of_life ),
