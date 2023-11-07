@@ -1,10 +1,13 @@
 def game_of_life: $transformations[.];
 def printer: . + " => " + game_of_life;
+"--- CELL TESTS ---",
 "a dead cell stays dead",
-("_" | printer ),
+("___\n___\n___" | printer ),
 "a live cell with two neighbours stays alive",
-("xxx" | printer),
+("___\nxxx\n___" | printer),
 "a live cell with no neighbours dies",
-("x" | printer),
+("___\n_x_\n___" | printer),
+"",
+"---BOARD TESTS ---",
 "a vertical blinker",
 ("x\nx\nx" | printer)

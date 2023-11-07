@@ -1,9 +1,18 @@
+--- CELL TESTS ---
 a dead cell stays dead
-_ => _
+___
+___
+___ => _
 a live cell with two neighbours stays alive
-xxx => _x_
+___
+xxx
+___ => x
 a live cell with no neighbours dies
-x => _
+___
+_x_
+___ => _
+
+---BOARD TESTS ---
 a vertical blinker
 x
 x
