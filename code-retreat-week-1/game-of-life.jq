@@ -5,4 +5,6 @@ def printer: . + " => " + game_of_life;
 "a live cell with two neighbours stays alive",
 ("xxx" | printer),
 "a live cell with no neighbours dies",
-("x" | printer)
+("x" | printer),
+"a vertical blinker",
+("x\nx\nx" | printer)

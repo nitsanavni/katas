@@ -4,3 +4,7 @@ a live cell with two neighbours stays alive
 xxx => _x_
 a live cell with no neighbours dies
 x => _
+a vertical blinker
+x
+x
+x => xxx
