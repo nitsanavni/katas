@@ -1,3 +1,6 @@
+--- RENDER TESTS ---
+render will render a 1x1 board with a dead cell
+_
 --- CELL TESTS ---
 a dead cell stays dead
 ___

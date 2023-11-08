@@ -1,0 +1,2 @@
+-   visual representation vs internal representation: separate strings from data model
+-   2x2 boards
