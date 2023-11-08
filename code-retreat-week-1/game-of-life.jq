@@ -4,11 +4,13 @@ def printer: . + " => " + game_of_life;
 
 # "render"?
 
-def render: if .width == 1 then ("_" * .width) else "___\n___\n___" end;
+def render: ((("_" * .width) + "\n") * .height);
 
 "--- RENDER TESTS ---",
-"render will render a 1x1 board with a dead cell",
-({ width: 1, height: 1, cells: [] } | render),
+"render will render a 2x1 board with dead cells",
+({ width: 2, height: 1, cells: [] } | render),
+"render will render a 1x2 board with dead cells",
+({ width: 1, height: 2, cells: [] } | render),
 
 "--- CELL TESTS ---",
 
