@@ -11,6 +11,8 @@ def render: ((("_" * .width) + "\n") * .height);
 ({ width: 2, height: 1, cells: [] } | render),
 "render will render a 1x2 board with dead cells",
 ({ width: 1, height: 2, cells: [] } | render),
+"render will render a 3x1 board with the right cell alive",
+({ width: 3, height: 1, cells: [{ x: 2, y: 0 }] } | .width as $w | [(range(.height)) | [range($w) ]]),
 
 "--- CELL TESTS ---",
 

@@ -6,6 +6,9 @@ render will render a 1x2 board with dead cells
 _
 _
 
+render will render a 3x1 board with the right cell alive
+__x
+
 --- CELL TESTS ---
 a dead cell stays dead
 ___
