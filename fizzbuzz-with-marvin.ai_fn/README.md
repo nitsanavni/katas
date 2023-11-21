@@ -1,4 +1,3 @@
-
 ## Round 1
 
 - tests written normally - e.g. w/ `verify`
@@ -8,4 +7,12 @@
 thoughts
 
 - gpt-3 can't handle is much more difficult to tame
+- but! gpt-3.5-turbo-1106 can! and it's much faster, more than 2X faster
+  | model              | fizzbuzz 1-25 execution time [sec] |
+  | ------------------ | ---------------------------------- |
+  | gpt-3.5-turbo-1106 | ~4-6.5                             |
+  | gpt-4-1106-preview | ~11-16                             |
 - interesting: it didn't jump directly to "15 -> FizzBuzz"
+- having gpt generate each iteration takes too long
+  - but! if we concurrentize - we should try this
+- co-pilot is helping writing the prompts, it's not amazing but helpful
