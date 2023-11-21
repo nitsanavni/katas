@@ -8,3 +8,4 @@
 thoughts
 
 - gpt-3 can't handle is much more difficult to tame
+- interesting: it didn't jump directly to "15 -> FizzBuzz"
