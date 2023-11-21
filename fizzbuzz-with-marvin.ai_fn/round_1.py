@@ -22,9 +22,9 @@ def number_transformations_1_to_25() -> list[Transformation]:
     each number is transformed
     the rule is that the transformation returns the string representation of the number itself
     exceptions to the rule, for numbers [3, 6, 9, ...] and [5, 10, 15, ...]:
-        (in case of conflict between exceptions, the first one is applied)
         if the number is divisible by 3 transform it to "Bingo" instead.
         if the number is divisible by 5 transform it to "Combo" instead.
+        if the number is both divisible by 3 and divisible by 5 transform it to "CottonField" instead.
     """
 
 
