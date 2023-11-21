@@ -10,9 +10,9 @@ marvin.settings.llm_temperature = 0
 def numbers_1_to_25_with_exceptions() -> list[str]:
     """
     Returns a list of numbers from 1 to 25 as strings.
-    exceptions to the rule, for numbers 3, 5, 6 and 9:
+    exceptions to the rule, for numbers 3, 5, 6, 9 and 10:
         if the number is either exactly 3, exactly 6 or exactly 9 return "Bingo" instead.
-        if the number is exactly 5 return "Combo" instead.
+        if the number is exactly 5 or 10 return "Combo" instead.
     """
 
 
