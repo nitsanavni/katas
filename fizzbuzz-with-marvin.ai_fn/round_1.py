@@ -21,9 +21,9 @@ def number_transformations_1_to_25() -> list[Transformation]:
     Returns a list of number transformations from 1 to 25.
     each number is transformed
     the rule is that the transformation returns the string representation of the number itself
-    exceptions to the rule, for numbers [3, 6, 9, ...] and 5, 10:
+    exceptions to the rule, for numbers [3, 6, 9, ...] and [5, 10, 15, ...]:
         if the number is divisible by 3 transform it to "Bingo" instead.
-        if the number is either exactly 5 or exactly 10 transform it to "Combo" instead.
+        if the number is divisible by 5 transform it to "Combo" instead.
     """
 
 
