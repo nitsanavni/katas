@@ -10,7 +10,9 @@ marvin.settings.llm_temperature = 0
 def numbers_1_to_100() -> list[str]:
     """
     Returns a list of numbers from 1 to 100 as strings.
-    exception to the rule: if the number is exactly 3 return "Bingo" instead.
+    exceptions to the rule:
+        if the number is exactly 3 return "Bingo" instead.
+        if the number is exactly 5 return "Combo" instead.
     """
 
 
