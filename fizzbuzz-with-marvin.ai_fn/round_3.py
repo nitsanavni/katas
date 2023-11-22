@@ -15,9 +15,14 @@ def implement(function_signature: str, doc_string: str = None) -> str:
 
 
 if __name__ == "__main__":
+    code = implement(
+        "def print_numbers(start=1, end=25) -> None:",
+        """one number per line
+except for the number 3, in which case print Gonzo instead""",
+    )
     exec(
         f"""
-{implement("def print_numbers(start=1, end=25) -> None:", "one number per line")}
+{code}
 print_numbers()
     """
     )
