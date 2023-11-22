@@ -15,4 +15,12 @@ thoughts
 - interesting: it didn't jump directly to "15 -> FizzBuzz"
 - having gpt generate each iteration takes too long
   - but! if we concurrentize - we should try this
+  - yes chatgpt showed me how to run iterations concurrently
 - co-pilot is helping writing the prompts, it's not amazing but helpful
+
+## Round 2
+
+AI to write code
+
+round 1 was: AI generates results  
+round 2 is: AI generates code that when executed generates results
