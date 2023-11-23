@@ -1,3 +1,13 @@
+## inbox, things to try
+
+- self-test
+- loop, feedback
+  - test exec
+  - gpt-3 reviews
+- make it aware of available "tools" - existing functions
+- AI builds tools
+- AI does planning
+
 ## Round 1
 
 - tests written normally - e.g. w/ `verify`
@@ -28,3 +38,27 @@ round 2 is: AI generates code that when executed generates results
 ## Round 3
 
 again
+
+thoughts
+
+- encapsulate `function`
+
+```python
+def function(signature: str):
+    definition = implement(signature)
+    name = parse_name(signature)
+
+    def define:
+        exec(definition)
+
+    def call:
+        exec(f"{name}()")
+    
+    return (define, call)
+```
+
+maybe a `class` would be better
+
+- self-test, in a loop
+- the tests could be a separate @ai_fn
+- AI can test its stuff (autonomously), I'll test my stuff

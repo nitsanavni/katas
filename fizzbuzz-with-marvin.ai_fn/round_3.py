@@ -17,16 +17,16 @@ def implement(function_signature: str, doc_string: str = None) -> str:
 
 if __name__ == "__main__":
     code = implement(
-        "def print_numbers(start=1, end=25) -> None:",
+        "def print_numbers(start=1, end=10) -> None:",
         """one number per line
-except for the number 3, in which case print Gonzo instead
-for the number 4, 5 and 6, print Buch instead
-for numbers multiple of 5, print Grease instead""",
+except for the numbers that are multiples of 3, in which case print Gonzo instead
+and numbers that are multiples of 5, in which case print Grease instead
+for numbers that are multiples of both 3 and 5, print Bloch instead""",
     )
     print(code, file=sys.stderr)
     exec(
         f"""
 {code}
-print_numbers()
+print_numbers(1, 35)
     """
     )
