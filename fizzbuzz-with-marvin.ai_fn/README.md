@@ -7,6 +7,14 @@
 - make it aware of available "tools" - existing functions
 - AI builds tools
 - AI does planning
+- human does e2e/sanity tests, AI does its own unit tests
+
+## Learned
+
+- print to stderr in order to separate info from results; results can then be easily verified (in the approval tests sense)
+```python
+print("info, not to be verified", file=sys.stderr)
+```
 
 ## Round 1
 

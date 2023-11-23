@@ -3,8 +3,8 @@
 import marvin
 import sys
 
-marvin.settings.llm_model = "openai/gpt-4-1106-preview"
-# marvin.settings.llm_model = "openai/gpt-3.5-turbo-1106"
+# marvin.settings.llm_model = "openai/gpt-4-1106-preview"
+marvin.settings.llm_model = "openai/gpt-3.5-turbo-1106"
 
 
 @marvin.ai_fn
