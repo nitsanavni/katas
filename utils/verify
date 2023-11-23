@@ -25,11 +25,11 @@ touch "$approved"
 
 diff -q "$received" "$approved" >/dev/null &&
   (
-    echo "✅ test passed"
+    echo "✅ test passed" >&2
     rm "$received"
   ) ||
   (
-    echo "❌ test failed"
+    echo "❌ test failed" >&2
     $diff_tool "$received" "$approved" </dev/tty
     false
   )

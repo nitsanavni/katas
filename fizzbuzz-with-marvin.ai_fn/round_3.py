@@ -2,9 +2,16 @@
 
 import marvin
 import sys
+import time
 
-# marvin.settings.llm_model = "openai/gpt-4-1106-preview"
-marvin.settings.llm_model = "openai/gpt-3.5-turbo-1106"
+
+def change_model_based_on_cli_flag():
+    args = sys.argv
+    model = "gpt-3.5-turbo-1106" if "-4" not in args else "gpt-4-1106-preview"
+    marvin.settings.llm_model = f"openai/{model}"
+
+
+change_model_based_on_cli_flag()
 
 
 @marvin.ai_fn
@@ -16,6 +23,7 @@ def implement(function_signature: str, doc_string: str = None) -> str:
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     code = implement(
         "def print_numbers(start=1, end=10) -> None:",
         """one number per line
@@ -30,3 +38,4 @@ for numbers that are multiples of both 3 and 5, print Bloch instead""",
 print_numbers(1, 35)
     """
     )
+    print(f"--- {time.time() - start_time} seconds ---", file=sys.stderr)
