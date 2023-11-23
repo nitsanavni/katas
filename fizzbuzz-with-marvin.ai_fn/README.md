@@ -1,13 +1,23 @@
 ## inbox, things to try
 
+- test with executable command + mock
 - self-test
 - loop, feedback
   - test exec
   - gpt-3 reviews
-- make it aware of available "tools" - existing functions
+- AI uses tools, make it aware of available "tools" - existing functions
 - AI builds tools
 - AI does planning
-- human does e2e/sanity tests, AI does its own unit tests
+- a tool belt / library
+  - each tool has metadata, number of usages, successes, effectiveness... reliability, 
+- human does e2e / sanity tests, AI does its own unit tests
+- extract a decorator (or class?) `@generated_fn`
+  - make it aware of available functions
+  - separate stages: `generate_code`, `implement`, `add_to_lib`, `exec`, `test`
+  - if we conform to common standard / interface, could be easier
+    - the code is a single function in a module
+    - `if __name__ == "__main__"` an example call to the function with results written to stdout
+    - it also has tests
 
 ## Learned
 
