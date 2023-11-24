@@ -19,6 +19,44 @@
     - `if __name__ == "__main__"` an example call to the function with results written to stdout
     - it also has tests
 
+modes
+- human generates results (like writing the approved file)
+
+### cognitive tasks / activities / work
+
+1-7 scale means: my current impression of how adept at task/work the 
+
+
+
+| work                                                  | NI  | AI  | code |
+| ----------------------------------------------------- | --- | --- | ---- |
+| set a goal                                            | 5   | 3   | 1    |
+| approve test results                                  | 6   | 6   | 1    |
+| break/slice work to smaller peices                    | 5   | 4   | 1    |
+| produce consistent results                            | 1   | 4   | 6    |
+| understand problems in unbounded context              | 6   | 3   | 1    |
+| carry out instructions                                | 3   | 4   | 6    |
+| one shot manually write code to meet small req        | 3   | 5   | 1    |
+| create a dev workflow                                 | 4   | 2   | 1    |
+| execute code                                          | 2   | 3   | 7    |
+| use tools to refactor code                            | 5   | 3   | 1    |
+| given concrete feedback: understand the problem / gap | 6   | 6   | 1    |
+| come up with ideas to solve **narrow** problems       | 5   | 6   | 1    |
+| come up with ideas to solve **wide** problems         | 6   | 3   | 1    |
+|                                                       |     |     |      |
+
+to be fair, we should factor for speed and cost
+we'd like to distribute the work in an economical way
+- play to the strenghs of each worker
+- but it should factor in speed and cost
+  - a NI's attention is very slow, expensive, and unpredictable
+  - an AI's is much faster, cheaper - so can work in much shorter feedback cycles or concurrent multiple drafts, which could compensate for lack of generality and strengh
+  - code is even faster and cheaper but totally lacks intelligence - we should offload as much work as possible to code; all repeatable, well defined work
+- another thing is:
+  - code needs to be written and maintained, once it's written we can exploit it
+  - AIs need to be prompted well, once the prompt is refined it can then be exploited too
+  - NIs have very limitted work capacity, workarounds exist such as training, effective workflows
+
 ## Learned
 
 - print to stderr in order to separate info from results; results can then be easily verified (in the approval tests sense)
@@ -80,3 +118,8 @@ maybe a `class` would be better
 - self-test, in a loop
 - the tests could be a separate @ai_fn
 - AI can test its stuff (autonomously), I'll test my stuff
+
+## Round 4 - use an existing function
+
+- if we use `exec`, I think we're in the same interpreter process, so previously defined functions should be available - [right](./example_exec_uses_defined_function.py)
+- 
