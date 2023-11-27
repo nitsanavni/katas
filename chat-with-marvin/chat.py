@@ -14,7 +14,7 @@ def chat(user_input: str) -> str:
     """
 
 
-def user_input():
+def get_user_input():
     return " ".join(sys.argv[1:])
 
 
@@ -22,4 +22,4 @@ def unquote(s):
     return s if s[0] != '"' else s[1:-1]
 
 
-print(unquote(chat(user_input())))
+print(unquote(chat(get_user_input())).encode().decode("unicode_escape"))
