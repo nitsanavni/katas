@@ -12,7 +12,7 @@ function test_methods_in_file() {
 function run_test_method() {
     local module=$1
     local test_method=$2
-    jq -nr "import \"$module\" as t; t::$test_method"
+    jq -nr "include \"$module\"; $test_method"
 }
 
 function verify_test_method() {
