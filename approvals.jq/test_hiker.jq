@@ -1,4 +1,4 @@
-import "hiker" as hiker;
+include "hiker";
 
 def test_answer:
-    hiker::answer;
+    answer;
