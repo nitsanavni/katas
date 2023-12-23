@@ -9,7 +9,7 @@ cli process approvals
 ## example
 
 ```shell
-$ ./verify -t fizzbuzz.jq -- jq -nrf fizzbuzz.jq
+$ ./verify -t fizzbuzz -- jq -nrf fizzbuzz.jq
 ✅ Test Passed
 
 $ cat fizzbuzz.jq
@@ -21,7 +21,7 @@ def fizzbuzz:
 
 range(100) + 1 | fizzbuzz
 
-$ head fizzbuzz.jq.approved; echo "..."; tail fizzbuzz.jq.approved 
+$ head fizzbuzz.approved; echo "..."; tail fizzbuzz.approved 
 Test Name: fizzbuzz.jq
 ---
 Exit Code: 0
@@ -43,4 +43,40 @@ Fizz
 Buzz
 ---
 STDERR:
+
+$ ./verify -t fizzbuzz -- ./fizzbuzz.sh 
+✅ Test Passed
+
+$ cat fizzbuzz.sh 
+#!/bin/bash
+
+for i in {1..100}; do
+    output=""
+    if [ $((i % 3)) -eq 0 ]; then
+        output+="Fizz"
+    fi
+    if [ $((i % 5)) -eq 0 ]; then
+        output+="Buzz"
+    fi
+    if [ -z "$output" ]; then
+        output=$i
+    fi
+    echo $output
+done
+
+$ ./verify -t fizzbuzz -- ./fizzbuzz.py
+✅ Test Passed
+
+$ cat fizzbuzz.py 
+#!/usr/bin/env python
+
+for i in range(1, 101):
+    output = ""
+    if i % 3 == 0:
+        output += "Fizz"
+    if i % 5 == 0:
+        output += "Buzz"
+    if output == "":
+        output = i
+    print(output)
 ```
