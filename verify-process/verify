@@ -1,0 +1,72 @@
+#!/bin/bash
+
+usage="Usage: $0 [-t test_name] [-d diff_tool] -- <command>"
+
+# Initialize variables
+test_name=""
+diff_tool="cat"
+
+# Parse command-line options
+while getopts 't:d:' flag; do
+    case "${flag}" in
+    t) test_name="${OPTARG}" ;;
+    d) diff_tool="${OPTARG}" ;;
+    *)
+        echo "$usage" >&2
+        exit 1
+        ;;
+    esac
+done
+
+# Remove the parsed options from the positional parameters
+shift $((OPTIND - 1))
+
+# Concatenate all remaining arguments into a single string
+cmd_to_run="$*"
+
+# Create temporary files for stdout and stderr
+stdout_file=$(mktemp)
+stderr_file=$(mktemp)
+
+# Run the command and redirect stdout and stderr to the temp files
+eval $cmd_to_run >"$stdout_file" 2>"$stderr_file"
+
+# Capture the exit code
+exit_code=$?
+
+# Prepare the output files
+received_file="${test_name:-default}.received"
+approved_file="${test_name:-default}.approved"
+
+# Write the results to the received file
+{
+    [ -n "$test_name" ] && echo "Test Name: $test_name"
+    echo "---"
+    echo "Exit Code: $exit_code"
+    echo "---"
+    echo "STDOUT:"
+    cat "$stdout_file"
+    echo "---"
+    echo "STDERR:"
+    cat "$stderr_file"
+} >"$received_file"
+
+# Clean up: Remove temporary files
+rm "$stdout_file" "$stderr_file"
+
+# Ensure the approved file exists
+touch "$approved_file"
+
+# Perform diff check
+if diff -q "$received_file" "$approved_file" >/dev/null; then
+    echo "✅ Test Passed" >&2
+    rm "$received_file"
+    exit_code=0
+else
+    echo "🚫 Test Failed" >&2
+    eval "$diff_tool $received_file $approved_file"
+    exit_code=1
+fi
+
+# Exit with the appropriate code
+exit $exit_code

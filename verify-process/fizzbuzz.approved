@@ -1,0 +1,10 @@
+Test Name: fizzbuzz
+---
+Exit Code: 0
+---
+STDOUT:
+1
+2
+3
+---
+STDERR:
