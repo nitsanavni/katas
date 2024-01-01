@@ -1,20 +1,9 @@
 #!/bin/bash
 
-mutations=(
-    "10s/!=/==/"
-    "10s/!=/==/2"
-    "10s/\[\[.*\]\]/true/"
-    "10s/\[\[.*\]\]/false/"
-    "11s/> 0/>= 0/"
-    "11s/((quality > 0))/true/"
-    "11s/((quality > 0))/false/"
-    "12s/!=/==/"
-    "12s/\[\[.*\]\]/true/"
-    "12s/\[\[.*\]\]/false/"
-    "13s/- 1/+ 1/"
-    "16s/else/elif false; then/"
-    "17s/< 50/<= 50/"
-)
+mutations=$(python mutations.py)
+
+# split on newlines
+IFS=$'\n' read -rd '' -a mutations <<<"$mutations"
 
 for mutation in "${mutations[@]}"; do
     echo "Testing mutation: $mutation"
