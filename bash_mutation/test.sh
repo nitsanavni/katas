@@ -4,7 +4,7 @@ mutated_script="$1"
 input=$(jq -rn '[
     ["Some Item", "Aged Brie", "Sulfuras, Hand of Ragnaros"],
     [0,1],
-    [0,1]
+    [0,1,50]
 ]|combinations|join("|")')
 
 if [ "$UPDATE" == "1" ]; then

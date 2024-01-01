@@ -11,6 +11,9 @@ mutations=(
     "12s/!=/==/"
     "12s/\[\[.*\]\]/true/"
     "12s/\[\[.*\]\]/false/"
+    "13s/- 1/+ 1/"
+    "16s/else/elif false; then/"
+    "17s/< 50/<= 50/"
 )
 
 for mutation in "${mutations[@]}"; do
