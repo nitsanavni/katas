@@ -5,6 +5,9 @@ mutations=(
     "10s/!=/==/2"
     "10s/\[\[.*\]\]/true/"
     "10s/\[\[.*\]\]/false/"
+    "11s/> 0/>= 0/"
+    "11s/((quality > 0))/true/"
+    "11s/((quality > 0))/false/"
 )
 
 for mutation in "${mutations[@]}"; do
