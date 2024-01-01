@@ -1,4 +1,4 @@
-#!/bin/bash -i
+#!/bin/bash
 
 mutations=(
     "10s/!=/==/"
@@ -8,6 +8,9 @@ mutations=(
     "11s/> 0/>= 0/"
     "11s/((quality > 0))/true/"
     "11s/((quality > 0))/false/"
+    "12s/!=/==/"
+    "12s/\[\[.*\]\]/true/"
+    "12s/\[\[.*\]\]/false/"
 )
 
 for mutation in "${mutations[@]}"; do
@@ -23,8 +26,10 @@ for mutation in "${mutations[@]}"; do
     ./test.sh "$mutated_script"
 
     if [ $? -eq 0 ]; then
+        echo ""
         echo "  Mutation $mutation survived !!"
     else
+        echo ""
         echo "  Mutation $mutation killed !!"
     fi
     echo ""
