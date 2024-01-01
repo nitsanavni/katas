@@ -1,0 +1,8 @@
+Test Name: gilded-rose
+---
+Exit Code: 1
+---
+STDOUT:
+---
+STDERR:
+./verify: eval: line 33: syntax error: unexpected end of file
