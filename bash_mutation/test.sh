@@ -1,6 +1,10 @@
 #!/bin/bash
 
 mutated_script="$1"
-input="Aged Brie|1|1"
+input=$(jq -rn '[["Some Item"],[0,1],[0]]|combinations|join("|")')
 
-echo "$input" | bash "$mutated_script" | diff -u - approved
+if [ "$UPDATE" == "1" ]; then
+    echo "$input" | bash "$mutated_script" >approved
+else
+    echo "$input" | bash "$mutated_script" | diff -u - approved
+fi
