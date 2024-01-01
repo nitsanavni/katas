@@ -2,9 +2,9 @@
 
 mutated_script="$1"
 input=$(jq -rn '[
-    ["Some Item", "Aged Brie", "Sulfuras, Hand of Ragnaros"],
-    [0,1],
-    [0,1,50]
+    ["Some Item", "Aged Brie", "Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert"],
+    [0,1,11,6,-1],
+    [0,1,50,49]
 ]|combinations|join("|")')
 
 if [ "$UPDATE" == "1" ]; then
