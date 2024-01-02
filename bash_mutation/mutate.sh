@@ -2,6 +2,7 @@
 
 mutations=$(python mutations.py)
 
+
 # split on newlines
 IFS=$'\n' read -rd '' -a mutations <<<"$mutations"
 
