@@ -1,51 +1,51 @@
 def update_brie:
     if .quality < 50 then
-        .quality = .quality + 1
+        .quality += 1
     else . end
     |
-    .sell_in = .sell_in - 1
+    .sell_in -= 1
     |
     if .sell_in < 0 then
         if .quality < 50 then
-            .quality = .quality + 1
+            .quality += 1
         else . end
     else . end;
 
 def update_backstage:
     if .quality < 50 then
-        .quality = .quality + 1
+        .quality += 1
         |
         if .sell_in < 11 then
             if .quality < 50 then
-                .quality = .quality + 1
+                .quality += 1
             else . end
         else . end
         |
         if .sell_in < 6 then
             if .quality < 50 then
-                .quality = .quality + 1
+                .quality += 1
             else . end
         else . end
     else . end
     |
-    .sell_in = .sell_in - 1
+    .sell_in -= 1
     |
     if .sell_in < 0 then
-        .quality = .quality - .quality
+        .quality = 0
     else . end;
 
 def update_sulfuras: .;
 
 def update_regular_item:
     if .quality > 0 then
-            .quality = .quality - 1
+        .quality -= 1
     else . end
     |
-    .sell_in = .sell_in - 1
+    .sell_in -= 1
     |
     if .sell_in < 0 then
         if .quality > 0 then
-            .quality = .quality - 1
+            .quality -= 1
         else . end
     else . end;
 
