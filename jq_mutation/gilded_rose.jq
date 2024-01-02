@@ -2,11 +2,10 @@ def inc_quality: if .quality < 50 then .quality += 1 else . end;
 
 def dec_quality: if .quality > 0 then .quality -= 1 else . end;
 
+def dec_sell_in: .sell_in -= 1;
+
 def update_brie:
-    inc_quality
-    |
-    .sell_in -= 1
-    |
+    inc_quality | dec_sell_in |
     if .sell_in < 0 then
         inc_quality
     else . end;
@@ -22,7 +21,7 @@ def update_backstage:
         inc_quality
     else . end
     |
-    .sell_in -= 1
+    dec_sell_in
     |
     if .sell_in < 0 then
         .quality = 0
@@ -33,7 +32,7 @@ def update_sulfuras: .;
 def update_regular_item:
     dec_quality
     |
-    .sell_in -= 1
+    dec_sell_in
     |
     if .sell_in < 0 then
         dec_quality
