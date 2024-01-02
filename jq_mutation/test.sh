@@ -8,7 +8,7 @@ input=$(jq -rn '[[
 ]|combinations|({name:.[0],sell_in:.[1],quality:.[2]})]')
 
 if [ "$UPDATE" == "1" ]; then
-    echo "$input" | jq -rc "include \"$mutated_script\"; update_quality" >approved
+    echo "$input" | jq -r "include \"$mutated_script\"; update_quality" >approved
 else
-    echo "$input" | jq -rc "include \"$mutated_script\"; update_quality" | diff - approved
+    echo "$input" | jq -r "include \"$mutated_script\"; update_quality" | diff - approved
 fi

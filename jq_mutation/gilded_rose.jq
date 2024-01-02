@@ -4,11 +4,11 @@ def dec_quality: if .quality > 0 then .quality -= 1 else . end;
 
 def dec_sell_in: .sell_in -= 1;
 
-def update_brie:
-    inc_quality | dec_sell_in |
-    if .sell_in < 0 then
-        inc_quality
-    else . end;
+def brie_quality: if .sell_in < 0 then 2 else 1 end;
+
+def inc_quality_by(by): .quality += by | if .quality > 50 then .quality = 50 else . end;
+
+def update_brie: dec_sell_in | inc_quality_by(brie_quality);
 
 def update_backstage:
     inc_quality

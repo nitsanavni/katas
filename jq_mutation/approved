@@ -1,1 +1,502 @@
-[{"name":"Some Item","sell_in":-1,"quality":0},{"name":"Some Item","sell_in":-1,"quality":0},{"name":"Some Item","sell_in":-1,"quality":-1},{"name":"Some Item","sell_in":-1,"quality":48},{"name":"Some Item","sell_in":-1,"quality":47},{"name":"Some Item","sell_in":0,"quality":0},{"name":"Some Item","sell_in":0,"quality":0},{"name":"Some Item","sell_in":0,"quality":-1},{"name":"Some Item","sell_in":0,"quality":49},{"name":"Some Item","sell_in":0,"quality":48},{"name":"Some Item","sell_in":10,"quality":0},{"name":"Some Item","sell_in":10,"quality":0},{"name":"Some Item","sell_in":10,"quality":-1},{"name":"Some Item","sell_in":10,"quality":49},{"name":"Some Item","sell_in":10,"quality":48},{"name":"Some Item","sell_in":5,"quality":0},{"name":"Some Item","sell_in":5,"quality":0},{"name":"Some Item","sell_in":5,"quality":-1},{"name":"Some Item","sell_in":5,"quality":49},{"name":"Some Item","sell_in":5,"quality":48},{"name":"Some Item","sell_in":-2,"quality":0},{"name":"Some Item","sell_in":-2,"quality":0},{"name":"Some Item","sell_in":-2,"quality":-1},{"name":"Some Item","sell_in":-2,"quality":48},{"name":"Some Item","sell_in":-2,"quality":47},{"name":"Aged Brie","sell_in":-1,"quality":2},{"name":"Aged Brie","sell_in":-1,"quality":3},{"name":"Aged Brie","sell_in":-1,"quality":1},{"name":"Aged Brie","sell_in":-1,"quality":50},{"name":"Aged Brie","sell_in":-1,"quality":50},{"name":"Aged Brie","sell_in":0,"quality":1},{"name":"Aged Brie","sell_in":0,"quality":2},{"name":"Aged Brie","sell_in":0,"quality":0},{"name":"Aged Brie","sell_in":0,"quality":50},{"name":"Aged Brie","sell_in":0,"quality":50},{"name":"Aged Brie","sell_in":10,"quality":1},{"name":"Aged Brie","sell_in":10,"quality":2},{"name":"Aged Brie","sell_in":10,"quality":0},{"name":"Aged Brie","sell_in":10,"quality":50},{"name":"Aged Brie","sell_in":10,"quality":50},{"name":"Aged Brie","sell_in":5,"quality":1},{"name":"Aged Brie","sell_in":5,"quality":2},{"name":"Aged Brie","sell_in":5,"quality":0},{"name":"Aged Brie","sell_in":5,"quality":50},{"name":"Aged Brie","sell_in":5,"quality":50},{"name":"Aged Brie","sell_in":-2,"quality":2},{"name":"Aged Brie","sell_in":-2,"quality":3},{"name":"Aged Brie","sell_in":-2,"quality":1},{"name":"Aged Brie","sell_in":-2,"quality":50},{"name":"Aged Brie","sell_in":-2,"quality":50},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-1,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-1,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-1,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-1,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-1,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":0,"quality":3},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":0,"quality":4},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":0,"quality":2},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":0,"quality":50},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":0,"quality":50},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":10,"quality":1},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":10,"quality":2},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":10,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":10,"quality":50},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":10,"quality":50},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":5,"quality":2},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":5,"quality":3},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":5,"quality":1},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":5,"quality":50},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":5,"quality":50},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-2,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-2,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-2,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-2,"quality":0},{"name":"Backstage passes to a TAFKAL80ETC concert","sell_in":-2,"quality":0},{"name":"Sulfuras, Hand of Ragnaros","sell_in":0,"quality":0},{"name":"Sulfuras, Hand of Ragnaros","sell_in":0,"quality":1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":0,"quality":-1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":0,"quality":50},{"name":"Sulfuras, Hand of Ragnaros","sell_in":0,"quality":49},{"name":"Sulfuras, Hand of Ragnaros","sell_in":1,"quality":0},{"name":"Sulfuras, Hand of Ragnaros","sell_in":1,"quality":1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":1,"quality":-1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":1,"quality":50},{"name":"Sulfuras, Hand of Ragnaros","sell_in":1,"quality":49},{"name":"Sulfuras, Hand of Ragnaros","sell_in":11,"quality":0},{"name":"Sulfuras, Hand of Ragnaros","sell_in":11,"quality":1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":11,"quality":-1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":11,"quality":50},{"name":"Sulfuras, Hand of Ragnaros","sell_in":11,"quality":49},{"name":"Sulfuras, Hand of Ragnaros","sell_in":6,"quality":0},{"name":"Sulfuras, Hand of Ragnaros","sell_in":6,"quality":1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":6,"quality":-1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":6,"quality":50},{"name":"Sulfuras, Hand of Ragnaros","sell_in":6,"quality":49},{"name":"Sulfuras, Hand of Ragnaros","sell_in":-1,"quality":0},{"name":"Sulfuras, Hand of Ragnaros","sell_in":-1,"quality":1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":-1,"quality":-1},{"name":"Sulfuras, Hand of Ragnaros","sell_in":-1,"quality":50},{"name":"Sulfuras, Hand of Ragnaros","sell_in":-1,"quality":49}]
+[
+  {
+    "name": "Some Item",
+    "sell_in": -1,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -1,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -1,
+    "quality": -1
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -1,
+    "quality": 48
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -1,
+    "quality": 47
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 0,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 0,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 0,
+    "quality": -1
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 0,
+    "quality": 49
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 0,
+    "quality": 48
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 10,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 10,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 10,
+    "quality": -1
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 10,
+    "quality": 49
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 10,
+    "quality": 48
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 5,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 5,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 5,
+    "quality": -1
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 5,
+    "quality": 49
+  },
+  {
+    "name": "Some Item",
+    "sell_in": 5,
+    "quality": 48
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -2,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -2,
+    "quality": 0
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -2,
+    "quality": -1
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -2,
+    "quality": 48
+  },
+  {
+    "name": "Some Item",
+    "sell_in": -2,
+    "quality": 47
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -1,
+    "quality": 2
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -1,
+    "quality": 3
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -1,
+    "quality": 1
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -1,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -1,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 0,
+    "quality": 1
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 0,
+    "quality": 2
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 0,
+    "quality": 0
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 0,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 0,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 10,
+    "quality": 1
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 10,
+    "quality": 2
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 10,
+    "quality": 0
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 10,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 10,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 5,
+    "quality": 1
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 5,
+    "quality": 2
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 5,
+    "quality": 0
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 5,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": 5,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -2,
+    "quality": 2
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -2,
+    "quality": 3
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -2,
+    "quality": 1
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -2,
+    "quality": 50
+  },
+  {
+    "name": "Aged Brie",
+    "sell_in": -2,
+    "quality": 50
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -1,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -1,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -1,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -1,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -1,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 0,
+    "quality": 3
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 0,
+    "quality": 4
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 0,
+    "quality": 2
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 0,
+    "quality": 50
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 0,
+    "quality": 50
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 10,
+    "quality": 1
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 10,
+    "quality": 2
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 10,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 10,
+    "quality": 50
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 10,
+    "quality": 50
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 5,
+    "quality": 2
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 5,
+    "quality": 3
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 5,
+    "quality": 1
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 5,
+    "quality": 50
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": 5,
+    "quality": 50
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -2,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -2,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -2,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -2,
+    "quality": 0
+  },
+  {
+    "name": "Backstage passes to a TAFKAL80ETC concert",
+    "sell_in": -2,
+    "quality": 0
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 0,
+    "quality": 0
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 0,
+    "quality": 1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 0,
+    "quality": -1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 0,
+    "quality": 50
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 0,
+    "quality": 49
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 1,
+    "quality": 0
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 1,
+    "quality": 1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 1,
+    "quality": -1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 1,
+    "quality": 50
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 1,
+    "quality": 49
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 11,
+    "quality": 0
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 11,
+    "quality": 1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 11,
+    "quality": -1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 11,
+    "quality": 50
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 11,
+    "quality": 49
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 6,
+    "quality": 0
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 6,
+    "quality": 1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 6,
+    "quality": -1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 6,
+    "quality": 50
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": 6,
+    "quality": 49
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": -1,
+    "quality": 0
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": -1,
+    "quality": 1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": -1,
+    "quality": -1
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": -1,
+    "quality": 50
+  },
+  {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "sell_in": -1,
+    "quality": 49
+  }
+]
