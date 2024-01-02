@@ -48,8 +48,4 @@ def update_item:
     else . end;
 
 def update_quality:
-    [
-        .[]
-        |
-        update_item
-    ];
+    [.[] | update_item];
