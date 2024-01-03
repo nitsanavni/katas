@@ -47,6 +47,11 @@ def foo:
         end
     else . end;
 
+def update_brie: foo;
+def update_backstage_passes: foo;
+def update_sulfuras: foo;
+def update_regular_item: foo;
+
 def update_item:
     if .name == "Aged Brie" then
         foo
