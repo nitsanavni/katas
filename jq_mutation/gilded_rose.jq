@@ -38,20 +38,14 @@ def update_sulfuras: .;
 
 def update_regular_item:
     if .quality > 0 then
-        if .name != "Sulfuras, Hand of Ragnaros" then
-            .quality = .quality - 1
-        end
+        .quality = .quality - 1
     end
     |
-    if .name != "Sulfuras, Hand of Ragnaros" then
-        .sell_in = .sell_in - 1
-    end
+    .sell_in = .sell_in - 1
     |
     if .sell_in < 0 then
         if .quality > 0 then
-            if .name != "Sulfuras, Hand of Ragnaros" then
-                .quality = .quality - 1
-            end
+            .quality = .quality - 1
         end
     end;
 
