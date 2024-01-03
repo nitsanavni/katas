@@ -1,9 +1,22 @@
-def inc_quality: if .quality < 50 then .quality = .quality + 1 end;
-def dec_quality: if .quality > 0 then .quality = .quality - 1 end;
-def dec_sell_in: .sell_in = .sell_in - 1;
-def times(n;f): reduce range(n) as $i (.;f);
+def inc_quality:
+    if .quality < 50 then
+        .quality = .quality + 1
+    end;
+def dec_quality:
+    if .quality > 0 then
+        .quality = .quality - 1
+    end;
+def dec_sell_in:
+    .sell_in = .sell_in - 1;
+def times(n;f):
+    reduce range(n) as $i (.;f);
 
-def brie_inc_times: if .sell_in < 0 then 2 else 1 end;
+def brie_inc_times:
+    if .sell_in < 0 then
+        2
+    else
+        1
+    end;
 
 def update_brie:
     dec_sell_in | times(brie_inc_times; inc_quality);
@@ -28,7 +41,12 @@ def update_sulfuras:
     # do nothing
     .;
 
-def regular_item_dec_times: if .sell_in < 0 then 2 else 1 end;
+def regular_item_dec_times:
+    if .sell_in < 0 then
+        2
+    else
+        1
+    end;
 
 def update_regular_item:
     dec_sell_in | times(regular_item_dec_times; dec_quality);

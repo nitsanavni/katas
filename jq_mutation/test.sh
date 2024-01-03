@@ -12,3 +12,5 @@ if [ "$UPDATE" == "1" ]; then
 else
     echo "$input" | jq -r "include \"$mutated_script\"; update_quality" | diff - approved
 fi
+
+
