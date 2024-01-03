@@ -53,7 +53,25 @@ def update_backstage_passes:
         .quality = .quality - .quality
     end;
 
-def update_sulfuras: foo;
+def update_sulfuras:
+    if .quality > 0 then
+        if .name != "Sulfuras, Hand of Ragnaros" then
+            .quality = .quality - 1
+        end
+    end
+    |
+    if .name != "Sulfuras, Hand of Ragnaros" then
+        .sell_in = .sell_in - 1
+    end
+    |
+    if .sell_in < 0 then
+        if .quality > 0 then
+            if .name != "Sulfuras, Hand of Ragnaros" then
+                .quality = .quality - 1
+            end
+        end
+    end;
+
 def update_regular_item: foo;
 
 def update_item:
