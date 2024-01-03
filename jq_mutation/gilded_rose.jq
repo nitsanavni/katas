@@ -1,4 +1,4 @@
-def update_item:
+def foo:
     if .name != "Aged Brie" and .name != "Backstage passes to a TAFKAL80ETC concert" then
         if .quality > 0 then
             if .name != "Sulfuras, Hand of Ragnaros" then
@@ -47,5 +47,7 @@ def update_item:
         end
     else . end;
 
-def update_quality:
-    [.[] | update_item];
+def update_item:
+    foo;
+
+def update_quality: [.[] | update_item];
