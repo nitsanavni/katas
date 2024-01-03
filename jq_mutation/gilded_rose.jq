@@ -2,33 +2,33 @@ def foo:
     if .quality > 0 then
         if .name != "Sulfuras, Hand of Ragnaros" then
             .quality = .quality - 1
-        else . end
-    else . end
+        end
+    end
     |
     if .name != "Sulfuras, Hand of Ragnaros" then
         .sell_in = .sell_in - 1
-    else . end
+    end
     |
     if .sell_in < 0 then
         if .quality > 0 then
             if .name != "Sulfuras, Hand of Ragnaros" then
                 .quality = .quality - 1
-            else . end
-        else . end
-    else . end;
+            end
+        end
+    end;
 
 def update_brie:
     if .quality < 50 then
         .quality = .quality + 1
-    else . end
+    end
     |
     .sell_in = .sell_in - 1
     |
     if .sell_in < 0 then
         if .quality < 50 then
             .quality = .quality + 1
-        else . end
-    else . end;
+        end
+    end;
 
 def update_backstage_passes:
     if .quality < 50 then
@@ -37,21 +37,21 @@ def update_backstage_passes:
         if .sell_in < 11 then
             if .quality < 50 then
                 .quality = .quality + 1
-            else . end
-        else . end
+            end
+        end
         |
         if .sell_in < 6 then
             if .quality < 50 then
                 .quality = .quality + 1
-            else . end
-        else . end
-    else . end
+            end
+        end
+    end
     |
     .sell_in = .sell_in - 1
     |
     if .sell_in < 0 then
         .quality = .quality - .quality
-    else . end;
+    end;
 
 def update_sulfuras: foo;
 def update_regular_item: foo;
