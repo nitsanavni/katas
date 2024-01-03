@@ -60,7 +60,29 @@ def update_brie:
         else . end
     else . end;
 
-def update_backstage_passes: foo;
+def update_backstage_passes:
+    if .quality < 50 then
+        .quality = .quality + 1
+        |
+        if .sell_in < 11 then
+            if .quality < 50 then
+                .quality = .quality + 1
+            else . end
+        else . end
+        |
+        if .sell_in < 6 then
+            if .quality < 50 then
+                .quality = .quality + 1
+            else . end
+        else . end
+    else . end
+    |
+    .sell_in = .sell_in - 1
+    |
+    if .sell_in < 0 then
+        .quality = .quality - .quality
+    else . end;
+
 def update_sulfuras: foo;
 def update_regular_item: foo;
 
