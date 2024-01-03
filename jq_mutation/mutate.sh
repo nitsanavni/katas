@@ -11,7 +11,13 @@ for mutation in "${mutations[@]}"; do
     module=$(basename $(mktemp -t gilded_rose -p .))
     script="$module.jq"
 
-    sed "$mutation" gilded_rose.jq >"$script"
+    echo $mutation | grep "inc int" >/dev/null
+
+    if [ $? -eq 0 ]; then
+        python inc_int.py gilded_rose.jq $(echo $mutation | grep -oE '\d+') >"$script"
+    else
+        sed "$mutation" gilded_rose.jq >"$script"
+    fi
 
     rm -f "$module"
 

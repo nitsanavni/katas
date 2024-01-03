@@ -13,6 +13,7 @@ def generate_sed_commands(file_path):
         (r"\+", r"s/\+/\-/"),
         (r"-", r"s/\-/\+/"),
         (r"else\s*$", r"s/else/elif false then/"),
+        (r"\b\d+\b", r"inc int"),
     ]
 
     sed_commands = []
