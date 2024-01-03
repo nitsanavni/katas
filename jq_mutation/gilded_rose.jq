@@ -1,22 +1,3 @@
-def foo:
-    if .quality > 0 then
-        if .name != "Sulfuras, Hand of Ragnaros" then
-            .quality = .quality - 1
-        end
-    end
-    |
-    if .name != "Sulfuras, Hand of Ragnaros" then
-        .sell_in = .sell_in - 1
-    end
-    |
-    if .sell_in < 0 then
-        if .quality > 0 then
-            if .name != "Sulfuras, Hand of Ragnaros" then
-                .quality = .quality - 1
-            end
-        end
-    end;
-
 def update_brie:
     if .quality < 50 then
         .quality = .quality + 1
@@ -55,7 +36,24 @@ def update_backstage_passes:
 
 def update_sulfuras: .;
 
-def update_regular_item: foo;
+def update_regular_item:
+    if .quality > 0 then
+        if .name != "Sulfuras, Hand of Ragnaros" then
+            .quality = .quality - 1
+        end
+    end
+    |
+    if .name != "Sulfuras, Hand of Ragnaros" then
+        .sell_in = .sell_in - 1
+    end
+    |
+    if .sell_in < 0 then
+        if .quality > 0 then
+            if .name != "Sulfuras, Hand of Ragnaros" then
+                .quality = .quality - 1
+            end
+        end
+    end;
 
 def update_item:
     if .name == "Aged Brie" then
