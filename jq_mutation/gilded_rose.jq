@@ -8,7 +8,6 @@ def brie_inc_times: if .sell_in < 0 then 2 else 1 end;
 def update_brie:
     dec_sell_in | times(brie_inc_times; inc_quality);
 
-
 def backstage_passes_inc_times:
     if .sell_in < 5 then
         3
@@ -25,7 +24,9 @@ def update_backstage_passes:
         .quality = 0
     end;
 
-def update_sulfuras: .;
+def update_sulfuras:
+    # do nothing
+    .;
 
 def regular_item_dec_times: if .sell_in < 0 then 2 else 1 end;
 
