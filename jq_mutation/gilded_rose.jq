@@ -1,52 +1,42 @@
+def inc_quality: if .quality < 50 then .quality = .quality + 1 end;
+def dec_quality: if .quality > 0 then .quality = .quality - 1 end;
+def dec_sell_in: .sell_in = .sell_in - 1;
+
 def update_brie:
-    if .quality < 50 then
-        .quality = .quality + 1
-    end
+    inc_quality
     |
-    .sell_in = .sell_in - 1
+    dec_sell_in
     |
     if .sell_in < 0 then
-        if .quality < 50 then
-            .quality = .quality + 1
-        end
+        inc_quality
     end;
 
 def update_backstage_passes:
-    if .quality < 50 then
-        .quality = .quality + 1
-        |
-        if .sell_in < 11 then
-            if .quality < 50 then
-                .quality = .quality + 1
-            end
-        end
-        |
-        if .sell_in < 6 then
-            if .quality < 50 then
-                .quality = .quality + 1
-            end
-        end
+    inc_quality
+    |
+    if .sell_in < 11 then
+        inc_quality
     end
     |
-    .sell_in = .sell_in - 1
+    if .sell_in < 6 then
+        inc_quality
+    end
+    |
+    dec_sell_in
     |
     if .sell_in < 0 then
-        .quality = .quality - .quality
+        .quality = 0
     end;
 
 def update_sulfuras: .;
 
 def update_regular_item:
-    if .quality > 0 then
-        .quality = .quality - 1
-    end
+    dec_quality
     |
-    .sell_in = .sell_in - 1
+    dec_sell_in
     |
     if .sell_in < 0 then
-        if .quality > 0 then
-            .quality = .quality - 1
-        end
+        dec_quality
     end;
 
 def update_item:
