@@ -1,28 +1,25 @@
 def inc_quality: if .quality < 50 then .quality = .quality + 1 end;
 def dec_quality: if .quality > 0 then .quality = .quality - 1 end;
 def dec_sell_in: .sell_in = .sell_in - 1;
+def times(n;f): reduce range(n) as $i (.;f);
+
+def brie_inc_times: if .sell_in < 0 then 2 else 1 end;
 
 def update_brie:
-    inc_quality
-    |
-    dec_sell_in
-    |
-    if .sell_in < 0 then
-        inc_quality
+    dec_sell_in | times(brie_inc_times; inc_quality);
+
+
+def backstage_passes_inc_times:
+    if .sell_in < 5 then
+        3
+    elif .sell_in < 10 then
+        2
+    else
+        1
     end;
 
 def update_backstage_passes:
-    inc_quality
-    |
-    if .sell_in < 11 then
-        inc_quality
-    end
-    |
-    if .sell_in < 6 then
-        inc_quality
-    end
-    |
-    dec_sell_in
+    dec_sell_in | times(backstage_passes_inc_times; inc_quality)
     |
     if .sell_in < 0 then
         .quality = 0
@@ -30,14 +27,10 @@ def update_backstage_passes:
 
 def update_sulfuras: .;
 
+def regular_item_dec_times: if .sell_in < 0 then 2 else 1 end;
+
 def update_regular_item:
-    dec_quality
-    |
-    dec_sell_in
-    |
-    if .sell_in < 0 then
-        dec_quality
-    end;
+    dec_sell_in | times(regular_item_dec_times; dec_quality);
 
 def update_item:
     if .name == "Aged Brie" then
