@@ -48,7 +48,15 @@ def foo:
     end;
 
 def update_item:
-    foo;
+    if .name == "Aged Brie" then
+        foo
+    elif .name == "Backstage passes to a TAFKAL80ETC concert" then
+        foo
+    elif .name == "Sulfuras, Hand of Ragnaros" then
+        foo
+    else
+        foo
+    end;
 
 def update_quality:
     [.[] | update_item];
