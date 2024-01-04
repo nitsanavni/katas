@@ -7,8 +7,8 @@ def update_quality:
                 if .quality > 0 then
                     if .name != "Sulfuras, Hand of Ragnaros" then
                         .quality = .quality - 1
-                    else . end
-                else . end
+                    end
+                end
             else
                 if .quality < 50 then
                     .quality = .quality + 1
@@ -17,21 +17,21 @@ def update_quality:
                         if .sell_in < 11 then
                             if .quality < 50 then
                                 .quality = .quality + 1
-                            else . end
-                        else . end
+                            end
+                        end
                         |
                         if .sell_in < 6 then
                             if .quality < 50 then
                                 .quality = .quality + 1
-                            else . end
-                        else . end
-                    else . end
-                else . end
+                            end
+                        end
+                    end
+                end
             end
             |
             if .name != "Sulfuras, Hand of Ragnaros" then
                 .sell_in = .sell_in - 1
-            else . end
+            end
             |
             if .sell_in < 0 then
                 if .name != "Aged Brie" then
@@ -39,16 +39,16 @@ def update_quality:
                         if .quality > 0 then
                             if .name != "Sulfuras, Hand of Ragnaros" then
                                 .quality = .quality - 1
-                            else . end
-                        else . end
+                            end
+                        end
                     else
                         .quality = .quality - .quality
                     end
                 else
                     if .quality < 50 then
                         .quality = .quality + 1
-                    else . end
+                    end
                 end
-            else . end
+            end
         )
     ];
