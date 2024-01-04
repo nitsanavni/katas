@@ -1,4 +1,4 @@
-def foo:
+def update_regular_item:
     if .name != "Aged Brie" and .name != "Backstage passes to a TAFKAL80ETC concert" then
         if .quality > 0 then
             if .name != "Sulfuras, Hand of Ragnaros" then
@@ -86,8 +86,6 @@ def update_backstage:
 def update_sulfuras:
     # do nothing
     .;
-
-def update_regular_item: foo;
 
 def update_item:
     if .name == "Aged Brie" then
