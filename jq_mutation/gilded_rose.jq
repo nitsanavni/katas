@@ -54,13 +54,13 @@ def update_regular_item: foo;
 
 def update_item:
     if .name == "Aged Brie" then
-        foo
+        update_brie
     elif .name == "Backstage passes to a TAFKAL80ETC concert" then
-        foo
+        update_backstage
     elif .name == "Sulfuras, Hand of Ragnaros" then
-        foo
+        update_sulfuras
     else
-        foo
+        update_regular_item
     end;
 
 def update_quality:
