@@ -1,4 +1,5 @@
 from approvaltests import verify, Options
+import inspect
 
 
 def verify_inline(text):
@@ -101,14 +102,30 @@ def test_expand():
 
 
 def auto_inline_verify(fn):
-    calling_test_function = test_fizzbuzz_from_docstring
-    test_function_docstring = calling_test_function.__doc__
-    lines = [line for line in test_function_docstring.split("\n") if line.strip()]
+    frame = inspect.stack()[1]
+    test_fn = frame.function
+    test_fn_docstring = frame.frame.f_globals[test_fn].__doc__
+
+    print(test_fn)
+    print(test_fn_docstring)
+
+    lines = [line for line in test_fn_docstring.split("\n") if line.strip()]
 
     def format(arg):
         return f"{arg} -> {fn(arg)}"
 
     verify_inline("\n".join([format(s.split("->")[0].strip()) for s in lines]))
+
+
+def test_expand_from_docstring():
+    """
+    s -> s
+    s3 -> sss
+    rs3 -> rsss
+    (rs)3r -> rsrsrsr
+    (r(s3))2 -> rsssrsss
+    """
+    auto_inline_verify(expand)
 
 
 def fizzbuzz(n: str) -> str:
