@@ -123,7 +123,7 @@ def test_arrow_format():
     def to_verify(arg):
         return arrow_format(arg, expand(arg))
 
-    auto_inline_verify(to_verify)
+    verify_from_docstring(to_verify)
 
 
 def colon_format(arg, result) -> Line:
@@ -143,7 +143,7 @@ def test_colon_format():
     def to_verify(arg):
         return colon_format(arg, expand(arg))
 
-    auto_inline_verify(to_verify)
+    verify_from_docstring(to_verify)
 
 
 def arrow_arg_parse(formatted: Line) -> Arg:
@@ -154,7 +154,7 @@ def test_arrow_arg_parse():
     """
     s -> s: s
     """
-    auto_inline_verify(arrow_arg_parse, transform_colon_line)
+    verify_from_docstring(arrow_arg_parse, transform_colon_line)
 
 
 arrow_formatting_utils = (arrow_format, arrow_arg_parse)
@@ -183,7 +183,7 @@ transform_arrow_line = make_transform_line(arrow_formatting_utils)
 transform_colon_line = make_transform_line((colon_format, colon_arg_parse))
 
 
-def auto_inline_verify(
+def verify_from_docstring(
     fn: Fn,
     get_transform_line: Callable[[Fn], LineTransform] = transform_arrow_line,
 ):
@@ -206,7 +206,7 @@ def test_expand_from_docstring():
     (rs)3r -> rsrsrsr
     (r(s3))2 -> rsssrsss
     """
-    auto_inline_verify(expand)
+    verify_from_docstring(expand)
 
 
 def fizzbuzz(n: str) -> str:
@@ -232,7 +232,7 @@ def test_fizzbuzz_from_docstring():
     9 -> Fizz
     10 -> Buzz
     """
-    auto_inline_verify(fizzbuzz)
+    verify_from_docstring(fizzbuzz)
     # verify_inline("\n".join([str(i) for i in range(1, 11)]))
 
 
