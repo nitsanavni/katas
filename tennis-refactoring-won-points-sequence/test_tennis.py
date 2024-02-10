@@ -1,5 +1,7 @@
+from typing import Callable
 from approvaltests import verify, Options
 import inspect
+from functools import partial
 
 
 def verify_inline(text):
@@ -101,11 +103,16 @@ def test_expand():
     )
 
 
-def arrow_format(fn):
-    def format(arg):
-        return f"{arg} -> {fn(arg)}"
+Arg = str
+Result = str
+Line = str
+Format = Callable[[Arg, Result], Line]
+Parse = Callable[[Line], Arg]
+FormattingUtils = (Format, Parse)
 
-    return format
+
+def arrow_format(arg, result):
+    return f"{arg} -> {result}"
 
 
 def test_arrow_format():
@@ -113,10 +120,58 @@ def test_arrow_format():
     s -> s -> s
     s3 -> s3 -> sss
     """
-    auto_inline_verify(arrow_format(expand))
+
+    def to_verify(arg):
+        return arrow_format(arg, expand(arg))
+
+    auto_inline_verify(to_verify)
 
 
-def auto_inline_verify(fn):
+def colon_format(arg, result) -> Line:
+    return f"{arg}: {result}"
+
+
+def colon_arg_parse(formatted: Line) -> Arg:
+    return formatted.split(": ")[0].strip()
+
+
+def test_colon_format():
+    """
+    s -> s: s
+    s3 -> s3: sss
+    """
+
+    def to_verify(arg):
+        return colon_format(arg, expand(arg))
+
+    auto_inline_verify(to_verify)
+
+
+def arrow_arg_parse(formatted: Line) -> Arg:
+    return formatted.split(" -> ")[0].strip()
+
+
+def test_arrow_arg_parse():
+    """
+    s -> s: s
+    """
+    auto_inline_verify(arrow_arg_parse, (colon_format, colon_arg_parse))
+
+
+arrow_formatting_utils = (arrow_format, arrow_arg_parse)
+
+
+def auto_inline_verify(
+    fn,
+    formatting_utils: FormattingUtils = arrow_formatting_utils,
+):
+    format, parse = formatting_utils
+
+    def make_line(line):
+        arg = parse(line)
+
+        return format(arg, fn(arg))
+
     frame = inspect.stack()[1]
     test_fn = frame.function
     test_fn_docstring = frame.frame.f_globals[test_fn].__doc__
@@ -126,9 +181,7 @@ def auto_inline_verify(fn):
 
     lines = [line for line in test_fn_docstring.split("\n") if line.strip()]
 
-    format = arrow_format(fn)
-
-    verify_inline("\n".join([format(s.split("->")[0].strip()) for s in lines]))
+    verify_inline("\n".join([make_line(s) for s in lines]))
 
 
 def test_expand_from_docstring():
