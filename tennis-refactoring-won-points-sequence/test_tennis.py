@@ -1,7 +1,6 @@
 from typing import Callable
 from approvaltests import verify, Options
 import inspect
-from functools import partial
 
 
 def verify_inline(text):
@@ -155,33 +154,48 @@ def test_arrow_arg_parse():
     """
     s -> s: s
     """
-    auto_inline_verify(arrow_arg_parse, (colon_format, colon_arg_parse))
+    auto_inline_verify(arrow_arg_parse, transform_colon_line)
 
 
 arrow_formatting_utils = (arrow_format, arrow_arg_parse)
 
 
+LineTransform = Callable[[Line], Line]
+
+
+Fn = Callable[[Arg], Result]
+
+
+def make_transform_line(utils: FormattingUtils) -> Callable[[Fn], LineTransform]:
+    format, parse = utils
+
+    def transformer(fn: Fn) -> LineTransform:
+        def transform(line: Line) -> Line:
+            arg = parse(line)
+            return format(arg, fn(arg))
+
+        return transform
+
+    return transformer
+
+
+transform_arrow_line = make_transform_line(arrow_formatting_utils)
+transform_colon_line = make_transform_line((colon_format, colon_arg_parse))
+
+
 def auto_inline_verify(
-    fn,
-    formatting_utils: FormattingUtils = arrow_formatting_utils,
+    fn: Fn,
+    get_transform_line: Callable[[Fn], LineTransform] = transform_arrow_line,
 ):
-    format, parse = formatting_utils
-
-    def make_line(line):
-        arg = parse(line)
-
-        return format(arg, fn(arg))
-
     frame = inspect.stack()[1]
     test_fn = frame.function
     test_fn_docstring = frame.frame.f_globals[test_fn].__doc__
 
-    print(test_fn)
-    print(test_fn_docstring)
-
     lines = [line for line in test_fn_docstring.split("\n") if line.strip()]
 
-    verify_inline("\n".join([make_line(s) for s in lines]))
+    transform = get_transform_line(fn)
+
+    verify_inline("\n".join([transform(s) for s in lines]))
 
 
 def test_expand_from_docstring():
