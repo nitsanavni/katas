@@ -126,8 +126,7 @@ def auto_inline_verify(fn):
 
     lines = [line for line in test_fn_docstring.split("\n") if line.strip()]
 
-    def format(arg):
-        return f"{arg} -> {fn(arg)}"
+    format = arrow_format(fn)
 
     verify_inline("\n".join([format(s.split("->")[0].strip()) for s in lines]))
 
