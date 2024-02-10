@@ -101,6 +101,21 @@ def test_expand():
     )
 
 
+def arrow_format(fn):
+    def format(arg):
+        return f"{arg} -> {fn(arg)}"
+
+    return format
+
+
+def test_arrow_format():
+    """
+    s -> s -> s
+    s3 -> s3 -> sss
+    """
+    auto_inline_verify(arrow_format(expand))
+
+
 def auto_inline_verify(fn):
     frame = inspect.stack()[1]
     test_fn = frame.function
