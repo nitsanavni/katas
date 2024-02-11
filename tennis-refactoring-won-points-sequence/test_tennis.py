@@ -1,5 +1,5 @@
 from typing import Callable
-from approvaltests import verify, Options
+from approvaltests import verify, Options, verify_all
 import inspect
 
 
@@ -7,6 +7,8 @@ def verify_inline(text):
     verify(text, options=Options().inline())
 
 
+# generated code
+# https://chat.openai.com/share/060a4e53-81e7-411d-adbc-f2a393369396
 def expand(won_points_sequence: str) -> str:
     def expand_sequence(sequence: str, start: int = 0, end: int = None) -> str:
         if end is None:
@@ -68,7 +70,7 @@ def verify_tennis_result(won_points_sequence: str):
     verify_inline(expand(won_points_sequence))
 
 
-def test_expand():
+def test_expand_with_inline_approvals():
     """
     s -> s
     r -> r
@@ -81,25 +83,19 @@ def test_expand():
     (r(s3))2 -> rsssrsss
     s12 -> ssssssssssss
     """
-    verify_inline(
-        "\n".join(
-            [
-                f"{s} -> {expand(s)}"
-                for s in [
-                    "s",
-                    "r",
-                    "s3",
-                    "r3",
-                    "s1",
-                    "s3r2",
-                    "rs3",
-                    "(rs)3r",
-                    "(r(s3))2",
-                    "s12",
-                ]
-            ]
-        )
-    )
+    inputs = [
+        "s",
+        "r",
+        "s3",
+        "r3",
+        "s1",
+        "s3r2",
+        "rs3",
+        "(rs)3r",
+        "(r(s3))2",
+        "s12",
+    ]
+    verify_inline("\n".join([f"{s} -> {expand(s)}" for s in inputs]))
 
 
 Arg = str
@@ -123,7 +119,7 @@ def test_arrow_format():
     def to_verify(arg):
         return arrow_format(arg, expand(arg))
 
-    verify_from_docstring(to_verify)
+    verify_docstring(to_verify)
 
 
 def colon_format(arg, result) -> Line:
@@ -143,7 +139,7 @@ def test_colon_format():
     def to_verify(arg):
         return colon_format(arg, expand(arg))
 
-    verify_from_docstring(to_verify)
+    verify_docstring(to_verify)
 
 
 def arrow_arg_parse(formatted: Line) -> Arg:
@@ -154,7 +150,7 @@ def test_arrow_arg_parse():
     """
     s -> s: s
     """
-    verify_from_docstring(arrow_arg_parse, transform_colon_line)
+    verify_docstring(arrow_arg_parse, transform_colon_line)
 
 
 arrow_formatting_utils = (arrow_format, arrow_arg_parse)
@@ -183,7 +179,7 @@ transform_arrow_line = make_transform_line(arrow_formatting_utils)
 transform_colon_line = make_transform_line((colon_format, colon_arg_parse))
 
 
-def verify_from_docstring(
+def verify_docstring(
     fn: Fn,
     get_transform_line: Callable[[Fn], LineTransform] = transform_arrow_line,
 ):
@@ -200,15 +196,16 @@ def verify_from_docstring(
 
 def test_expand_from_docstring():
     """
-    s -> s
-    s3 -> sss
-    rs3 -> rsss
-    (rs)3r -> rsrsrsr
-    (r(s3))2 -> rsssrsss
+    s: s
+    s3: sss
+    rs3: rsss
+    (rs)3r: rsrsrsr
+    (r(s3))2: rsssrsss
     """
-    verify_from_docstring(expand)
+    verify_docstring(expand, transform_colon_line)
 
 
+# generated code with copilot
 def fizzbuzz(n: str) -> str:
     n = int(n)
     result = ""
@@ -224,17 +221,44 @@ def test_fizzbuzz_from_docstring():
     1 -> 1
     2 -> 2
     3 -> Fizz
-    4 -> 4
-    5 -> Buzz
     6 -> Fizz
-    7 -> 7
-    8 -> 8
-    9 -> Fizz
+    5 -> Buzz
     10 -> Buzz
+    15 -> FizzBuzz
+    30 -> FizzBuzz
     """
-    verify_from_docstring(fizzbuzz)
+    verify_docstring(fizzbuzz)
     # verify_inline("\n".join([str(i) for i in range(1, 11)]))
+
+
+def test_fizzbuzz_with_inline_approvals():
+    """
+    1 -> 1
+    2 -> 2
+    3 -> Fizz
+    """
+    verify_inline("\n".join([f"{i} -> {fizzbuzz(i)}" for i in range(1, 4)]))
 
 
 def stest_tennis():
     verify_tennis_result("sr3")
+
+
+def verifiable(expected=None):
+    def wrapper(func):
+        def verify():
+            assert func() == expected
+
+        func.verify = verify
+        return func
+
+    return wrapper
+
+
+@verifiable(expected=42)
+def my_function():
+    return 54
+
+
+def test_my_function():
+    my_function.verify()
