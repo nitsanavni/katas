@@ -31,11 +31,18 @@ def verified(func):
         split_code = SplitCode.on_method(func.get_full_file_code(), func.get_own_name())
         return f'{split_code.before_method}\n{split_code.tab}"""\n{split_code.indent(func.reformat_docstring())}\n{split_code.tab}"""\n{split_code.after_method}'
 
+    current_millis = str(int(round(time.time() * 1000)))
+
     def write_received():
         filename = func.get_path().split("/")[-1]
-        current_millis = str(int(round(time.time() * 1000)))
         file = Path(func.get_path()).with_name(
-            filename + "." + func.get_own_name() + "." + current_millis + ".received.py"
+            "s"
+            + filename
+            + "."
+            + func.get_own_name()
+            + "."
+            + current_millis
+            + ".received.py"
         )
         Path(file).write_text(swap())
         return file
@@ -68,5 +75,8 @@ def verified(func):
         assert func.get_docstring() == func.reformat_docstring()
 
     func.assert_same_docstring = assert_same_docstring
+
+    test_name = f"test_{func.__name__}_{current_millis}".replace(" ", "_")
+    globals()[test_name] = verify
 
     return func

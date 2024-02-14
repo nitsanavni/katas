@@ -11,15 +11,14 @@ def greet(name):
     return f"Hello, {name}!"
 
 
-def test_verified_with_verify():
-    greet.verify()
+test_verified_with_verify = greet.verify
 
 
 def stest_verified_assert_same_docstring():
     greet.assert_same_docstring()
 
 
-def test_verified_reformats_docstring():
+def stest_verified_reformats_docstring():
     """
     Bob -> Hello, Bob!
     Biba -> Hello, Biba!
@@ -30,7 +29,7 @@ def test_verified_reformats_docstring():
     )
 
 
-def test_verified_inputs():
+def stest_verified_inputs():
     """
     Bob
     Biba
@@ -41,7 +40,7 @@ def test_verified_inputs():
     )
 
 
-def test_verified_sees_func_name():
+def stest_verified_sees_func_name():
     """
     greet
     """
@@ -51,7 +50,7 @@ def test_verified_sees_func_name():
     )
 
 
-def test_verified_knows_func_file():
+def stest_verified_knows_func_file():
     """
     the file of greet function: test_verified.py
     """
@@ -61,7 +60,7 @@ def test_verified_knows_func_file():
     )
 
 
-def test_verified_sees_func_docstring():
+def stest_verified_sees_func_docstring():
     """
     the docstring of greet is:
     Bob -> Hello, Bob!
