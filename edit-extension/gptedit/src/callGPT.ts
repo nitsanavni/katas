@@ -1,18 +1,28 @@
 import OpenAI from "openai";
 
-export const callGPT = async ({ prompt }: { prompt: string }) => {
-    const model = "gpt-4-1106-preview";
-    const messages = [
-        {
-            role: "user" as const,
-            content: prompt,
-        },
-    ];
+import { Log } from ".";
 
-    const response = await new OpenAI().chat.completions.create({
-        model,
-        messages,
-    });
+export const callGPT = async ({
+  prompt,
+  log = (x) => x,
+}: {
+  prompt: string;
+  log?: Log;
+}): Promise<string> => {
+  const model = "gpt-4-1106-preview";
+  const messages = [
+    {
+      role: "user" as const,
+      content: prompt,
+    },
+  ];
 
-    return response.choices[0].message.content;
+  const response = await new OpenAI().chat.completions.create({
+    model,
+    messages,
+  });
+
+  log(response.choices[0].message.content);
+
+  return response.choices[0].message.content!;
 };

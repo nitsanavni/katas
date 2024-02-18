@@ -16,6 +16,10 @@
       {
         "command": "gptedit.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "gptedit.extractOneFunction",
+        "title": "Extract One Function"
       }
     ]
   },

@@ -2,7 +2,6 @@
 
 import sys
 import marvin
-import random
 import subprocess
 
 marvin.settings.llm_model = "openai/gpt-4-1106-preview"

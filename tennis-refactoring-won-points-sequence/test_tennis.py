@@ -70,6 +70,27 @@ def verify_tennis_result(won_points_sequence: str):
     verify_inline(expand(won_points_sequence))
 
 
+def test_expand():
+    """
+    s -> s
+    s3 -> sss
+    (rs)3r -> rsrsrsr
+    """
+    verify(
+        "\n".join(
+            [
+                f"{s} -> {expand(s)}"
+                for s in [
+                    "s",
+                    "s3",
+                    "(rs)3r",
+                ]
+            ]
+        ),
+        options=Options().inline(),
+    )
+
+
 def test_expand_with_inline_approvals():
     """
     s -> s

@@ -1,15 +1,17 @@
 import * as vscode from "vscode";
 import { inspect } from "util";
 
-export const createOutputChannel = () => {
-    const output = vscode.window.createOutputChannel(`hello gptedit`);
+export type Log = <T>(arg: T) => T;
 
-    output.show(true);
+export const createOutputChannel = ({ name = "gptedit" } = {}) => {
+  const output = vscode.window.createOutputChannel(name);
 
-    const log = <T>(arg: T): T => {
-        output.appendLine(inspect(arg));
-        return arg;
-    };
+  output.show(true);
 
-    return { log };
+  const log: Log = (arg) => {
+    output.appendLine(inspect(arg, true, 6));
+    return arg;
+  };
+
+  return { log };
 };
