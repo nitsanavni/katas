@@ -19,7 +19,7 @@ def clever_fizzbuzz(number):
     whizz = part(word="Whizz", divisor=7)
     bang = part(word="Bang", divisor=11)
 
-    # too clever code, that takes advantage of the fact that
+    # too(?) clever code, that takes advantage of the fact that
     # "FizzBuzz" == "Fizz" + "Buzz"
     # "Fizz" == "Fizz" + ""
     # "Buzz" == "" + "Buzz"
