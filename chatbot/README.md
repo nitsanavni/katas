@@ -1,0 +1,15 @@
+- a chatbot
+- using chat gpt api
+  - a prompt
+    - `you are a chatbot...`
+  - use same `seed` for reproducibility 
+    - seed could be a parameter to parameterized tests
+- [optional] could be cool to add state
+- testing
+  - approvals
+  - inline
+  - auto
+  - markdown
+    - table of contents
+    - bonus: frontmatter 
+  - parse input
