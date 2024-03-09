@@ -1,0 +1,13 @@
+- [selectively](test_fizzbuzz.py#L52) verifying from the 1-100 range
+- [list comprehension](test_fizzbuzz.py#L12) with side effects instead of for loop
+- single file, w/ different entry points
+  - `pytest` - runs the [tests](./test_fizzbuzz.py#L29)
+  - `python __file__` - run the [program](./test_fizzbuzz.py#L11)
+- [lambda](./test_fizzbuzz.py#L22) for making the `approvals.Options` object
+  - can't instantiate from global
+  - not sure exactly why not, prob `Options` need access to the test / docstring...
+    - ~~yes~~ - `InlineComparator` is doing `get_test_method_doc_string()` - it's not the cause
+    - found it - it's actually the `InlinePythonReporter` - it's [doing too much in the ctor](https://github.com/approvals/ApprovalTests.Python/blob/2a1770db597cb38ef996f4ac0385d4c11eb04334/approvaltests/namer/inline_python_reporter.py#L11)
+- language - python - [`import ...`**_` as `_**`...`](./test_fizzbuzz.py#L17) like in Typescript
+- e2e test, runs the script as a [child process](./test_fizzbuzz.py#L26)
+- [inline + auto](./test_fizzbuzz.py#L22) approvals is a powerful combo
