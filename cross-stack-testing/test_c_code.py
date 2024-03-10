@@ -1,3 +1,11 @@
+import subprocess
+import os
+import tempfile
+from approvaltests import verify as original_verify, Options
+from approvaltests.reporters.reporter_that_automatically_approves import (
+    ReporterThatAutomaticallyApproves as Auto,
+)
+
 default_c_code = """
 int main() {
     return 0;
@@ -5,30 +13,25 @@ int main() {
 """
 
 
-def build_and_exec(code=default_c_code):
-    import tempfile
+def build_c(executable, source_file):
+    os.system(f"gcc -o {executable} {source_file}")
 
+
+def build_and_exec(code=default_c_code, build=build_c):
     executable = tempfile.mktemp(dir=".")
-
     is_file = "\n" not in code and code.endswith(".c")
-
     source_file = code if is_file else executable + ".c"
 
     if not is_file:
         with open(source_file, "w") as f:
             f.write(code)
 
-    import os
-
-    os.system(f"gcc -o {executable} {source_file}")
+    build(executable, source_file)
 
     if not is_file:
         os.remove(source_file)
 
-    import subprocess
-
     result = subprocess.check_output([f"./{executable}"]).strip().decode("utf-8")
-
     os.remove(executable)
 
     return result
@@ -54,11 +57,6 @@ def test_hello_world():
     assert hello_world() == "Hello, world!"
 
 
-from approvaltests import verify as original_verify, Options
-from approvaltests.reporters.reporter_that_automatically_approves import (
-    ReporterThatAutomaticallyApproves as Auto,
-)
-
 options = Options().with_reporter(Auto()).inline()
 
 
@@ -67,6 +65,14 @@ def verify_c_code(*, c_code):
 
 
 verify = verify_c_code
+
+
+def jq(code):
+    return subprocess.check_output(["jq", "-nr", code]).decode("utf-8")
+
+
+def python(code):
+    return subprocess.check_output(["python", "-c", code]).decode("utf-8")
 
 
 def test_fizzbuzz():
@@ -192,3 +198,31 @@ def test_fizzbuzz():
     """
     verify(c_code=fizzbuzz_code)
     verify(c_code="./fizzbuzz.c")
+    original_verify(
+        jq(
+            """
+                range(1; 101) |
+                if . % 15 == 0 then "FizzBuzz"
+                elif . % 3 == 0 then "Fizz"
+                elif . % 5 == 0 then "Buzz"
+                else . end
+            """
+        ),
+        options=options,
+    )
+    original_verify(
+        python(
+            """
+for i in range(1, 101):
+    if i % 15 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
+            """
+        ),
+        options=options,
+    )
