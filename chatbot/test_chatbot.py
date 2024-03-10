@@ -21,7 +21,7 @@ for multi-line strings, use triple single-quotes '''. !not! triple double-quotes
 """
 
 
-@filecache(seconds_of_validity=2000)
+@filecache(seconds_of_validity=200000)
 def chat(message, previous_messages=[{"role": "system", "content": system_prompt}]):
     messages = previous_messages + [
         {"role": "user", "content": message},
