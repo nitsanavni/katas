@@ -91,34 +91,34 @@ def temporary_project(*, files, name):
 def test_create_temp_project():
     """
     simple_project
-
+    
     hiker.py
     ---
     def answer():
         return 42
-
-
+    
+    
     test_hiker.py
     ---
     from hiker import answer
     from approvaltests import verify, Options
-
-
+    
+    
     def test_answer():
         '''
         42
         '''
         verify(answer(), options=Options().inline())
-
-
+    
+    
     ============================= test session starts ==============================
     platform darwin -- Python 3.11.5, pytest-8.0.2, pluggy-1.4.0
     rootdir: /Users/nitsanavni/code/katas/gpt-rename/simple_project
     plugins: approvaltests-11.0.0, anyio-3.7.1
     collected 1 item
-
+    
     test_hiker.py .                                                          [100%]
-
+    
     ============================== 1 passed in 0.04s ===============================
     """
     files = [
@@ -230,5 +230,66 @@ def test_rope_rename_in_multiple_files():
 
         verify(
             "\n\n".join([f.read() for f in [hiker, test_hiker]]),
+            options=auto_inline(),
+        )
+
+
+def test_rename_and_show_git_diff():
+    """
+    diff --git a/src/hiker.py b/src/hiker.py
+    @@ -1,2 +1,2 @@
+    -def answer():
+    +def the_answer():
+         return 42
+    diff --git a/test/test_hiker.py b/test/test_hiker.py
+    @@ -1,3 +1,3 @@
+    -from hiker import answer
+    +from hiker import the_answer
+     def test_answer():
+    -    assert 42 == answer()
+    +    assert 42 == the_answer()
+    """
+    files = [
+        (
+            "src/hiker.py",
+            "def answer():\n    return 42\n",
+        ),
+        (
+            "test/test_hiker.py",
+            "from hiker import answer\ndef test_answer():\n    assert 42 == answer()\n",
+        ),
+        (
+            "pytest.ini",
+            "[pytest]\npythonpath = src\n",
+        ),
+        (
+            ".gitignore",
+            "__pycache__/\n",
+        ),
+    ]
+    with temporary_project(
+        files=files, name="rename_answer_to_the_answer"
+    ) as temp_project:
+        assert temp_project.exec("pytest").find("1 passed") != -1
+        assert (
+            temp_project.exec("git init").find("Initialized empty Git repository") != -1
+        )
+        temp_project.exec("git add .")
+
+        from rope.base.project import Project
+        from rope.refactor.rename import Rename
+
+        project = Project(temp_project.name)
+        hiker = project.get_resource("src/hiker.py")
+        test_hiker = project.get_resource("test/test_hiker.py")
+        rename = Rename(project, hiker, 5).get_changes("the_answer")
+        project.do(rename)
+
+        assert temp_project.exec("pytest").find("1 passed") != -1
+
+        verify(
+            temp_project.exec(
+                "git diff | grep -v 'index' | grep -v \\+\\+\\+ | grep -v '\-\-\-'"
+            ),
             options=auto_inline(),
         )
