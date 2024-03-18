@@ -157,24 +157,28 @@ def test_find_offset():
 
 def test_rename():
     """
-    diff --git a/src/hiker.py b/src/hiker.py
+    diff --git a/src/jogger.py b/src/jogger.py
     @@ -1,2 +1,2 @@
     -def answer():
-    +def balloon():
+    +def my_function():
          return 42
     diff --git a/test/test_hiker.py b/test/test_hiker.py
     @@ -1,3 +1,3 @@
     -from hiker import answer
-    +from hiker import balloon
-     def test_answer():
+    -def test_answer():
     -    assert 42 == answer()
-    +    assert 42 == balloon()
+    +from jogger import my_function
+    +def test_my_function():
+    +    assert 42 == my_function()
     """
     with sandbox(files=hiker_project_files, name="rename_it") as s:
         s.pytest()
         s.git_add()
 
         s.rename("answer", "balloon")
+        s.rename("balloon", "my_function")
+        s.rename("hiker", "jogger")
+        s.rename("test_answer", "test_my_function")
 
         s.pytest()
         verify(
