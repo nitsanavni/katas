@@ -14,21 +14,6 @@ from pathlib import Path
 auto_inline = lambda: Options().with_reporter(Auto()).inline()
 
 
-def rename(*, code: str, original_name: str, new_name: str):
-    return code.replace(original_name, new_name)
-
-
-def test_rope_rename():
-    """
-    b = 0
-    print(b)
-    """
-    code = """a = 0
-print(a)
-"""
-    verify(rename(code=code, original_name="a", new_name="b"), options=auto_inline())
-
-
 def temporary_project(*, files, name):
     class TemporaryProject:
         def __init__(self, files, name):
@@ -91,23 +76,18 @@ def temporary_project(*, files, name):
                 ).get_changes(new_name)
                 project.do(rename)
 
-        def __str__(self):
-            files = "\n\n".join(
-                [
-                    f"""{filename}
----
-{content}"""
-                    for filename, content in self.files
-                ]
+        def git_add(self):
+            return self.exec("git init && git add .")
+
+        def git_diff(self):
+            return self.exec(
+                "git diff | grep -v 'index' | grep -v \\+\\+\\+ | grep -v '\-\-\-'"
             )
 
-            return f"""{self.name}
-
-{files}
-
-{self.output}"""
-
     return TemporaryProject(files=files, name=name)
+
+
+scrub_pytest_duration = lambda s: re.sub(r"0\.\d+s", "🙈", s)
 
 
 def test_create_temp_project():
@@ -139,44 +119,9 @@ def test_answer():
     with temporary_project(files=files, name="simple_project") as project:
         verify(
             project.exec("pytest -q"),
-            options=auto_inline().add_scrubber(lambda s: re.sub(r"0\.\d+s", "🙈", s)),
+            options=auto_inline().add_scrubber(scrub_pytest_duration),
         )
         assert "from hiker import answer" == project.test_hiker_py().splitlines()[0]
-
-
-def test_rope_sees_our_file():
-    """
-    a = 0
-    """
-    files = [
-        (
-            "src/a.py",
-            "a = 0",
-        ),
-    ]
-    with temporary_project(files=files, name="rope_sees") as project:
-        project = Project(project.name)
-
-        verify(project.get_python_files()[0].read(), options=auto_inline())
-
-
-def test_rope_rename_var():
-    """
-    b = 0
-    print(b)
-    """
-    files = [
-        (
-            "src/script.py",
-            "a = 0\nprint(a)\n",
-        ),
-    ]
-    with temporary_project(files=files, name="rename_a_to_b") as project:
-        project = Project(project.name)
-        rename = Rename(project, project.get_python_files()[0], 0).get_changes("b")
-        project.do(rename)
-
-        verify(project.get_python_files()[0].read(), options=auto_inline())
 
 
 hiker_project_files = [
@@ -197,73 +142,6 @@ hiker_project_files = [
         "__pycache__/\n",
     ),
 ]
-
-
-def test_rope_rename_in_multiple_files():
-    """
-    def the_answer():
-        return 42
-
-
-    from hiker import the_answer
-    def test_answer():
-        assert 42 == the_answer()
-    """
-    with temporary_project(
-        files=hiker_project_files, name="rename_answer_to_the_answer"
-    ) as temp_project:
-        temp_project.pytest()
-
-        project = Project(temp_project.name)
-        hiker = project.get_resource("src/hiker.py")
-
-        test_hiker = project.get_resource("test/test_hiker.py")
-        rename = Rename(project, hiker, 5).get_changes("the_answer")
-        project.do(rename)
-
-        temp_project.pytest()
-
-        verify(
-            "\n\n".join([f.read() for f in [hiker, test_hiker]]),
-            options=auto_inline(),
-        )
-
-
-def test_rename_and_show_git_diff():
-    """
-    diff --git a/src/hiker.py b/src/hiker.py
-    @@ -1,2 +1,2 @@
-    -def answer():
-    +def the_answer():
-         return 42
-    diff --git a/test/test_hiker.py b/test/test_hiker.py
-    @@ -1,3 +1,3 @@
-    -from hiker import answer
-    +from hiker import the_answer
-     def test_answer():
-    -    assert 42 == answer()
-    +    assert 42 == the_answer()
-    """
-    with temporary_project(
-        files=hiker_project_files, name="rename_answer_to_the_answer"
-    ) as temp_project:
-        temp_project.pytest()
-        temp_project.exec("git init && git add .")
-
-        project = Project(temp_project.name)
-        hiker = project.get_resource("src/hiker.py")
-        test_hiker = project.get_resource("test/test_hiker.py")
-        rename = Rename(project, hiker, 5).get_changes("the_answer")
-        project.do(rename)
-
-        temp_project.pytest()
-
-        verify(
-            temp_project.exec(
-                "git diff | grep -v 'index' | grep -v \\+\\+\\+ | grep -v '\-\-\-'"
-            ),
-            options=auto_inline(),
-        )
 
 
 def test_find_offset():
@@ -292,15 +170,14 @@ def test_rename():
     -    assert 42 == answer()
     +    assert 42 == balloon()
     """
-    with temporary_project(files=hiker_project_files, name="rename_it") as temp_project:
-        temp_project.pytest()
-        temp_project.exec("git init && git add .")
+    with temporary_project(files=hiker_project_files, name="rename_it") as p:
+        p.pytest()
+        p.git_add()
 
-        temp_project.rename("answer", "balloon")
-        temp_project.pytest()
+        p.rename("answer", "balloon")
+
+        p.pytest()
         verify(
-            temp_project.exec(
-                "git diff | grep -v 'index' | grep -v \\+\\+\\+ | grep -v '\-\-\-'"
-            ),
+            p.git_diff(),
             options=auto_inline(),
         )
