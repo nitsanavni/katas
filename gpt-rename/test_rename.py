@@ -91,34 +91,34 @@ def temporary_project(*, files, name):
 def test_create_temp_project():
     """
     simple_project
-    
+
     hiker.py
     ---
     def answer():
         return 42
-    
-    
+
+
     test_hiker.py
     ---
     from hiker import answer
     from approvaltests import verify, Options
-    
-    
+
+
     def test_answer():
         '''
         42
         '''
         verify(answer(), options=Options().inline())
-    
-    
+
+
     ============================= test session starts ==============================
     platform darwin -- Python 3.11.5, pytest-8.0.2, pluggy-1.4.0
     rootdir: /Users/nitsanavni/code/katas/gpt-rename/simple_project
     plugins: approvaltests-11.0.0, anyio-3.7.1
     collected 1 item
-    
+
     test_hiker.py .                                                          [100%]
-    
+
     ============================== 1 passed in 0.04s ===============================
     """
     files = [
