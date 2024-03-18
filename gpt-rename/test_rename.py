@@ -11,7 +11,10 @@ import subprocess
 from pathlib import Path
 
 
-auto_inline = lambda: Options().with_reporter(Auto()).inline()
+scrub_pytest_duration = lambda s: re.sub(r"0\.\d+s", "🙈", s)
+auto_inline = (
+    lambda: Options().with_reporter(Auto()).inline().add_scrubber(scrub_pytest_duration)
+)
 
 
 def temporary_project(*, files, name):
@@ -87,9 +90,6 @@ def temporary_project(*, files, name):
     return TemporaryProject(files=files, name=name)
 
 
-scrub_pytest_duration = lambda s: re.sub(r"0\.\d+s", "🙈", s)
-
-
 def test_create_temp_project():
     """
     .                                                                        [100%]
@@ -119,7 +119,7 @@ def test_answer():
     with temporary_project(files=files, name="simple_project") as project:
         verify(
             project.exec("pytest -q"),
-            options=auto_inline().add_scrubber(scrub_pytest_duration),
+            options=auto_inline(),
         )
         assert "from hiker import answer" == project.test_hiker_py().splitlines()[0]
 
