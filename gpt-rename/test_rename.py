@@ -74,6 +74,23 @@ def temporary_project(*, files, name):
         def pytest(self):
             assert self.exec("pytest -q").find("fail") == -1
 
+        def offset(self, name):
+            project = Project(self.name)
+            for file in sorted(project.get_python_files(), key=lambda f: f.path):
+                match = re.search(rf"\b{name}\b", file.read())
+                if match:
+                    return file.path, match.start()
+
+        def rename(self, original_name, new_name):
+            project = Project(self.name)
+            offset = self.offset(original_name)
+            if offset:
+                path, offset = offset
+                rename = Rename(
+                    project, project.get_resource(path), offset
+                ).get_changes(new_name)
+                project.do(rename)
+
         def __str__(self):
             files = "\n\n".join(
                 [
@@ -241,6 +258,46 @@ def test_rename_and_show_git_diff():
 
         temp_project.pytest()
 
+        verify(
+            temp_project.exec(
+                "git diff | grep -v 'index' | grep -v \\+\\+\\+ | grep -v '\-\-\-'"
+            ),
+            options=auto_inline(),
+        )
+
+
+def test_find_offset():
+    """
+    [('src/hiker.py', 4), ('test/test_hiker.py', 29)]
+    """
+    with temporary_project(files=hiker_project_files, name="offsets") as temp_project:
+        verify(
+            [temp_project.offset(word) for word in ["answer", "test_answer"]],
+            options=auto_inline(),
+        )
+
+
+def test_rename():
+    """
+    diff --git a/src/hiker.py b/src/hiker.py
+    @@ -1,2 +1,2 @@
+    -def answer():
+    +def balloon():
+         return 42
+    diff --git a/test/test_hiker.py b/test/test_hiker.py
+    @@ -1,3 +1,3 @@
+    -from hiker import answer
+    +from hiker import balloon
+     def test_answer():
+    -    assert 42 == answer()
+    +    assert 42 == balloon()
+    """
+    with temporary_project(files=hiker_project_files, name="rename_it") as temp_project:
+        temp_project.pytest()
+        temp_project.exec("git init && git add .")
+
+        temp_project.rename("answer", "balloon")
+        temp_project.pytest()
         verify(
             temp_project.exec(
                 "git diff | grep -v 'index' | grep -v \\+\\+\\+ | grep -v '\-\-\-'"
