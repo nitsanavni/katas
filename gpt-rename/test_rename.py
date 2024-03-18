@@ -231,25 +231,6 @@ def test_chat():
     )
 
 
-def parse_rename(response: str):
-    pass
-
-
-def suggest_one_rename(s: Sandbox):
-    prompt = suggest_one_rename_prompt(s)
-    response = chat(prompt)
-    original_name, new_name = parse_rename(response)
-    return original_name, new_name
-
-
-def stest_suggest_one_rename():
-    with sandbox(files=hiker_project_files, name="suggest_one") as s:
-        verify(
-            suggest_one_rename(s),
-            options=auto_inline(),
-        )
-
-
 def test_sandbox_code():
     """
     src/hiker.py
