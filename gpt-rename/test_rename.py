@@ -4,6 +4,7 @@ from approvaltests import verify, Options
 from approvaltests.reporters.reporter_that_automatically_approves import (
     ReporterThatAutomaticallyApproves as Auto,
 )
+import re
 import os
 import shutil
 import subprocess
@@ -70,6 +71,9 @@ def temporary_project(*, files, name):
 
             return self.output
 
+        def pytest(self):
+            assert self.exec("pytest -q").find("fail") == -1
+
         def __str__(self):
             files = "\n\n".join(
                 [
@@ -91,36 +95,8 @@ def temporary_project(*, files, name):
 
 def test_create_temp_project():
     """
-    simple_project
-
-    hiker.py
-    ---
-    def answer():
-        return 42
-
-
-    test_hiker.py
-    ---
-    from hiker import answer
-    from approvaltests import verify, Options
-
-
-    def test_answer():
-        '''
-        42
-        '''
-        verify(answer(), options=Options().inline())
-
-
-    ============================= test session starts ==============================
-    platform darwin -- Python 3.11.5, pytest-8.0.2, pluggy-1.4.0
-    rootdir: /Users/nitsanavni/code/katas/gpt-rename/simple_project
-    plugins: approvaltests-11.0.0, anyio-3.7.1
-    collected 1 item
-
-    test_hiker.py .                                                          [100%]
-
-    ============================== 1 passed in 0.04s ===============================
+    .                                                                        [100%]
+    1 passed in 🙈
     """
     files = [
         (
@@ -144,8 +120,10 @@ def test_answer():
         ),
     ]
     with temporary_project(files=files, name="simple_project") as project:
-        project.exec("pytest")
-        verify(project, options=auto_inline())
+        verify(
+            project.exec("pytest -q"),
+            options=auto_inline().add_scrubber(lambda s: re.sub(r"0\.\d+s", "🙈", s)),
+        )
         assert "from hiker import answer" == project.test_hiker_py().splitlines()[0]
 
 
@@ -217,15 +195,16 @@ def test_rope_rename_in_multiple_files():
     with temporary_project(
         files=hiker_project_files, name="rename_answer_to_the_answer"
     ) as temp_project:
-        assert temp_project.exec("pytest").find("1 passed") != -1
+        temp_project.pytest()
 
         project = Project(temp_project.name)
         hiker = project.get_resource("src/hiker.py")
+
         test_hiker = project.get_resource("test/test_hiker.py")
         rename = Rename(project, hiker, 5).get_changes("the_answer")
         project.do(rename)
 
-        assert temp_project.exec("pytest").find("1 passed") != -1
+        temp_project.pytest()
 
         verify(
             "\n\n".join([f.read() for f in [hiker, test_hiker]]),
@@ -251,11 +230,8 @@ def test_rename_and_show_git_diff():
     with temporary_project(
         files=hiker_project_files, name="rename_answer_to_the_answer"
     ) as temp_project:
-        assert temp_project.exec("pytest").find("1 passed") != -1
-        assert (
-            temp_project.exec("git init").find("Initialized empty Git repository") != -1
-        )
-        temp_project.exec("git add .")
+        temp_project.pytest()
+        temp_project.exec("git init && git add .")
 
         project = Project(temp_project.name)
         hiker = project.get_resource("src/hiker.py")
@@ -263,7 +239,7 @@ def test_rename_and_show_git_diff():
         rename = Rename(project, hiker, 5).get_changes("the_answer")
         project.do(rename)
 
-        assert temp_project.exec("pytest").find("1 passed") != -1
+        temp_project.pytest()
 
         verify(
             temp_project.exec(
