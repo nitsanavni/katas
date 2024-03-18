@@ -1,6 +1,6 @@
 from rope.base.project import Project
 from rope.refactor.rename import Rename
-from approvaltests import verify, verify_executable_command, Options
+from approvaltests import verify, Options
 from approvaltests.reporters.reporter_that_automatically_approves import (
     ReporterThatAutomaticallyApproves as Auto,
 )
@@ -82,6 +82,13 @@ class Sandbox:
                 new_name
             )
             project.do(rename)
+
+    def cmd(self, command):
+        self.rename(*self.parse(command))
+
+    def parse(self, command):
+        a = re.match(r"/rename (\w+) to (\w+)", command).groups()
+        return a
 
     def git_add(self):
         return self.exec("git init && git add .")
@@ -237,9 +244,9 @@ def test_sandbox_code():
     ---
     def answer():
         return 42
-
+    
     ---
-
+    
     test/test_hiker.py
     ---
     from hiker import answer
@@ -266,5 +273,82 @@ def test_rename_prompt():
             "\n".join(
                 [f"{chat(suggest_one_rename_prompt(s), sample)}" for sample in range(5)]
             ),
+            options=auto_inline(),
+        )
+
+
+def test_rename_from_cmd():
+    """
+    diff --git a/src/hiker.py b/src/hiker.py
+    @@ -1,2 +1,2 @@
+    -def answer():
+    +def ultimate_answer():
+         return 42
+    diff --git a/test/test_hiker.py b/test/test_hiker.py
+    @@ -1,3 +1,3 @@
+    -from hiker import answer
+    +from hiker import ultimate_answer
+     def test_answer():
+    -    assert 42 == answer()
+    +    assert 42 == ultimate_answer()
+    """
+    with sandbox(files=hiker_project_files, name="rename_from_cmd") as s:
+        s.pytest()
+        s.git_add()
+
+        s.cmd("/rename answer to ultimate_answer")
+
+        s.pytest()
+        verify(
+            s.git_diff(),
+            options=auto_inline(),
+        )
+
+
+def test_rename_from_chat():
+    """
+    diff --git a/test_fizzbuzz.py b/test_fizzbuzz.py
+    @@ -1,5 +1,5 @@
+     from approvaltests import verify, Options
+    -def fizzbuzz(n):
+    +def generate_fizz_or_number(n):
+         return 'fizz' if n % 3 == 0 else str(n)
+     def test_fizzbuzz():
+         '''
+    @@ -9,4 +9,4 @@ def test_fizzbuzz():
+         4
+         5
+         '''
+    -    verify('\n'.join([fizzbuzz(n) for n in range(1, 6)]), options=Options().inline())
+    +    verify('\n'.join([generate_fizz_or_number(n) for n in range(1, 6)]), options=Options().inline())
+    """
+    files = [
+        (".gitignore", "__pycache__/\n"),
+        (
+            "test_fizzbuzz.py",
+            """from approvaltests import verify, Options
+def fizzbuzz(n):
+    return 'fizz' if n % 3 == 0 else str(n)
+def test_fizzbuzz():
+    '''
+    1
+    2
+    fizz
+    4
+    5
+    '''
+    verify('\\n'.join([fizzbuzz(n) for n in range(1, 6)]), options=Options().inline())
+""",
+        ),
+    ]
+    with sandbox(files=files, name="rename_from_chat") as s:
+        s.pytest()
+        s.git_add()
+
+        s.cmd(chat(suggest_one_rename_prompt(s), sample=2))
+
+        s.pytest()
+        verify(
+            s.git_diff(),
             options=auto_inline(),
         )
