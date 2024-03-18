@@ -1,7 +1,14 @@
+from rope.base.project import Project
+from rope.refactor.rename import Rename
 from approvaltests import verify, Options
 from approvaltests.reporters.reporter_that_automatically_approves import (
     ReporterThatAutomaticallyApproves as Auto,
 )
+import os
+import shutil
+import subprocess
+from pathlib import Path
+
 
 auto_inline = lambda: Options().with_reporter(Auto()).inline()
 
@@ -19,12 +26,6 @@ def test_rope_rename():
 print(a)
 """
     verify(rename(code=code, original_name="a", new_name="b"), options=auto_inline())
-
-
-import os
-import shutil
-import subprocess
-from pathlib import Path
 
 
 def temporary_project(*, files, name):
@@ -159,8 +160,6 @@ def test_rope_sees_our_file():
         ),
     ]
     with temporary_project(files=files, name="rope_sees") as project:
-        from rope.base.project import Project
-
         project = Project(project.name)
 
         verify(project.get_python_files()[0].read(), options=auto_inline())
@@ -178,14 +177,31 @@ def test_rope_rename_var():
         ),
     ]
     with temporary_project(files=files, name="rename_a_to_b") as project:
-        from rope.base.project import Project
-        from rope.refactor.rename import Rename
-
         project = Project(project.name)
-        rename = Rename(project, project.get_python_files()[0], 1).get_changes("b")
+        rename = Rename(project, project.get_python_files()[0], 0).get_changes("b")
         project.do(rename)
 
         verify(project.get_python_files()[0].read(), options=auto_inline())
+
+
+hiker_project_files = [
+    (
+        "src/hiker.py",
+        "def answer():\n    return 42\n",
+    ),
+    (
+        "test/test_hiker.py",
+        "from hiker import answer\ndef test_answer():\n    assert 42 == answer()\n",
+    ),
+    (
+        "pytest.ini",
+        "[pytest]\npythonpath = src\n",
+    ),
+    (
+        ".gitignore",
+        "__pycache__/\n",
+    ),
+]
 
 
 def test_rope_rename_in_multiple_files():
@@ -198,27 +214,10 @@ def test_rope_rename_in_multiple_files():
     def test_answer():
         assert 42 == the_answer()
     """
-    files = [
-        (
-            "src/hiker.py",
-            "def answer():\n    return 42\n",
-        ),
-        (
-            "test/test_hiker.py",
-            "from hiker import answer\ndef test_answer():\n    assert 42 == answer()\n",
-        ),
-        (
-            "pytest.ini",
-            "[pytest]\npythonpath = src\n",
-        ),
-    ]
     with temporary_project(
-        files=files, name="rename_answer_to_the_answer"
+        files=hiker_project_files, name="rename_answer_to_the_answer"
     ) as temp_project:
         assert temp_project.exec("pytest").find("1 passed") != -1
-
-        from rope.base.project import Project
-        from rope.refactor.rename import Rename
 
         project = Project(temp_project.name)
         hiker = project.get_resource("src/hiker.py")
@@ -249,35 +248,14 @@ def test_rename_and_show_git_diff():
     -    assert 42 == answer()
     +    assert 42 == the_answer()
     """
-    files = [
-        (
-            "src/hiker.py",
-            "def answer():\n    return 42\n",
-        ),
-        (
-            "test/test_hiker.py",
-            "from hiker import answer\ndef test_answer():\n    assert 42 == answer()\n",
-        ),
-        (
-            "pytest.ini",
-            "[pytest]\npythonpath = src\n",
-        ),
-        (
-            ".gitignore",
-            "__pycache__/\n",
-        ),
-    ]
     with temporary_project(
-        files=files, name="rename_answer_to_the_answer"
+        files=hiker_project_files, name="rename_answer_to_the_answer"
     ) as temp_project:
         assert temp_project.exec("pytest").find("1 passed") != -1
         assert (
             temp_project.exec("git init").find("Initialized empty Git repository") != -1
         )
         temp_project.exec("git add .")
-
-        from rope.base.project import Project
-        from rope.refactor.rename import Rename
 
         project = Project(temp_project.name)
         hiker = project.get_resource("src/hiker.py")
