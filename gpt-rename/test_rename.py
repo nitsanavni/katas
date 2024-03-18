@@ -17,8 +17,8 @@ auto_inline = (
 )
 
 
-def temporary_project(*, files, name):
-    class TemporaryProject:
+def sandbox(*, files, name):
+    class Sandbox:
         def __init__(self, files, name):
             self.name = name
             self.files = files
@@ -87,7 +87,7 @@ def temporary_project(*, files, name):
                 "git diff | grep -v 'index' | grep -v \\+\\+\\+ | grep -v '\-\-\-'"
             )
 
-    return TemporaryProject(files=files, name=name)
+    return Sandbox(files=files, name=name)
 
 
 def test_create_temp_project():
@@ -116,12 +116,12 @@ def test_answer():
 """,
         ),
     ]
-    with temporary_project(files=files, name="simple_project") as project:
+    with sandbox(files=files, name="simple_project") as s:
         verify(
-            project.exec("pytest -q"),
+            s.exec("pytest -q"),
             options=auto_inline(),
         )
-        assert "from hiker import answer" == project.test_hiker_py().splitlines()[0]
+        assert "from hiker import answer" == s.test_hiker_py().splitlines()[0]
 
 
 hiker_project_files = [
@@ -148,9 +148,9 @@ def test_find_offset():
     """
     [('src/hiker.py', 4), ('test/test_hiker.py', 29)]
     """
-    with temporary_project(files=hiker_project_files, name="offsets") as temp_project:
+    with sandbox(files=hiker_project_files, name="offsets") as s:
         verify(
-            [temp_project.offset(word) for word in ["answer", "test_answer"]],
+            [s.offset(word) for word in ["answer", "test_answer"]],
             options=auto_inline(),
         )
 
@@ -170,14 +170,14 @@ def test_rename():
     -    assert 42 == answer()
     +    assert 42 == balloon()
     """
-    with temporary_project(files=hiker_project_files, name="rename_it") as p:
-        p.pytest()
-        p.git_add()
+    with sandbox(files=hiker_project_files, name="rename_it") as s:
+        s.pytest()
+        s.git_add()
 
-        p.rename("answer", "balloon")
+        s.rename("answer", "balloon")
 
-        p.pytest()
+        s.pytest()
         verify(
-            p.git_diff(),
+            s.git_diff(),
             options=auto_inline(),
         )
