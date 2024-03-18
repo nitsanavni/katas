@@ -24,6 +24,7 @@ print(a)
 import os
 import shutil
 import subprocess
+from pathlib import Path
 
 
 def temporary_project(*, files, name):
@@ -38,8 +39,9 @@ def temporary_project(*, files, name):
 
             for filename, content in self.files:
                 full_filename = f"{self.name}/{filename}"
-                with open(full_filename, "w") as file:
-                    file.write(content)
+                path = Path(full_filename)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(content)
 
             def read_file(filename):
                 def r():
@@ -144,3 +146,89 @@ def test_answer():
         project.exec("pytest")
         verify(project, options=auto_inline())
         assert "from hiker import answer" == project.test_hiker_py().splitlines()[0]
+
+
+def test_rope_sees_our_file():
+    """
+    a = 0
+    """
+    files = [
+        (
+            "src/a.py",
+            "a = 0",
+        ),
+    ]
+    with temporary_project(files=files, name="rope_sees") as project:
+        from rope.base.project import Project
+
+        project = Project(project.name)
+
+        verify(project.get_python_files()[0].read(), options=auto_inline())
+
+
+def test_rope_rename_var():
+    """
+    b = 0
+    print(b)
+    """
+    files = [
+        (
+            "src/script.py",
+            "a = 0\nprint(a)\n",
+        ),
+    ]
+    with temporary_project(files=files, name="rename_a_to_b") as project:
+        from rope.base.project import Project
+        from rope.refactor.rename import Rename
+
+        project = Project(project.name)
+        rename = Rename(project, project.get_python_files()[0], 1).get_changes("b")
+        project.do(rename)
+
+        verify(project.get_python_files()[0].read(), options=auto_inline())
+
+
+def test_rope_rename_in_multiple_files():
+    """
+    def the_answer():
+        return 42
+
+
+    from hiker import the_answer
+    def test_answer():
+        assert 42 == the_answer()
+    """
+    files = [
+        (
+            "src/hiker.py",
+            "def answer():\n    return 42\n",
+        ),
+        (
+            "test/test_hiker.py",
+            "from hiker import answer\ndef test_answer():\n    assert 42 == answer()\n",
+        ),
+        (
+            "pytest.ini",
+            "[pytest]\npythonpath = src\n",
+        ),
+    ]
+    with temporary_project(
+        files=files, name="rename_answer_to_the_answer"
+    ) as temp_project:
+        assert temp_project.exec("pytest").find("1 passed") != -1
+
+        from rope.base.project import Project
+        from rope.refactor.rename import Rename
+
+        project = Project(temp_project.name)
+        hiker = project.get_resource("src/hiker.py")
+        test_hiker = project.get_resource("test/test_hiker.py")
+        rename = Rename(project, hiker, 5).get_changes("the_answer")
+        project.do(rename)
+
+        assert temp_project.exec("pytest").find("1 passed") != -1
+
+        verify(
+            "\n\n".join([f.read() for f in [hiker, test_hiker]]),
+            options=auto_inline(),
+        )
