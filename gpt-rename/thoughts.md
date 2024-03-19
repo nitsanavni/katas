@@ -1,0 +1,32 @@
+# Some Thoughts
+
+- Do we even need the 'Executable Command' pattern here?
+  - I'm failing to see where it comes into play
+- `Sandbox` terminology +1
+- `Sandbox` is doing a bit too much
+  - What are the responsibilities here?
+    - Sandbox
+      - Executing shell commands
+        - Running tests
+        - Git things
+    - The contents of the code project themselves
+    - Chat interface
+    - A refactoring system
+      - Refactoring decision engine
+        - Prompt
+          - Make space for reasoning
+            - evaluate the repo
+              - smells
+            - candidates
+            - evaluate/score the candidates
+            - choose
+            - imagine the result
+        - Parse response
+      - Refactoring actions
+        - Rename
+      - Workflow
+        - Stay in the Green
+        - Commit
+        - Make one refactoring at a time
+        - Ask the human
+        - Have a goal
