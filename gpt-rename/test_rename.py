@@ -101,7 +101,10 @@ class Sandbox:
     def code(self):
         project = Project(self.name)
         return "\n---\n\n".join(
-            [f"{file.path}\n---\n{file.read()}" for file in project.get_python_files()]
+            [
+                f"{file.path}\n---\n{file.read()}"
+                for file in sorted(project.get_python_files(), key=lambda f: f.path)
+            ]
         )
 
 
