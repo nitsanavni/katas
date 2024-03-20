@@ -247,9 +247,9 @@ def test_sandbox_code():
     ---
     def answer():
         return 42
-    
+
     ---
-    
+
     test/test_hiker.py
     ---
     from hiker import answer
@@ -309,22 +309,6 @@ def test_rename_from_cmd():
 
 
 def test_rename_from_chat():
-    """
-    diff --git a/test_fizzbuzz.py b/test_fizzbuzz.py
-    @@ -1,5 +1,5 @@
-     from approvaltests import verify, Options
-    -def fizzbuzz(n):
-    +def generate_fizz_or_number(n):
-         return 'fizz' if n % 3 == 0 else str(n)
-     def test_fizzbuzz():
-         '''
-    @@ -9,4 +9,4 @@ def test_fizzbuzz():
-         4
-         5
-         '''
-    -    verify('\n'.join([fizzbuzz(n) for n in range(1, 6)]), options=Options().inline())
-    +    verify('\n'.join([generate_fizz_or_number(n) for n in range(1, 6)]), options=Options().inline())
-    """
     files = [
         (".gitignore", "__pycache__/\n"),
         (
@@ -351,7 +335,5 @@ def test_fizzbuzz():
         s.cmd(chat(suggest_one_rename_prompt(s), sample=2))
 
         s.pytest()
-        verify(
-            s.git_diff(),
-            options=auto_inline(),
-        )
+        # inline is not working here
+        verify(s.git_diff(), options=Options().for_file.with_extension(".diff"))

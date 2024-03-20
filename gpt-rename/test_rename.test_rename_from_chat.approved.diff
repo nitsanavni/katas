@@ -1,0 +1,14 @@
+diff --git a/test_fizzbuzz.py b/test_fizzbuzz.py
+@@ -1,5 +1,5 @@
+ from approvaltests import verify, Options
+-def fizzbuzz(n):
++def generate_fizz_or_number(n):
+     return 'fizz' if n % 3 == 0 else str(n)
+ def test_fizzbuzz():
+     '''
+@@ -9,4 +9,4 @@ def test_fizzbuzz():
+     4
+     5
+     '''
+-    verify('\n'.join([fizzbuzz(n) for n in range(1, 6)]), options=Options().inline())
++    verify('\n'.join([generate_fizz_or_number(n) for n in range(1, 6)]), options=Options().inline())
