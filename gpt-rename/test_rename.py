@@ -337,5 +337,5 @@ def test_fizzbuzz():
         s.cmd(chat(suggest_one_rename_prompt(s), sample=2))
 
         s.pytest()
-        # inline is not working here
+        # inline is not working here 🤷 🐛
         verify(s.git_diff(), options=Options().for_file.with_extension(".diff"))
