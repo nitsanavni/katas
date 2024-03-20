@@ -15,6 +15,6 @@ def test_tennis6():
 
     verify(
         "\n".join(
-            [f"{p1}, {p2} -> {score(p1,p2)}" for p1, p2 in product(range(5), repeat=2)]
+            [f"{p1}, {p2} -> {score(p1,p2)}" for p1, p2 in product(range(6), repeat=2)]
         )
     )
