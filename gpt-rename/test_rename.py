@@ -87,8 +87,7 @@ class Sandbox:
         self.rename(*self.parse(command))
 
     def parse(self, command):
-        a = re.match(r"/rename (\w+) to (\w+)", command).groups()
-        return a
+        return re.match(r"/rename (\w+) to (\w+)", command).groups()
 
     def git_add(self):
         return self.exec("git init && git add .")
@@ -270,11 +269,14 @@ def test_rename_prompt():
     /rename answer to ultimate_answer
     /rename answer to get_the_answer_to_everything
     /rename answer to ultimate_answer
+    /rename answer to get_life_universe_everything_answer
+    /rename answer to ultimate_answer
+    /rename answer to get_the_answer_to_life_the_universe_and_everything
     """
     with sandbox(files=hiker_project_files, name="rename_prompt") as s:
         verify(
             "\n".join(
-                [f"{chat(suggest_one_rename_prompt(s), sample)}" for sample in range(5)]
+                [f"{chat(suggest_one_rename_prompt(s), sample)}" for sample in range(8)]
             ),
             options=auto_inline(),
         )
