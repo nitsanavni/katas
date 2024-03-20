@@ -379,4 +379,20 @@ def test_sandbox_from_existing_fs_project():
 
 
 def test_suggest_a_few_renames_for_tennis6():
-    pass
+    with Sandbox().with_name("tennis6_suggestions").from_path("../tennis-6") as s:
+        s.git_add()
+        s.pytest()
+        diffs = []
+
+        for sample in range(8):
+            prompt = suggest_one_rename_prompt(s)
+            response = chat(prompt, sample)
+            if response in diffs:
+                continue
+            diffs.append(response)
+            s.cmd(response)
+            s.pytest()
+            diffs.append(s.git_diff())
+            s.exec("git restore .")
+
+        verify("---\n".join(diffs))

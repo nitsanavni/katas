@@ -1,0 +1,174 @@
+/rename TennisGame6 to TennisMatchTracker---
+diff --git a/tennis6.py b/tennis6.py
+@@ -1,4 +1,4 @@
+-class TennisGame6:
++class TennisMatchTracker:
+     def __init__(self, player1Name, player2Name):
+         self.player1Name = player1Name
+         self.player2Name = player2Name
+diff --git a/test_tennis6.py b/test_tennis6.py
+@@ -1,4 +1,4 @@
+-from tennis6 import TennisGame6
++from tennis6 import TennisMatchTracker
+ 
+ from approvaltests import verify
+ from itertools import product
+@@ -6,7 +6,7 @@ from itertools import product
+ 
+ def test_tennis6():
+     def score(p1, p2):
+-        game = TennisGame6("player1", "player2")
++        game = TennisMatchTracker("player1", "player2")
+         for _ in range(p1):
+             game.won_point("player1")
+         for _ in range(p2):
+---
+/rename won_point to record_point_win---
+diff --git a/tennis6.py b/tennis6.py
+@@ -5,7 +5,7 @@ class TennisGame6:
+         self.player1Score = 0
+         self.player2Score = 0
+ 
+-    def won_point(self, playerName):
++    def record_point_win(self, playerName):
+         if playerName == "player1":
+             self.player1Score += 1
+         else:
+diff --git a/test_tennis6.py b/test_tennis6.py
+@@ -8,9 +8,9 @@ def test_tennis6():
+     def score(p1, p2):
+         game = TennisGame6("player1", "player2")
+         for _ in range(p1):
+-            game.won_point("player1")
++            game.record_point_win("player1")
+         for _ in range(p2):
+-            game.won_point("player2")
++            game.record_point_win("player2")
+         return game.score()
+ 
+     verify(
+---
+/rename TennisGame6 to TennisScoreKeeper---
+diff --git a/tennis6.py b/tennis6.py
+@@ -1,4 +1,4 @@
+-class TennisGame6:
++class TennisScoreKeeper:
+     def __init__(self, player1Name, player2Name):
+         self.player1Name = player1Name
+         self.player2Name = player2Name
+diff --git a/test_tennis6.py b/test_tennis6.py
+@@ -1,4 +1,4 @@
+-from tennis6 import TennisGame6
++from tennis6 import TennisScoreKeeper
+ 
+ from approvaltests import verify
+ from itertools import product
+@@ -6,7 +6,7 @@ from itertools import product
+ 
+ def test_tennis6():
+     def score(p1, p2):
+-        game = TennisGame6("player1", "player2")
++        game = TennisScoreKeeper("player1", "player2")
+         for _ in range(p1):
+             game.won_point("player1")
+         for _ in range(p2):
+---
+/rename TennisGame6 to TennisScoreTracker---
+diff --git a/tennis6.py b/tennis6.py
+@@ -1,4 +1,4 @@
+-class TennisGame6:
++class TennisScoreTracker:
+     def __init__(self, player1Name, player2Name):
+         self.player1Name = player1Name
+         self.player2Name = player2Name
+diff --git a/test_tennis6.py b/test_tennis6.py
+@@ -1,4 +1,4 @@
+-from tennis6 import TennisGame6
++from tennis6 import TennisScoreTracker
+ 
+ from approvaltests import verify
+ from itertools import product
+@@ -6,7 +6,7 @@ from itertools import product
+ 
+ def test_tennis6():
+     def score(p1, p2):
+-        game = TennisGame6("player1", "player2")
++        game = TennisScoreTracker("player1", "player2")
+         for _ in range(p1):
+             game.won_point("player1")
+         for _ in range(p2):
+---
+/rename won_point to score_point---
+diff --git a/tennis6.py b/tennis6.py
+@@ -5,7 +5,7 @@ class TennisGame6:
+         self.player1Score = 0
+         self.player2Score = 0
+ 
+-    def won_point(self, playerName):
++    def score_point(self, playerName):
+         if playerName == "player1":
+             self.player1Score += 1
+         else:
+diff --git a/test_tennis6.py b/test_tennis6.py
+@@ -8,9 +8,9 @@ def test_tennis6():
+     def score(p1, p2):
+         game = TennisGame6("player1", "player2")
+         for _ in range(p1):
+-            game.won_point("player1")
++            game.score_point("player1")
+         for _ in range(p2):
+-            game.won_point("player2")
++            game.score_point("player2")
+         return game.score()
+ 
+     verify(
+---
+/rename won_point to record_point---
+diff --git a/tennis6.py b/tennis6.py
+@@ -5,7 +5,7 @@ class TennisGame6:
+         self.player1Score = 0
+         self.player2Score = 0
+ 
+-    def won_point(self, playerName):
++    def record_point(self, playerName):
+         if playerName == "player1":
+             self.player1Score += 1
+         else:
+diff --git a/test_tennis6.py b/test_tennis6.py
+@@ -8,9 +8,9 @@ def test_tennis6():
+     def score(p1, p2):
+         game = TennisGame6("player1", "player2")
+         for _ in range(p1):
+-            game.won_point("player1")
++            game.record_point("player1")
+         for _ in range(p2):
+-            game.won_point("player2")
++            game.record_point("player2")
+         return game.score()
+ 
+     verify(
+---
+/rename won_point to add_point---
+diff --git a/tennis6.py b/tennis6.py
+@@ -5,7 +5,7 @@ class TennisGame6:
+         self.player1Score = 0
+         self.player2Score = 0
+ 
+-    def won_point(self, playerName):
++    def add_point(self, playerName):
+         if playerName == "player1":
+             self.player1Score += 1
+         else:
+diff --git a/test_tennis6.py b/test_tennis6.py
+@@ -8,9 +8,9 @@ def test_tennis6():
+     def score(p1, p2):
+         game = TennisGame6("player1", "player2")
+         for _ in range(p1):
+-            game.won_point("player1")
++            game.add_point("player1")
+         for _ in range(p2):
+-            game.won_point("player2")
++            game.add_point("player2")
+         return game.score()
+ 
+     verify(
