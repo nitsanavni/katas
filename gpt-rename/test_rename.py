@@ -23,13 +23,26 @@ auto_inline = (
 
 
 class Sandbox:
-    def __init__(self, files, name):
+    def __init__(self, files=None, name=None):
         self.name = name
         self.files = files
         self.output = None
 
+    def with_name(self, name):
+        self.name = name
+        return self
+
+    def from_path(self, path):
+        self.src_path = path
+        return self
+
     def __enter__(self):
         os.makedirs(self.name, exist_ok=True)
+
+        if hasattr(self, "src_path"):
+            shutil.copytree(self.src_path, self.name, dirs_exist_ok=True)
+
+            return self
 
         for filename, content in self.files:
             full_filename = f"{self.name}/{filename}"
@@ -339,3 +352,31 @@ def test_fizzbuzz():
         s.pytest()
         # inline is not working here 🤷 🐛
         verify(s.git_diff(), options=Options().for_file.with_extension(".diff"))
+
+
+def test_sandbox_from_existing_fs_project():
+    """
+    tennis6.py
+    ---
+    class TennisGame6:
+        def __init__(self, player1Name, player2Name):
+            self.player1Name = player1Name
+            self.player2Name = player2Name
+            self.player1Score = 0
+            self.player2Score = 0
+
+        def won_point(self, playerName):
+    ....                                                                        [100%]
+    1 passed in 🙈
+    """
+    with Sandbox().with_name("sandbox_from_existing_project").from_path(
+        "../tennis-6"
+    ) as s:
+        verify(
+            "\n".join(s.code().splitlines()[:10]) + "\n..." + s.exec("pytest -q"),
+            options=auto_inline(),
+        )
+
+
+def test_suggest_a_few_renames_for_tennis6():
+    pass

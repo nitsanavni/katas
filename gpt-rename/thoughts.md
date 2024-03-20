@@ -3,6 +3,8 @@
 - Do we even need the 'Executable Command' pattern here?
   - I'm failing to see where it comes into play
 - `Sandbox` terminology +1
+- `verify(git_diff())` after refactoring +1
+- I forget, is there a way to clear dangling approved files?
 - `Sandbox` is doing a bit too much
   - What are the responsibilities here?
     - Sandbox
