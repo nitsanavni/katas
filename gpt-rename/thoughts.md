@@ -5,6 +5,8 @@
 - `Sandbox` terminology +1
 - `verify(git_diff())` after refactoring +1
 - I forget, is there a way to clear dangling approved files?
+- get rename suggestions one at a time w/o having the prev renames in the history creates waste
+  - maybe better to ask for many renames at once, maybe a few per symbol
 - `Sandbox` is doing a bit too much
   - What are the responsibilities here?
     - Sandbox
