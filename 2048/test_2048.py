@@ -17,16 +17,102 @@ class Board:
                 self.board[i] = "0"
                 return
 
+    def collapse_left(self):
+        for i in range(0, 16, 4):
+            self.board[i : i + 4] = collapse(self.board[i : i + 4])
+
+    def collapse_right(self):
+        for i in range(0, 16, 4):
+            self.board[i : i + 4] = collapse(self.board[i : i + 4][::-1])[::-1]
+
     def __str__(self):
         return "\n".join(
             ["." + "".join(self.board[i : i + 4]) + "." for i in range(0, 16, 4)]
         )
 
 
-def test_board():
+def test_collapse_left():
     """
     .0   .
     .    .
+    .    .
+    .    .
+    ------
+    .0   .
+    .    .
+    .    .
+    .   0.
+    ------
+    .0  0.
+    .    .
+    .    .
+    .0   .
+    ------
+    .10  .
+    .    .
+    .    .
+    .0   .
+    ------
+    .10  .
+    .    .
+    .   0.
+    .0   .
+    """
+    board = Board()
+
+    result = [str(board)]
+
+    for i in range(4):
+        board.collapse_left()
+        board.add()
+        result.append(str(board))
+
+    verify("\n------\n".join(result), options=Options().inline())
+
+
+def test_collapse_right():
+    """
+    .    .
+    .    .
+    .0   .
+    .    .
+    ------
+    . 0  .
+    .    .
+    .   0.
+    .    .
+    ------
+    .  00.
+    .    .
+    .   0.
+    .    .
+    ------
+    .   1.
+    .    .
+    .   0.
+    .   0.
+    ------
+    .   1.
+    .    .
+    .  00.
+    .   0.
+    """
+    board = Board()
+
+    result = [str(board)]
+
+    for i in range(4):
+        board.collapse_right()
+        board.add()
+        result.append(str(board))
+
+    verify("\n------\n".join(result), options=Options().inline())
+
+
+def test_board():
+    """
+    .    .
+    .0   .
     .    .
     .    .
     """
