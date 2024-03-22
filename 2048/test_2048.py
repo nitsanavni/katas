@@ -25,6 +25,10 @@ class Board:
         for i in range(0, 16, 4):
             self.board[i : i + 4] = collapse(self.board[i : i + 4][::-1])[::-1]
 
+    def collapse_up(self):
+        for i in range(4):
+            self.board[i::4] = collapse(self.board[i::4])
+
     def collapse_down(self):
         for i in range(4):
             self.board[i::4] = collapse(self.board[i::4][::-1])[::-1]
@@ -35,7 +39,7 @@ class Board:
         )
 
 
-def test_collapse_left():
+def test_collapse_up():
     """
     .0   .
     .    .
@@ -47,20 +51,64 @@ def test_collapse_left():
     .    .
     .   0.
     ------
-    .0  0.
+    .00 0.
     .    .
     .    .
-    .0   .
+    .    .
     ------
-    .10  .
-    .    .
-    .    .
-    .0   .
-    ------
-    .10  .
+    .00 0.
     .    .
     .   0.
+    .    .
+    ------
+    .00 1.
+    .    .
     .0   .
+    .    .
+    ------
+    .1001.
+    .    .
+    .    .
+    .    .
+    """
+    board = Board()
+
+    result = [str(board)]
+
+    for i in range(5):
+        board.collapse_up()
+        board.add()
+        result.append(str(board))
+
+    verify("\n------\n".join(result), options=Options().inline())
+
+
+def test_collapse_left():
+    """
+    .    .
+    .    .
+    .   0.
+    .    .
+    ------
+    .    .
+    .    .
+    .0   .
+    .   0.
+    ------
+    .    .
+    .    .
+    .0   .
+    .0  0.
+    ------
+    .    .
+    .    .
+    .0 0 .
+    .1   .
+    ------
+    .    .
+    .0   .
+    .1   .
+    .1   .
     """
     board = Board()
 
@@ -76,30 +124,30 @@ def test_collapse_left():
 
 def test_collapse_right():
     """
-    .    .
-    .    .
-    .0   .
-    .    .
-    ------
     . 0  .
     .    .
-    .   0.
+    .    .
     .    .
     ------
-    .  00.
-    .    .
     .   0.
     .    .
-    ------
-    .   1.
     .    .
-    .   0.
     .   0.
     ------
-    .   1.
+    .   0.
+    .    .
     .    .
     .  00.
-    .   0.
+    ------
+    . 0 0.
+    .    .
+    .    .
+    .   1.
+    ------
+    . 0 1.
+    .    .
+    .    .
+    .   1.
     """
     board = Board()
 
@@ -116,33 +164,33 @@ def test_collapse_right():
 def test_collapse_down():
     """
     .    .
+    .  0 .
+    .    .
+    .    .
+    ------
+    .    .
+    .    .
+    . 0  .
+    .  0 .
+    ------
+    .    .
+    .    .
     .0   .
-    .    .
-    .    .
+    . 00 .
     ------
+    .    .
     . 0  .
+    .    .
+    .000 .
+    ------
+    .   0.
+    .    .
+    .    .
+    .010 .
+    ------
     .    .
     .    .
     .0   .
-    ------
-    .    .
-    .    .
-    .    .
-    .00 0.
-    ------
-    .    .
-    .    .
-    .    .
-    .0000.
-    ------
-    . 0  .
-    .    .
-    .    .
-    .0000.
-    ------
-    . 0  .
-    .    .
-    .    .
     .0100.
     """
     board = Board()
@@ -160,7 +208,7 @@ def test_collapse_down():
 def test_board():
     """
     .    .
-    .  0 .
+    .0   .
     .    .
     .    .
     """
