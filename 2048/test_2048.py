@@ -25,6 +25,10 @@ class Board:
         for i in range(0, 16, 4):
             self.board[i : i + 4] = collapse(self.board[i : i + 4][::-1])[::-1]
 
+    def collapse_down(self):
+        for i in range(4):
+            self.board[i::4] = collapse(self.board[i::4][::-1])[::-1]
+
     def __str__(self):
         return "\n".join(
             ["." + "".join(self.board[i : i + 4]) + "." for i in range(0, 16, 4)]
@@ -109,10 +113,54 @@ def test_collapse_right():
     verify("\n------\n".join(result), options=Options().inline())
 
 
-def test_board():
+def test_collapse_down():
     """
     .    .
     .0   .
+    .    .
+    .    .
+    ------
+    . 0  .
+    .    .
+    .    .
+    .0   .
+    ------
+    .    .
+    .    .
+    .    .
+    .00 0.
+    ------
+    .    .
+    .    .
+    .    .
+    .0000.
+    ------
+    . 0  .
+    .    .
+    .    .
+    .0000.
+    ------
+    . 0  .
+    .    .
+    .    .
+    .0100.
+    """
+    board = Board()
+
+    result = [str(board)]
+
+    for i in range(5):
+        board.collapse_down()
+        board.add()
+        result.append(str(board))
+
+    verify("\n------\n".join(result), options=Options().inline())
+
+
+def test_board():
+    """
+    .    .
+    .  0 .
     .    .
     .    .
     """
