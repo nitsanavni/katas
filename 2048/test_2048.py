@@ -9,19 +9,22 @@ random.seed(8264)
 
 class Board:
     def __init__(self):
-        self.score = 0
-        self.board = [" "] * 16
         self.down = lambda: self.move(self.collapse_down)
         self.up = lambda: self.move(self.collapse_up)
         self.left = lambda: self.move(self.collapse_left)
         self.right = lambda: self.move(self.collapse_right)
-        self.add()
-        self.score = 0
+        self.reset()
 
     def done(self):
         return all([done(self.board[i : i + 4]) for i in range(0, 16, 4)]) and all(
             [done(self.board[i::4]) for i in range(4)]
         )
+
+    def reset(self):
+        self.score = 0
+        self.board = [" "] * 16
+        self.add()
+        self.score = 0
 
     def add(self):
         if len(compact(self.board)) == 16:
@@ -59,7 +62,7 @@ class Board:
         log_2_score = math.log2(self.score) if self.score > 0 else 0
         d = " game over" if self.done() else ""
         return (
-            f"{log_2_score:.3f} {d}"
+            f"{log_2_score:.3f}{d}"
             + "\n"
             + "\n".join(
                 ["|" + "".join(self.board[i : i + 4]) + "|" for i in range(0, 16, 4)]
@@ -74,8 +77,6 @@ import keyboard
 from log_update import LogUpdate
 import random
 import time
-
-# Your existing Board class definition remains unchanged
 
 
 def test_collapse_up():
@@ -471,18 +472,81 @@ def done(vector):
 
 def test_board_done():
     """
-    6.687
-    |2402|
-    |4350|
+    6.109 game over
+    |0131|
+    |4310|
+    |0132|
+    |1320|
+    ------
+    7.066 game over
+    |0231|
+    |1450|
+    |3542|
+    |1021|
+    ------
+    7.011 game over
+    |2310|
+    |3541|
+    |2123|
+    |1205|
+    ------
+    7.022 game over
+    |1610|
+    |2321|
+    |1432|
+    |0320|
+    ------
+    6.190 game over
+    |0420|
+    |3041|
+    |1312|
     |0121|
+    ------
+    6.409 game over
+    |0310|
+    |1202|
+    |3531|
     |1310|
+    ------
+    7.033 game over
+    |1320|
+    |5453|
+    |3121|
+    |1310|
+    ------
+    7.109 game over
+    |2021|
+    |0165|
+    |1420|
+    |0101|
+    ------
+    6.600 game over
+    |3010|
+    |0343|
+    |2151|
+    |1310|
+    ------
+    7.238 game over
+    |0104|
+    |1242|
+    |4164|
+    |1020|
     """
     board = Board()
 
-    while not board.done():
+    def random_move():
         random.choice([board.up, board.down, board.left, board.right])()
 
-    verify(board, options=Options().inline())
+    def random_play_until_done():
+        board.reset()
+        while not board.done():
+            random_move()
+        return board
+
+    verify(
+        "\n------\n".join([str(random_play_until_done()) for _ in range(10)]),
+        options=Options().inline(),
+    )
 
 
 def test_done_4_vector():
