@@ -1,3 +1,4 @@
+import math
 from approvaltests import verify, Options
 from log_update import LogUpdate
 
@@ -8,12 +9,19 @@ random.seed(8264)
 
 class Board:
     def __init__(self):
+        self.score = 0
         self.board = [" "] * 16
         self.down = lambda: self.move(self.collapse_down)
         self.up = lambda: self.move(self.collapse_up)
         self.left = lambda: self.move(self.collapse_left)
         self.right = lambda: self.move(self.collapse_right)
         self.add()
+        self.score = 0
+
+    def done(self):
+        return all([done(self.board[i : i + 4]) for i in range(0, 16, 4)]) and all(
+            [done(self.board[i::4]) for i in range(4)]
+        )
 
     def add(self):
         if len(compact(self.board)) == 16:
@@ -22,6 +30,7 @@ class Board:
             i = random.choice(range(16))
             if self.board[i] == " ":
                 self.board[i] = "0"
+                self.score += 1
                 return
 
     def move(self, collapse_fn):
@@ -47,8 +56,14 @@ class Board:
             self.board[i::4] = collapse(self.board[i::4][::-1])[::-1]
 
     def __str__(self):
-        return "\n".join(
-            ["." + "".join(self.board[i : i + 4]) + "." for i in range(0, 16, 4)]
+        log_2_score = math.log2(self.score) if self.score > 0 else 0
+        d = " game over" if self.done() else ""
+        return (
+            f"{log_2_score:.3f} {d}"
+            + "\n"
+            + "\n".join(
+                ["|" + "".join(self.board[i : i + 4]) + "|" for i in range(0, 16, 4)]
+            )
         )
 
     def sum(self):
@@ -65,35 +80,41 @@ import time
 
 def test_collapse_up():
     """
-    .0   .
-    .    .
-    .    .
-    .    .
+    0.000
+    |0   |
+    |    |
+    |    |
+    |    |
     ------
-    .0   .
-    .    .
-    .    .
-    .   0.
+    0.000
+    |0   |
+    |    |
+    |    |
+    |   0|
     ------
-    .00 0.
-    .    .
-    .    .
-    .    .
+    1.000
+    |00 0|
+    |    |
+    |    |
+    |    |
     ------
-    .00 0.
-    .    .
-    .   0.
-    .    .
+    1.585
+    |00 0|
+    |    |
+    |   0|
+    |    |
     ------
-    .00 1.
-    .    .
-    .0   .
-    .    .
+    2.000
+    |00 1|
+    |    |
+    |0   |
+    |    |
     ------
-    .1001.
-    .    .
-    .    .
-    .    .
+    2.322
+    |1001|
+    |    |
+    |    |
+    |    |
     """
     board = Board()
 
@@ -109,30 +130,35 @@ def test_collapse_up():
 
 def test_collapse_left():
     """
-    .    .
-    .    .
-    .   0.
-    .    .
+    0.000
+    |    |
+    |    |
+    |   0|
+    |    |
     ------
-    .    .
-    .    .
-    .0   .
-    .   0.
+    0.000
+    |    |
+    |    |
+    |0   |
+    |   0|
     ------
-    .    .
-    .    .
-    .0   .
-    .0  0.
+    1.000
+    |    |
+    |    |
+    |0   |
+    |0  0|
     ------
-    .    .
-    .    .
-    .0 0 .
-    .1   .
+    1.585
+    |    |
+    |    |
+    |0 0 |
+    |1   |
     ------
-    .    .
-    .0   .
-    .1   .
-    .1   .
+    2.000
+    |    |
+    |0   |
+    |1   |
+    |1   |
     """
     board = Board()
 
@@ -148,30 +174,35 @@ def test_collapse_left():
 
 def test_collapse_right():
     """
-    . 0  .
-    .    .
-    .    .
-    .    .
+    0.000
+    | 0  |
+    |    |
+    |    |
+    |    |
     ------
-    .   0.
-    .    .
-    .    .
-    .   0.
+    0.000
+    |   0|
+    |    |
+    |    |
+    |   0|
     ------
-    .   0.
-    .    .
-    .    .
-    .  00.
+    1.000
+    |   0|
+    |    |
+    |    |
+    |  00|
     ------
-    . 0 0.
-    .    .
-    .    .
-    .   1.
+    1.585
+    | 0 0|
+    |    |
+    |    |
+    |   1|
     ------
-    . 0 1.
-    .    .
-    .    .
-    .   1.
+    2.000
+    | 0 1|
+    |    |
+    |    |
+    |   1|
     """
     board = Board()
 
@@ -187,35 +218,41 @@ def test_collapse_right():
 
 def test_collapse_down():
     """
-    .    .
-    .  0 .
-    .    .
-    .    .
+    0.000
+    |    |
+    |  0 |
+    |    |
+    |    |
     ------
-    .    .
-    .    .
-    . 0  .
-    .  0 .
+    0.000
+    |    |
+    |    |
+    | 0  |
+    |  0 |
     ------
-    .    .
-    .    .
-    .0   .
-    . 00 .
+    1.000
+    |    |
+    |    |
+    |0   |
+    | 00 |
     ------
-    .    .
-    . 0  .
-    .    .
-    .000 .
+    1.585
+    |    |
+    | 0  |
+    |    |
+    |000 |
     ------
-    .   0.
-    .    .
-    .    .
-    .010 .
+    2.000
+    |   0|
+    |    |
+    |    |
+    |010 |
     ------
-    .    .
-    .    .
-    .0   .
-    .0100.
+    2.322
+    |    |
+    |    |
+    |0   |
+    |0100|
     """
     board = Board()
 
@@ -231,120 +268,142 @@ def test_collapse_down():
 
 def test_board():
     """
-    .    .
-    .0   .
-    .    .
-    .    .
+    0.000
+    |    |
+    |0   |
+    |    |
+    |    |
     """
     verify(Board(), options=Options().inline())
 
 
 def test_down():
     """
-    .    .
-    . 0  .
-    .    .
-    .    .
+    0.000
+    |    |
+    | 0  |
+    |    |
+    |    |
     ------
-    .   0.
-    .    .
-    .    .
-    . 0  .
+    0.000
+    |   0|
+    |    |
+    |    |
+    | 0  |
     ------
-    . 0  .
-    .    .
-    .    .
-    . 0 0.
+    1.000
+    | 0  |
+    |    |
+    |    |
+    | 0 0|
     ------
-    .    .
-    .    .
-    .  0 .
-    . 1 0.
+    1.585
+    |    |
+    |    |
+    |  0 |
+    | 1 0|
     ------
-    .    .
-    .   0.
-    .    .
-    . 100.
+    2.000
+    |    |
+    |   0|
+    |    |
+    | 100|
     ------
-    . 0  .
-    .    .
-    .    .
-    . 101.
+    2.322
+    | 0  |
+    |    |
+    |    |
+    | 101|
     ------
-    .    .
-    .    .
-    .00  .
-    . 101.
+    2.585
+    |    |
+    |    |
+    |00  |
+    | 101|
     ------
-    .    .
-    .0   .
-    . 0  .
-    .0101.
+    2.807
+    |    |
+    |0   |
+    | 0  |
+    |0101|
     ------
-    .    .
-    . 0  .
-    . 0  .
-    .1101.
+    3.000
+    |    |
+    | 0  |
+    | 0  |
+    |1101|
     ------
-    .    .
-    .   0.
-    . 1  .
-    .1101.
+    3.170
+    |    |
+    |   0|
+    | 1  |
+    |1101|
     ------
-    .    .
-    .    .
-    .  00.
-    .1201.
+    3.322
+    |    |
+    |    |
+    |  00|
+    |1201|
     ------
-    .    .
-    .   0.
-    .   0.
-    .1211.
+    3.459
+    |    |
+    |   0|
+    |   0|
+    |1211|
     ------
-    .    .
-    .    .
-    .  01.
-    .1211.
+    3.585
+    |    |
+    |    |
+    |  01|
+    |1211|
     ------
-    . 0  .
-    .    .
-    .  0 .
-    .1212.
+    3.700
+    | 0  |
+    |    |
+    |  0 |
+    |1212|
     ------
-    .   0.
-    .    .
-    . 00 .
-    .1212.
+    3.807
+    |   0|
+    |    |
+    | 00 |
+    |1212|
     ------
-    .0   .
-    .    .
-    . 000.
-    .1212.
+    3.907
+    |0   |
+    |    |
+    | 000|
+    |1212|
     ------
-    . 0  .
-    .    .
-    .0000.
-    .1212.
+    4.000
+    | 0  |
+    |    |
+    |0000|
+    |1212|
     ------
-    .    .
-    . 0  .
-    .0100.
-    .1212.
+    4.087
+    |    |
+    | 0  |
+    |0100|
+    |1212|
     ------
-    .    .
-    . 0  .
-    .0100.
-    .1212.
+    4.087
+    |    |
+    | 0  |
+    |0100|
+    |1212|
     ------
-    .    .
-    . 0  .
-    .0100.
-    .1212.
+    4.087
+    |    |
+    | 0  |
+    |0100|
+    |1212|
     ------
-    .    .
-    . 0  .
-    .0100.
-    .1212.
+    4.087
+    |    |
+    | 0  |
+    |0100|
+    |1212|
     """
     board = Board()
 
@@ -401,6 +460,51 @@ def collapse(four_vector):
     return c + [" "] * (4 - len(c))
 
 
+def done(vector):
+    if " " in vector:
+        return False
+    for i in range(len(vector) - 1):
+        if vector[i] == vector[i + 1]:
+            return False
+    return True
+
+
+def test_board_done():
+    """
+    6.687
+    |2402|
+    |4350|
+    |0121|
+    |1310|
+    """
+    board = Board()
+
+    while not board.done():
+        random.choice([board.up, board.down, board.left, board.right])()
+
+    verify(board, options=Options().inline())
+
+
+def test_done_4_vector():
+    """
+    .  00. -> False
+    .1100. -> False
+    .   1. -> False
+    .00  . -> False
+    .0000. -> False
+    .1204. -> True
+    """
+    verify(
+        "\n".join(
+            [
+                f".{v}. -> {done(list(v))}"
+                for v in ["  00", "1100", "   1", "00  ", "0000", "1204"]
+            ]
+        ),
+        options=Options().inline(),
+    )
+
+
 def test_collapse_4_vector():
     """
     .  00. -> .1   .
@@ -436,6 +540,7 @@ if __name__ == "__main__":
     log_update = LogUpdate()
 
     def on_press(event):
+        global board
         if event.name == "up":
             board.up()
         elif event.name == "down":
@@ -447,6 +552,8 @@ if __name__ == "__main__":
         elif event.name == "q":
             keyboard.unhook_all()
             exit(0)
+        elif event.name == "r":
+            board = Board()
         log_update.render("\n\r" + str(board))
 
     keyboard.on_press(on_press)
