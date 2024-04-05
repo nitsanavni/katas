@@ -79,7 +79,7 @@ def test_chant():
 
 
 def main():
-    print(chant(sys.argv[0]))
+    print(chant(sys.argv[1]))
 
 
 if __name__ == "__main__":
@@ -88,26 +88,18 @@ if __name__ == "__main__":
 
 def test_chant_e2e():
     """
-    Give me a c!
-    C!
-    Give me a h!
+    Give me a H!
     H!
-    Give me a a!
-    A!
-    Give me a n!
-    N!
-    Give me a t!
-    T!
-    Give me a .!
-    !
-    Give me a p!
-    P!
-    Give me a y!
-    Y!
+    Give me a e!
+    e!
+    Give me a l!
+    l!
+    Give me a l!
+    l!
+    Give me a o!
+    o!
     What did that spell?!
-    Chant!
-    
-    But it looks like there might have been a mix-up with a "." instead of another letter. If we were aiming for "chant," then that's correct without the period. If the intent was something else, like "chantpy," I followed your instructions literally, even with the unexpected "." So, it spelled "Chant."
+    Hello!
     """
     verify(
         subprocess.run(
