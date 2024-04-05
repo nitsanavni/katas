@@ -2,8 +2,9 @@ from filecache import filecache
 import openai
 import subprocess
 import sys
+from functools import reduce
 
-from typing import List
+from typing import List, Dict
 
 from approvaltests import verify, Options
 
@@ -49,16 +50,49 @@ def format(messages: List):
     return "\n".join([message["content"] for message in messages])
 
 
-def chant(letters: str):
-    messages = []
-    for letter in letters:
-        messages.append(give_me_a_message(letter))
-        response = chat(messages)
-        messages.append({"role": "assistant", "content": response})
-    messages.append({"role": "user", "content": "What did that spell?!"})
-    messages.append({"role": "assistant", "content": chat(messages)})
+# https://chat.openai.com/share/5a6f3e66-d54c-40d2-a945-10da9eba1580
+def chat_multi(user_messages: List[str]) -> List[Dict]:
+    return reduce(
+        lambda acc, user_message: acc
+        + [
+            {"role": "user", "content": user_message},
+            {
+                "role": "assistant",
+                "content": chat(acc + [{"role": "user", "content": user_message}]),
+            },
+        ],
+        user_messages,
+        [],
+    )
 
-    return format(messages)
+
+def test_chat_multi():
+    """
+    Hello!
+    Hello! How can I assist you today?
+    How are you?
+    I'm just a computer program, so I don't have feelings, but thanks for asking! How can I assist you today?
+    """
+    verify(
+        format(
+            chat_multi(
+                user_messages=[
+                    "Hello!",
+                    "How are you?",
+                ]
+            )
+        ),
+        options=Options().inline(),
+    )
+
+
+def chant(letters: str):
+    return format(
+        chat_multi(
+            user_messages=[f"Give me a {letter}!" for letter in letters]
+            + ["What did that spell?!"]
+        )
+    )
 
 
 def test_chant():
