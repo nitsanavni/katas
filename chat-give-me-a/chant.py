@@ -6,7 +6,9 @@ from functools import reduce
 
 from typing import List, Dict
 
-from approvaltests import verify, Options
+from approvaltests import verify as v, Options
+
+verify = lambda x: v(x, options=Options().inline())
 
 
 @filecache(1e9)
@@ -28,7 +30,6 @@ def test_chat():
                 {"role": "user", "content": "Hello!"},
             ]
         ),
-        options=Options().inline(),
     )
 
 
@@ -40,10 +41,7 @@ def test_chat_give_me_a_message():
     """
     {'role': 'user', 'content': 'Give me a H!'}
     """
-    verify(
-        give_me_a_message("H"),
-        options=Options().inline(),
-    )
+    verify(give_me_a_message("H"))
 
 
 def format(messages: List):
@@ -81,8 +79,7 @@ def test_chat_multi():
                     "How are you?",
                 ]
             )
-        ),
-        options=Options().inline(),
+        )
     )
 
 
@@ -106,10 +103,7 @@ def test_chant():
     What did that spell?!
     That spelled "ABC"!
     """
-    verify(
-        chant("ABC"),
-        options=Options().inline(),
-    )
+    verify(chant("ABC"))
 
 
 def main():
@@ -118,6 +112,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def run_this_process(param: str):
+    return subprocess.run(
+        ["python", "chant.py", param], capture_output=True
+    ).stdout.decode()
 
 
 def test_chant_e2e():
@@ -135,9 +135,4 @@ def test_chant_e2e():
     What did that spell?!
     Hello!
     """
-    verify(
-        subprocess.run(
-            ["python", "chant.py", "Hello"], capture_output=True
-        ).stdout.decode(),
-        options=Options().inline(),
-    )
+    verify(run_this_process("Hello"))
