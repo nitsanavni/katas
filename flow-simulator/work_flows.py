@@ -33,35 +33,23 @@ def test_sim_one_person_one_item():
 
 
 import random
-from filecache import filecache
+
+from reproducible import reproducible
 
 
-def make_rand():
-    sample = 0
-
-    @filecache
-    def r(min, max, sample):
-        return min + (max - min) * random.random()
-
-    def ret(min, max):
-        nonlocal sample
-        sample += 1
-        return r(min, max, sample)
-
-    return ret
-
-
-rand = make_rand()
+@reproducible
+def rand(a, b):
+    return random.uniform(a, b)
 
 
 def test_rand():
     """
-    1.2383511314943436
-    0.9147438225748854
-    1.1743273635374787
-    2.0901428039388725
-    0.546973027650977
-    1.3432958848848304
+    2.617159389667221
+    1.1478830982036143
+    2.5553596946849457
+    0.8398872670793651
+    0.67705302889414
+    1.7658263677548296
     """
     verify(
         "\n".join([str(rand(0.5, 3.1)) for _ in range(6)]),
