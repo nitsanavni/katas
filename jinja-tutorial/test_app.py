@@ -16,7 +16,7 @@ def verify_page(page: Page):
     verify(render(page), options=Options().with_reporter(Auto()).inline())
 
 
-class App:
+class AppDriver:
     def __init__(self, page: Page):
         self.page = page
         self.goto("http://127.0.0.1:5000/")
@@ -35,10 +35,10 @@ class App:
 
 @pytest.fixture
 def app(page):
-    return App(page)
+    return AppDriver(page)
 
 
-def test_rendering(app: App):
+def test_rendering(app: AppDriver):
     """
                                 Welcome! It's Wednesday
     
@@ -47,7 +47,7 @@ def test_rendering(app: App):
     """
     app.verify()
 
-def test_click(app: App):
+def test_click(app: AppDriver):
     """
                                 Welcome! It's Wednesday
     
