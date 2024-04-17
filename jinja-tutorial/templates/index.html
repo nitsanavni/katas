@@ -1,0 +1,5 @@
+{% extends 'base.html' %} {% block content %}
+<p>Hello from index.html</p>
+<button hx-get="/time" hx-target="#time-target">get time</button>
+<div id="time-target"></div>
+{% endblock %}

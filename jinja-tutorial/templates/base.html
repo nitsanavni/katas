@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/response-targets.js"></script>
+  </head>
+  <body>
+    <h1>Welcome! It's {{ day_of_week }}</h1>
+    {% block content %}{% endblock %}
+  </body>
+</html>
