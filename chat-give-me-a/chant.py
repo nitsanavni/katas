@@ -14,7 +14,7 @@ verify = lambda x: v(x, options=Options().inline())
 @filecache(1e9)
 def chat(messages: List, sample=0):
     return (
-        openai.chat.completions.create(model="gpt-4-turbo-preview", messages=messages)
+        openai.chat.completions.create(model="gpt-4o", messages=messages)
         .choices[0]
         .message.content
     )
@@ -22,7 +22,7 @@ def chat(messages: List, sample=0):
 
 def test_chat():
     """
-    Hello! How can I assist you today?
+    Hi there! How can I assist you today?
     """
     verify(
         chat(
@@ -69,7 +69,7 @@ def test_chat_multi():
     Hello!
     Hello! How can I assist you today?
     How are you?
-    I'm just a computer program, so I don't have feelings, but thanks for asking! How can I assist you today?
+    I'm just a computer program, so I don't have feelings, but thanks for asking! How can I help you today?
     """
     verify(
         format(
@@ -86,7 +86,7 @@ def test_chat_multi():
 def chant(letters: str):
     return format(
         chat_multi(
-            user_messages=[f"Give me a {letter}!" for letter in letters]
+            user_messages=["Let's chant, are you ready?"]+[f"Give me a {letter}!" for letter in letters]
             + ["What did that spell?!"]
         )
     )
@@ -94,6 +94,8 @@ def chant(letters: str):
 
 def test_chant():
     """
+    Let's chant, are you ready?
+    Absolutely! Let's chant together! What kind of chant would you like to do?
     Give me a A!
     A!
     Give me a B!
@@ -101,7 +103,7 @@ def test_chant():
     Give me a C!
     C!
     What did that spell?!
-    That spelled "ABC"!
+    ABC! 🎉 Great job!
     """
     verify(chant("ABC"))
 
@@ -122,17 +124,19 @@ def run_this_process(param: str):
 
 def test_chant_e2e():
     """
+    Let's chant, are you ready?
+    Absolutely! Let's chant together! What kind of chant would you like to do?
     Give me a H!
     H!
     Give me a e!
-    e!
+    E!
     Give me a l!
-    l!
+    L!
     Give me a l!
-    l!
+    L!
     Give me a o!
-    o!
+    O!
     What did that spell?!
-    Hello!
+    HELLO! 🎉
     """
     verify(run_this_process("Hello"))
