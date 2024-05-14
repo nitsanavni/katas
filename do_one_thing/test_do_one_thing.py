@@ -2,9 +2,8 @@ from typing import List
 from filecache import filecache
 import openai
 import subprocess
-import tempfile
-import shutil
 import os
+import tempfile
 from approvaltests import verify, Options
 from approvaltests.inline.inline_options import InlineOptions
 
@@ -48,10 +47,17 @@ def test_exec():
 
 
 class Plan:
-    def __init__(self, file):
+    def __init__(self, file=None):
         self.file = file
+        if None == self.file:
+            self.file = tempfile.NamedTemporaryFile(
+                mode="w+", prefix="tmp_plan_", suffix=".md", dir="."
+            )
         if os.stat(self.file.name).st_size == 0:
             self.file.write("** empty plan **")
+
+    def __del__(self):
+        self.file.close()
 
     def __str__(self) -> str:
         self.file.seek(0)
@@ -72,24 +78,14 @@ def test_empty_plan():
     """
     ** empty plan **
     """
-    path = "tmp_plan.md"
-    if os.path.exists(path):
-        os.remove(path)
-    plan = Plan(file=open(path, mode="w+"))
+    plan = Plan()
     verify(plan, options=semi)
-    if os.path.exists(path):
-        os.remove(path)
 
 
 def test_add_to_plan():
     """
     - [ ] **get the date**
     """
-    path = "tmp_plan_2.md"
-    if os.path.exists(path):
-        os.remove(path)
-    plan = Plan(file=open(path, mode="w+"))
+    plan = Plan()
     plan.add("get the date")
     verify(plan, options=semi)
-    if os.path.exists(path):
-        os.remove(path)
