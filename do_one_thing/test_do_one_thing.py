@@ -89,3 +89,13 @@ def test_add_to_plan():
     plan = Plan()
     plan.add("get the date")
     verify(plan, options=semi)
+
+
+def test_plan_current():
+    """
+    - [ ] **get the date**
+    """
+    plan = Plan()
+    plan.add("get the date")
+    plan.add("get the time")
+    verify(str(plan), options=semi)
