@@ -39,20 +39,32 @@ def test_prompt():
     )
 
 
+def do_the_todo_prompt(code: str):
+    return f"""<task>Do **just** the TODO in the following code.</task>
+<response_format>
+Thoughts:
+{{your thoughts here}}
+Code:
+{{your code here}}
+</response_format>
+<code>{code}</code>"""
+
+
 def do_the_todo(code: str):
-    return prompt(f"Do the TODO in the following code:\n{code}")
+    return prompt(do_the_todo_prompt(code))
+
 
 def test_do_the_todo():
     """
-    Sure, here is the code with a more descriptive function name:
+    Thoughts:
+    The function name `applesauce` is not descriptive of what the function does. A better name should reflect its purpose, which is to greet a user by name.
     
+    Code:
     ```python
-    # Name the function to better reflect its purpose
-    def greet_user(name):
-        return f"Hello, {name}!"
-    ``` 
-    
-    The new name `greet_user` makes it clear that the function is intended to greet a user by their name.
+    # Changed the function name to better represent its purpose
+    def greet_user(x):
+        return f"Hello, {x}!"
+    ```
     ***** DELETE ME TO APPROVE *****
     """
     code = """# TODO: give a better name to this function
