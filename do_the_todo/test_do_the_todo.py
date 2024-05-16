@@ -47,28 +47,46 @@ Thoughts:
 Code:
 {{your code here}}
 </response_format>
+<constraint>no code comments</constraint>
+<constraint>don't leave the TODO itself in the code</constraint>
 <code>{code}</code>"""
 
 
-def do_the_todo(code: str):
-    return prompt(do_the_todo_prompt(code))
+def strip_response(response: str) -> str:
+    return "\n".join(
+        [
+            l.replace("<code>", "").replace("</code>", "")
+            for l in response.split("Code:\n")[1].splitlines()
+            if "```" not in l
+        ]
+    )
+
+
+def do_the_todo(code: str, sample=0) -> str:
+    return strip_response(prompt(do_the_todo_prompt(code), sample))
 
 
 def test_do_the_todo():
     """
-    Thoughts:
-    The function name `applesauce` is not descriptive of what the function does. A better name should reflect its purpose, which is to greet a user by name.
-    
-    Code:
-    ```python
-    # Changed the function name to better represent its purpose
+    def generate_greeting(x):
+        return f"Hello, {x}!"
+    def greet_person(x):
+        return f"Hello, {x}!"
+
     def greet_user(x):
         return f"Hello, {x}!"
-    ```
-    ***** DELETE ME TO APPROVE *****
+
+    def generate_greeting(x):
+        return f"Hello, {x}!"
+
+    def generate_greeting(x):
+        return f"Hello, {x}!"
     """
     code = """# TODO: give a better name to this function
 def applesauce(x):
     return f"Hello, {x}!"
 """
-    verify(do_the_todo(code), options=Options().inline(InlineOptions.semi_automatic()))
+    verify(
+        "\n".join([do_the_todo(code, sample) for sample in range(5)]),
+        options=Options().inline(InlineOptions.semi_automatic()),
+    )
