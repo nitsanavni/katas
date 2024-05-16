@@ -1,4 +1,5 @@
 import openai
+from filecache import filecache
 
 import pytest
 import tempfile
@@ -16,5 +17,23 @@ def temp_file():
     ) as temp_file:
         yield temp_file.name
 
-def test_temp_file(temp_file):
-    assert temp_file == "aldsg"
+
+@filecache(1e9)
+def prompt(text: str, sample=0):
+    return (
+        openai.chat.completions.create(
+            model="gpt-4o", messages=[{"role": "user", "content": text}]
+        )
+        .choices[0]
+        .message.content
+    )
+
+
+def test_prompt():
+    """
+    Who's there?
+    """
+    verify(
+        prompt("knock knock"),
+        options=Options().inline(InlineOptions.semi_automatic()),
+    )
