@@ -15,46 +15,46 @@
 
 CHAT_FILE="$HOME/.chat"
 
-MODEL="gpt-4-1106-preview"
+MODEL="gpt-4o"
 API_URL="https://api.openai.com/v1/chat/completions"
 
 CONTINUE=false
 SHOW_CONVERSATION=false
 
 while getopts ":3cs" opt; do
-  case $opt in
-  3)
-    MODEL="gpt-3.5-turbo"
-    ;;
-  c)
-    CONTINUE=true
-    ;;
-  s)
-    SHOW_CONVERSATION=true
-    ;;
-  \?)
-    echo "Invalid option: -$OPTARG" >&2
-    exit 1
-    ;;
-  esac
+    case $opt in
+    3)
+        MODEL="gpt-3.5-turbo"
+        ;;
+    c)
+        CONTINUE=true
+        ;;
+    s)
+        SHOW_CONVERSATION=true
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" >&2
+        exit 1
+        ;;
+    esac
 done
 shift $((OPTIND - 1))
 
 if $SHOW_CONVERSATION; then
-  jq -r '.[]|("# "+.role,"",.content,"","")' "$CHAT_FILE" | bat -l md --style plain
-  exit 0
+    jq -r '.[]|("# "+.role,"",.content,"","")' "$CHAT_FILE" | bat -l md --style plain
+    exit 0
 fi
 
 USER_MESSAGE="$*"
 
 if $CONTINUE && [ -s "$CHAT_FILE" ]; then
-  OLD_CONVERSATION_JSON=$(<"$CHAT_FILE")
+    OLD_CONVERSATION_JSON=$(<"$CHAT_FILE")
 else
-  OLD_CONVERSATION_JSON="[]"
+    OLD_CONVERSATION_JSON="[]"
 fi
 
 OLD_CONVERSATION_JSON=$(echo "$OLD_CONVERSATION_JSON" |
-  jq --arg msg "$USER_MESSAGE" '. + [{"role": "user", "content": $msg}]')
+    jq --arg msg "$USER_MESSAGE" '. + [{"role": "user", "content": $msg}]')
 
 read -r -d '' PAYLOAD <<-EOM
 {
@@ -65,18 +65,18 @@ EOM
 
 # call the openai api
 RESPONSE=$(curl -sS "$API_URL" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
-  --data "$PAYLOAD")
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    --data "$PAYLOAD")
 
 ASSISTANT_MESSAGE=$(echo "$RESPONSE" | jq -r '.choices[0].message.content')
 
 # save the assistant's response to the chat file
 echo "$OLD_CONVERSATION_JSON" |
-  jq --arg msg "$ASSISTANT_MESSAGE" \
-    '. + [{"role": "assistant", "content": $msg}]' >"$CHAT_FILE"
+    jq --arg msg "$ASSISTANT_MESSAGE" \
+        '. + [{"role": "assistant", "content": $msg}]' >"$CHAT_FILE"
 
 # print gpt's reponse
 echo "$RESPONSE" |
-  jq -r '(.choices[0].message.content,.error.message)//empty' |
-  (bat -l md --file-name GPT --style plain --paging=never - || cat -)
+    jq -r '(.choices[0].message.content,.error.message)//empty' |
+    (bat -l md --file-name GPT --style plain --paging=never - || cat -)

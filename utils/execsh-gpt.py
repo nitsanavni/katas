@@ -11,9 +11,9 @@ prompt_template = """
 
 suggest a command to execute in a shell, based on a given request
 you may retrieve information from the shell itself - construct a command to get the information
-if the command is more than a simple oneliner - only suggest the next step and command to execute this step
+if the command is more than a simple one-liner - only suggest the next step and command to execute this step
 
-constraint: avoid long outputs e.g. git log, use git log -n X instead
+constraint: avoid long outputs e.g. git log, use git log -n X instead, pytest -q
 !important! constraint: dont ask the user for clarification, just infer intent
 
 if there's nothing more to do - respond with:
