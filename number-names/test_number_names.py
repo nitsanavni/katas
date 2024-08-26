@@ -1,11 +1,4 @@
-number_names = {
-    1: "one",
-    2: "two",
-    3: "three"
-}
-
-def name_of(number):
-    return number_names.get(number, None)
+from number_names import name_of
 
 def test_number_names():
     assert name_of(1) == "one"
