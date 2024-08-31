@@ -29,3 +29,8 @@
 +@index.ts
 +
 +import onKey
+
+# 2024-08-31 23:22:17.311165
++@state.ts
++
++indent and dedent should affect also all the node's "children" - the following nodes that are ate least one indentation more than the indented item (the parent) up to an item that's at most the same indentation as the parent or the end of the list

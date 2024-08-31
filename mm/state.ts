@@ -47,18 +47,37 @@ export const state = {
     _selectedIndex = Math.min(_listItems.length - 1, _selectedIndex + 1);
   },
   indentItem: () => {
-    if (_selectedIndex > 0) {
-      const prevItem = _listItems[_selectedIndex - 1];
+    if (_selectedIndex >= 0) {
       const currentItem = _listItems[_selectedIndex];
-      if (currentItem.indent <= prevItem.indent) {
-        currentItem.indent++;
+      const oldIndent = currentItem.indent;
+
+      currentItem.indent++;
+
+      // Update all children
+      for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
+        if (_listItems[i].indent > oldIndent) {
+          _listItems[i].indent++;
+        } else {
+          break; // Stop when finding an item that is not a child
+        }
       }
     }
   },
   dedentItem: () => {
     const currentItem = _listItems[_selectedIndex];
     if (currentItem.indent > 0) {
+      const oldIndent = currentItem.indent;
+
       currentItem.indent--;
+
+      // Update all children
+      for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
+        if (_listItems[i].indent > oldIndent) {
+          _listItems[i].indent--;
+        } else {
+          break; // Stop when finding an item that is not a child
+        }
+      }
     }
   },
   inEditMode: () => _inEditMode,
