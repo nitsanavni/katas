@@ -16,3 +16,16 @@
 +extract
 +
 +const onKey = (state) => (str, key) => { ...
+
+# 2024-08-31 22:58:52.817640
++@index.ts
++@render.ts
++@state.ts
++
++mv onKey to onKey.ts
+
+# 2024-08-31 23:01:16.981969
++@onKey.ts
++@index.ts
++
++import onKey
