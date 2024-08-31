@@ -3,3 +3,9 @@
 +@index.ts
 +
 +allow the controlled square to cross grid boundaries, going back to other extreme
+
+# 2024-08-31 22:52:10.770103
++@render.ts
++@index.ts
++
++extract state to state.ts
