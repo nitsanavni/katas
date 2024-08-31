@@ -11,24 +11,26 @@ let inEditMode = true; // Start in edit mode for the first item
 
 // Render the list and input field
 function render() {
-  let output = listItems.map((item, index) => {
-    if (index === selectedIndex) {
-      if (inEditMode) {
-        const beforeCursor = item.slice(0, cursorPosition);
-        const cursorChar = item[cursorPosition] || " "; // If no char, use space
-        const afterCursor = item.slice(cursorPosition + 1);
+  let output = listItems
+    .map((item, index) => {
+      if (index === selectedIndex) {
+        if (inEditMode) {
+          const beforeCursor = item.slice(0, cursorPosition);
+          const cursorChar = item[cursorPosition] || " "; // If no char, use space
+          const afterCursor = item.slice(cursorPosition + 1);
 
-        // Set background color to blue for the character under the cursor
-        const coloredCursorChar = `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`; // White background with black text
+          // Set background color to blue for the character under the cursor
+          const coloredCursorChar = `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`; // White background with black text
 
-        return `${beforeCursor}${coloredCursorChar}${afterCursor}`;
-      } else {
-        // Highlight selected item in navigation mode
-        return `\x1b[47m\x1b[30m${item}\x1b[0m`;
+          return `${beforeCursor}${coloredCursorChar}${afterCursor}`;
+        } else {
+          // Highlight selected item in navigation mode
+          return `\x1b[47m\x1b[30m${item}\x1b[0m`;
+        }
       }
-    }
-    return item;
-  }).join("\n");
+      return item;
+    })
+    .join("\n");
 
   logUpdate(output);
 }
@@ -51,7 +53,10 @@ process.stdin.on("keypress", (str, key) => {
     if (key.name === "left") {
       cursorPosition = Math.max(0, cursorPosition - 1);
     } else if (key.name === "right") {
-      cursorPosition = Math.min(listItems[selectedIndex].length, cursorPosition + 1);
+      cursorPosition = Math.min(
+        listItems[selectedIndex].length,
+        cursorPosition + 1,
+      );
     } else if (key.name === "backspace") {
       if (cursorPosition > 0) {
         listItems[selectedIndex] =
@@ -69,7 +74,8 @@ process.stdin.on("keypress", (str, key) => {
       selectedIndex = listItems.length - 1; // Select the new item
       cursorPosition = 0;
       inEditMode = true; // Enter edit mode for the new item
-    } else if (key.sequence && !key.ctrl && !key.meta) {
+    } else if (str && !key.ctrl && !key.meta) {
+      // Only update the list if str is a valid string
       listItems[selectedIndex] =
         listItems[selectedIndex].slice(0, cursorPosition) +
         str +
