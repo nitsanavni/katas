@@ -47,15 +47,20 @@ export const state = {
     _selectedIndex = Math.min(_listItems.length - 1, _selectedIndex + 1);
   },
   indentItem: () => {
-    if (_selectedIndex >= 0) {
+    if (_selectedIndex > 0) { // Disallow indent for root node
       const currentItem = _listItems[_selectedIndex];
-      const oldIndent = currentItem.indent;
+      const parentItem = _listItems[_selectedIndex - 1];
+      const maxIndent = parentItem.indent + 1; // Allow indent up to parent indent + 1
 
-      currentItem.indent++;
+      if (maxIndent <= currentItem.indent) {
+        return;
+      }
+
+      currentItem.indent++; // Increment indent only if it's not more than the allowed
 
       // Update all children
       for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
-        if (_listItems[i].indent > oldIndent) {
+        if (_listItems[i].indent > (currentItem.indent - 1)) {
           _listItems[i].indent++;
         } else {
           break; // Stop when finding an item that is not a child

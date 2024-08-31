@@ -34,3 +34,19 @@
 +@state.ts
 +
 +indent and dedent should affect also all the node's "children" - the following nodes that are ate least one indentation more than the indented item (the parent) up to an item that's at most the same indentation as the parent or the end of the list
+
+# 2024-08-31 23:25:21.772298
++@state.ts
++
++1. don't allow the root node to be indented
++2. don't indent more than 1 more than the item beofre
+
+# 2024-08-31 23:27:30.086127
++@state.ts
++
++indent: don't allow item n to have more than (indent(n-1)+1)
+
+# 2024-08-31 23:28:09.584109
++@state.ts
++
++indent: don't allow indent(item n) to exceed (indent(n-1)+1)
