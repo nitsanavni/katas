@@ -47,9 +47,7 @@ function exitProgram() {
 }
 
 process.stdin.on("keypress", (str, key) => {
-  if (key.name === "q") {
-    exitProgram();
-  } else if (inEditMode) {
+  if (inEditMode) {
     if (key.name === "left") {
       cursorPosition = Math.max(0, cursorPosition - 1);
     } else if (key.name === "right") {
@@ -83,7 +81,9 @@ process.stdin.on("keypress", (str, key) => {
       cursorPosition++;
     }
   } else {
-    if (key.name === "up") {
+    if (key.name === "q") {
+      exitProgram();
+    } else if (key.name === "up") {
       selectedIndex = Math.max(0, selectedIndex - 1);
     } else if (key.name === "down") {
       selectedIndex = Math.min(listItems.length - 1, selectedIndex + 1);
