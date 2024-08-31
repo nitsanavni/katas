@@ -14,7 +14,7 @@ function exitProgram() {
   process.exit();
 }
 
-process.stdin.on("keypress", (str, key) => {
+const onKey = (state) => (str, key) => {
   if (state.inEditMode()) {
     if (key.name === "left") {
       state.cursorLeft();
@@ -36,19 +36,20 @@ process.stdin.on("keypress", (str, key) => {
       state.moveUp();
     } else if (key.name === "down") {
       state.moveDown();
-    } else if (key.name === "e") {
-      state.toggleEditMode();
-    } else if (key.name === "escape") {
+    } else if (key.name === "e" || key.name === "escape") {
       state.toggleEditMode();
     }
   }
+  
   render(
     state.listItems(),
     state.selectedIndex(),
     state.cursorPos(),
     state.inEditMode(),
   );
-});
+};
+
+process.stdin.on("keypress", onKey(state));
 
 // Ensure cursor is shown on exit, even if an error occurs
 process.on("exit", () => {
