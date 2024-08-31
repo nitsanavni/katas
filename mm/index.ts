@@ -33,13 +33,13 @@ process.stdin.on('keypress', (str, key) => {
         console.log("Exiting...");
         process.exit();
     } else if (key.name === 'up') {
-        y = Math.max(0, y - 1);
+        y = (y - 1 + gridSize) % gridSize; // Wrap around when going up
     } else if (key.name === 'down') {
-        y = Math.min(gridSize - 1, y + 1);
+        y = (y + 1) % gridSize; // Wrap around when going down
     } else if (key.name === 'left') {
-        x = Math.max(0, x - 1);
+        x = (x - 1 + gridSize) % gridSize; // Wrap around when going left
     } else if (key.name === 'right') {
-        x = Math.min(gridSize - 1, x + 1);
+        x = (x + 1) % gridSize; // Wrap around when going right
     }
     renderGrid();
 });
