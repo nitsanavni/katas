@@ -1,4 +1,4 @@
-import { render } from "./render"; // Import the render function
+import { render } from "./render";
 
 export const onKey = (state) => (str, key) => {
   if (state.inEditMode()) {
@@ -24,6 +24,10 @@ export const onKey = (state) => (str, key) => {
       state.moveDown();
     } else if (key.name === "e" || key.name === "escape") {
       state.toggleEditMode();
+    } else if (key.name === "tab") {
+      state.indentItem();
+    } else if (key.name === "tab" && key.shift) {
+      state.dedentItem();
     }
   }
 

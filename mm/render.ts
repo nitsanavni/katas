@@ -1,12 +1,12 @@
 import logUpdate from "log-update";
 
-let cursorPosition: number;
-let listItems: string[];
+let listItems: { text: string; indent: number }[];
 let selectedIndex: number;
+let cursorPosition: number;
 let inEditMode: boolean;
 
 export function render(
-  items: string[],
+  items: { text: string; indent: number }[],
   selectedIndex: number,
   cursorPosition: number,
   inEditMode: boolean,
@@ -14,22 +14,19 @@ export function render(
   listItems = items;
   let output = listItems
     .map((item, index) => {
+      const indentation = "  ".repeat(item.indent);
       if (index === selectedIndex) {
         if (inEditMode) {
-          const beforeCursor = item.slice(0, cursorPosition);
-          const cursorChar = item[cursorPosition] || " "; // If no char, use space
-          const afterCursor = item.slice(cursorPosition + 1);
-
-          // Set background color to blue for the character under the cursor
-          const coloredCursorChar = `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`; // White background with black text
-
-          return `${beforeCursor}${coloredCursorChar}${afterCursor}`;
+          const beforeCursor = item.text.slice(0, cursorPosition);
+          const cursorChar = item.text[cursorPosition] || " ";
+          const afterCursor = item.text.slice(cursorPosition + 1);
+          const coloredCursorChar = `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`;
+          return `${indentation}${beforeCursor}${coloredCursorChar}${afterCursor}`;
         } else {
-          // Highlight selected item in navigation mode
-          return `\x1b[47m\x1b[30m${item}\x1b[0m`;
+          return `\x1b[47m\x1b[30m${indentation}${item.text}\x1b[0m`;
         }
       }
-      return item;
+      return `${indentation}${item.text}`;
     })
     .join("\n");
 
