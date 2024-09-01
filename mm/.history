@@ -50,3 +50,8 @@
 +@state.ts
 +
 +indent: don't allow indent(item n) to exceed (indent(n-1)+1)
+
+# 2024-09-01 10:10:04.442700
++@state.ts
++
++indentItem: invert the main if, make it a guard clause, so that the rest of the code is less nested

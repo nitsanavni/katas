@@ -47,24 +47,24 @@ export const state = {
     _selectedIndex = Math.min(_listItems.length - 1, _selectedIndex + 1);
   },
   indentItem: () => {
-    if (_selectedIndex > 0) { // Disallow indent for root node
-      const currentItem = _listItems[_selectedIndex];
-      const parentItem = _listItems[_selectedIndex - 1];
-      const maxIndent = parentItem.indent + 1; // Allow indent up to parent indent + 1
+    if (_selectedIndex <= 0) return; // Guard clause to prevent indent for root node
 
-      if (maxIndent <= currentItem.indent) {
-        return;
-      }
+    const currentItem = _listItems[_selectedIndex];
+    const parentItem = _listItems[_selectedIndex - 1];
+    const maxIndent = parentItem.indent + 1; // Allow indent up to parent indent + 1
 
-      currentItem.indent++; // Increment indent only if it's not more than the allowed
+    if (maxIndent <= currentItem.indent) {
+      return;
+    }
 
-      // Update all children
-      for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
-        if (_listItems[i].indent > (currentItem.indent - 1)) {
-          _listItems[i].indent++;
-        } else {
-          break; // Stop when finding an item that is not a child
-        }
+    currentItem.indent++; // Increment indent only if it's not more than the allowed
+
+    // Update all children
+    for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
+      if (_listItems[i].indent > (currentItem.indent - 1)) {
+        _listItems[i].indent++;
+      } else {
+        break; // Stop when finding an item that is not a child
       }
     }
   },
