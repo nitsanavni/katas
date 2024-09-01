@@ -167,3 +167,8 @@
 +
 +Expected: "Root\nChild 1\nChild 2\nGrandchild 1\nGrandchild 2"
 +Received: "RootChild 1\nChild 2Grandchild 1\nGrandchild 2"
+
+# 2024-09-01 17:56:17.270097
++@renderTree.ts
++
++remove console logs

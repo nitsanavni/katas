@@ -47,14 +47,6 @@ export function getTree(
   ].join("\n");
 
   // Use the cat function to concatenate the padded parent and its children horizontally
-  //
-  console.log("parent:");
-  console.log(paddedParentLines);
-  console.log("children:");
-  console.log(childrenRendered);
-  console.log("cat:");
-  console.log(cat(paddedParentLines, childrenRendered));
-
   return cat(paddedParentLines, childrenRendered);
 }
 
