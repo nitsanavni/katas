@@ -1,20 +1,25 @@
 import logUpdate from "log-update";
 
+function renderSelectedItem(item: { text: string; indent: number }, cursorPosition: number, inEditMode: boolean): string {
+  const indentation = "  ".repeat(item.indent);
+  if (inEditMode) {
+    const beforeCursor = item.text.slice(0, cursorPosition);
+    const cursorChar = item.text[cursorPosition] || " ";
+    const afterCursor = item.text.slice(cursorPosition + 1);
+    const coloredCursorChar = `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`;
+    return `${indentation}${beforeCursor}${coloredCursorChar}${afterCursor}`;
+  } else {
+    return `\x1b[47m\x1b[30m${indentation}${item.text}\x1b[0m`;
+  }
+}
+
 function renderItem(item: { text: string; indent: number }, index: number, selectedIndex: number, cursorPosition: number, inEditMode: boolean): string {
   const indentation = "  ".repeat(item.indent);
   
   if (index === selectedIndex) {
-    if (inEditMode) {
-      const beforeCursor = item.text.slice(0, cursorPosition);
-      const cursorChar = item.text[cursorPosition] || " ";
-      const afterCursor = item.text.slice(cursorPosition + 1);
-      const coloredCursorChar = `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`;
-      return `${indentation}${beforeCursor}${coloredCursorChar}${afterCursor}`;
-    } else {
-      return `\x1b[47m\x1b[30m${indentation}${item.text}\x1b[0m`;
-    }
+    return renderSelectedItem(item, cursorPosition, inEditMode);
   }
-  
+
   return `${indentation}${item.text}`;
 }
 
