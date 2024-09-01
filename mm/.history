@@ -116,3 +116,8 @@
 +it's like a zip operation
 +each line on the left is concatenated to the line on the right
 +but first padEnd (spaces) the lhs lines to all have same lenght
+
+# 2024-09-01 10:54:33.282756
++@cat.ts
++
++how can we add some tests to the same file that only execute if this file is the entry point

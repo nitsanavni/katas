@@ -20,3 +20,10 @@ const cat = (lhs: string, rhs: string): string => {
 
   return result.trim(); // Remove trailing newline
 };
+
+// Test cases
+if (require.main === module) {
+  console.log(cat("Hello\nWorld", "!!!\n!!!")); // Expected output: "Hello!!!\nWorld!!!"
+  console.log(cat("Line1", "Line2")); // Expected output: "Line1Line2"
+  console.log(cat("Short", "A long line")); // Expected output: "ShortA long line"
+}
