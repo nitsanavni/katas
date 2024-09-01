@@ -121,3 +121,25 @@
 +@cat.ts
 +
 +how can we add some tests to the same file that only execute if this file is the entry point
+
+# 2024-09-01 10:56:11.261078
++@cat.ts
++
++extract a function for te tests
+
+# 2024-09-01 10:58:53.705685
++@cat.ts
++
++let's use this style for the tsts:
++
++import { expect, test } from "bun:test";
++
++test("2 + 2 should equal 4", () => {
++  expect(2 + 2).toBe(4);
++});
++
+
+# 2024-09-01 11:04:21.281823
++@cat.ts
++
++remove the if module main part

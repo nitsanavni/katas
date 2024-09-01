@@ -21,9 +21,11 @@ const cat = (lhs: string, rhs: string): string => {
   return result.trim(); // Remove trailing newline
 };
 
-// Test cases
-if (require.main === module) {
-  console.log(cat("Hello\nWorld", "!!!\n!!!")); // Expected output: "Hello!!!\nWorld!!!"
-  console.log(cat("Line1", "Line2")); // Expected output: "Line1Line2"
-  console.log(cat("Short", "A long line")); // Expected output: "ShortA long line"
-}
+// Function to run test cases
+import { expect, test } from "bun:test";
+
+test("cat function tests", () => {
+  expect(cat("Hello\nWorld", "!!!\n!!!")).toBe("Hello!!!\nWorld!!!");
+  expect(cat("Line1", "Line2")).toBe("Line1Line2");
+  expect(cat("Short", "A long line")).toBe("ShortA long line");
+});
