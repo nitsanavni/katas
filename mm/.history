@@ -143,3 +143,27 @@
 +@cat.ts
 +
 +remove the if module main part
+
+# 2024-09-01 11:28:02.790452
++@renderTree.ts
++
++for the tests, expected strings: use multi-line strings for readability
+
+# 2024-09-01 11:29:56.441041
++@renderTree.ts
++
++fix the expected to be like this:
++
++renderTree.ts:
++✓ cat function tests [1.23ms]
++51 |     { text: "Child 1", indent: 1 },
++52 |     { text: "Child 2", indent: 1 },
++53 |     { text: "Grandchild 1", indent: 2 },
++54 |     { text: "Grandchild 2", indent: 2 },
++55 |   ];
++56 |   expect(getTree(items1)).toBe(`Root
++                               ^
++error: expect(received).toBe(expected)
++
++Expected: "Root\nChild 1\nChild 2\nGrandchild 1\nGrandchild 2"
++Received: "RootChild 1\nChild 2Grandchild 1\nGrandchild 2"
