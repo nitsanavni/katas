@@ -61,3 +61,16 @@
 +
 +no need for the file-level lets
 +all the data is passed as args to the function
+
+# 2024-09-01 10:26:45.173185
++@render.ts
++
++extract these functions:
++renderItem, calling:
++renderSelectedItem
++renderNonSelectedItem
+
+# 2024-09-01 10:28:26.409434
++@render.ts
++
++extract function renderItem
