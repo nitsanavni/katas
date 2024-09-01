@@ -55,6 +55,5 @@ export const onKey = (state) => (str, key) => {
 
 function exitProgram() {
   process.stdout.write("\x1B[?25h"); // Show the cursor
-  console.log("Exiting...");
   process.exit();
 }
