@@ -55,3 +55,9 @@
 +@state.ts
 +
 +indentItem: invert the main if, make it a guard clause, so that the rest of the code is less nested
+
+# 2024-09-01 10:23:03.273537
++@render.ts
++
++no need for the file-level lets
++all the data is passed as args to the function

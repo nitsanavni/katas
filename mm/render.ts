@@ -1,18 +1,12 @@
 import logUpdate from "log-update";
 
-let listItems: { text: string; indent: number }[];
-let selectedIndex: number;
-let cursorPosition: number;
-let inEditMode: boolean;
-
 export function render(
   items: { text: string; indent: number }[],
   selectedIndex: number,
   cursorPosition: number,
   inEditMode: boolean,
 ) {
-  listItems = items;
-  let output = listItems
+  const output = items
     .map((item, index) => {
       const indentation = "  ".repeat(item.indent);
       if (index === selectedIndex) {
