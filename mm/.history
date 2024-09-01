@@ -104,3 +104,15 @@
 +@render.ts
 +
 +if item is empty still show one highlighted char in nav mode
+
+# 2024-09-01 10:50:05.354193
++@render.ts
++
++create a new typescript file cat.ts
++
++it has one function that concatenates two multi-line strings
++const cat = (lhs: string, rhs: string): string => { ...
++
++it's like a zip operation
++each line on the left is concatenated to the line on the right
++but first padEnd (spaces) the lhs lines to all have same lenght
