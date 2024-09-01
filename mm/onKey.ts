@@ -2,32 +2,46 @@ import { render } from "./render";
 
 export const onKey = (state) => (str, key) => {
   if (state.inEditMode()) {
-    if (key.name === "left") {
-      state.cursorLeft();
-    } else if (key.name === "right") {
-      state.cursorRight();
-    } else if (key.name === "backspace") {
-      state.deleteChar();
-    } else if (key.name === "escape") {
-      state.toggleEditMode();
-    } else if (key.name === "return") {
-      state.addItem();
-    } else if (str && !key.ctrl && !key.meta) {
-      state.addChar(str);
+    switch (key.name) {
+      case "left":
+        state.cursorLeft();
+        break;
+      case "right":
+        state.cursorRight();
+        break;
+      case "backspace":
+        state.deleteChar();
+        break;
+      case "escape":
+        state.toggleEditMode();
+        break;
+      case "return":
+        state.addItem();
+        break;
+      default:
+        if (str && !key.ctrl && !key.meta) {
+          state.addChar(str);
+        }
+        break;
     }
   } else {
-    if (key.name === "q") {
-      exitProgram();
-    } else if (key.name === "up") {
-      state.moveUp();
-    } else if (key.name === "down") {
-      state.moveDown();
-    } else if (key.name === "e" || key.name === "escape") {
-      state.toggleEditMode();
-    } else if (key.name === "tab" && key.shift) {
-      state.dedentItem();
-    } else if (key.name === "tab") {
-      state.indentItem();
+    switch (key.name) {
+      case "q":
+        exitProgram();
+        break;
+      case "up":
+        state.moveUp();
+        break;
+      case "down":
+        state.moveDown();
+        break;
+      case "e":
+      case "escape":
+        state.toggleEditMode();
+        break;
+      case "tab":
+        key.shift ? state.dedentItem() : state.indentItem();
+        break;
     }
   }
 

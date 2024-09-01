@@ -84,3 +84,8 @@
 +@render.ts
 +
 +extract function renderSelectedItem
+
+# 2024-09-01 10:34:59.191093
++@onKey.ts
++
++rm log existing
