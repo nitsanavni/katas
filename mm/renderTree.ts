@@ -1,19 +1,19 @@
 import logUpdate from "log-update";
-import { cat } from './cat';  // Import the cat function from cat.ts
+import { cat } from "./cat"; // Import the cat function from cat.ts
 import { expect, test } from "bun:test";
 
 // Internal helper function to concatenate nodes vertically
 function verticalCat(lines: string[]): string {
-  return lines.join('\n');
+  return lines.join("\n");
 }
 
 // Recursive function to render a tree node with its children
 export function getTree(
   items: { text: string; indent: number }[],
-  index: number = 0
+  index: number = 0,
 ): string {
   if (index >= items.length) {
-    return '';
+    return "";
   }
 
   const currentItem = items[index];
@@ -28,26 +28,44 @@ export function getTree(
     }
   }
 
-  // Render the current item and concatenate with its children
-  const currentRendered = currentItem.indent >= 0 ? currentItem.text : '';
-  const childrenRendered = children.length > 0 ? verticalCat(children) : '';
+  // Render the children first
+  const childrenRendered = children.length > 0 ? verticalCat(children) : "";
 
-  return cat(currentRendered, childrenRendered);
+  // Calculate the number of lines in the children's rendering
+  const childrenLines = childrenRendered.split("\n");
+  const childrenHeight = childrenLines.length;
+
+  // Calculate the vertical midpoint of the children
+  const parentVerticalPosition = Math.floor((childrenHeight - 1) / 2);
+
+  // Pad the parent node so that it aligns with the middle of the children
+  const paddedParentLines = [
+    ...(parentVerticalPosition > 0
+      ? Array(parentVerticalPosition).fill("")
+      : []),
+    currentItem.text,
+  ].join("\n");
+
+  // Use the cat function to concatenate the padded parent and its children horizontally
+  //
+  console.log("parent:");
+  console.log(paddedParentLines);
+  console.log("children:");
+  console.log(childrenRendered);
+  console.log("cat:");
+  console.log(cat(paddedParentLines, childrenRendered));
+
+  return cat(paddedParentLines, childrenRendered);
 }
 
 // Function to extract the final tree output with a dummy root
-export function extract(
-  items: { text: string; indent: number }[],
-): string {
-  return getTree([{ text: '', indent: -1 }, ...items]);
+export function extract(items: { text: string; indent: number }[]): string {
+  return getTree([{ text: "", indent: -1 }, ...items]);
 }
 
 // Function to render the entire tree
-export function render(
-  items: { text: string; indent: number }[],
-) {
-  const output = extract(items);
-  logUpdate(output);
+export function render(items: { text: string; indent: number }[]) {
+  logUpdate(extract(items));
 }
 
 // Tests for getTree function using the extract wrapper
@@ -59,8 +77,8 @@ test("getTree function tests", () => {
     { text: "Grandchild 1", indent: 2 },
     { text: "Grandchild 2", indent: 2 },
   ];
-  expect(extract(items1)).toBe(`RootChild 1
-    Child 2Grandchild 1
+  expect(extract(items1)).toBe(`    Child 1
+RootChild 2Grandchild 1
            Grandchild 2`);
 
   const items2 = [
