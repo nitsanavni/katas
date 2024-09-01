@@ -9,7 +9,8 @@ function renderSelectedItem(item: { text: string; indent: number }, cursorPositi
     const coloredCursorChar = `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`;
     return `${indentation}${beforeCursor}${coloredCursorChar}${afterCursor}`;
   } else {
-    return `\x1b[47m\x1b[30m${indentation}${item.text}\x1b[0m`;
+    const cursorChar = item.text.length === 0 ? " " : item.text; // Highlighted character for empty items
+    return `\x1b[47m\x1b[30m${indentation}${cursorChar}\x1b[0m`;
   }
 }
 

@@ -99,3 +99,8 @@
 +@onKey.ts
 +
 +remove log existing...
+
+# 2024-09-01 10:39:54.083308
++@render.ts
++
++if item is empty still show one highlighted char in nav mode
