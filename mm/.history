@@ -304,3 +304,11 @@
 +@state.ts
 +
 +let's add 's' -> addSiblin based on addChild
+
+# 2024-09-02 21:35:38.065643
++@onKey.ts
++@state.ts
++
++in nav mode:
++left arrow: go to parent
++right arrow: got to first child

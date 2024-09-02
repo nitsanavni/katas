@@ -1,5 +1,5 @@
 let _cursorPosition = 0;
-let _listItems = [{ text: "", indent: 0 }]; // Now each item is an object with text and indent
+let _listItems = [{ text: "", indent: 0 }];
 let _selectedIndex = 0;
 let _inEditMode = true;
 
@@ -29,17 +29,17 @@ export const state = {
     _cursorPosition = 0;
     _inEditMode = true;
   },
-  addChild: () => {  // New function to add a child item
+  addChild: () => {
     const parentIndent = _listItems[_selectedIndex]?.indent || 0;
     _listItems.splice(_selectedIndex + 1, 0, { text: "", indent: parentIndent + 1 });
-    _selectedIndex++;  // Move cursor to the new child
+    _selectedIndex++;
     _cursorPosition = 0;
     _inEditMode = true;
   },
-  addSibling: () => {  // New function to add a sibling item
+  addSibling: () => {
     const currentIndent = _listItems[_selectedIndex]?.indent || 0;
     _listItems.splice(_selectedIndex + 1, 0, { text: "", indent: currentIndent });
-    _selectedIndex++;  // Move cursor to the new sibling
+    _selectedIndex++;
     _cursorPosition = 0;
     _inEditMode = true;
   },
@@ -60,25 +60,49 @@ export const state = {
   moveDown: () => {
     _selectedIndex = Math.min(_listItems.length - 1, _selectedIndex + 1);
   },
+  moveToParent: () => { // New function to move to the parent item
+    if (_selectedIndex > 0) {
+      const parentIndent = _listItems[_selectedIndex].indent - 1;
+      // Find the parent's index
+      for (let i = _selectedIndex - 1; i >= 0; i--) {
+        if (_listItems[i].indent === parentIndent) {
+          _selectedIndex = i;
+          _cursorPosition = 0; // Reset cursor position
+          break;
+        }
+      }
+    }
+  },
+  moveToFirstChild: () => { // New function to move to the first child item
+    if (_selectedIndex < _listItems.length - 1) {
+      const currentIndent = _listItems[_selectedIndex].indent;
+      for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
+        if (_listItems[i].indent === currentIndent + 1) {
+          _selectedIndex = i;
+          _cursorPosition = 0; // Reset cursor position
+          break;
+        }
+      }
+    }
+  },
   indentItem: () => {
-    if (_selectedIndex <= 0) return; // Guard clause to prevent indent for root node
+    if (_selectedIndex <= 0) return;
 
     const currentItem = _listItems[_selectedIndex];
     const parentItem = _listItems[_selectedIndex - 1];
-    const maxIndent = parentItem.indent + 1; // Allow indent up to parent indent + 1
+    const maxIndent = parentItem.indent + 1;
 
     if (maxIndent <= currentItem.indent) {
       return;
     }
 
-    currentItem.indent++; // Increment indent only if it's not more than the allowed
+    currentItem.indent++;
 
-    // Update all children
     for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
       if (_listItems[i].indent > (currentItem.indent - 1)) {
         _listItems[i].indent++;
       } else {
-        break; // Stop when finding an item that is not a child
+        break;
       }
     }
   },
@@ -89,12 +113,11 @@ export const state = {
 
       currentItem.indent--;
 
-      // Update all children
       for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
         if (_listItems[i].indent > oldIndent) {
           _listItems[i].indent--;
         } else {
-          break; // Stop when finding an item that is not a child
+          break;
         }
       }
     }

@@ -26,10 +26,16 @@ export const onKey = (state) => (str, key) => {
     }
   } else {
     switch (key.name) {
-      case "c":  // Added action for creating a child item (only in non-edit mode)
+      case "left":
+        state.moveToParent(); // Go to parent item
+        break;
+      case "right":
+        state.moveToFirstChild(); // Go to first child item
+        break;
+      case "c":
         state.addChild();
         break;
-      case "s":  // New action for creating a sibling item (only in non-edit mode)
+      case "s":
         state.addSibling();
         break;
       case "q":
