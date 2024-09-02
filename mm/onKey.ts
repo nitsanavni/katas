@@ -1,4 +1,5 @@
-import { render } from "./render";
+//import { render } from "./render";
+import { render } from "./renderTree";
 
 export const onKey = (state) => (str, key) => {
   if (state.inEditMode()) {

@@ -1,6 +1,6 @@
 import logUpdate from "log-update";
 import { cat } from "./cat"; // Import the cat function from cat.ts
-import { renderSelectedItem } from './render'; // Import the renderSelectedItem function
+import { renderSelectedItem } from "./render"; // Import the renderSelectedItem function
 
 // Internal helper function to concatenate nodes vertically
 function verticalCat(lines: string[]): string {
@@ -25,7 +25,9 @@ export function getTree(
   // Find all children of the current item (nodes with exactly one more indent)
   for (let i = index + 1; i < items.length; i++) {
     if (items[i].indent === currentItem.indent + 1) {
-      children.push(getTree(items, i, selectedIndex, cursorPosition, inEditMode));
+      children.push(
+        getTree(items, i, selectedIndex, cursorPosition, inEditMode),
+      );
     } else if (items[i].indent <= currentItem.indent) {
       break;
     }
@@ -46,7 +48,9 @@ export function getTree(
     ...(parentVerticalPosition > 0
       ? Array(parentVerticalPosition).fill("")
       : []),
-    (selectedIndex === index && inEditMode) ? renderSelectedItem(currentItem, cursorPosition) : currentItem.text,
+    selectedIndex === index
+      ? renderSelectedItem(currentItem, cursorPosition, inEditMode)
+      : currentItem.text,
   ].join("\n");
 
   // Use the cat function to concatenate the padded parent and its children horizontally
@@ -54,11 +58,27 @@ export function getTree(
 }
 
 // Function to extract the final tree output with a dummy root
-export function extract(items: { text: string; indent: number }[], selectedIndex: number = -1, cursorPosition: number = 0, inEditMode: boolean = false): string {
-  return getTree([{ text: "", indent: -1 }, ...items], 0, selectedIndex, cursorPosition, inEditMode);
+export function extract(
+  items: { text: string; indent: number }[],
+  selectedIndex: number = -1,
+  cursorPosition: number = 0,
+  inEditMode: boolean = false,
+): string {
+  return getTree(
+    [{ text: "", indent: -1 }, ...items],
+    0,
+    selectedIndex + 1,
+    cursorPosition,
+    inEditMode,
+  );
 }
 
 // Function to render the entire tree
-export function render(items: { text: string; indent: number }[], selectedIndex: number = -1, cursorPosition: number = 0, inEditMode: boolean = false) {
+export function render(
+  items: { text: string; indent: number }[],
+  selectedIndex: number = -1,
+  cursorPosition: number = 0,
+  inEditMode: boolean = false,
+) {
   logUpdate(extract(items, selectedIndex, cursorPosition, inEditMode));
 }

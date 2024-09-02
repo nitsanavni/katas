@@ -9,6 +9,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "log-update": "^6.1.0"
+    "log-update": "^6.1.0",
+    "string-length": "^6.0.0"
   }
 }

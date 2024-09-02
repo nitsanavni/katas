@@ -1,9 +1,11 @@
+import stringLength from "string-length";
+
 export const cat = (lhs: string, rhs: string): string => {
   const lhsLines = lhs.split("\n");
   const rhsLines = rhs.split("\n");
 
   // Find the maximum length of the lhs lines
-  const maxLength = Math.max(...lhsLines.map((line) => line.length));
+  const maxLength = Math.max(...lhsLines.map((line) => stringLength(line)));
 
   // Pad the lhs lines to the maximum length
   const paddedLhsLines = lhsLines.map((line) => line.padEnd(maxLength, " "));
