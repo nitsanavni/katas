@@ -199,3 +199,19 @@
 +@renderTree.ts
 +
 +I think we need to export renderselected
+
+# 2024-09-02 20:09:35.599792
++@cat.ts
++
++move the tests to own file cat.spec.ts
+
+# 2024-09-02 20:10:31.014306
++@renderTree.ts
++
++move test to own file .spec.ts
+
+# 2024-09-02 20:13:54.885137
++@renderTree.ts
++@renderTree.spec.ts
++
++remove the tests from renderTree as they were already moved to the spec file
