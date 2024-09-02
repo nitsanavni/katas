@@ -226,3 +226,60 @@
 +@renderTree.ts
 +
 +use local renderSelected rather than imported one
+
+# 2024-09-02 21:02:33.427814
++@cat.ts
++
++add docs 
+
+# 2024-09-02 21:04:47.147143
++@cat.ts
++
++add docs 
++concatentes two multi-line strings, treating them as rectangular blocks / boxes,
++ret the new multi-line
++you can use ascii art to show two boxes of different sizes being cat
+
+# 2024-09-02 21:07:21.849851
++@cat.ts
++
++update the doc
++ascii art
++make rhs taller than lhs
+
+# 2024-09-02 21:09:40.624655
++@cat.ts
++
++upda the doc
++remove ascii art
++use two multiline strings
++
++two phrases about mindmaps, with multilines, different num lines, different line lenghts
+
+# 2024-09-02 21:10:10.190402
++@cat.ts
++
++upda the doc
++remove ascii art
++use two multiline strings
++
++two phrases about mindmaps, with multilines, different num lines, different line lenghts
++about 10 words per phrase
+
+# 2024-09-02 21:13:15.068699
++@cat.ts
++
++upda the doc
++remove ascii art
++use two multiline strings
++
++lhs
++Mindmaps clarify
++thoughts and
++ideas.
++
++rhs
++Organize
++concepts
++visually
++with mindmaps.
