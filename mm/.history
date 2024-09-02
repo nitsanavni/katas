@@ -298,3 +298,9 @@
 +@onKey.ts
 +
 +c -> addChild should only be in non edit mode
+
+# 2024-09-02 21:31:39.794204
++@onKey.ts
++@state.ts
++
++let's add 's' -> addSiblin based on addChild

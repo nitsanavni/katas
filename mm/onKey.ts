@@ -29,6 +29,9 @@ export const onKey = (state) => (str, key) => {
       case "c":  // Added action for creating a child item (only in non-edit mode)
         state.addChild();
         break;
+      case "s":  // New action for creating a sibling item (only in non-edit mode)
+        state.addSibling();
+        break;
       case "q":
         exitProgram();
         break;

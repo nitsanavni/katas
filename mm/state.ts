@@ -36,6 +36,13 @@ export const state = {
     _cursorPosition = 0;
     _inEditMode = true;
   },
+  addSibling: () => {  // New function to add a sibling item
+    const currentIndent = _listItems[_selectedIndex]?.indent || 0;
+    _listItems.splice(_selectedIndex + 1, 0, { text: "", indent: currentIndent });
+    _selectedIndex++;  // Move cursor to the new sibling
+    _cursorPosition = 0;
+    _inEditMode = true;
+  },
   addChar: (char: string) => {
     _listItems[_selectedIndex].text =
       _listItems[_selectedIndex].text.slice(0, _cursorPosition) +
