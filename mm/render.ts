@@ -1,6 +1,6 @@
 import logUpdate from "log-update";
 
-function renderSelectedItem(item: { text: string; indent: number }, cursorPosition: number, inEditMode: boolean): string {
+export function renderSelectedItem(item: { text: string; indent: number }, cursorPosition: number, inEditMode: boolean): string {
   const indentation = "  ".repeat(item.indent);
   if (inEditMode) {
     const beforeCursor = item.text.slice(0, cursorPosition);

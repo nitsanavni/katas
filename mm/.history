@@ -187,3 +187,15 @@
 +let's support "edit mode" / "navigate mode" in the renderTree too
 +need to pass in all relevant args
 +
+
+# 2024-09-02 20:05:57.155613
++@render.ts
++@renderTree.ts
++
++I think we need to import renderSelected
+
+# 2024-09-02 20:06:58.308222
++@render.ts
++@renderTree.ts
++
++I think we need to export renderselected

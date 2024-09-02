@@ -1,6 +1,7 @@
 import logUpdate from "log-update";
 import { cat } from "./cat"; // Import the cat function from cat.ts
 import { expect, test } from "bun:test";
+import { renderSelectedItem } from './render'; // Import the renderSelectedItem function
 
 // Internal helper function to concatenate nodes vertically
 function verticalCat(lines: string[]): string {
