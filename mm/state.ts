@@ -29,6 +29,13 @@ export const state = {
     _cursorPosition = 0;
     _inEditMode = true;
   },
+  addChild: () => {  // New function to add a child item
+    const parentIndent = _listItems[_selectedIndex]?.indent || 0;
+    _listItems.splice(_selectedIndex + 1, 0, { text: "", indent: parentIndent + 1 });
+    _selectedIndex++;  // Move cursor to the new child
+    _cursorPosition = 0;
+    _inEditMode = true;
+  },
   addChar: (char: string) => {
     _listItems[_selectedIndex].text =
       _listItems[_selectedIndex].text.slice(0, _cursorPosition) +

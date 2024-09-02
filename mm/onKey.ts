@@ -1,4 +1,3 @@
-//import { render } from "./render";
 import { render } from "./renderTree";
 
 export const onKey = (state) => (str, key) => {
@@ -27,6 +26,9 @@ export const onKey = (state) => (str, key) => {
     }
   } else {
     switch (key.name) {
+      case "c":  // Added action for creating a child item (only in non-edit mode)
+        state.addChild();
+        break;
       case "q":
         exitProgram();
         break;

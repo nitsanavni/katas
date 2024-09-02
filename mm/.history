@@ -283,3 +283,18 @@
 +concepts
 +visually
 +with mindmaps.
+
+# 2024-09-02 21:27:22.541381
++@onKey.ts
++@state.ts
++
++let's add an action: "add child"
++keyboard: "c"
++
++a child is a list item positioned right after its parent (i+1) with indent also +1 than its parent
++
+
+# 2024-09-02 21:29:28.974461
++@onKey.ts
++
++c -> addChild should only be in non edit mode
