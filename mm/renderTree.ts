@@ -1,7 +1,5 @@
 import logUpdate from "log-update";
 import { cat } from "./cat"; // Import the cat function from cat.ts
-import { renderSelectedItem } from "./render"; // Import the renderSelectedItem function
-
 // Internal helper function to concatenate nodes vertically
 function verticalCat(lines: string[]): string {
   return lines.join("\n");
@@ -49,7 +47,7 @@ export function getTree(
       ? Array(parentVerticalPosition).fill("")
       : []),
     selectedIndex === index
-      ? renderSelectedItem(currentItem, cursorPosition, inEditMode)
+      ? renderSelectedItem(currentItem, cursorPosition, inEditMode) // Use local renderSelectedItem
       : currentItem.text,
   ].join("\n");
 
@@ -81,4 +79,18 @@ export function render(
   inEditMode: boolean = false,
 ) {
   logUpdate(extract(items, selectedIndex, cursorPosition, inEditMode));
+}
+
+// Copy of renderSelectedItem specifically for rendering trees
+export function renderSelectedItem(item: { text: string; indent: number }, cursorPosition: number, inEditMode: boolean): string {
+  if (inEditMode) {
+    const beforeCursor = item.text.slice(0, cursorPosition);
+    const cursorChar = item.text[cursorPosition] || " ";
+    const afterCursor = item.text.slice(cursorPosition + 1);
+    const coloredCursorChar = `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`;
+    return `${beforeCursor}${coloredCursorChar}${afterCursor}`;
+  } else {
+    const cursorChar = item.text.length === 0 ? " " : item.text; // Highlighted character for empty items
+    return `\x1b[47m\x1b[30m${cursorChar}\x1b[0m`;
+  }
 }

@@ -215,3 +215,14 @@
 +@renderTree.spec.ts
 +
 +remove the tests from renderTree as they were already moved to the spec file
+
+# 2024-09-02 20:56:35.448720
++@render.ts
++@renderTree.ts
++
++make a copy of render selected in renderTree
+
+# 2024-09-02 20:57:39.835178
++@renderTree.ts
++
++use local renderSelected rather than imported one
