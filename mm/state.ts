@@ -129,6 +129,5 @@ export const state = {
     
     const path = filePath;
     await Bun.write(path, outline);
-    console.log('Outline saved to', path);
   },
 };
