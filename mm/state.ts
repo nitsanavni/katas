@@ -124,16 +124,11 @@ export const state = {
   inEditMode: () => _inEditMode,
   selectedIndex: () => _selectedIndex,
   listItems: () => _listItems,
-  saveOutlineToFile: (filePath: string) => {
-    const fs = require('fs');
+  saveOutlineToFile: async (filePath: string) => {
     const outline = _listItems.map(item => '  '.repeat(item.indent) + item.text).join('\n');
     
-    fs.writeFile(filePath, outline, (err) => {
-      if (err) {
-        console.error('Error writing to file', err);
-      } else {
-        console.log('Outline saved to', filePath);
-      }
-    });
+    const path = filePath;
+    await Bun.write(path, outline);
+    console.log('Outline saved to', path);
   },
 };

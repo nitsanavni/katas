@@ -329,3 +329,16 @@
 +e.g. `./index.ts my-mindmap`
 +
 +save to file every 500ms
+
+# 2024-09-03 13:33:50.518904
++@state.ts
++
++do this instead:
++const path = "./file.txt";
++await Bun.write(path, "Your text here");
++
+
+# 2024-09-03 13:37:38.636434
++@onKey.ts
++
++first abort previous timeout then set the new one
