@@ -1,6 +1,6 @@
 import { render } from "./renderTree";
 
-export const onKey = (state) => (str, key) => {
+export const onKey = (state, filePath) => (str, key) => {
   if (state.inEditMode()) {
     switch (key.name) {
       case "left":
@@ -27,10 +27,10 @@ export const onKey = (state) => (str, key) => {
   } else {
     switch (key.name) {
       case "left":
-        state.moveToParent(); // Go to parent item
+        state.moveToParent();
         break;
       case "right":
-        state.moveToFirstChild(); // Go to first child item
+        state.moveToFirstChild();
         break;
       case "c":
         state.addChild();
@@ -63,9 +63,14 @@ export const onKey = (state) => (str, key) => {
     state.cursorPos(),
     state.inEditMode(),
   );
+
+  // Save outline to file every 500ms
+  setTimeout(() => {
+    state.saveOutlineToFile(filePath);
+  }, 500);
 };
 
 function exitProgram() {
-  process.stdout.write("\x1B[?25h"); // Show the cursor
+  process.stdout.write("\x1B[?25h");
   process.exit();
 }

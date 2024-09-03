@@ -1,10 +1,17 @@
 #!/usr/bin/env bun
 
 import readline from "readline";
-// import { render } from "./render"; // Import the render function
-import { state } from "./state"; // Import the state management
-import { onKey } from "./onKey"; // Import the onKey function
+import { state } from "./state";
+import { onKey } from "./onKey";
 import { render } from "./renderTree";
+
+// Get filename from CLI first positional arg
+const filePath = process.argv[2];
+
+if (!filePath) {
+  console.error("Please provide a filename as the first argument.");
+  process.exit(1);
+}
 
 // Listen to keyboard events
 readline.emitKeypressEvents(process.stdin);
@@ -24,4 +31,4 @@ render(
 );
 
 // Listen for keypresses
-process.stdin.on("keypress", onKey(state));
+process.stdin.on("keypress", onKey(state, filePath));

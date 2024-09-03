@@ -319,3 +319,13 @@
 +add action 'saveOutlineToFile(filePath)'
 +saves the list of items in a text file
 +indents by {two spaces} * item.indent
+
+# 2024-09-03 13:27:51.842504
++@state.ts
++@onKey.ts
++@index.ts
++
++get filename from cli first positional arg
++e.g. `./index.ts my-mindmap`
++
++save to file every 500ms

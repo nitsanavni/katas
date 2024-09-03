@@ -125,7 +125,7 @@ export const state = {
   selectedIndex: () => _selectedIndex,
   listItems: () => _listItems,
   saveOutlineToFile: (filePath: string) => {
-    const fs = require('fs'); // Make sure to import filesystem support
+    const fs = require('fs');
     const outline = _listItems.map(item => '  '.repeat(item.indent) + item.text).join('\n');
     
     fs.writeFile(filePath, outline, (err) => {
