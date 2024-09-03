@@ -347,3 +347,10 @@
 +@state.ts
 +
 +don't console log on file save
+
+# 2024-09-03 13:47:19.694222
++@state.ts
++
++first thing:
++if file exists
++parse it and populate the list (inverse of save)

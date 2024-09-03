@@ -8,7 +8,7 @@ export const state = {
   cursorRight: () => {
     _cursorPosition = Math.min(
       _listItems[_selectedIndex].text.length,
-      _cursorPosition + 1,
+      _cursorPosition + 1
     );
   },
   cursorLeft: () => {
@@ -129,5 +129,22 @@ export const state = {
     
     const path = filePath;
     await Bun.write(path, outline);
+  },
+  loadOutlineFromFile: async (filePath: string) => {
+    try {
+      const outline = await Bun.read(filePath);
+      _listItems = outline.split('\n').map((line) => {
+        const indent = line.search(/\S|$/);
+        return {
+          text: line.trim(),
+          indent: indent / 2 // assuming two spaces for each indentation level
+        };
+      });
+      _selectedIndex = 0; // Set the default selected index after loading
+      _cursorPosition = 0; // Reset cursor position after loading
+      _inEditMode = true; // Set to edit mode after loading
+    } catch (error) {
+      console.error("Failed to load outline from file:", error);
+    }
   },
 };
