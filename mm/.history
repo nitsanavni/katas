@@ -354,3 +354,17 @@
 +first thing:
 +if file exists
 +parse it and populate the list (inverse of save)
+
+# 2024-09-03 13:49:35.982278
++@index.ts
++@state.ts
++
++call the load outline from file
+
+# 2024-09-03 13:51:18.602968
++@state.ts
++
++this is how you read in Bun:
++
++const file = Bun.file("./file.txt");
++const content = await file.text();

@@ -132,8 +132,9 @@ export const state = {
   },
   loadOutlineFromFile: async (filePath: string) => {
     try {
-      const outline = await Bun.read(filePath);
-      _listItems = outline.split('\n').map((line) => {
+      const file = Bun.file(filePath); // Assuming we need to use Bun.file to get the file reference
+      const content = await file.text(); // Read the text content of the file
+      _listItems = content.split('\n').map((line) => {
         const indent = line.search(/\S|$/);
         return {
           text: line.trim(),

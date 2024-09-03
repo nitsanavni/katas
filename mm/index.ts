@@ -22,13 +22,16 @@ process.on("exit", () => {
   process.stdout.write("\x1B[?25h"); // Show the cursor
 });
 
-// Initial render
-render(
-  state.listItems(),
-  state.selectedIndex(),
-  state.cursorPos(),
-  state.inEditMode(),
-);
+// Initial render and load outline
+(async () => {
+  await state.loadOutlineFromFile(filePath);
+  render(
+    state.listItems(),
+    state.selectedIndex(),
+    state.cursorPos(),
+    state.inEditMode(),
+  );
+})();
 
 // Listen for keypresses
 process.stdin.on("keypress", onKey(state, filePath));
