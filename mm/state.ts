@@ -60,26 +60,25 @@ export const state = {
   moveDown: () => {
     _selectedIndex = Math.min(_listItems.length - 1, _selectedIndex + 1);
   },
-  moveToParent: () => { // New function to move to the parent item
+  moveToParent: () => {
     if (_selectedIndex > 0) {
       const parentIndent = _listItems[_selectedIndex].indent - 1;
-      // Find the parent's index
       for (let i = _selectedIndex - 1; i >= 0; i--) {
         if (_listItems[i].indent === parentIndent) {
           _selectedIndex = i;
-          _cursorPosition = 0; // Reset cursor position
+          _cursorPosition = 0;
           break;
         }
       }
     }
   },
-  moveToFirstChild: () => { // New function to move to the first child item
+  moveToFirstChild: () => {
     if (_selectedIndex < _listItems.length - 1) {
       const currentIndent = _listItems[_selectedIndex].indent;
       for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
         if (_listItems[i].indent === currentIndent + 1) {
           _selectedIndex = i;
-          _cursorPosition = 0; // Reset cursor position
+          _cursorPosition = 0;
           break;
         }
       }
@@ -125,4 +124,16 @@ export const state = {
   inEditMode: () => _inEditMode,
   selectedIndex: () => _selectedIndex,
   listItems: () => _listItems,
+  saveOutlineToFile: (filePath: string) => {
+    const fs = require('fs'); // Make sure to import filesystem support
+    const outline = _listItems.map(item => '  '.repeat(item.indent) + item.text).join('\n');
+    
+    fs.writeFile(filePath, outline, (err) => {
+      if (err) {
+        console.error('Error writing to file', err);
+      } else {
+        console.log('Outline saved to', filePath);
+      }
+    });
+  },
 };

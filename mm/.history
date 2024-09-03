@@ -312,3 +312,10 @@
 +in nav mode:
 +left arrow: go to parent
 +right arrow: got to first child
+
+# 2024-09-03 13:22:55.811013
++@state.ts
++
++add action 'saveOutlineToFile(filePath)'
++saves the list of items in a text file
++indents by {two spaces} * item.indent
