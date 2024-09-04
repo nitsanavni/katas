@@ -21,6 +21,9 @@ export const onKey = (state, filePath) => {
         case "return":
           state.addItem();
           break;
+        case "tab": 
+          state.addChild(); // Change: tab key adds a child item in edit mode
+          break;
         default:
           if (str && !key.ctrl && !key.meta) {
             state.addChar(str);

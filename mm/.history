@@ -379,3 +379,9 @@
 +@state.ts
 +
 +don't use the console
+
+# 2024-09-04 21:41:39.106870
++@state.ts
++@onKey.ts
++
++in edit more, tab -> addChild
