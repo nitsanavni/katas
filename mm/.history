@@ -396,3 +396,9 @@
 +@state.ts
 +
 +enter (in both edit mode and in nav mode) -> add siblin
+
+# 2024-09-04 21:54:58.240441
++@state.ts
++
++addSiblin:
++only add after the current item's descendents

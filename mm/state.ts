@@ -41,10 +41,14 @@ export const state = {
     _cursorPosition = 0;
     _inEditMode = true;
   },
-  addSibling: () => { // Add sibling item
+  addSibling: () => { // Modify to add sibling item only after the current item's descendants
     const currentIndent = _listItems[_selectedIndex]?.indent || 0;
-    _listItems.splice(_selectedIndex + 1, 0, { text: "", indent: currentIndent });
-    _selectedIndex++;
+    let insertIndex = _selectedIndex + 1;
+    while (insertIndex < _listItems.length && _listItems[insertIndex].indent > currentIndent) {
+      insertIndex++;
+    }
+    _listItems.splice(insertIndex, 0, { text: "", indent: currentIndent });
+    _selectedIndex = insertIndex;
     _cursorPosition = 0;
     _inEditMode = true;
   },
