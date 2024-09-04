@@ -385,3 +385,8 @@
 +@onKey.ts
 +
 +in edit more, tab -> addChild
+
+# 2024-09-04 21:45:26.129510
++@state.ts
++
++addChild: add the child *after* all existing descendents

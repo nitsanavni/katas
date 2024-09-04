@@ -31,8 +31,13 @@ export const state = {
   },
   addChild: () => {
     const parentIndent = _listItems[_selectedIndex]?.indent || 0;
-    _listItems.splice(_selectedIndex + 1, 0, { text: "", indent: parentIndent + 1 });
-    _selectedIndex++;
+    // Find the position to insert after all descendants
+    let insertIndex = _selectedIndex + 1;
+    while (insertIndex < _listItems.length && _listItems[insertIndex].indent > parentIndent) {
+      insertIndex++;
+    }
+    _listItems.splice(insertIndex, 0, { text: "", indent: parentIndent + 1 });
+    _selectedIndex = insertIndex;
     _cursorPosition = 0;
     _inEditMode = true;
   },
