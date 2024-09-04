@@ -126,14 +126,12 @@ export const state = {
   listItems: () => _listItems,
   saveOutlineToFile: async (filePath: string) => {
     const outline = _listItems.map(item => '  '.repeat(item.indent) + item.text).join('\n');
-    
-    const path = filePath;
-    await Bun.write(path, outline);
+    await Bun.write(filePath, outline);
   },
   loadOutlineFromFile: async (filePath: string) => {
     try {
-      const file = Bun.file(filePath); // Assuming we need to use Bun.file to get the file reference
-      const content = await file.text(); // Read the text content of the file
+      const file = Bun.file(filePath);
+      const content = await file.text();
       _listItems = content.split('\n').map((line) => {
         const indent = line.search(/\S|$/);
         return {
@@ -141,11 +139,15 @@ export const state = {
           indent: indent / 2 // assuming two spaces for each indentation level
         };
       });
-      _selectedIndex = 0; // Set the default selected index after loading
-      _cursorPosition = 0; // Reset cursor position after loading
-      _inEditMode = true; // Set to edit mode after loading
-    } catch (error) {
-      console.error("Failed to load outline from file:", error);
+      _selectedIndex = 0; 
+      _cursorPosition = 0; 
+      _inEditMode = true; 
+    } catch {
+      _listItems = [{ text: "", indent: 0 }];
+      _selectedIndex = 0;
+      _cursorPosition = 0;
+      _inEditMode = true;
+      await Bun.write(filePath, ""); 
     }
   },
 };

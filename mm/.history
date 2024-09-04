@@ -368,3 +368,14 @@
 +
 +const file = Bun.file("./file.txt");
 +const content = await file.text();
+
+# 2024-09-04 12:04:28.389605
++@state.ts
++
++iso console error
++when file doesnt exist , just create an empty one
+
+# 2024-09-04 12:06:35.497552
++@state.ts
++
++don't use the console
