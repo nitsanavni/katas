@@ -1,5 +1,6 @@
 import logUpdate from "log-update";
 import { cat } from "./cat"; // Import the cat function from cat.ts
+
 // Internal helper function to concatenate nodes vertically
 function verticalCat(lines: string[]): string {
   return lines.join("\n");
@@ -49,10 +50,21 @@ export function getTree(
     selectedIndex === index
       ? renderSelectedItem(currentItem, cursorPosition, inEditMode) // Use local renderSelectedItem
       : currentItem.text,
-  ].join("\n");
+  ];
+
+  // Create a string with the smaller yellow dot symbol to append to the last line of the parent
+  const dotPrefix = '\x1b[33m.\x1b[0m'; // Smaller yellow dot character
+
+  // Prepend the dot to the last line of the padded parent lines without a space
+  if (paddedParentLines.length > 0) {
+    paddedParentLines[paddedParentLines.length - 1] = `${dotPrefix}${paddedParentLines[paddedParentLines.length - 1]}`;
+  }
+
+  // Join the padded parent lines into a single string
+  const parentLineWithDot = paddedParentLines.join("\n");
 
   // Use the cat function to concatenate the padded parent and its children horizontally
-  return cat(paddedParentLines, childrenRendered);
+  return cat(parentLineWithDot, childrenRendered);
 }
 
 // Function to extract the final tree output with a dummy root

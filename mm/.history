@@ -402,3 +402,62 @@
 +
 +addSiblin:
 +only add after the current item's descendents
+
+# 2024-09-04 22:02:01.952562
++@renderTree.ts
++
++add a char on the left of children
++a yellow middle dot
+
+# 2024-09-04 22:03:46.437802
++@renderTree.ts
++
++yellow dot:
++1. make it smaller
++2. only on the *left* (start) of children
++3. no extra spaces
+
+# 2024-09-04 22:05:37.423292
++@renderTree.ts
++
++yellow dot:
++only draw it on the left of direct children
+
+# 2024-09-04 22:07:52.389732
++@renderTree.ts
++
++yellow dot:
++change the algo
++where we determine how to draw the item.text iteself - this is where we need to add the dot
+
+# 2024-09-04 22:12:01.451209
++@renderTree.ts
++
++yellow dot:
++remove current implementation, it's not right
++it should be added at the start of the parent, in the section starting with:
++const paddedParentLines = [
+
+# 2024-09-04 22:14:00.001408
++@renderTree.ts
++
++yellow dot:
++should be added on the line of the parent, not the first line
+
+# 2024-09-04 22:15:46.616196
++@renderTree.ts
++
++yellow dot:
++should be added at the start of the last line of the parent block, not necessarily yhe first line
+
+# 2024-09-04 22:17:47.651703
++@renderTree.ts
++
++yellow dot:
++1. make it smaller
++2. no space between the dot and the text
+
+# 2024-09-04 22:19:14.871904
++@renderTree.ts
++
++yellow dot: make it smaller, like the normal dot symbol
