@@ -19,7 +19,7 @@ export const onKey = (state, filePath) => {
           state.toggleEditMode();
           break;
         case "return":
-          state.addItem();
+          state.addSibling(); // Change: enter key adds a sibling in edit mode
           break;
         case "tab": 
           state.addChild(); // Change: tab key adds a child item in edit mode
@@ -42,6 +42,9 @@ export const onKey = (state, filePath) => {
           state.addChild();
           break;
         case "s":
+          state.addSibling();
+          break;
+        case "return": // Change: enter key adds a sibling in navigation mode as well
           state.addSibling();
           break;
         case "q":

@@ -41,7 +41,7 @@ export const state = {
     _cursorPosition = 0;
     _inEditMode = true;
   },
-  addSibling: () => {
+  addSibling: () => { // Add sibling item
     const currentIndent = _listItems[_selectedIndex]?.indent || 0;
     _listItems.splice(_selectedIndex + 1, 0, { text: "", indent: currentIndent });
     _selectedIndex++;

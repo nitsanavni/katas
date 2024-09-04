@@ -390,3 +390,9 @@
 +@state.ts
 +
 +addChild: add the child *after* all existing descendents
+
+# 2024-09-04 21:50:24.418728
++@onKey.ts
++@state.ts
++
++enter (in both edit mode and in nav mode) -> add siblin
