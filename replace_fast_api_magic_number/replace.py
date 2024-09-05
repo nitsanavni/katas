@@ -5,7 +5,7 @@ import sys
 class StatusCodeTransformer(ast.NodeTransformer):
     def __init__(self):
         super().__init__()
-        self.status_used = False  # Track if status import is needed
+        self.status_used = False  # Track if the status import is needed
 
     def visit_Raise(self, node):
         if isinstance(node.exc, ast.Call) and isinstance(node.exc.func, ast.Name) and node.exc.func.id == "HTTPException":
