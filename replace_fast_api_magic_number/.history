@@ -28,3 +28,65 @@
 +
 +in test.sh:
 +can we have $1 default to example.py?
+
+# 2024-09-05 13:30:21.865380
++@example.py
++@replace.py
++@test.sh
++
++---
++
++in test.sh:
++let's run both the original file and the result through black before we diff
+
+# 2024-09-05 13:31:52.395637
++@test.sh
++
++black: Error: No such option: -o
++
+
+# 2024-09-05 13:32:22.939691
++@test.sh
++
++Usage: black [OPTIONS] SRC ...
++
++One of 'SRC' or 'code' is required.
+
+# 2024-09-05 13:32:46.945195
++@test.sh
++
++fix this:
++Usage: black [OPTIONS] SRC ...
++
++One of 'SRC' or 'code' is required.
+
+# 2024-09-05 13:36:44.728208
++@test.sh
++
++break transform to multi steps
++1. run replace.py ... > formatted
++2. run black
+
+# 2024-09-05 13:37:41.642769
++@test.sh
++
++1. don't clea up temp files
++2. print their paths for debug
+
+# 2024-09-05 13:43:44.678699
++@test.sh
++
++original:
++- cp from $1
++- exec black
++
+
+# 2024-09-05 13:45:36.555601
++@test.sh
++
++cleanup temp files at end of script
+
+# 2024-09-05 13:46:02.824225
++@test.sh
++
++don't print the temp files paths
