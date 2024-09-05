@@ -520,3 +520,15 @@
 +
 +in nav mode (no edit mode)
 +backspace -> deleteCurrentNode
+
+# 2024-09-05 21:19:32.082887
++@state.ts
++
++---
++
++deleteCurrentNode
++
++should identify node's descendents
++then delete the node and the descendents
++select prev siblin, or if not exist the parent
++

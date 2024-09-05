@@ -131,7 +131,7 @@ export const state = {
     }
   },
   deleteCurrentNode: () => {
-    if (_selectedIndex === 0) {
+    if (_listItems.length === 0 || _selectedIndex === 0) {
       _listItems = [{ text: "", indent: 0 }];
       _selectedIndex = 0;
       _cursorPosition = 0;
@@ -139,39 +139,25 @@ export const state = {
     }
 
     const currentItemIndent = _listItems[_selectedIndex].indent;
-    const currentItem = _listItems[_selectedIndex];
 
-    // Remove the current item and all of its descendants
-    const descendentsToRemove = _listItems.filter((item, index) => {
-      return index > _selectedIndex && item.indent > currentItemIndent;
-    });
-
-    if (descendentsToRemove.length > 0) {
-      const firstDescendantIndex = _listItems.indexOf(descendentsToRemove[0]);
-      _listItems.splice(_selectedIndex + 1, firstDescendantIndex - _selectedIndex - 1);
+    // Find the range of items to remove (descendants with indent > currentItemIndent)
+    let endIndex = _selectedIndex + 1;
+    while (endIndex < _listItems.length && _listItems[endIndex].indent > currentItemIndent) {
+      endIndex++;
     }
 
-    _listItems.splice(_selectedIndex, 1);
+    // Remove the current node and its descendants in one go
+    _listItems = [
+      ..._listItems.slice(0, _selectedIndex),
+      ..._listItems.slice(endIndex)
+    ];
 
-    // Adjust selected index
-    if (_listItems.length === 0) {
-      _selectedIndex = 0;
-      _cursorPosition = 0;
-      return;
+    // Adjust selected index after deletion
+    if (_selectedIndex >= _listItems.length) {
+      _selectedIndex = _listItems.length - 1; // Move to the last item
     }
 
-    // Move to the previous sibling or parent
-    let newIndex = _selectedIndex;    
-    if (newIndex >= _listItems.length) {
-      newIndex = _listItems.length - 1;
-    }
-    
-    while (newIndex > 0 && _listItems[newIndex].indent === currentItemIndent) {
-      newIndex--;
-    }
-    
-    _selectedIndex = newIndex;
-    _cursorPosition = 0;
+    _cursorPosition = 0; // Reset cursor position
   },
   inEditMode: () => _inEditMode,
   selectedIndex: () => _selectedIndex,
