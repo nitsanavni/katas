@@ -26,10 +26,10 @@ export const onKey = (state, filePath) => {
           }
           break;
         case "return":
-          state.addSibling(); // Change: enter key adds a sibling in edit mode
+          state.addSibling(); // Enter key adds a sibling in edit mode
           break;
         case "tab":
-          state.addChild(); // Change: tab key adds a child item in edit mode
+          state.addChild(); // Tab key adds a child item in edit mode
           break;
         default:
           if (str && !key.ctrl && !key.meta) {
@@ -45,13 +45,16 @@ export const onKey = (state, filePath) => {
         case "right":
           state.moveToFirstChild();
           break;
+        case "backspace":
+          state.deleteCurrentNode(); // Change: backspace deletes the current node in nav mode
+          break;
         case "c":
           state.addChild();
           break;
         case "s":
           state.addSibling();
           break;
-        case "return": // Change: enter key adds a sibling in navigation mode as well
+        case "return": // Enter key adds a sibling in navigation mode
           state.addSibling();
           break;
         case "q":

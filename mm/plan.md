@@ -4,6 +4,10 @@ mindmapping in the cli
 
 # todo
 
+- [ ] r state: break to multiple files
+- [ ] F DX: fancy-prompt: preview outline of file
+- [ ] F DX: outline: `--ts`/`--py`
+- [ ] F DX: outline: infer scoring from current code
 - [ ] r separate view/app state (cursor position, selected item, editMode) from data (items)
 - [ ] F draw connectors with box symbols
 - [ ] F delete item

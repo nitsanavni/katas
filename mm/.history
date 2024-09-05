@@ -491,3 +491,32 @@
 +to exit edit mode use `"name":"x","ctrl":true`
 +
 +you're the best
+
+# 2024-09-05 10:10:25.215707
++@state.ts
++
++add deleteCurrentNode
++- deletes the node
++- current item: prev siblin || parent
+
+# 2024-09-05 10:11:28.452686
++@state.ts
++
++delete:
++- also delets all node's descendents
+
+# 2024-09-05 10:17:55.127786
++@state.ts#O
+
+# 2024-09-05 10:24:35.450543
++@state.ts
++@onKey.ts
++
++backspace -> deleteNode
+
+# 2024-09-05 10:26:23.075854
++@state.ts
++@onKey.ts
++
++in nav mode (no edit mode)
++backspace -> deleteCurrentNode

@@ -130,6 +130,49 @@ export const state = {
       }
     }
   },
+  deleteCurrentNode: () => {
+    if (_selectedIndex === 0) {
+      _listItems = [{ text: "", indent: 0 }];
+      _selectedIndex = 0;
+      _cursorPosition = 0;
+      return;
+    }
+
+    const currentItemIndent = _listItems[_selectedIndex].indent;
+    const currentItem = _listItems[_selectedIndex];
+
+    // Remove the current item and all of its descendants
+    const descendentsToRemove = _listItems.filter((item, index) => {
+      return index > _selectedIndex && item.indent > currentItemIndent;
+    });
+
+    if (descendentsToRemove.length > 0) {
+      const firstDescendantIndex = _listItems.indexOf(descendentsToRemove[0]);
+      _listItems.splice(_selectedIndex + 1, firstDescendantIndex - _selectedIndex - 1);
+    }
+
+    _listItems.splice(_selectedIndex, 1);
+
+    // Adjust selected index
+    if (_listItems.length === 0) {
+      _selectedIndex = 0;
+      _cursorPosition = 0;
+      return;
+    }
+
+    // Move to the previous sibling or parent
+    let newIndex = _selectedIndex;    
+    if (newIndex >= _listItems.length) {
+      newIndex = _listItems.length - 1;
+    }
+    
+    while (newIndex > 0 && _listItems[newIndex].indent === currentItemIndent) {
+      newIndex--;
+    }
+    
+    _selectedIndex = newIndex;
+    _cursorPosition = 0;
+  },
   inEditMode: () => _inEditMode,
   selectedIndex: () => _selectedIndex,
   listItems: () => _listItems,
