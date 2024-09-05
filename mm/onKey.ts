@@ -1,9 +1,14 @@
 import { render } from "./renderTree";
+import debug from "debug"; // Import debug library
+
+const log = debug("app:onKey"); // Create a debug instance for this module
 
 export const onKey = (state, filePath) => {
   let saveTimeout; // Store timeout ID
 
   return (str, key) => {
+    log(`Received key: ${JSON.stringify(key)}`); // Use debug to log received keys
+
     if (state.inEditMode()) {
       switch (key.name) {
         case "left":
@@ -15,13 +20,15 @@ export const onKey = (state, filePath) => {
         case "backspace":
           state.deleteChar();
           break;
-        case "escape":
-          state.toggleEditMode();
+        case "x":
+          if (key.ctrl) {
+            state.toggleEditMode(); // Use "ctrl + x" to exit edit mode
+          }
           break;
         case "return":
           state.addSibling(); // Change: enter key adds a sibling in edit mode
           break;
-        case "tab": 
+        case "tab":
           state.addChild(); // Change: tab key adds a child item in edit mode
           break;
         default:
@@ -57,7 +64,6 @@ export const onKey = (state, filePath) => {
           state.moveDown();
           break;
         case "e":
-        case "escape":
           state.toggleEditMode();
           break;
         case "tab":

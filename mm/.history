@@ -467,3 +467,27 @@
 +
 +start off in nav mode (not edit mode)
 +after loading from the file
+
+# 2024-09-05 09:52:52.290990
++@onKey.ts
++
++add debug prints of received keys
+
+# 2024-09-05 09:56:27.122732
++@onKey.ts
++
++add debug prints of received keys: show all fields, not just name
+
+# 2024-09-05 09:58:37.246275
++@onKey.ts
++
++iso log, use debug
+
+# 2024-09-05 10:02:17.015709
++@onKey.ts
++
++remove all usage of Esc
++
++to exit edit mode use `"name":"x","ctrl":true`
++
++you're the best
