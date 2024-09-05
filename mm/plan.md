@@ -9,8 +9,10 @@ mindmapping in the cli
 - [ ] F delete item
 - [ ] F copy/cut sub tree
 - [ ] F paste sub tree
+- [ ] F space -> right fold
 - [ ] B spaces at start of items considered as indentation?
 - [ ] B esc take about 1 second to respond
+- [ ] F "scroll by fold"
 
 # done
 

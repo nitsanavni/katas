@@ -1,7 +1,7 @@
 let _cursorPosition = 0;
 let _listItems = [{ text: "", indent: 0 }];
 let _selectedIndex = 0;
-let _inEditMode = true;
+let _inEditMode = false; // Start off in nav mode
 
 export const state = {
   cursorPos: () => _cursorPosition,
@@ -41,7 +41,7 @@ export const state = {
     _cursorPosition = 0;
     _inEditMode = true;
   },
-  addSibling: () => { // Modify to add sibling item only after the current item's descendants
+  addSibling: () => { 
     const currentIndent = _listItems[_selectedIndex]?.indent || 0;
     let insertIndex = _selectedIndex + 1;
     while (insertIndex < _listItems.length && _listItems[insertIndex].indent > currentIndent) {
@@ -150,12 +150,12 @@ export const state = {
       });
       _selectedIndex = 0; 
       _cursorPosition = 0; 
-      _inEditMode = true; 
+      _inEditMode = false; // Start off in nav mode after loading 
     } catch {
       _listItems = [{ text: "", indent: 0 }];
       _selectedIndex = 0;
       _cursorPosition = 0;
-      _inEditMode = true;
+      _inEditMode = false; // Start in nav mode on error
       await Bun.write(filePath, ""); 
     }
   },

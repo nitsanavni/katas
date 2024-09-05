@@ -461,3 +461,9 @@
 +@renderTree.ts
 +
 +yellow dot: make it smaller, like the normal dot symbol
+
+# 2024-09-04 22:25:00.641093
++@state.ts
++
++start off in nav mode (not edit mode)
++after loading from the file
