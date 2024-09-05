@@ -8,3 +8,23 @@
 +@replace.py
 +
 +instead of hard coded example , add a __main__ block that takes the code from the file that's passed as cli arg
+
+# 2024-09-05 13:25:57.693786
++@test.sh
++@example.py
++@replace.py
++
++---
++
++in test.sh:
++can we pass the file to be transformed as $1?
+
+# 2024-09-05 13:27:15.215344
++@test.sh
++@example.py
++@replace.py
++
++---
++
++in test.sh:
++can we have $1 default to example.py?
