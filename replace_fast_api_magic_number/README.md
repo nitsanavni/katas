@@ -1,6 +1,6 @@
 # Python Code Transformation Example
 
-This repository demonstrates an automated code transformation for Python, specifically designed to modify occurrences of certain HTTP status codes in FastAPI applications. The transformation replaces literal HTTP status codes (like `500`) with constants from the `starlette.status` module (e.g., `status.HTTP_500_INTERNAL_SERVER_ERROR`).
+This code demonstrates an automated code transformation for Python, specifically designed to modify occurrences of certain HTTP status codes in FastAPI applications. The transformation replaces literal HTTP status codes (like `500`) with constants from the `starlette.status` module (e.g., `status.HTTP_500_INTERNAL_SERVER_ERROR`).
 
 ## Overview
 
