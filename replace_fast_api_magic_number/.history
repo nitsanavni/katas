@@ -1,0 +1,10 @@
+
+# 2024-09-05 13:10:13.322345
++@replace.py
++
++make sure original and new code is correct python syntax
+
+# 2024-09-05 13:11:34.800880
++@replace.py
++
++instead of hard coded example , add a __main__ block that takes the code from the file that's passed as cli arg
