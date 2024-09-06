@@ -615,3 +615,16 @@
 +@state.ts
 +
 +on that last function, can we pass stateObj directly instead of constructing a new obj?
+
+# 2024-09-06 11:34:06.685043
++@loadFromFile.ts
++@state.ts
++
++let's extract saveOutlineToFile functionality to new file, using same pattern as loadFromFile
+
+# 2024-09-06 11:36:56.898453
++@saveToFile.ts
++@state.ts
++
++save to file
++we have to actually invoke the imported function

@@ -1,4 +1,5 @@
 import loadFromFile from './loadFromFile';
+import saveToFile from './saveToFile';
 
 type State = {
   cursorPosition: number;
@@ -13,7 +14,7 @@ const stateObj: State = {
   cursorPosition: 0,
   listItems: [{ text: "", indent: 0 }],
   selectedIndex: 0,
-  inEditMode: false, // Start off in nav mode
+  inEditMode: false,
 };
 
 export const state = {
@@ -130,7 +131,6 @@ export const state = {
     const currentItem = stateObj.listItems[stateObj.selectedIndex];
     if (currentItem.indent > 0) {
       const oldIndent = currentItem.indent;
-
       currentItem.indent--;
 
       for (let i = stateObj.selectedIndex + 1; i < stateObj.listItems.length; i++) {
@@ -162,17 +162,16 @@ export const state = {
     ];
 
     if (stateObj.selectedIndex >= stateObj.listItems.length) {
-      stateObj.selectedIndex = stateObj.listItems.length - 1; // Move to the last item
+      stateObj.selectedIndex = stateObj.listItems.length - 1;
     }
 
-    stateObj.cursorPosition = 0; // Reset cursor position
+    stateObj.cursorPosition = 0;
   },
   inEditMode: () => stateObj.inEditMode,
   selectedIndex: () => stateObj.selectedIndex,
   listItems: () => stateObj.listItems,
   saveOutlineToFile: async (filePath: string) => {
-    const outline = stateObj.listItems.map(item => '  '.repeat(item.indent) + item.text).join('\n');
-    await Bun.write(filePath, outline);
+    await saveToFile(filePath)(stateObj); // Now correctly invoking the function
   },
   loadOutlineFromFile: async (filePath: string) => {
     Object.assign(stateObj, await loadFromFile(filePath)(stateObj));
