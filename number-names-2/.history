@@ -226,3 +226,8 @@
 +
 +1. define help function const find = (arr:T[], predicate):T => 
 +2. use it
+
+# 2024-09-07 01:38:40.277737
++@numberNames.ts
++
++no need for extra functio find, use arr.find directly
