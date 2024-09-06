@@ -652,3 +652,21 @@
 +@deleteCurrentNode.ts
 +
 +let's add dedentItem.ts, following same pattern as the other extracted functions
+
+# 2024-09-06 11:54:30.513782
++@state.ts
++@dedentItem.ts
++
++let's add indentItem.ts, following same pattern as the other extracted functions
+
+# 2024-09-06 11:55:37.500961
++@indentItem.ts
++
++SyntaxError: Missing 'default' export in module '/Users/nitsanavni/code/katas/mm/indentItem.ts'.
++
+
+# 2024-09-06 11:56:32.441252
++@state.ts
++@dedentItem.ts
++
++let's add indentItem.ts, following same pattern as the other extracted functions

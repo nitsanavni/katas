@@ -1,7 +1,8 @@
 import loadFromFile from './loadFromFile';
 import saveToFile from './saveToFile';
 import deleteCurrentNode from './deleteCurrentNode';
-import dedentItem from './dedentItem'; // Import the new dedentItem module
+import dedentItem from './dedentItem';
+import indentItem from './indentItem'; // Import the new indentItem module
 
 type State = {
   cursorPosition: number;
@@ -109,25 +110,7 @@ export const state = {
     }
   },
   indentItem: () => {
-    if (stateObj.selectedIndex <= 0) return;
-
-    const currentItem = stateObj.listItems[stateObj.selectedIndex];
-    const parentItem = stateObj.listItems[stateObj.selectedIndex - 1];
-    const maxIndent = parentItem.indent + 1;
-
-    if (maxIndent <= currentItem.indent) {
-      return;
-    }
-
-    currentItem.indent++;
-
-    for (let i = stateObj.selectedIndex + 1; i < stateObj.listItems.length; i++) {
-      if (stateObj.listItems[i].indent > (currentItem.indent - 1)) {
-        stateObj.listItems[i].indent++;
-      } else {
-        break;
-      }
-    }
+    indentItem(stateObj); // Call the indentItem function
   },
   dedentItem: () => {
     dedentItem(stateObj); // Call the dedentItem function
