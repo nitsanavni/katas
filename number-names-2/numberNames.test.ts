@@ -21,7 +21,8 @@ const testCases: [number, string][] = [
   [17, 'seventeen'],
   [18, 'eighteen'],
   [19, 'nineteen'],
-  [20, 'twenty'], // Added test case for number 20
+  [20, 'twenty'],
+  [21, 'twenty-one'], // Added test case for number 21
 ];
 
 testCases.forEach(([input, expected]) => {
