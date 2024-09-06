@@ -67,3 +67,8 @@
 +@numberNames.ts
 +
 +for 21, let's have a special case reusing existing strings
+
+# 2024-09-07 00:45:36.794247
++@numberNames.ts
++
++for 21,also reuse "one"

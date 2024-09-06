@@ -23,7 +23,7 @@ export const numberName = (num: number): string => {
   };
 
   if (num === 21) {
-    return `${numberNames[20]}-one`;
+    return `${numberNames[20]}-${numberNames[1]}`;
   }
   
   return numberNames[num] || 'unknown';
