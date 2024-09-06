@@ -128,3 +128,8 @@
 +we now get:
 +Expected: "one thousand"
 +Received: "ten hundred"
+
+# 2024-09-07 01:13:22.843435
++@numberNames.ts
++
++1000: extract the 1 from 1000
