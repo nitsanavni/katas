@@ -28,3 +28,9 @@
 +@numberNames.test.ts
 +
 +move the function to new file
+
+# 2024-09-07 00:29:41.086002
++@numberNames.test.ts
++@numberNames.ts
++
++change function to const arrow function
