@@ -22,8 +22,11 @@ export const numberName = (num: number): string => {
     20: 'twenty',
   };
 
-  if (num === 21) {
-    return `${numberNames[20]}-${numberNames[1]}`;
+  if (num > 20) {
+    const tens = Math.floor(num / 10);
+    const ones = num % 10;
+
+    return `${numberNames[tens * 10]}${ones > 0 ? '-' + numberNames[ones] : ''}`;
   }
   
   return numberNames[num] || 'unknown';

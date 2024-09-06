@@ -72,3 +72,9 @@
 +@numberNames.ts
 +
 +for 21,also reuse "one"
+
+# 2024-09-07 00:47:21.221818
++@numberNames.ts
++
++21:
++calc 20 and 1 from 21
