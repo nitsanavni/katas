@@ -33,8 +33,11 @@ export const numberName = (num: number): string => {
     9: 'ninety',
   };
 
-  if (num === 100) {
-    return 'one hundred';
+  if (num >= 100) {
+    const hundreds = Math.floor(num / 100);
+    const remainder = num % 100;
+    
+    return `${numberNames[hundreds]} hundred${remainder > 0 ? ' and ' + numberName(remainder) : ''}`;
   }
 
   if (num > 20) {

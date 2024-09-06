@@ -93,3 +93,8 @@
 +@numberNames.ts
 +
 +support 100
+
+# 2024-09-07 01:02:46.696230
++@numberNames.ts
++
++100: extract the 1 from 100
