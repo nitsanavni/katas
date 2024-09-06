@@ -72,12 +72,10 @@ export function extract(
 }
 
 export function render(
-  items: { text: string; indent: number }[],
-  selectedIndex: number = -1,
-  cursorPosition: number = 0,
-  inEditMode: boolean = false,
+  { listItems = [], selectedIndex = -1, cursorPos, inEditMode }:  // Added default value for selectedIndex
+  { listItems?: { text: string; indent: number }[], selectedIndex?: number, cursorPos: number, inEditMode: boolean }
 ) {
-  logUpdate(extract(items, selectedIndex, cursorPosition, inEditMode));
+  logUpdate(extract(listItems, selectedIndex, cursorPos, inEditMode));
 }
 
 export function renderSelectedItem(item: { text: string; indent: number }, cursorPosition: number, inEditMode: boolean): string {

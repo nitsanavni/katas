@@ -47,12 +47,7 @@ export const onKey = (state, filePath) => {
       (navKeyHandlers(key)[key.name] || (() => {}))();
     }
 
-    render(
-      state.get().listItems,
-      state.get().selectedIndex,
-      state.get().cursorPos,
-      state.get().inEditMode,
-    );
+    render(state.get());
 
     clearTimeout(saveTimeout);
     

@@ -789,3 +789,29 @@
 +onKey: use state.get(), pass the whole stateObj to render
 +render: accept an obj  
 +
+
+# 2024-09-06 15:59:27.817548
++@onKey.ts
++@renderTree.ts
++
++render function: to directly accept the obj returned from state.get()
+
+# 2024-09-06 16:01:55.489006
++@onKey.ts
++@renderTree.ts
++
++render function: to directly accept the obj returned from state.get()
++
++call it like this:
++render(state.get())
+
+# 2024-09-06 16:04:19.170075
++@renderTree.ts
++
++render function
++listItems=[] (default value)
+
+# 2024-09-06 16:05:37.984740
++@renderTree.ts
++
++selectedIndex default value -1
