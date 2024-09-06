@@ -605,3 +605,8 @@
 +@state.ts
 +
 +can we update stateObj from newState using spread op?
+
+# 2024-09-06 11:24:27.692187
++@state.ts
++
++on that last function, no need for intermediate `newState`, can inline it
