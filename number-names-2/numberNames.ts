@@ -33,6 +33,10 @@ export const numberName = (num: number): string => {
     9: 'ninety',
   };
 
+  if (num === 1000) {
+    return 'one thousand'; // Handle the case for 1000
+  }
+
   if (num >= 100) {
     const hundreds = Math.floor(num / 100);
     const remainder = num % 100;

@@ -119,3 +119,12 @@
 +@numberNames.test.ts
 +
 +add test 1000
+
+# 2024-09-07 01:12:22.517308
++@numberNames.ts
++
++support 1000
++
++we now get:
++Expected: "one thousand"
++Received: "ten hundred"
