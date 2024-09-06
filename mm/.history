@@ -628,3 +628,8 @@
 +
 +save to file
 +we have to actually invoke the imported function
+
+# 2024-09-06 11:44:18.103874
++@saveToFile.ts
++
++can we export default right from the line where we define the const?
