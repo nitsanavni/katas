@@ -40,9 +40,11 @@ export const numberName = (num: number): string => {
   };
 
   const largeNumbers = [
-    { value: 1000000, name: 'million' },
-    { value: 1000, name: 'thousand' },
-    { value: 100, name: 'hundred' },
+    { value: 1e12, name: 'trillion' },
+    { value: 1e9, name: 'billion' },
+    { value: 1e6, name: 'million' },
+    { value: 1e3, name: 'thousand' },
+    { value: 1e2, name: 'hundred' },
   ];
 
   const match = largeNumbers.find(item => num >= item.value);

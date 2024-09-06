@@ -231,3 +231,18 @@
 +@numberNames.ts
 +
 +no need for extra functio find, use arr.find directly
+
+# 2024-09-07 01:44:11.273003
++@numberNames.test.ts
++
++add some more crazy  random tests up to 1e12, not many
+
+# 2024-09-07 01:45:07.034515
++@numberNames.ts
++
++support 1e9 and 1e12
+
+# 2024-09-07 01:45:46.724041
++@numberNames.ts
++
++change all round number to 1eE style
