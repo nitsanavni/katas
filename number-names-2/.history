@@ -83,3 +83,8 @@
 +@numberNames.ts
 +
 +instead of indexing with tens * 10, let's define another array that can be indexed directly with tens
+
+# 2024-09-07 00:51:02.952074
++@numberNames.test.ts
++
++add some random tests up to 100, not many
