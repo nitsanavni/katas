@@ -610,3 +610,8 @@
 +@state.ts
 +
 +on that last function, no need for intermediate `newState`, can inline it
+
+# 2024-09-06 11:27:03.038099
++@state.ts
++
++on that last function, can we pass stateObj directly instead of constructing a new obj?

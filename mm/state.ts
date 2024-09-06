@@ -175,11 +175,6 @@ export const state = {
     await Bun.write(filePath, outline);
   },
   loadOutlineFromFile: async (filePath: string) => {
-    Object.assign(stateObj, await loadFromFile(filePath)({ 
-      cursorPosition: stateObj.cursorPosition, 
-      listItems: stateObj.listItems, 
-      selectedIndex: stateObj.selectedIndex, 
-      inEditMode: stateObj.inEditMode 
-    }));
+    Object.assign(stateObj, await loadFromFile(filePath)(stateObj));
   },
 };
