@@ -42,7 +42,12 @@ const testCases: [number, string][] = [
   [700, 'seven hundred'],
   [850, 'eight hundred fifty'],
   [999, 'nine hundred ninety-nine'],
-  [1000, 'one thousand'] // Added test case for 1000
+  [1000, 'one thousand'],
+  [1234, 'one thousand two hundred thirty-four'], // Added random test case
+  [2023, 'two thousand twenty-three'], // Added random test case
+  [4500, 'four thousand five hundred'], // Added random test case
+  [6789, 'six thousand seven hundred eighty-nine'], // Added random test case
+  [9999, 'nine thousand nine hundred ninety-nine'] // Added random test case
 ];
 
 testCases.forEach(([input, expected]) => {

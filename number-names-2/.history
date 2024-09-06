@@ -133,3 +133,8 @@
 +@numberNames.ts
 +
 +1000: extract the 1 from 1000
+
+# 2024-09-07 01:16:25.108271
++@numberNames.test.ts
++
++add some random tests up to 10000, not many
