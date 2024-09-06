@@ -213,3 +213,16 @@
 +
 +those 3 first if blocks look very similar
 +can we extract a function to be reused?
+
+# 2024-09-07 01:35:18.621651
++@numberNames.ts
++
++those 3 first if blocks look like a 'find' to me...
+
+# 2024-09-07 01:36:35.845320
++@numberNames.ts
++
++those 3 first if blocks look like a 'find' to me...
++
++1. define help function const find = (arr:T[], predicate):T => 
++2. use it

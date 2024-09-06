@@ -39,16 +39,20 @@ export const numberName = (num: number): string => {
     return `${numberName(quotient)} ${name}${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
   };
 
-  if (num >= 1000000) {
-    return convertLargeNumber(1000000, 'million');
-  }
+  const find = (arr: { value: number, name: string }[], defaultValue: string) => {
+    const match = arr.find(item => num >= item.value);
+    return match ? convertLargeNumber(match.value, match.name) : defaultValue;
+  };
 
-  if (num >= 1000) {
-    return convertLargeNumber(1000, 'thousand');
-  }
-
-  if (num >= 100) {
-    return convertLargeNumber(100, 'hundred');
+  const largeNumbers = [
+    { value: 1000000, name: 'million' },
+    { value: 1000, name: 'thousand' },
+    { value: 100, name: 'hundred' },
+  ];
+  
+  const foundLargeNumber = find(largeNumbers, null);
+  if (foundLargeNumber) {
+    return foundLargeNumber;
   }
 
   if (num > 20) {
