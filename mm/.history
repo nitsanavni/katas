@@ -706,3 +706,20 @@
 +moveToParent
 +moveToFirstChild
 +
+
+# 2024-09-06 12:07:59.528096
++@state.ts
++@addChar.ts
++@addChild.ts
++@addItem.ts
++@addSibling.ts
++@cursorLeft.ts
++@cursorRight.ts
++@deleteChar.ts
++@moveDown.ts
++@moveUp.ts
++@moveToParent.ts
++@moveToFirstChild.ts
++@toggleEditMode.ts
++
++in state.ts, please import and use the functions from the other files
