@@ -578,3 +578,14 @@
 +
 +let's extract a transform for the last function that transforms state (loadFromFile)
 +extract a const loadFromFile = (path) => (state) => state
+
+# 2024-09-06 11:08:10.299612
++@state.ts
++
++let's move the const loadFromFile to new file
+
+# 2024-09-06 11:11:37.857424
++@loadFromFile.ts
++@state.ts
++
++import from loadFromFile
