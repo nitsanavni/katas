@@ -670,3 +670,39 @@
 +@dedentItem.ts
 +
 +let's add indentItem.ts, following same pattern as the other extracted functions
+
+# 2024-09-06 12:00:16.397900
++@state.ts
++@indentItem.ts
++
++let's create files for all state transforming functions like we did for indentItem.ts
+
+# 2024-09-06 12:02:32.761687
++@state.ts
++@indentItem.ts
++@loadFromFile.ts
++
++let's create files for all state transforming functions like we did for indentItem.ts, loadFromFile
++
++
+
+# 2024-09-06 12:04:32.874395
++@state.ts
++@indentItem.ts
++@loadFromFile.ts
++
++let's create files for all state transforming functions like we did for indentItem.ts, loadFromFile
++
++cursorRight
++cursorLeft
++deleteChar
++addItem
++addChild
++addSibling
++addChar
++toggleEditMode
++moveUp
++moveDown
++moveToParent
++moveToFirstChild
++
