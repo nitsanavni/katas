@@ -251,3 +251,11 @@
 +@numberNames.test.ts
 +
 +test this: 893458260048001
+
+# 2024-09-07 01:54:08.861743
++@numberNames.test.ts
++
++correct accoring to received
++
++Expected: "eight hundred ninety-three trillion four hundred fifty-eight billion two hundred sixty million four hundred eighty thousand one"
++Received: "eight hundred ninety-three trillion four hundred fifty-eight billion two hundred sixty million forty-eight thousand one"
