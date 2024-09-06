@@ -34,7 +34,9 @@ export const numberName = (num: number): string => {
   };
 
   if (num >= 1000) {
-    return `${numberNames[Math.floor(num / 1000)]} thousand`; // Handle the case for 1000
+    const thousands = Math.floor(num / 1000);
+    const remainder = num % 1000;
+    return `${numberNames[thousands]} thousand${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
   }
 
   if (num >= 100) {
