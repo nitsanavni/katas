@@ -33,12 +33,16 @@ export const numberName = (num: number): string => {
     9: 'ninety',
   };
 
+  if (num === 100) {
+    return 'one hundred';
+  }
+
   if (num > 20) {
     const tens = Math.floor(num / 10);
     const ones = num % 10;
 
     return `${tensNames[tens]}${ones > 0 ? '-' + numberNames[ones] : ''}`;
   }
-  
+
   return numberNames[num] || 'unknown';
 };

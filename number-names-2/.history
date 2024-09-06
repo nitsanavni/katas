@@ -88,3 +88,8 @@
 +@numberNames.test.ts
 +
 +add some random tests up to 100, not many
+
+# 2024-09-07 00:54:06.975064
++@numberNames.ts
++
++support 100
