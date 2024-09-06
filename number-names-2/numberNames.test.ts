@@ -41,7 +41,8 @@ const testCases: [number, string][] = [
   [598, 'five hundred ninety-eight'],
   [700, 'seven hundred'],
   [850, 'eight hundred fifty'],
-  [999, 'nine hundred ninety-nine']
+  [999, 'nine hundred ninety-nine'],
+  [1000, 'one thousand'] // Added test case for 1000
 ];
 
 testCases.forEach(([input, expected]) => {
