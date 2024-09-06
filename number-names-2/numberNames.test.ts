@@ -32,7 +32,16 @@ const testCases: [number, string][] = [
   [75, 'seventy-five'], // Added additional random test case
   [89, 'eighty-nine'], // Added additional random test case
   [97, 'ninety-seven'], // Added additional random test case
-  [100, 'one hundred'] // Added test case for number 100
+  [100, 'one hundred'], // Added test case for number 100
+  [101, 'one hundred one'], // New additional test case
+  [123, 'one hundred twenty-three'], // New additional test case
+  [250, 'two hundred fifty'], // New additional test case
+  [305, 'three hundred five'], // New additional test case
+  [412, 'four hundred twelve'], // New additional test case
+  [598, 'five hundred ninety-eight'], // New additional test case
+  [700, 'seven hundred'], // New additional test case
+  [850, 'eight hundred fifty'], // New additional test case
+  [999, 'nine hundred ninety-nine'] // New additional test case
 ];
 
 testCases.forEach(([input, expected]) => {
