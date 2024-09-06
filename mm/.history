@@ -731,3 +731,36 @@
 +can you add alias 'c' for this:
 +python3 ~/code/outline/change_in_files.py -h .history
 +
+
+# 2024-09-06 15:19:48.039462
++
++@/Users/nitsanavni/.bashrc
++
++can you add alias 'mm' for this:
++~/code/katas/mm/index.ts
+
+# 2024-09-06 15:33:11.191304
++@onKey.ts
++
++iso switch case break
++let's do obj key value
++
++e.g.
++
++{
++  ...
++  e: () => state.toggleEditMode();
++  ...
++}
+
+# 2024-09-06 15:39:06.590251
++@onKey.ts
++
++the keyHandler Objs need the key and str, so let's make them an arrow func that acepts thos and returns the objs
+
+# 2024-09-06 15:39:55.140195
++@onKey.ts
++
++the keyHandler Objs need the key and str, so let's make them an arrow func that acepts thos and returns the objs
++like this:
++const editKeyHandlers = (str,key) => ({...

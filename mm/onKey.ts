@@ -6,73 +6,45 @@ const log = debug("app:onKey"); // Create a debug instance for this module
 export const onKey = (state, filePath) => {
   let saveTimeout; // Store timeout ID
 
+  const editKeyHandlers = (str, key) => ({
+    left: () => state.cursorLeft(),
+    right: () => state.cursorRight(),
+    backspace: () => state.deleteChar(),
+    x: () => {
+      if (key.ctrl) {
+        state.toggleEditMode(); // Use "ctrl + x" to exit edit mode
+      }
+    },
+    return: () => state.addSibling(), // Enter key adds a sibling in edit mode
+    tab: () => state.addChild(), // Tab key adds a child item in edit mode
+    default: () => {
+      if (str && !key.ctrl && !key.meta) {
+        state.addChar(str);
+      }
+    }
+  });
+
+  const navKeyHandlers = (key) => ({
+    left: () => state.moveToParent(),
+    right: () => state.moveToFirstChild(),
+    backspace: () => state.deleteCurrentNode(), // Backspace deletes the current node in nav mode
+    c: () => state.addChild(),
+    s: () => state.addSibling(),
+    return: () => state.addSibling(), // Enter key adds a sibling in navigation mode
+    q: () => exitProgram(),
+    up: () => state.moveUp(),
+    down: () => state.moveDown(),
+    e: () => state.toggleEditMode(),
+    tab: () => (key.shift ? state.dedentItem() : state.indentItem()),
+  });
+
   return (str, key) => {
     log(`Received key: ${JSON.stringify(key)}`); // Use debug to log received keys
 
     if (state.inEditMode()) {
-      switch (key.name) {
-        case "left":
-          state.cursorLeft();
-          break;
-        case "right":
-          state.cursorRight();
-          break;
-        case "backspace":
-          state.deleteChar();
-          break;
-        case "x":
-          if (key.ctrl) {
-            state.toggleEditMode(); // Use "ctrl + x" to exit edit mode
-          }
-          break;
-        case "return":
-          state.addSibling(); // Enter key adds a sibling in edit mode
-          break;
-        case "tab":
-          state.addChild(); // Tab key adds a child item in edit mode
-          break;
-        default:
-          if (str && !key.ctrl && !key.meta) {
-            state.addChar(str);
-          }
-          break;
-      }
+      (editKeyHandlers(str, key)[key.name] || editKeyHandlers(str, key).default)(); 
     } else {
-      switch (key.name) {
-        case "left":
-          state.moveToParent();
-          break;
-        case "right":
-          state.moveToFirstChild();
-          break;
-        case "backspace":
-          state.deleteCurrentNode(); // Change: backspace deletes the current node in nav mode
-          break;
-        case "c":
-          state.addChild();
-          break;
-        case "s":
-          state.addSibling();
-          break;
-        case "return": // Enter key adds a sibling in navigation mode
-          state.addSibling();
-          break;
-        case "q":
-          exitProgram();
-          break;
-        case "up":
-          state.moveUp();
-          break;
-        case "down":
-          state.moveDown();
-          break;
-        case "e":
-          state.toggleEditMode();
-          break;
-        case "tab":
-          key.shift ? state.dedentItem() : state.indentItem();
-          break;
-      }
+      (navKeyHandlers(key)[key.name] || (() => {}))(); 
     }
 
     render(
