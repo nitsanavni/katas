@@ -39,3 +39,8 @@
 +@numberNames.test.ts
 +
 +single parameterized test
+
+# 2024-09-07 00:34:05.546160
++@numberNames.test.ts
++
++just use tuples instead of {input, expected}
