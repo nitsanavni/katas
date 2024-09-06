@@ -1,0 +1,14 @@
+
+# 2024-09-06 23:59:55.234692
++number names kata, typescript, bun.sh
++
++start us off with a dummy failing test
++
++here's an example
++
++import { expect, test } from "bun:test";
++
++test("2 + 2 should equal 4", () => {
++  expect(2 + 2).toBe(4);
++});
++
