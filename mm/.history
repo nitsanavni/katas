@@ -723,3 +723,11 @@
 +@toggleEditMode.ts
 +
 +in state.ts, please import and use the functions from the other files
+
+# 2024-09-06 14:24:18.285760
++
++@/Users/nitsanavni/.bashrc
++
++can you add alias 'c' for this:
++python3 ~/code/outline/change_in_files.py -h .history
++
