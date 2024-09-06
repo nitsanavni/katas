@@ -600,3 +600,8 @@
 +@state.ts
 +
 +let's use a `stateObj: State` instead of the 4 lets
+
+# 2024-09-06 11:21:56.725018
++@state.ts
++
++can we update stateObj from newState using spread op?

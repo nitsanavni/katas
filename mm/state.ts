@@ -44,7 +44,6 @@ export const state = {
   },
   addChild: () => {
     const parentIndent = stateObj.listItems[stateObj.selectedIndex]?.indent || 0;
-    // Find the position to insert after all descendants
     let insertIndex = stateObj.selectedIndex + 1;
     while (insertIndex < stateObj.listItems.length && stateObj.listItems[insertIndex].indent > parentIndent) {
       insertIndex++;
@@ -54,7 +53,7 @@ export const state = {
     stateObj.cursorPosition = 0;
     stateObj.inEditMode = true;
   },
-  addSibling: () => { 
+  addSibling: () => {
     const currentIndent = stateObj.listItems[stateObj.selectedIndex]?.indent || 0;
     let insertIndex = stateObj.selectedIndex + 1;
     while (insertIndex < stateObj.listItems.length && stateObj.listItems[insertIndex].indent > currentIndent) {
@@ -152,20 +151,16 @@ export const state = {
     }
 
     const currentItemIndent = stateObj.listItems[stateObj.selectedIndex].indent;
-
-    // Find the range of items to remove (descendants with indent > currentItemIndent)
     let endIndex = stateObj.selectedIndex + 1;
     while (endIndex < stateObj.listItems.length && stateObj.listItems[endIndex].indent > currentItemIndent) {
       endIndex++;
     }
 
-    // Remove the current node and its descendants in one go
     stateObj.listItems = [
       ...stateObj.listItems.slice(0, stateObj.selectedIndex),
       ...stateObj.listItems.slice(endIndex)
     ];
 
-    // Adjust selected index after deletion
     if (stateObj.selectedIndex >= stateObj.listItems.length) {
       stateObj.selectedIndex = stateObj.listItems.length - 1; // Move to the last item
     }
@@ -187,9 +182,6 @@ export const state = {
       inEditMode: stateObj.inEditMode 
     });
 
-    stateObj.listItems = newState.listItems;
-    stateObj.selectedIndex = newState.selectedIndex;
-    stateObj.cursorPosition = newState.cursorPosition;
-    stateObj.inEditMode = newState.inEditMode;
+    Object.assign(stateObj, newState);
   },
 };
