@@ -20,7 +20,11 @@ export const numberName = (num: number): string => {
     18: 'eighteen',
     19: 'nineteen',
     20: 'twenty',
-    21: 'twenty-one', // Added number 21
   };
+
+  if (num === 21) {
+    return `${numberNames[20]}-one`;
+  }
+  
   return numberNames[num] || 'unknown';
 };

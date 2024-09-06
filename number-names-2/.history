@@ -62,3 +62,8 @@
 +@numberNames.test.ts
 +
 +add 21
+
+# 2024-09-07 00:44:29.106960
++@numberNames.ts
++
++for 21, let's have a special case reusing existing strings
