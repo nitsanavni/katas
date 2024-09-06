@@ -43,11 +43,20 @@ const testCases: [number, string][] = [
   [850, 'eight hundred fifty'],
   [999, 'nine hundred ninety-nine'],
   [1000, 'one thousand'],
-  [1234, 'one thousand two hundred thirty-four'], // Added random test case
-  [2023, 'two thousand twenty-three'], // Added random test case
-  [4500, 'four thousand five hundred'], // Added random test case
-  [6789, 'six thousand seven hundred eighty-nine'], // Added random test case
-  [9999, 'nine thousand nine hundred ninety-nine'] // Added random test case
+  [1234, 'one thousand two hundred thirty-four'],
+  [2023, 'two thousand twenty-three'],
+  [4500, 'four thousand five hundred'],
+  [6789, 'six thousand seven hundred eighty-nine'],
+  [9999, 'nine thousand nine hundred ninety-nine'],
+  [10000, 'ten thousand'],
+  [25000, 'twenty-five thousand'],
+  [50000, 'fifty thousand'],
+  [99999, 'ninety-nine thousand nine hundred ninety-nine'],
+  [100000, 'one hundred thousand'],
+  [250000, 'two hundred fifty thousand'],
+  [500000, 'five hundred thousand'],
+  [999999, 'nine hundred ninety-nine thousand nine hundred ninety-nine'],
+  [1000000, 'one million']
 ];
 
 testCases.forEach(([input, expected]) => {

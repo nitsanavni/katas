@@ -143,3 +143,18 @@
 +@numberNames.ts
 +
 +support 1234
+
+# 2024-09-07 01:19:12.934197
++@numberNames.test.ts
++
++test for 10k
+
+# 2024-09-07 01:19:47.528003
++@numberNames.test.ts
++
++remove comments
+
+# 2024-09-07 01:20:21.818070
++@numberNames.test.ts
++
++add some random tests up to 1000000, not many
