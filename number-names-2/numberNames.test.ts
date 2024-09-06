@@ -75,6 +75,7 @@ const testCases: [number, string][] = [
   [999999999999, 'nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine'],
   [500000000000, 'five hundred billion'],
   [750000000000, 'seven hundred fifty billion'],
+  [893458260048001, 'eight hundred ninety-three trillion four hundred fifty-eight billion two hundred sixty million four hundred eighty thousand one'],
 ];
 
 testCases.forEach(([input, expected]) => {

@@ -246,3 +246,8 @@
 +@numberNames.ts
 +
 +change all round number to 1eE style
+
+# 2024-09-07 01:51:39.922431
++@numberNames.test.ts
++
++test this: 893458260048001
