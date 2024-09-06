@@ -1,6 +1,7 @@
 import loadFromFile from './loadFromFile';
 import saveToFile from './saveToFile';
 import deleteCurrentNode from './deleteCurrentNode';
+import dedentItem from './dedentItem'; // Import the new dedentItem module
 
 type State = {
   cursorPosition: number;
@@ -129,19 +130,7 @@ export const state = {
     }
   },
   dedentItem: () => {
-    const currentItem = stateObj.listItems[stateObj.selectedIndex];
-    if (currentItem.indent > 0) {
-      const oldIndent = currentItem.indent;
-      currentItem.indent--;
-
-      for (let i = stateObj.selectedIndex + 1; i < stateObj.listItems.length; i++) {
-        if (stateObj.listItems[i].indent > oldIndent) {
-          stateObj.listItems[i].indent--;
-        } else {
-          break;
-        }
-      }
-    }
+    dedentItem(stateObj); // Call the dedentItem function
   },
   deleteCurrentNode: () => {
     Object.assign(stateObj, deleteCurrentNode(stateObj));

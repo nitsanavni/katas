@@ -646,3 +646,9 @@
 +@deleteCurrentNode.ts
 +
 +in state.ts use the imported deleteCurrentNode
+
+# 2024-09-06 11:52:09.587677
++@state.ts
++@deleteCurrentNode.ts
++
++let's add dedentItem.ts, following same pattern as the other extracted functions
