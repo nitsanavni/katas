@@ -633,3 +633,16 @@
 +@saveToFile.ts
 +
 +can we export default right from the line where we define the const?
+
+# 2024-09-06 11:47:44.963431
++@loadFromFile.ts
++@saveToFile.ts
++@state.ts
++
++let's extract deleteCurrentNode.ts using same pattern as saveTofile loadFromFile
+
+# 2024-09-06 11:48:51.820002
++@state.ts
++@deleteCurrentNode.ts
++
++in state.ts use the imported deleteCurrentNode

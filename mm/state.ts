@@ -1,5 +1,6 @@
 import loadFromFile from './loadFromFile';
 import saveToFile from './saveToFile';
+import deleteCurrentNode from './deleteCurrentNode';
 
 type State = {
   cursorPosition: number;
@@ -143,35 +144,13 @@ export const state = {
     }
   },
   deleteCurrentNode: () => {
-    if (stateObj.listItems.length === 0 || stateObj.selectedIndex === 0) {
-      stateObj.listItems = [{ text: "", indent: 0 }];
-      stateObj.selectedIndex = 0;
-      stateObj.cursorPosition = 0;
-      return;
-    }
-
-    const currentItemIndent = stateObj.listItems[stateObj.selectedIndex].indent;
-    let endIndex = stateObj.selectedIndex + 1;
-    while (endIndex < stateObj.listItems.length && stateObj.listItems[endIndex].indent > currentItemIndent) {
-      endIndex++;
-    }
-
-    stateObj.listItems = [
-      ...stateObj.listItems.slice(0, stateObj.selectedIndex),
-      ...stateObj.listItems.slice(endIndex)
-    ];
-
-    if (stateObj.selectedIndex >= stateObj.listItems.length) {
-      stateObj.selectedIndex = stateObj.listItems.length - 1;
-    }
-
-    stateObj.cursorPosition = 0;
+    Object.assign(stateObj, deleteCurrentNode(stateObj));
   },
   inEditMode: () => stateObj.inEditMode,
   selectedIndex: () => stateObj.selectedIndex,
   listItems: () => stateObj.listItems,
   saveOutlineToFile: async (filePath: string) => {
-    await saveToFile(filePath)(stateObj); // Now correctly invoking the function
+    await saveToFile(filePath)(stateObj);
   },
   loadOutlineFromFile: async (filePath: string) => {
     Object.assign(stateObj, await loadFromFile(filePath)(stateObj));
