@@ -19,6 +19,7 @@ export const numberName = (num: number): string => {
     17: 'seventeen',
     18: 'eighteen',
     19: 'nineteen',
+    20: 'twenty',
   };
   return numberNames[num] || 'unknown';
 };
