@@ -36,20 +36,18 @@ export const numberName = (num: number): string => {
   if (num >= 1000) {
     const thousands = Math.floor(num / 1000);
     const remainder = num % 1000;
-    return `${numberNames[thousands]} thousand${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
+    return `${numberName(thousands)} thousand${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
   }
 
   if (num >= 100) {
     const hundreds = Math.floor(num / 100);
     const remainder = num % 100;
-    
-    return `${numberNames[hundreds]} hundred${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
+    return `${numberName(hundreds)} hundred${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
   }
 
   if (num > 20) {
     const tens = Math.floor(num / 10);
     const ones = num % 10;
-
     return `${tensNames[tens]}${ones > 0 ? '-' + numberNames[ones] : ''}`;
   }
 

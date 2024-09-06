@@ -158,3 +158,37 @@
 +@numberNames.test.ts
 +
 +add some random tests up to 1000000, not many
+
+# 2024-09-07 01:21:57.759275
++@numberNames.ts
++
++support 25000
+
+# 2024-09-07 01:22:14.327273
++@numberNames.ts
++
++support 25000
++
+
+# 2024-09-07 01:23:21.648358
++@numberNames.ts
++
++support 25000
++by numberName(thou...
+
+# 2024-09-07 01:23:50.797805
++@numberNames.ts
++
++support 25000
++by numberName(thou... iso numberNames[thou...
+
+# 2024-09-07 01:24:26.195152
++@numberNames.ts
++
++use numberName(thou... iso numberNames[thou...
+
+# 2024-09-07 01:25:17.822969
++@numberNames.ts
++
++thousands
++recursively reuse the function instead of indexing the array
