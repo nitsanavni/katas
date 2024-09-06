@@ -197,3 +197,13 @@
 +@numberNames.ts
 +
 +support 1M
+
+# 2024-09-07 01:28:16.500530
++@numberNames.test.ts
++
++add some random tests up to 1B, not many
+
+# 2024-09-07 01:29:04.213026
++@numberNames.test.ts
++
++add some more crazy  random tests up to 1B, not many

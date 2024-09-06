@@ -56,7 +56,19 @@ const testCases: [number, string][] = [
   [250000, 'two hundred fifty thousand'],
   [500000, 'five hundred thousand'],
   [999999, 'nine hundred ninety-nine thousand nine hundred ninety-nine'],
-  [1000000, 'one million']
+  [1000000, 'one million'],
+  [2500000, 'two million five hundred thousand'],
+  [5000000, 'five million'],
+  [10000000, 'ten million'],
+  [25000000, 'twenty-five million'],
+  [50000000, 'fifty million'],
+  [999999999, 'nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine'],
+  [123456789, 'one hundred twenty-three million four hundred fifty-six thousand seven hundred eighty-nine'],
+  [550000000, 'five hundred fifty million'],
+  [765432100, 'seven hundred sixty-five million four hundred thirty-two thousand one hundred'],
+  [999000000, 'nine hundred ninety-nine million'],
+  [888888888, 'eight hundred eighty-eight million eight hundred eighty-eight thousand eight hundred eighty-eight'],
+  [314159265, 'three hundred fourteen million one hundred fifty-nine thousand two hundred sixty-five'],
 ];
 
 testCases.forEach(([input, expected]) => {
