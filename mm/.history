@@ -570,3 +570,11 @@
 +---
 +
 +note that the `state` means the data (e.g. cursorPosition) not the big object with all the functionality
+
+# 2024-09-06 11:05:42.362971
++@state.ts
++ 
++let's prepare to move each state-transforming function to its own file
++
++let's extract a transform for the last function that transforms state (loadFromFile)
++extract a const loadFromFile = (path) => (state) => state

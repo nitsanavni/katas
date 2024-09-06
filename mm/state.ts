@@ -12,6 +12,25 @@ let _listItems = [{ text: "", indent: 0 }];
 let _selectedIndex = 0;
 let _inEditMode = false; // Start off in nav mode
 
+const loadFromFile = (filePath: string) => async (state: State): Promise<State> => {
+  try {
+    const file = Bun.file(filePath);
+    const content = await file.text();
+    const listItems = content.split('\n').map((line) => {
+      const indent = line.search(/\S|$/);
+      return {
+        text: line.trim(),
+        indent: indent / 2 // assuming two spaces for each indentation level
+      };
+    });
+    
+    return { ...state, listItems, selectedIndex: 0, cursorPosition: 0, inEditMode: false };
+  } catch {
+    const listItems = [{ text: "", indent: 0 }];
+    return { ...state, listItems, selectedIndex: 0, cursorPosition: 0, inEditMode: false };
+  }
+};
+
 export const state = {
   cursorPos: () => _cursorPosition,
   cursorRight: () => {
@@ -176,25 +195,16 @@ export const state = {
     await Bun.write(filePath, outline);
   },
   loadOutlineFromFile: async (filePath: string) => {
-    try {
-      const file = Bun.file(filePath);
-      const content = await file.text();
-      _listItems = content.split('\n').map((line) => {
-        const indent = line.search(/\S|$/);
-        return {
-          text: line.trim(),
-          indent: indent / 2 // assuming two spaces for each indentation level
-        };
-      });
-      _selectedIndex = 0; 
-      _cursorPosition = 0; 
-      _inEditMode = false; // Start off in nav mode after loading 
-    } catch {
-      _listItems = [{ text: "", indent: 0 }];
-      _selectedIndex = 0;
-      _cursorPosition = 0;
-      _inEditMode = false; // Start in nav mode on error
-      await Bun.write(filePath, ""); 
-    }
+    const newState = await loadFromFile(filePath)({ 
+      cursorPosition: _cursorPosition, 
+      listItems: _listItems, 
+      selectedIndex: _selectedIndex, 
+      inEditMode: _inEditMode 
+    });
+
+    _listItems = newState.listItems;
+    _selectedIndex = newState.selectedIndex;
+    _cursorPosition = newState.cursorPosition;
+    _inEditMode = newState.inEditMode;
   },
 };
