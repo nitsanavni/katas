@@ -1,10 +1,10 @@
 import { render } from "./renderTree";
-import debug from "debug"; // Import debug library
+import debug from "debug";
 
-const log = debug("app:onKey"); // Create a debug instance for this module
+const log = debug("app:onKey");
 
 export const onKey = (state, filePath) => {
-  let saveTimeout; // Store timeout ID
+  let saveTimeout;
 
   const editKeyHandlers = (str, key) => ({
     left: () => state.cursorLeft(),
@@ -12,25 +12,25 @@ export const onKey = (state, filePath) => {
     backspace: () => state.deleteChar(),
     x: () => {
       if (key.ctrl) {
-        state.toggleEditMode(); // Use "ctrl + x" to exit edit mode
+        state.toggleEditMode();
       }
     },
-    return: () => state.addSibling(), // Enter key adds a sibling in edit mode
-    tab: () => state.addChild(), // Tab key adds a child item in edit mode
+    return: () => state.addSibling(),
+    tab: () => state.addChild(),
     default: () => {
       if (str && !key.ctrl && !key.meta) {
         state.addChar(str);
       }
-    }
+    },
   });
 
   const navKeyHandlers = (key) => ({
     left: () => state.moveToParent(),
     right: () => state.moveToFirstChild(),
-    backspace: () => state.deleteCurrentNode(), // Backspace deletes the current node in nav mode
+    backspace: () => state.deleteCurrentNode(),
     c: () => state.addChild(),
     s: () => state.addSibling(),
-    return: () => state.addSibling(), // Enter key adds a sibling in navigation mode
+    return: () => state.addSibling(),
     q: () => exitProgram(),
     up: () => state.moveUp(),
     down: () => state.moveDown(),
@@ -39,25 +39,23 @@ export const onKey = (state, filePath) => {
   });
 
   return (str, key) => {
-    log(`Received key: ${JSON.stringify(key)}`); // Use debug to log received keys
+    log(`Received key: ${JSON.stringify(key)}`);
 
     if (state.inEditMode()) {
-      (editKeyHandlers(str, key)[key.name] || editKeyHandlers(str, key).default)(); 
+      (editKeyHandlers(str, key)[key.name] || editKeyHandlers(str, key).default)();
     } else {
-      (navKeyHandlers(key)[key.name] || (() => {}))(); 
+      (navKeyHandlers(key)[key.name] || (() => {}))();
     }
 
     render(
-      state.listItems(),
-      state.selectedIndex(),
-      state.cursorPos(),
-      state.inEditMode(),
+      state.get().listItems,
+      state.get().selectedIndex,
+      state.get().cursorPos,
+      state.get().inEditMode,
     );
 
-    // Clear previous timeout if it exists
     clearTimeout(saveTimeout);
     
-    // Set new timeout to save outline to file every 500ms
     saveTimeout = setTimeout(() => {
       state.saveOutlineToFile(filePath);
     }, 500);

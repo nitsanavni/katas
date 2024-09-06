@@ -33,6 +33,7 @@ const stateObj: State = {
 };
 
 export const state = {
+  get: () => stateObj,
   cursorPos: () => stateObj.cursorPosition,
   cursorRight: () => cursorRight(stateObj),
   cursorLeft: () => cursorLeft(stateObj),
@@ -47,10 +48,10 @@ export const state = {
   moveToParent: () => moveToParent(stateObj),
   moveToFirstChild: () => moveToFirstChild(stateObj),
   indentItem: () => {
-    indentItem(stateObj); // Call the indentItem function
+    indentItem(stateObj);
   },
   dedentItem: () => {
-    dedentItem(stateObj); // Call the dedentItem function
+    dedentItem(stateObj);
   },
   deleteCurrentNode: () => {
     Object.assign(stateObj, deleteCurrentNode(stateObj));

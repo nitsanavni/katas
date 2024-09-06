@@ -764,3 +764,28 @@
 +the keyHandler Objs need the key and str, so let's make them an arrow func that acepts thos and returns the objs
 +like this:
 +const editKeyHandlers = (str,key) => ({...
+
+# 2024-09-06 15:46:00.326148
++@onKey.ts
++@renderTree.ts
++
++change render to accept the state obj directly
+
+# 2024-09-06 15:52:18.912090
++@state.ts
++@renderTree.ts
++@onKey.ts
++
++state: add get: () => stateObj
++onKey: use state.get(), pass the whole stateObj to render
++render: accept an obj  
+
+# 2024-09-06 15:54:04.607700
++@state.ts
++@renderTree.ts
++@onKey.ts
++
++state: add get: () => stateObj
++onKey: use state.get(), pass the whole stateObj to render
++render: accept an obj  
++
