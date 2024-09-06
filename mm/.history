@@ -532,3 +532,41 @@
 +then delete the node and the descendents
 +select prev siblin, or if not exist the parent
 +
+
+# 2024-09-06 09:58:00.714266
++@state.ts
++
++let's prepare to move each state-transforming function to its own file
++let's start with a adding a type for such a function
++
++new type:
++(state) => state
++
++some functions will take the form of:
++(args) => (state) => state
++
++for example addChar
++const addChar => (theChar) => (state) => state
++
++so let's start by just adding the new type
+
+# 2024-09-06 10:59:30.751012
++@state.ts
++
++let's prepare to move each state-transforming function to its own file
++let's start with a adding a type for such a function
++
++new type:
++(state) => state
++
++some functions will take the form of:
++(args) => (state) => state
++
++for example addChar
++const addChar => (theChar) => (state) => state
++
++so let's start by just adding the new type
++
++---
++
++note that the `state` means the data (e.g. cursorPosition) not the big object with all the functionality

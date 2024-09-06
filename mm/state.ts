@@ -1,3 +1,12 @@
+type State = {
+  cursorPosition: number;
+  listItems: Array<{ text: string; indent: number }>;
+  selectedIndex: number;
+  inEditMode: boolean;
+};
+
+type StateTransformFunction = (state: State) => State;
+
 let _cursorPosition = 0;
 let _listItems = [{ text: "", indent: 0 }];
 let _selectedIndex = 0;
