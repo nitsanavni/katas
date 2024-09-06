@@ -78,3 +78,8 @@
 +
 +21:
 +calc 20 and 1 from 21
+
+# 2024-09-07 00:49:09.355135
++@numberNames.ts
++
++instead of indexing with tens * 10, let's define another array that can be indexed directly with tens

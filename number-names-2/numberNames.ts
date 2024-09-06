@@ -22,11 +22,22 @@ export const numberName = (num: number): string => {
     20: 'twenty',
   };
 
+  const tensNames: { [key: number]: string } = {
+    2: 'twenty',
+    3: 'thirty',
+    4: 'forty',
+    5: 'fifty',
+    6: 'sixty',
+    7: 'seventy',
+    8: 'eighty',
+    9: 'ninety',
+  };
+
   if (num > 20) {
     const tens = Math.floor(num / 10);
     const ones = num % 10;
 
-    return `${numberNames[tens * 10]}${ones > 0 ? '-' + numberNames[ones] : ''}`;
+    return `${tensNames[tens]}${ones > 0 ? '-' + numberNames[ones] : ''}`;
   }
   
   return numberNames[num] || 'unknown';
