@@ -9,106 +9,108 @@ type State = {
 
 type StateTransformFunction = (state: State) => State;
 
-let _cursorPosition = 0;
-let _listItems = [{ text: "", indent: 0 }];
-let _selectedIndex = 0;
-let _inEditMode = false; // Start off in nav mode
+const stateObj: State = {
+  cursorPosition: 0,
+  listItems: [{ text: "", indent: 0 }],
+  selectedIndex: 0,
+  inEditMode: false, // Start off in nav mode
+};
 
 export const state = {
-  cursorPos: () => _cursorPosition,
+  cursorPos: () => stateObj.cursorPosition,
   cursorRight: () => {
-    _cursorPosition = Math.min(
-      _listItems[_selectedIndex].text.length,
-      _cursorPosition + 1
+    stateObj.cursorPosition = Math.min(
+      stateObj.listItems[stateObj.selectedIndex].text.length,
+      stateObj.cursorPosition + 1
     );
   },
   cursorLeft: () => {
-    _cursorPosition = Math.max(0, _cursorPosition - 1);
+    stateObj.cursorPosition = Math.max(0, stateObj.cursorPosition - 1);
   },
   deleteChar: () => {
-    if (_cursorPosition > 0) {
-      _listItems[_selectedIndex].text =
-        _listItems[_selectedIndex].text.slice(0, _cursorPosition - 1) +
-        _listItems[_selectedIndex].text.slice(_cursorPosition);
-      _cursorPosition--;
+    if (stateObj.cursorPosition > 0) {
+      stateObj.listItems[stateObj.selectedIndex].text =
+        stateObj.listItems[stateObj.selectedIndex].text.slice(0, stateObj.cursorPosition - 1) +
+        stateObj.listItems[stateObj.selectedIndex].text.slice(stateObj.cursorPosition);
+      stateObj.cursorPosition--;
     }
   },
   addItem: () => {
-    const currentIndent = _listItems[_selectedIndex]?.indent || 0;
-    _listItems.push({ text: "", indent: currentIndent });
-    _selectedIndex = _listItems.length - 1;
-    _cursorPosition = 0;
-    _inEditMode = true;
+    const currentIndent = stateObj.listItems[stateObj.selectedIndex]?.indent || 0;
+    stateObj.listItems.push({ text: "", indent: currentIndent });
+    stateObj.selectedIndex = stateObj.listItems.length - 1;
+    stateObj.cursorPosition = 0;
+    stateObj.inEditMode = true;
   },
   addChild: () => {
-    const parentIndent = _listItems[_selectedIndex]?.indent || 0;
+    const parentIndent = stateObj.listItems[stateObj.selectedIndex]?.indent || 0;
     // Find the position to insert after all descendants
-    let insertIndex = _selectedIndex + 1;
-    while (insertIndex < _listItems.length && _listItems[insertIndex].indent > parentIndent) {
+    let insertIndex = stateObj.selectedIndex + 1;
+    while (insertIndex < stateObj.listItems.length && stateObj.listItems[insertIndex].indent > parentIndent) {
       insertIndex++;
     }
-    _listItems.splice(insertIndex, 0, { text: "", indent: parentIndent + 1 });
-    _selectedIndex = insertIndex;
-    _cursorPosition = 0;
-    _inEditMode = true;
+    stateObj.listItems.splice(insertIndex, 0, { text: "", indent: parentIndent + 1 });
+    stateObj.selectedIndex = insertIndex;
+    stateObj.cursorPosition = 0;
+    stateObj.inEditMode = true;
   },
   addSibling: () => { 
-    const currentIndent = _listItems[_selectedIndex]?.indent || 0;
-    let insertIndex = _selectedIndex + 1;
-    while (insertIndex < _listItems.length && _listItems[insertIndex].indent > currentIndent) {
+    const currentIndent = stateObj.listItems[stateObj.selectedIndex]?.indent || 0;
+    let insertIndex = stateObj.selectedIndex + 1;
+    while (insertIndex < stateObj.listItems.length && stateObj.listItems[insertIndex].indent > currentIndent) {
       insertIndex++;
     }
-    _listItems.splice(insertIndex, 0, { text: "", indent: currentIndent });
-    _selectedIndex = insertIndex;
-    _cursorPosition = 0;
-    _inEditMode = true;
+    stateObj.listItems.splice(insertIndex, 0, { text: "", indent: currentIndent });
+    stateObj.selectedIndex = insertIndex;
+    stateObj.cursorPosition = 0;
+    stateObj.inEditMode = true;
   },
   addChar: (char: string) => {
-    _listItems[_selectedIndex].text =
-      _listItems[_selectedIndex].text.slice(0, _cursorPosition) +
+    stateObj.listItems[stateObj.selectedIndex].text =
+      stateObj.listItems[stateObj.selectedIndex].text.slice(0, stateObj.cursorPosition) +
       char +
-      _listItems[_selectedIndex].text.slice(_cursorPosition);
-    _cursorPosition++;
+      stateObj.listItems[stateObj.selectedIndex].text.slice(stateObj.cursorPosition);
+    stateObj.cursorPosition++;
   },
   toggleEditMode: () => {
-    _inEditMode = !_inEditMode;
-    if (_inEditMode) _cursorPosition = _listItems[_selectedIndex].text.length;
+    stateObj.inEditMode = !stateObj.inEditMode;
+    if (stateObj.inEditMode) stateObj.cursorPosition = stateObj.listItems[stateObj.selectedIndex].text.length;
   },
   moveUp: () => {
-    _selectedIndex = Math.max(0, _selectedIndex - 1);
+    stateObj.selectedIndex = Math.max(0, stateObj.selectedIndex - 1);
   },
   moveDown: () => {
-    _selectedIndex = Math.min(_listItems.length - 1, _selectedIndex + 1);
+    stateObj.selectedIndex = Math.min(stateObj.listItems.length - 1, stateObj.selectedIndex + 1);
   },
   moveToParent: () => {
-    if (_selectedIndex > 0) {
-      const parentIndent = _listItems[_selectedIndex].indent - 1;
-      for (let i = _selectedIndex - 1; i >= 0; i--) {
-        if (_listItems[i].indent === parentIndent) {
-          _selectedIndex = i;
-          _cursorPosition = 0;
+    if (stateObj.selectedIndex > 0) {
+      const parentIndent = stateObj.listItems[stateObj.selectedIndex].indent - 1;
+      for (let i = stateObj.selectedIndex - 1; i >= 0; i--) {
+        if (stateObj.listItems[i].indent === parentIndent) {
+          stateObj.selectedIndex = i;
+          stateObj.cursorPosition = 0;
           break;
         }
       }
     }
   },
   moveToFirstChild: () => {
-    if (_selectedIndex < _listItems.length - 1) {
-      const currentIndent = _listItems[_selectedIndex].indent;
-      for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
-        if (_listItems[i].indent === currentIndent + 1) {
-          _selectedIndex = i;
-          _cursorPosition = 0;
+    if (stateObj.selectedIndex < stateObj.listItems.length - 1) {
+      const currentIndent = stateObj.listItems[stateObj.selectedIndex].indent;
+      for (let i = stateObj.selectedIndex + 1; i < stateObj.listItems.length; i++) {
+        if (stateObj.listItems[i].indent === currentIndent + 1) {
+          stateObj.selectedIndex = i;
+          stateObj.cursorPosition = 0;
           break;
         }
       }
     }
   },
   indentItem: () => {
-    if (_selectedIndex <= 0) return;
+    if (stateObj.selectedIndex <= 0) return;
 
-    const currentItem = _listItems[_selectedIndex];
-    const parentItem = _listItems[_selectedIndex - 1];
+    const currentItem = stateObj.listItems[stateObj.selectedIndex];
+    const parentItem = stateObj.listItems[stateObj.selectedIndex - 1];
     const maxIndent = parentItem.indent + 1;
 
     if (maxIndent <= currentItem.indent) {
@@ -117,24 +119,24 @@ export const state = {
 
     currentItem.indent++;
 
-    for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
-      if (_listItems[i].indent > (currentItem.indent - 1)) {
-        _listItems[i].indent++;
+    for (let i = stateObj.selectedIndex + 1; i < stateObj.listItems.length; i++) {
+      if (stateObj.listItems[i].indent > (currentItem.indent - 1)) {
+        stateObj.listItems[i].indent++;
       } else {
         break;
       }
     }
   },
   dedentItem: () => {
-    const currentItem = _listItems[_selectedIndex];
+    const currentItem = stateObj.listItems[stateObj.selectedIndex];
     if (currentItem.indent > 0) {
       const oldIndent = currentItem.indent;
 
       currentItem.indent--;
 
-      for (let i = _selectedIndex + 1; i < _listItems.length; i++) {
-        if (_listItems[i].indent > oldIndent) {
-          _listItems[i].indent--;
+      for (let i = stateObj.selectedIndex + 1; i < stateObj.listItems.length; i++) {
+        if (stateObj.listItems[i].indent > oldIndent) {
+          stateObj.listItems[i].indent--;
         } else {
           break;
         }
@@ -142,52 +144,52 @@ export const state = {
     }
   },
   deleteCurrentNode: () => {
-    if (_listItems.length === 0 || _selectedIndex === 0) {
-      _listItems = [{ text: "", indent: 0 }];
-      _selectedIndex = 0;
-      _cursorPosition = 0;
+    if (stateObj.listItems.length === 0 || stateObj.selectedIndex === 0) {
+      stateObj.listItems = [{ text: "", indent: 0 }];
+      stateObj.selectedIndex = 0;
+      stateObj.cursorPosition = 0;
       return;
     }
 
-    const currentItemIndent = _listItems[_selectedIndex].indent;
+    const currentItemIndent = stateObj.listItems[stateObj.selectedIndex].indent;
 
     // Find the range of items to remove (descendants with indent > currentItemIndent)
-    let endIndex = _selectedIndex + 1;
-    while (endIndex < _listItems.length && _listItems[endIndex].indent > currentItemIndent) {
+    let endIndex = stateObj.selectedIndex + 1;
+    while (endIndex < stateObj.listItems.length && stateObj.listItems[endIndex].indent > currentItemIndent) {
       endIndex++;
     }
 
     // Remove the current node and its descendants in one go
-    _listItems = [
-      ..._listItems.slice(0, _selectedIndex),
-      ..._listItems.slice(endIndex)
+    stateObj.listItems = [
+      ...stateObj.listItems.slice(0, stateObj.selectedIndex),
+      ...stateObj.listItems.slice(endIndex)
     ];
 
     // Adjust selected index after deletion
-    if (_selectedIndex >= _listItems.length) {
-      _selectedIndex = _listItems.length - 1; // Move to the last item
+    if (stateObj.selectedIndex >= stateObj.listItems.length) {
+      stateObj.selectedIndex = stateObj.listItems.length - 1; // Move to the last item
     }
 
-    _cursorPosition = 0; // Reset cursor position
+    stateObj.cursorPosition = 0; // Reset cursor position
   },
-  inEditMode: () => _inEditMode,
-  selectedIndex: () => _selectedIndex,
-  listItems: () => _listItems,
+  inEditMode: () => stateObj.inEditMode,
+  selectedIndex: () => stateObj.selectedIndex,
+  listItems: () => stateObj.listItems,
   saveOutlineToFile: async (filePath: string) => {
-    const outline = _listItems.map(item => '  '.repeat(item.indent) + item.text).join('\n');
+    const outline = stateObj.listItems.map(item => '  '.repeat(item.indent) + item.text).join('\n');
     await Bun.write(filePath, outline);
   },
   loadOutlineFromFile: async (filePath: string) => {
     const newState = await loadFromFile(filePath)({ 
-      cursorPosition: _cursorPosition, 
-      listItems: _listItems, 
-      selectedIndex: _selectedIndex, 
-      inEditMode: _inEditMode 
+      cursorPosition: stateObj.cursorPosition, 
+      listItems: stateObj.listItems, 
+      selectedIndex: stateObj.selectedIndex, 
+      inEditMode: stateObj.inEditMode 
     });
 
-    _listItems = newState.listItems;
-    _selectedIndex = newState.selectedIndex;
-    _cursorPosition = newState.cursorPosition;
-    _inEditMode = newState.inEditMode;
+    stateObj.listItems = newState.listItems;
+    stateObj.selectedIndex = newState.selectedIndex;
+    stateObj.cursorPosition = newState.cursorPosition;
+    stateObj.inEditMode = newState.inEditMode;
   },
 };

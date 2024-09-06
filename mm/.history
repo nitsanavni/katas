@@ -589,3 +589,14 @@
 +@state.ts
 +
 +import from loadFromFile
+
+# 2024-09-06 11:13:42.103290
++@state.ts
++
++loadOutlineFromFile
++use obj destructuring
+
+# 2024-09-06 11:16:16.269037
++@state.ts
++
++let's use a `stateObj: State` instead of the 4 lets
