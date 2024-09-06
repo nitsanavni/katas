@@ -207,3 +207,9 @@
 +@numberNames.test.ts
 +
 +add some more crazy  random tests up to 1B, not many
+
+# 2024-09-07 01:32:55.592371
++@numberNames.ts
++
++those 3 first if blocks look very similar
++can we extract a function to be reused?

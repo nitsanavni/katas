@@ -33,22 +33,22 @@ export const numberName = (num: number): string => {
     9: 'ninety',
   };
 
+  const convertLargeNumber = (divisor: number, name: string) => {
+    const quotient = Math.floor(num / divisor);
+    const remainder = num % divisor;
+    return `${numberName(quotient)} ${name}${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
+  };
+
   if (num >= 1000000) {
-    const millions = Math.floor(num / 1000000);
-    const remainder = num % 1000000;
-    return `${numberName(millions)} million${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
+    return convertLargeNumber(1000000, 'million');
   }
 
   if (num >= 1000) {
-    const thousands = Math.floor(num / 1000);
-    const remainder = num % 1000;
-    return `${numberName(thousands)} thousand${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
+    return convertLargeNumber(1000, 'thousand');
   }
 
   if (num >= 100) {
-    const hundreds = Math.floor(num / 100);
-    const remainder = num % 100;
-    return `${numberName(hundreds)} hundred${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
+    return convertLargeNumber(100, 'hundred');
   }
 
   if (num > 20) {
