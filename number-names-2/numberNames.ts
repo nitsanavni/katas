@@ -37,7 +37,7 @@ export const numberName = (num: number): string => {
     const hundreds = Math.floor(num / 100);
     const remainder = num % 100;
     
-    return `${numberNames[hundreds]} hundred${remainder > 0 ? ' and ' + numberName(remainder) : ''}`;
+    return `${numberNames[hundreds]} hundred${remainder > 0 ? ' ' + numberName(remainder) : ''}`;
   }
 
   if (num > 20) {
