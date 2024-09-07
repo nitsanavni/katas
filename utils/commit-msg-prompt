@@ -5,6 +5,24 @@ Based on the following staged git changes, suggest a commit message
 ## formatting:
 
 follow same style as previous commits
+specifically note the brevity, verbosity
+prefer short, compact msgs
+
+## legend:
+
+you might see a notation starting with risk level, then type of change
+
+. low risk, proven
+- tested
+! multiple changes, some risk
+@ risky
+
+t test
+r refactor
+F feat
+B bug
+d docs
+e env
 
 ## previous commits for reference
 

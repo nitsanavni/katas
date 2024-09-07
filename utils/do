@@ -1,0 +1,9 @@
+USER_MESSAGE="$*"
+
+prompt="only answer with the cmd for ${USER_MESSAGE}, plain text no code block"
+
+cmd=$(chat "$prompt")
+
+echo "$cmd"
+
+bash -c $cmd

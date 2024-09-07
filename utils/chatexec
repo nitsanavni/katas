@@ -1,0 +1,20 @@
+USER_MESSAGE="$*"
+
+prompt="only answer with a one-liner cmd in bash, plain text no code block: ${USER_MESSAGE}"
+
+cmd=$(chat "$prompt")
+
+echo "$cmd"
+
+eval $cmd
+#  | tee /tmp/do.log
+
+# explainer_prompt="only a very short or even empty msg to the user explaining:
+# user requested:
+# ${USER_MESSAGE}
+# cmd executed:
+# ${cmd}
+# head -n 10 output:
+# $(head -n 10 /tmp/do.log)"
+
+# chat "$explainer_prompt"

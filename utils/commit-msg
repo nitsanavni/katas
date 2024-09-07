@@ -9,4 +9,8 @@ GIT_LOG=$(git log --oneline -n 30)
 export GIT_DIFF
 export GIT_LOG
 
-chat "$(envsubst < $(dirname "$0")/commit-msg-prompt)"
+response="$(envsubst < $(dirname "$0")/commit-msg-prompt)"
+if [[ "$response" == *\`\`\`* ]]; then
+    response="${response//\`\`\`/}"  # Remove backticks
+fi
+echo "$response" # or any other command to handle the response

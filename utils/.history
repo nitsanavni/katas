@@ -1,0 +1,13 @@
+
+# 2024-09-07 13:06:33.185524
++@commit-msg
++
++if the response from chat contains triple backticks, only resturn the lines between the first two lines containing triple backticks
+
+# 2024-09-07 13:10:14.066010
++@commit-msg
++
++store response from chat cmd
++check if it contains triple backticks
++if no: print it as is
++if yes: remove the backticks and print
