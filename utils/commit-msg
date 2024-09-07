@@ -9,8 +9,10 @@ GIT_LOG=$(git log --oneline -n 30)
 export GIT_DIFF
 export GIT_LOG
 
-response="$(envsubst < $(dirname "$0")/commit-msg-prompt)"
+prompt="$(envsubst < $(dirname "$0")/commit-msg-prompt)"
+response="$(chat $prompt)"
 if [[ "$response" == *\`\`\`* ]]; then
-    response="${response//\`\`\`/}"  # Remove backticks
+    # Split to lines, remove the entire lines that contain triple backtick
+    response="$(get_code_block.sh <<< "$response")" 
 fi
 echo "$response" # or any other command to handle the response
