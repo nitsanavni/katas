@@ -3,13 +3,12 @@
 # Define the owner variable
 owner="emilybache"
 
-# 1. find the gilded rose repo on github
-gilded_rose_repo="${owner}/$(gh search repos --owner "$owner" rose --limit 1 --json name | jq -r '.[0].name')"
+# 1. set the gilded rose repo and file path
+gilded_rose_repo="${owner}/GildedRose-Refactoring-Kata"
+file_path="python/gilded_rose.py"
 
-echo "repo: $gilded_rose_repo"
+# 2. download the Python code from the repository using the GitHub API
+gh api repos/$gilded_rose_repo/contents/$file_path -q '.content' | base64 --decode > gilded_rose.py
 
-# 2. search for the Python code in the repository using the full repo name
-gilded_rose_python_code=$(gh search code "rose" --repo "$gilded_rose_repo" --extension py --limit 1)
-
-# 3. display the found Python file path and URL
-echo "Found Python file: $gilded_rose_python_code"
+# 3. display the success message
+echo "Downloaded Python file: $file_path from $gilded_rose_repo"
