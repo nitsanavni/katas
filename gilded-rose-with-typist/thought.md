@@ -1,3 +1,4 @@
 - idea: `docs/` folder
 - nvim surround with? A: `ysiw'` to surround word with single quotes
   - unsurround: `ds`
+- getting the docs could also be automated
