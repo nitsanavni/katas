@@ -1,7 +1,4 @@
-./plan.md
-./get_code_from_gh.sh
-./docs/gh-search.md
-./docs/gh-search-repos.md
+@./get_code_from_gh.sh
+@./get_code_from_gh.sh.approved
 
-only change this file: get_code_from_gh.sh
-do this: complete the first step of `gh search repo...`
+add jq -r to just get the name
