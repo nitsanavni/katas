@@ -13,6 +13,10 @@ def run_test(test_cmd):
 
 
 def mutate_file(mutated_file_path, mutations, test_cmd):  # Include 'test_cmd' as a parameter
+    original_file_path = f"{mutated_file_path}.bak"  # Backup file path
+    # Make a copy of the original file
+    os.system(f"cp {mutated_file_path} {original_file_path}")
+
     with open(mutated_file_path, 'r') as file:
         original_lines = file.readlines()  # Read original lines into memory
     surviving_mutations = []  # List to track surviving mutations
@@ -43,8 +47,8 @@ def mutate_file(mutated_file_path, mutations, test_cmd):  # Include 'test_cmd' a
             surviving_mutations.append((line_number, pattern, replacement))
 
     # Restore the original lines after all mutation attempts
-    with open(mutated_file_path, 'w') as file:
-        file.writelines(original_lines)
+    # Restore the original file
+    os.system(f"cp {original_file_path} {mutated_file_path}")
 
     if surviving_mutations:
         print(f"Total surviving mutations: {len(surviving_mutations)}")
