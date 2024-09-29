@@ -45,8 +45,10 @@ def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a para
             print(
                 f"Mutation failed: Replace '{pattern}' with '{replacement}' on line {line_number}")
 
-        # Restore original file after each mutation attempt
-        restore_original_file(original_file_path, file_path)
+        # No longer restoring original file after each mutation attempt
+
+    # Restore the original file after all mutation attempts
+    restore_original_file(original_file_path, file_path)
 
     if failures:
         print(f"Total mutations failed: {len(failures)}")

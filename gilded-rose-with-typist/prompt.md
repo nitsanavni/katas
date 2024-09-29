@@ -1,3 +1,3 @@
 @./mutation_test.py
 
-don't exit on first failure, we want to see all mutants
+after the first mutation we lose the bak file
