@@ -7,8 +7,12 @@ def main():
     sell_in_values = [5, 0, 15, 10]
     qualities = [10, 80, 20, 20]
 
-    items = [Item(name, sell_in, quality) for name, sell_in,
-             quality in zip(names, sell_in_values, qualities)]
+    items = []
+    for name in names:
+        for sell_in in sell_in_values:
+            for quality in qualities:
+                items.append(Item(name, sell_in, quality))
+
     gilded_rose = GildedRose(items)
 
     gilded_rose.update_quality()
