@@ -55,6 +55,11 @@ def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a para
             print(
                 f"Surviving mutation: Replace '{pattern}' with '{replacement}' on line {line_number}")
 
+        # Restore the original line after testing
+        lines[line_number - 1] = target_line  # Revert to original line
+        with open(file_path, 'w') as file:
+            file.writelines(lines)
+
     # Restore the original file after all mutation attempts
     restore_original_file(original_file_path, file_path)
 
