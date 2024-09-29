@@ -1,3 +1,5 @@
 @./mutate.py
 
-instead of writing back to the file, just print the whole lines to stdout
+add test_mutate.py
+create a temp python file
+exec one mutation on it, replacing an integer with zero
