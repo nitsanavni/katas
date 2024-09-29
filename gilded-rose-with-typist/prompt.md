@@ -1,3 +1,7 @@
 @./generate_mutations.py
+@./test_generate_mutations.py
+@./test_generate_mutations.py.approved
 
-don't replace 0 with 0
+just mofify test_generate_mutations.py
+
+we need to print the list to stdout
