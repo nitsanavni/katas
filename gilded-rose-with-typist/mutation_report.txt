@@ -1,5 +1,2 @@
-Total surviving mutations: 4/37
+Total surviving mutations: 1/37
 Line 18, Pattern '11', Replacement '12'
-Line 29, Pattern '0', Replacement '1'
-Line 31, Pattern '1', Replacement '0'
-Line 31, Pattern '1', Replacement '2'
