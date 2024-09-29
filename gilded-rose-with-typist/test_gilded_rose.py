@@ -10,10 +10,6 @@ def main():
     ]
     gilded_rose = GildedRose(items)
 
-    print("Before update:")
-    for item in items:
-        print(item)
-
     gilded_rose.update_quality()
 
     print("\nAfter update:")
