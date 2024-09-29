@@ -2,6 +2,8 @@ import os
 import subprocess
 import argparse
 import re  # Import 're' for regular expressions
+# Import the generate_mutations function
+from generate_mutations import generate_mutations
 
 
 def run_test(test_cmd):

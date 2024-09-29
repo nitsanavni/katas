@@ -1,4 +1,6 @@
 @./mutation_test.py
+@./generate_mutations.py
 
-let's avoid shutil, and the bak file
-let's store the original lines in memory, and restore then to the file with file.write()
+just modify mutation_test.py
+add forgotten import
+
