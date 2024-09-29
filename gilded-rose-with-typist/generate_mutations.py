@@ -11,7 +11,8 @@ def generate_mutations(file_path):
             # Looking for integers in the line
             for match in re.findall(r'\d+', line):
                 pattern = match  # The integer found
-                replacement = "replacement_value"  # Placeholder for the replacement string
+                # replace int with 0
+                replacement = "0"  # Placeholder for the mutation string
                 mutation = (line_number, pattern, replacement)
                 mutations.append(mutation)
 

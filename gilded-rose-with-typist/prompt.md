@@ -7,7 +7,5 @@ only modify the generate_mutations.py file
 
 do this:
 the mutation will later be used in str.replace() function
-so we need
-1. line number
-2. pattern for replacement
-3. replacement str
+the replacement value of this mutation should simply be "0"
+also add a comment / name this mutation - replace int with 0
