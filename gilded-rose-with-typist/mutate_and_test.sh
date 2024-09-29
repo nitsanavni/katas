@@ -3,18 +3,20 @@
 # Parse arguments
 MUTATE_FILE=""
 TEST_CMD=""
+REPORT_FILE="mutation_report.txt"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --mutate_file) MUTATE_FILE="$2"; shift ;;
         --test_cmd) TEST_CMD="$2"; shift ;;
+        --report) REPORT_FILE="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
 done
 
 if [[ -z "$MUTATE_FILE" || -z "$TEST_CMD" ]]; then
-    echo "Usage: $0 --mutate_file <file> --test_cmd \"<command>\""
+    echo "Usage: $0 --mutate_file <file> --test_cmd \"<command>\" [--report <report_file>]"
     exit 1
 fi
 
@@ -61,15 +63,14 @@ done
 
 # Report surviving mutations
 if [[ ${#SURVIVING_MUTATIONS[@]} -gt 0 ]]; then
-    echo "Total surviving mutations: ${#SURVIVING_MUTATIONS[@]}/$TOTAL_MUTATIONS"
+    echo "Total surviving mutations: ${#SURVIVING_MUTATIONS[@]}/$TOTAL_MUTATIONS" | tee "$REPORT_FILE"
     for MUTATION in "${SURVIVING_MUTATIONS[@]}"; do
         read LINE_NUMBER PATTERN REPLACEMENT <<< "$MUTATION"
-        echo "Line $LINE_NUMBER, Pattern '$PATTERN', Replacement '$REPLACEMENT'"
+        echo "Line $LINE_NUMBER, Pattern '$PATTERN', Replacement '$REPLACEMENT'" | tee -a "$REPORT_FILE"
     done
 else
-    echo "All mutations were killed."
+    echo "All mutations were killed." | tee "$REPORT_FILE"
 fi
 
 # Restore the original file
 mv "$MUTATE_FILE.bak" "$MUTATE_FILE"
-
