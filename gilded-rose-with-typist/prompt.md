@@ -1,7 +1,3 @@
-@./generate_mutations.py
-@./test_generate_mutations.py
-@./test_generate_mutations.py.approved
+@./mutation_test.py
 
-just mofify test_generate_mutations.py
-
-we need to print the list to stdout
+when restoring original code after each mutationn use shutil with the bak file

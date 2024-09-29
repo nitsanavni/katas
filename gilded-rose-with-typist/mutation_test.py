@@ -53,10 +53,8 @@ def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a para
             # Log surviving mutation
             surviving_mutations.append((line_number, pattern, replacement))
 
-        # Restore the original line after testing
-        lines[line_number - 1] = target_line  # Revert to original line
-        with open(file_path, 'w') as file:
-            file.writelines(lines)
+        # Restore the original line after testing using the backup file
+        shutil.copyfile(original_file_path, file_path)  # Restore from backup
 
     # Restore the original file after all mutation attempts
     restore_original_file(original_file_path, file_path)
