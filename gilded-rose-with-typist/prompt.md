@@ -1,3 +1,4 @@
 @./generate_mutations.py
 
-it's not 'not line', it's 'if not consition'
+let's use triple pipe ||| as separator in stdout
+line_num|||pattern|||replacement

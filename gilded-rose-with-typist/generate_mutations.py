@@ -78,4 +78,4 @@ if __name__ == "__main__":
     else:
         mutations = generate_mutations(sys.argv[1])
         for mutation in mutations:
-            print(mutation[0], mutation[1], mutation[2])
+            print(mutation[0], mutation[1], mutation[2], sep='|||')
