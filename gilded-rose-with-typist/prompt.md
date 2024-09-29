@@ -1,8 +1,5 @@
-@./gilded_rose.py
-@./mutation_report.txt
-@./test_gilded_rose.py
+@./generate_mutations.py
 
-only modify test_gilded_rose.py
-
-let's add coverage to kill those mutants
-just add to the quality, sell_in, names lists
+let's add more mutations
+start with similar to the one that exists, but instead of zeroing we incerment the int by 1
+keep the existing one, and add the new one
