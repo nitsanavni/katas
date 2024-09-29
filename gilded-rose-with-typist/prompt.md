@@ -1,3 +1,4 @@
-@./get_code_from_gh.sh
+@./gilded_rose.py
 
-make sure we download to same dir where the script is, not the cwd
+let's write a new file test_gilded_rose.py
+it just prints to stdout items after calling uptade()
