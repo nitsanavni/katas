@@ -1,5 +1,8 @@
-@./mutate_and_test.sh
+@./gilded_rose.py
+@./mutation_report.txt
+@./test_gilded_rose.py
 
-add one more cli arg flag `--report` to `mutate_and_test.sh` to specify the report file name. If the flag is not provided, the default report file name is `mutation_report.txt`.
+only modify test_gilded_rose.py
 
-the report is just the summary: survived mutations
+let's add coverage to kill those mutants
+just add to the quality, sell_in, names lists

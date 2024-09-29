@@ -7,9 +7,10 @@ from gilded_rose import GildedRose, Item  # noqa: E402
 
 def main():
     names = ["Aged Brie", "Sulfuras, Hand of Ragnaros",
-             "Backstage passes to a TAFKAL80ETC concert", "Regular Item"]
-    sell_in_values = [10]
-    qualities = [10]
+             "Backstage passes to a TAFKAL80ETC concert",
+             "Regular Item", "Conjured Item"]
+    sell_in_values = [10, 0, -1, 6]
+    qualities = [10, 0, 50]
 
     items = []
     for name in names:
