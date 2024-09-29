@@ -25,6 +25,17 @@ def increment_int(line):
     return mutations
 
 
+def decrement_int(line):
+    mutations = []
+    # Looking for integers in the line
+    for match in re.findall(r'\d+', line):
+        pattern = match  # The integer found
+        decremented_value = str(int(pattern) - 1)  # Decrement the integer by 1
+        mutation = (pattern, decremented_value)
+        mutations.append(mutation)
+    return mutations
+
+
 def generate_mutations(file_path):
     all_mutations = []
 
@@ -32,9 +43,13 @@ def generate_mutations(file_path):
         for line_number, line in enumerate(file.readlines(), start=1):
             mutations_zero = replace_int_with_zero(line)
             mutations_increment = increment_int(line)
+            mutations_decrement = decrement_int(
+                line)  # Collect decrement mutations
             for mutation in mutations_zero:
                 all_mutations.append((line_number, mutation[0], mutation[1]))
             for mutation in mutations_increment:
+                all_mutations.append((line_number, mutation[0], mutation[1]))
+            for mutation in mutations_decrement:  # Append decrement mutations
                 all_mutations.append((line_number, mutation[0], mutation[1]))
 
     return all_mutations  # Return the mutations instead of printing them
