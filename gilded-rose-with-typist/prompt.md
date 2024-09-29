@@ -1,3 +1,6 @@
 @./generate_mutations.py
+@./mutation_test.py
 
-also return the mutations from the function
+only modify mutation_test.py
+do this:
+make sure to use the returned mutation list correctly

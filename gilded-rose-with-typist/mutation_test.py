@@ -38,8 +38,12 @@ def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a para
         if not run_test(test_cmd):  # Use 'test_cmd' from parameters
             print(
                 f"Mutation failed: Replace '{pattern}' with '{replacement}' on line {line_number}")
+            # Restore on failure
+            restore_original_file(original_file_path, file_path)
+            return  # Exit on failure
 
-        restore_original_file(original_file_path, file_path)
+    # Restore after processing all mutations
+    restore_original_file(original_file_path, file_path)
 
 
 if __name__ == "__main__":
@@ -59,5 +63,3 @@ if __name__ == "__main__":
 
     mutate_file(args.mutate_file, mutations,
                 args.test_cmd)  # Pass 'args.test_cmd'
-
-    restore_original_file(original_file_path, args.mutate_file)
