@@ -2,8 +2,8 @@ import os
 import subprocess
 import argparse
 import shutil
-import tempfile
 from generate_mutations import generate_mutations
+import re  # Import 're' for regular expressions
 
 
 def run_test(test_cmd):
@@ -22,7 +22,7 @@ def restore_original_file(original_file_path, mutate_file_path):
     os.remove(original_file_path)
 
 
-def mutate_file(file_path, mutations):
+def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a parameter
     for line_number, pattern, replacement in mutations:
         with open(file_path, 'r') as file:
             lines = file.readlines()
@@ -35,7 +35,7 @@ def mutate_file(file_path, mutations):
         with open(file_path, 'w') as file:
             file.writelines(lines)
 
-        if not run_test(test_cmd):
+        if not run_test(test_cmd):  # Use 'test_cmd' from parameters
             print(
                 f"Mutation failed: Replace '{pattern}' with '{replacement}' on line {line_number}")
 
@@ -54,9 +54,10 @@ if __name__ == "__main__":
 
     original_file_path = save_original_file(args.mutate_file)
 
-    mutations = []
-    generate_mutations(args.mutate_file)
+    # Assign mutations from the function call
+    mutations = generate_mutations(args.mutate_file)
 
-    mutate_file(args.mutate_file, mutations)
+    mutate_file(args.mutate_file, mutations,
+                args.test_cmd)  # Pass 'args.test_cmd'
 
     restore_original_file(original_file_path, args.mutate_file)
