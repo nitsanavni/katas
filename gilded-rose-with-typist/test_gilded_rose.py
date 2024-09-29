@@ -2,12 +2,13 @@ from gilded_rose import GildedRose, Item
 
 
 def main():
-    items = [
-        Item("Aged Brie", 5, 10),
-        Item("Sulfuras, Hand of Ragnaros", 0, 80),
-        Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-        Item("Regular Item", 10, 20)
-    ]
+    names = ["Aged Brie", "Sulfuras, Hand of Ragnaros",
+             "Backstage passes to a TAFKAL80ETC concert", "Regular Item"]
+    sell_in_values = [5, 0, 15, 10]
+    qualities = [10, 80, 20, 20]
+
+    items = [Item(name, sell_in, quality) for name, sell_in,
+             quality in zip(names, sell_in_values, qualities)]
     gilded_rose = GildedRose(items)
 
     gilded_rose.update_quality()
