@@ -9,7 +9,7 @@ import re  # Import 're' for regular expressions
 def run_test(test_cmd):
     result = subprocess.run(test_cmd, shell=True,
                             executable='/bin/bash', stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # Suppress output
-    return result.returncode == 0
+    return result
 
 
 def save_original_file(file_path):
@@ -28,6 +28,15 @@ def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a para
         file_path)  # Save original before mutation
     surviving_mutations = []  # List to track surviving mutations
 
+    # Run the test command before mutations
+    test_result = run_test(test_cmd)
+    if test_result.returncode != 0:
+        print("Test command failed. Here's the output:")
+        print(test_result.stdout.decode())
+        print(test_result.stderr.decode())
+        restore_original_file(original_file_path, file_path)
+        return  # Exit if the test command fails
+
     for line_number, pattern, replacement in mutations:
         with open(file_path, 'r') as file:
             lines = file.readlines()
@@ -40,7 +49,7 @@ def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a para
         with open(file_path, 'w') as file:
             file.writelines(lines)
 
-        if run_test(test_cmd):  # Check if 'test_cmd' passes
+        if run_test(test_cmd).returncode == 0:  # Check if 'test_cmd' passes
             # Log surviving mutation
             surviving_mutations.append((line_number, pattern, replacement))
             print(
