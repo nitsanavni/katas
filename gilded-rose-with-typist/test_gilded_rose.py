@@ -17,7 +17,6 @@ def main():
 
     gilded_rose.update_quality()
 
-    print("\nAfter update:")
     for item in items:
         print(item)
 
