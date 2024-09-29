@@ -7,10 +7,10 @@ def replace_int_with_zero(line):
     # Looking for integers in the line
     for match in re.findall(r'\d+', line):
         pattern = match  # The integer found
-        # replace int with 0
-        replacement = "0"  # Placeholder for the mutation string
-        mutation = (pattern, replacement)
-        mutations.append(mutation)
+        if pattern != '0':  # Only create a mutation if it is not zero
+            replacement = "0"  # Placeholder for the mutation string
+            mutation = (pattern, replacement)
+            mutations.append(mutation)
     return mutations
 
 
