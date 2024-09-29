@@ -16,10 +16,8 @@ def mutate_file(file_path, line_number, pattern, replacement):
 
     lines[line_number - 1] = mutated_line
 
-    with open(file_path, 'w') as file:
-        file.writelines(lines)
-
-    print(f'Mutation applied to line {line_number} in {file_path}')
+    # Print all lines to stdout instead of writing back to the file
+    print(''.join(lines))
 
 
 if __name__ == "__main__":
