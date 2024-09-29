@@ -6,11 +6,17 @@ from gilded_rose import GildedRose, Item  # noqa: E402
 
 
 def main():
-    names = ["Aged Brie", "Sulfuras, Hand of Ragnaros",
-             "Backstage passes to a TAFKAL80ETC concert",
-             "Regular Item", "Conjured Item"]
-    sell_in_values = [10, 0, -1, 6]
-    qualities = [10, 0, 50]
+    names = [
+        "Aged Brie",
+        "Sulfuras, Hand of Ragnaros",
+        "Backstage passes to a TAFKAL80ETC concert",
+        "Regular Item",
+        "Conjured Item",
+        "Legendary Item",  # Added for more coverage
+        "Invalid Item"  # Added for edge case testing
+    ]
+    sell_in_values = [10, 0, -1, 6, 15, 5, -5]  # Extended sell_in values
+    qualities = [10, 0, 50, 1, 49, 30]  # Extended quality values
 
     items = []
     for name in names:
