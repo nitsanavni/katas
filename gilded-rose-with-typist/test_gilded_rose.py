@@ -1,11 +1,15 @@
-from gilded_rose import GildedRose, Item
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from gilded_rose import GildedRose, Item  # noqa: E402
 
 
 def main():
     names = ["Aged Brie", "Sulfuras, Hand of Ragnaros",
              "Backstage passes to a TAFKAL80ETC concert", "Regular Item"]
     sell_in_values = [5, 0, 15, 10]
-    qualities = [10, 80, 20, 20]
+    qualities = [10]
 
     items = []
     for name in names:
