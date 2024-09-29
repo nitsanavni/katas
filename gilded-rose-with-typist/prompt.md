@@ -1,4 +1,8 @@
+@./mutate_and_test.sh
 @./generate_mutations.py
 
-let's use triple pipe ||| as separator in stdout
-line_num|||pattern|||replacement
+only change mutate_and_test.sh
+
+notice the separator we get in each mutation
+it's a triple pipe: |||
+

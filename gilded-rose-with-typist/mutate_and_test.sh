@@ -39,8 +39,10 @@ TOTAL_MUTATIONS=${#MUTATIONS[@]}
 SURVIVING_MUTATIONS=()
 
 for MUTATION in "${MUTATIONS[@]}"; do
-    # Each MUTATION is of the form: line_number pattern replacement
-    read LINE_NUMBER PATTERN REPLACEMENT <<< "$MUTATION"
+    # Each MUTATION is of the form: line_number|||pattern|||replacement
+    LINE_NUMBER=$(echo "$MUTATION" | cut -d '|' -f 1)
+    PATTERN=$(echo "$MUTATION" | cut -d '|' -f 4)
+    REPLACEMENT=$(echo "$MUTATION" | cut -d '|' -f 7)
     
     echo "Applying mutation at line $LINE_NUMBER: replace '$PATTERN' with '$REPLACEMENT'"
 
@@ -65,7 +67,7 @@ done
 if [[ ${#SURVIVING_MUTATIONS[@]} -gt 0 ]]; then
     echo "Total surviving mutations: ${#SURVIVING_MUTATIONS[@]}/$TOTAL_MUTATIONS" | tee "$REPORT_FILE"
     for MUTATION in "${SURVIVING_MUTATIONS[@]}"; do
-        read LINE_NUMBER PATTERN REPLACEMENT <<< "$MUTATION"
+        IFS='|||' read -r LINE_NUMBER PATTERN REPLACEMENT <<< "$MUTATION"
         echo "Line $LINE_NUMBER, Pattern '$PATTERN', Replacement '$REPLACEMENT'" | tee -a "$REPORT_FILE"
     done
 else

@@ -4,102 +4,102 @@
 10 80 0
 10 80 81
 10 80 79
-10 item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" if not item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
-10 item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" if True:
-10 item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" if False:
+10 item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" not item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
+10 item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" True
+10 item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" False
 11 0 1
 11 0 -1
-11 item.quality > 0 if not item.quality > 0:
-11 item.quality > 0 if True:
-11 item.quality > 0 if False:
-12 item.name != "Sulfuras, Hand of Ragnaros" if not item.name != "Sulfuras, Hand of Ragnaros":
-12 item.name != "Sulfuras, Hand of Ragnaros" if True:
-12 item.name != "Sulfuras, Hand of Ragnaros" if False:
+11 item.quality > 0 not item.quality > 0
+11 item.quality > 0 True
+11 item.quality > 0 False
+12 item.name != "Sulfuras, Hand of Ragnaros" not item.name != "Sulfuras, Hand of Ragnaros"
+12 item.name != "Sulfuras, Hand of Ragnaros" True
+12 item.name != "Sulfuras, Hand of Ragnaros" False
 13 1 0
 13 1 2
 13 1 0
 15 50 0
 15 50 51
 15 50 49
-15 item.quality < 50 if not item.quality < 50:
-15 item.quality < 50 if True:
-15 item.quality < 50 if False:
+15 item.quality < 50 not item.quality < 50
+15 item.quality < 50 True
+15 item.quality < 50 False
 16 1 0
 16 1 2
 16 1 0
 17 80 0
 17 80 81
 17 80 79
-17 item.name == "Backstage passes to a TAFKAL80ETC concert" if not item.name == "Backstage passes to a TAFKAL80ETC concert":
-17 item.name == "Backstage passes to a TAFKAL80ETC concert" if True:
-17 item.name == "Backstage passes to a TAFKAL80ETC concert" if False:
+17 item.name == "Backstage passes to a TAFKAL80ETC concert" not item.name == "Backstage passes to a TAFKAL80ETC concert"
+17 item.name == "Backstage passes to a TAFKAL80ETC concert" True
+17 item.name == "Backstage passes to a TAFKAL80ETC concert" False
 18 11 0
 18 11 12
 18 11 10
-18 item.sell_in < 11 if not item.sell_in < 11:
-18 item.sell_in < 11 if True:
-18 item.sell_in < 11 if False:
+18 item.sell_in < 11 not item.sell_in < 11
+18 item.sell_in < 11 True
+18 item.sell_in < 11 False
 19 50 0
 19 50 51
 19 50 49
-19 item.quality < 50 if not item.quality < 50:
-19 item.quality < 50 if True:
-19 item.quality < 50 if False:
+19 item.quality < 50 not item.quality < 50
+19 item.quality < 50 True
+19 item.quality < 50 False
 20 1 0
 20 1 2
 20 1 0
 21 6 0
 21 6 7
 21 6 5
-21 item.sell_in < 6 if not item.sell_in < 6:
-21 item.sell_in < 6 if True:
-21 item.sell_in < 6 if False:
+21 item.sell_in < 6 not item.sell_in < 6
+21 item.sell_in < 6 True
+21 item.sell_in < 6 False
 22 50 0
 22 50 51
 22 50 49
-22 item.quality < 50 if not item.quality < 50:
-22 item.quality < 50 if True:
-22 item.quality < 50 if False:
+22 item.quality < 50 not item.quality < 50
+22 item.quality < 50 True
+22 item.quality < 50 False
 23 1 0
 23 1 2
 23 1 0
-24 item.name != "Sulfuras, Hand of Ragnaros" if not item.name != "Sulfuras, Hand of Ragnaros":
-24 item.name != "Sulfuras, Hand of Ragnaros" if True:
-24 item.name != "Sulfuras, Hand of Ragnaros" if False:
+24 item.name != "Sulfuras, Hand of Ragnaros" not item.name != "Sulfuras, Hand of Ragnaros"
+24 item.name != "Sulfuras, Hand of Ragnaros" True
+24 item.name != "Sulfuras, Hand of Ragnaros" False
 25 1 0
 25 1 2
 25 1 0
 26 0 1
 26 0 -1
-26 item.sell_in < 0 if not item.sell_in < 0:
-26 item.sell_in < 0 if True:
-26 item.sell_in < 0 if False:
-27 item.name != "Aged Brie" if not item.name != "Aged Brie":
-27 item.name != "Aged Brie" if True:
-27 item.name != "Aged Brie" if False:
+26 item.sell_in < 0 not item.sell_in < 0
+26 item.sell_in < 0 True
+26 item.sell_in < 0 False
+27 item.name != "Aged Brie" not item.name != "Aged Brie"
+27 item.name != "Aged Brie" True
+27 item.name != "Aged Brie" False
 28 80 0
 28 80 81
 28 80 79
-28 item.name != "Backstage passes to a TAFKAL80ETC concert" if not item.name != "Backstage passes to a TAFKAL80ETC concert":
-28 item.name != "Backstage passes to a TAFKAL80ETC concert" if True:
-28 item.name != "Backstage passes to a TAFKAL80ETC concert" if False:
+28 item.name != "Backstage passes to a TAFKAL80ETC concert" not item.name != "Backstage passes to a TAFKAL80ETC concert"
+28 item.name != "Backstage passes to a TAFKAL80ETC concert" True
+28 item.name != "Backstage passes to a TAFKAL80ETC concert" False
 29 0 1
 29 0 -1
-29 item.quality > 0 if not item.quality > 0:
-29 item.quality > 0 if True:
-29 item.quality > 0 if False:
-30 item.name != "Sulfuras, Hand of Ragnaros" if not item.name != "Sulfuras, Hand of Ragnaros":
-30 item.name != "Sulfuras, Hand of Ragnaros" if True:
-30 item.name != "Sulfuras, Hand of Ragnaros" if False:
+29 item.quality > 0 not item.quality > 0
+29 item.quality > 0 True
+29 item.quality > 0 False
+30 item.name != "Sulfuras, Hand of Ragnaros" not item.name != "Sulfuras, Hand of Ragnaros"
+30 item.name != "Sulfuras, Hand of Ragnaros" True
+30 item.name != "Sulfuras, Hand of Ragnaros" False
 31 1 0
 31 1 2
 31 1 0
 35 50 0
 35 50 51
 35 50 49
-35 item.quality < 50 if not item.quality < 50:
-35 item.quality < 50 if True:
-35 item.quality < 50 if False:
+35 item.quality < 50 not item.quality < 50
+35 item.quality < 50 True
+35 item.quality < 50 False
 36 1 0
 36 1 2
 36 1 0

@@ -1,1 +1,2 @@
-All mutations were killed.
+Total surviving mutations: 1/105
+Line 22, Pattern '', Replacement '|50|||49'
