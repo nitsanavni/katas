@@ -23,12 +23,13 @@ def generate_mutations(file_path):
             for mutation in mutations:
                 all_mutations.append((line_number, mutation[0], mutation[1]))
 
-    for mutation in all_mutations:
-        print(mutation[0], mutation[1], mutation[2])
+    return all_mutations  # Return the mutations instead of printing them
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python3 generate_mutations.py <file>")
     else:
-        generate_mutations(sys.argv[1])
+        mutations = generate_mutations(sys.argv[1])
+        for mutation in mutations:
+            print(mutation[0], mutation[1], mutation[2])
