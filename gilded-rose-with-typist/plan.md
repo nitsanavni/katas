@@ -1,5 +1,6 @@
+- [ ] mutations
+  - [ ] get the mutation testing framework to update a report file
 - [x] get the code
   - from emily repo
-- a skeleton for an approval test
-- mutations
-- mutation framework
+- [x] a skeleton for an approval test
+- [x] mutation framework
