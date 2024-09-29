@@ -8,7 +8,7 @@ import re  # Import 're' for regular expressions
 
 def run_test(test_cmd):
     result = subprocess.run(test_cmd, shell=True,
-                            executable='/bin/bash')  # Specify the shell
+                            executable='/bin/bash', stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # Suppress output
     return result.returncode == 0
 
 
@@ -26,7 +26,7 @@ def restore_original_file(original_file_path, mutate_file_path):
 def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a parameter
     original_file_path = save_original_file(
         file_path)  # Save original before mutation
-    failures = []  # List to track failed mutations
+    surviving_mutations = []  # List to track surviving mutations
 
     for line_number, pattern, replacement in mutations:
         with open(file_path, 'r') as file:
@@ -40,23 +40,22 @@ def mutate_file(file_path, mutations, test_cmd):  # Include 'test_cmd' as a para
         with open(file_path, 'w') as file:
             file.writelines(lines)
 
-        if not run_test(test_cmd):  # Use 'test_cmd' from parameters
-            failures.append((line_number, pattern, replacement))  # Log failure
+        if run_test(test_cmd):  # Check if 'test_cmd' passes
+            # Log surviving mutation
+            surviving_mutations.append((line_number, pattern, replacement))
             print(
-                f"Mutation failed: Replace '{pattern}' with '{replacement}' on line {line_number}")
-
-        # No longer restoring original file after each mutation attempt
+                f"Surviving mutation: Replace '{pattern}' with '{replacement}' on line {line_number}")
 
     # Restore the original file after all mutation attempts
     restore_original_file(original_file_path, file_path)
 
-    if failures:
-        print(f"Total mutations failed: {len(failures)}")
-        for failure in failures:
+    if surviving_mutations:
+        print(f"Total surviving mutations: {len(surviving_mutations)}")
+        for mutation in surviving_mutations:
             print(
-                f"Failed mutation details: Line {failure[0]}, Pattern '{failure[1]}', Replacement '{failure[2]}'")
+                f"Surviving mutation details: Line {mutation[0]}, Pattern '{mutation[1]}', Replacement '{mutation[2]}'")
     else:
-        print("All mutations passed.")
+        print("All mutations were killed.")
 
 
 if __name__ == "__main__":
