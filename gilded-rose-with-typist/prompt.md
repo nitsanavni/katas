@@ -1,14 +1,7 @@
-@./gilded_rose.py
+@./generate_mutations.py
 
-let's write a new script mutations.py
+let's write test_generate_mutations.py
 
-we'll call it like this:
-python3 mutations.py <file>
+it just calls the function and prints the result to stdout
+passing the arg 'gilded_rose.py'
 
-it will print out potential mutations for the file
-one mutation per line
-each line of output shows
-1. the line number in the <file> 
-2. and the mutation to apply as a tuple (search pattern, replacement str)
-
-let's start with one type of mutation: if the line contains an integer, we'll replace it with 0

@@ -1,4 +1,4 @@
-# mutations.py
+# generate_mutations.py
 import sys
 import re
 
@@ -19,6 +19,6 @@ def generate_mutations(file_path):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 mutations.py <file>")
+        print("Usage: python3 generate_mutations.py <file>")
     else:
         generate_mutations(sys.argv[1])
