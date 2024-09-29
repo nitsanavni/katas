@@ -1,22 +1,29 @@
-# generate_mutations.py
 import sys
 import re
 
 
-def generate_mutations(file_path):
+def replace_int_with_zero(line):
     mutations = []
+    # Looking for integers in the line
+    for match in re.findall(r'\d+', line):
+        pattern = match  # The integer found
+        # replace int with 0
+        replacement = "0"  # Placeholder for the mutation string
+        mutation = (pattern, replacement)
+        mutations.append(mutation)
+    return mutations
+
+
+def generate_mutations(file_path):
+    all_mutations = []
 
     with open(file_path, 'r') as file:
         for line_number, line in enumerate(file.readlines(), start=1):
-            # Looking for integers in the line
-            for match in re.findall(r'\d+', line):
-                pattern = match  # The integer found
-                # replace int with 0
-                replacement = "0"  # Placeholder for the mutation string
-                mutation = (line_number, pattern, replacement)
-                mutations.append(mutation)
+            mutations = replace_int_with_zero(line)
+            for mutation in mutations:
+                all_mutations.append((line_number, mutation[0], mutation[1]))
 
-    for mutation in mutations:
+    for mutation in all_mutations:
         print(mutation[0], mutation[1], mutation[2])
 
 
