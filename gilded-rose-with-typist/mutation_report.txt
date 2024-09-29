@@ -1,0 +1,8 @@
+Total surviving mutations: 7/17
+Line 22, Pattern '50', Replacement '0'
+Line 23, Pattern '1', Replacement '0'
+Line 25, Pattern '1', Replacement '0'
+Line 28, Pattern '80', Replacement '0'
+Line 31, Pattern '1', Replacement '0'
+Line 35, Pattern '50', Replacement '0'
+Line 36, Pattern '1', Replacement '0'
