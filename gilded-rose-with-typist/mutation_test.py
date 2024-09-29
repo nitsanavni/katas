@@ -48,6 +48,7 @@ def mutate_file(mutated_file_path, mutations, test_cmd):  # Include 'test_cmd' a
 
         with open(mutated_file_path, 'w') as file:
             file.writelines(lines)
+            file.flush()  # Flush after writing to ensure data integrity
 
         if run_test(test_cmd).returncode == 0:  # Check if 'test_cmd' passes
             # Log surviving mutation

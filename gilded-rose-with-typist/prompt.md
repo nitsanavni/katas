@@ -1,6 +1,3 @@
 @./mutation_test.py
 
-rename file refs
-original_file
-backup_file
-mutated_file
+I think we forgot to flush after writing to file
