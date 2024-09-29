@@ -1,2 +1,1 @@
-Total surviving mutations: 1/37
-Line 18, Pattern '11', Replacement '12'
+All mutations were killed.

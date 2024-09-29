@@ -16,11 +16,14 @@ def main():
         "Invalid Item",  # Added for edge case testing
         "Rare Item",  # New item to check additional behavior
         "Standard Item",  # New item to check baseline behavior
+        "Test Item 1",  # Additional test case
+        "Test Item 2",  # Additional test case
     ]
-    sell_in_values = [10, 0, -1, 6, 15, 5, -5,
-                      1, 3, -10]  # Extended sell_in values
+    sell_in_values = [10, 0, -1, 6, 15, 5, -5, 1,
+                      3, -10, 11, 2]  # Extended sell_in values
     # Extended quality values to cover edge cases
-    qualities = [10, 0, 50, 1, 49, 30, 5, 2, 48, 51]
+    # Added to ensure comprehensive coverage
+    qualities = [10, 0, 50, 1, 49, 30, 5, 2, 48, 51, 10, 12, 15]
 
     items = []
     for name in names:
