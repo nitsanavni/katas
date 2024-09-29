@@ -7,7 +7,8 @@ import re  # Import 're' for regular expressions
 
 
 def run_test(test_cmd):
-    result = subprocess.run(test_cmd, shell=True)
+    result = subprocess.run(test_cmd, shell=True,
+                            executable='/bin/bash')  # Specify the shell
     return result.returncode == 0
 
 

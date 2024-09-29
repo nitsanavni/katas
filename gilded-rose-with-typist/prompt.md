@@ -1,6 +1,5 @@
-@./generate_mutations.py
 @./mutation_test.py
 
-only modify mutation_test.py
-do this:
-make sure to use the returned mutation list correctly
+let's use bash for the test cmd, becuase I want to use <(cmd) notation
+so please specify the shell in subprocess.run
+
