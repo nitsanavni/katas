@@ -39,11 +39,11 @@ TOTAL_MUTATIONS=${#MUTATIONS[@]}
 SURVIVING_MUTATIONS=()
 
 for MUTATION in "${MUTATIONS[@]}"; do
-    # Each MUTATION is of the form: line_number|||pattern|||replacement
-    LINE_NUMBER=$(echo "$MUTATION" | cut -d '|' -f 1)
-    PATTERN=$(echo "$MUTATION" | cut -d '|' -f 4)
-    REPLACEMENT=$(echo "$MUTATION" | cut -d '|' -f 7)
-    
+    # Parse mutation using jq to get LINE_NUMBER, PATTERN, and REPLACEMENT
+    LINE_NUMBER=$(echo "$MUTATION" | jq -Rr 'split("|||")[0]')
+    PATTERN=$(echo "$MUTATION" | jq -Rr 'split("|||")[1]')
+    REPLACEMENT=$(echo "$MUTATION" | jq -Rr 'split("|||")[2]')
+
     echo "Applying mutation at line $LINE_NUMBER: replace '$PATTERN' with '$REPLACEMENT'"
 
     # Escape special characters in pattern and replacement for sed

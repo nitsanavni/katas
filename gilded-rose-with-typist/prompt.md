@@ -1,8 +1,5 @@
 @./mutate_and_test.sh
-@./generate_mutations.py
 
-only change mutate_and_test.sh
+let's use this for parsing fields of mutations:
 
-notice the separator we get in each mutation
-it's a triple pipe: |||
-
+echo '35|||item.quality < 50|||not (item.quality < 50)' | jq -Rr 'split("|||")[0]'
