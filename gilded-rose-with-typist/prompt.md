@@ -5,6 +5,7 @@ x = backstage
 
 
 just do the next unchecked step:
+
 - [ ] in the loop, surround update_item call with if name is $x, both branches call update_item
 - [ ] new function update_$x, *exact same* as update_item, used in the right branch
 - [ ] in update_$x:
