@@ -1,6 +1,5 @@
 @./gilded_rose.py
 
 just do this:
-extract update_item
+in the loop, surround update_item call with if name is brie, both branches call update_item
 
-nothing else

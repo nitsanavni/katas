@@ -7,7 +7,10 @@ class GildedRose(object):
 
     def update_quality(self):
         for item in self.items:
-            self.update_item(item)
+            if item.name == "Aged Brie":
+                self.update_item(item)
+            else:
+                self.update_item(item)
 
     def update_item(self, item):
         if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
