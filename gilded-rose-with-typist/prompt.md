@@ -1,8 +1,6 @@
-@./generate_mutations.py
+@./gilded_rose.py
 
+just do this:
+extract update_item
 
-let's add a mutation type that change a comparison op slightly
-'>' -> '>='
-and other variations
-
-
+nothing else
