@@ -4,7 +4,7 @@
 x = backstage
 
 
-just do the next unchecked step:
+just do the next unchecked step, do it exactly, don't jump ahead, for every step all other code stays the exact same:
 
 - [ ] in the loop, surround update_item call with if name is $x, both branches call update_item
 - [ ] new function update_$x, *exact same* as update_item, used in the right branch

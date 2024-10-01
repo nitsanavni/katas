@@ -10,7 +10,10 @@ class GildedRose(object):
             if item.name == "Aged Brie":
                 self.update_brie(item)
             else:
-                self.update_item(item)
+                if item.name == "Backstage passes to a TAFKAL80ETC concert":
+                    self.update_item(item)
+                else:
+                    self.update_item(item)
 
     def update_item(self, item):
         if item.name != "Backstage passes to a TAFKAL80ETC concert":
