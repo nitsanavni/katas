@@ -15,13 +15,16 @@ class GildedRose(object):
                 self.update_backstage_pass(item)
             else:
                 self.update_regular_item(item)
+
             item.sell_in -= 1
-            if item.sell_in < 0:
-                self.handle_expired_item(item)
 
     def update_aged_brie(self, item):
         if item.quality < 50:
             item.quality += 1
+
+        # Handle expiration logic for Aged Brie
+        if item.sell_in < 0 and item.quality < 50:
+            item.quality += 1  # Quality increases after expiration
 
     def update_backstage_pass(self, item):
         if item.quality < 50:
@@ -36,24 +39,14 @@ class GildedRose(object):
         # Quality drops to 0 after the concert
         if item.sell_in < 0:
             item.quality = 0
-        # Ensure the quality does not exceed 50 during regular updates
-        if item.quality > 50 and item.sell_in < 1:
-            item.quality += 1  # Allow quality to exceed if past sell_in and already maxed
 
     def update_regular_item(self, item):
         if item.quality > 0:
             item.quality -= 1
 
-    def handle_expired_item(self, item):
-        if item.name != "Aged Brie":
-            if item.name != "Backstage passes to a TAFKAL80ETC concert":
-                if item.quality > 0:
-                    item.quality -= 1
-            else:
-                item.quality = 0  # Quality drops to 0 after the concert
-        else:
-            if item.quality < 50:
-                item.quality += 1
+        # Handle expiration logic for regular items
+        if item.sell_in < 0 and item.quality > 0:
+            item.quality -= 1
 
 
 class Item:
