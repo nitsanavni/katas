@@ -1,8 +1,7 @@
-@./generate_mutations.py
+@./gilded_rose.py
+@./test_gilded_rose.py
+@./approval.diff
 
-
-let's add a mutation type that change a comparison op slightly
-'>' -> '>='
-and other variations
-
-
+we have a problem, an approval mismatch
+please fix gilded_rose.py
+pnly change this file
