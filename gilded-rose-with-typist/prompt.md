@@ -1,5 +1,8 @@
-@./mutate_and_test.sh
+@./generate_mutations.py
 
-let's use this for parsing fields of mutations:
 
-echo '35|||item.quality < 50|||not (item.quality < 50)' | jq -Rr 'split("|||")[0]'
+let's add a mutation type that change a comparison op slightly
+'>' -> '>='
+and other variations
+
+

@@ -55,6 +55,24 @@ def mutate_if_statement(line, condition):
     return mutations
 
 
+def mutate_comparison_operator(line):
+    mutations = []
+    replacements = {
+        '>': '>=',
+        '<': '<=',
+        '>=': '>',
+        '<=': '<',
+        '==': '!=',
+        '!=': '=='
+    }
+
+    for op, replacement in replacements.items():
+        if op in line:
+            mutations.append((op, replacement))
+
+    return mutations
+
+
 def generate_mutations(file_path):
     all_mutations = []
 
@@ -67,6 +85,7 @@ def generate_mutations(file_path):
             mutations_if_not = mutate_if_statement(line, 'invert')
             mutations_if_true = mutate_if_statement(line, 'True')
             mutations_if_false = mutate_if_statement(line, 'False')
+            mutations_comparison = mutate_comparison_operator(line)
 
             for mutation in mutations_zero:
                 all_mutations.append((line_number, mutation[0], mutation[1]))
@@ -79,6 +98,8 @@ def generate_mutations(file_path):
             for mutation in mutations_if_true:
                 all_mutations.append((line_number, mutation[0], mutation[1]))
             for mutation in mutations_if_false:
+                all_mutations.append((line_number, mutation[0], mutation[1]))
+            for mutation in mutations_comparison:
                 all_mutations.append((line_number, mutation[0], mutation[1]))
 
     return all_mutations
