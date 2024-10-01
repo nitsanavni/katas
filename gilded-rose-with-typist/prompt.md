@@ -1,4 +1,6 @@
 @./gilded_rose.py
 
 just do this:
-new function update_brie, *exact same* as update_item
+in update_brie:
+get rid of all conditions on name, keeping only true branches
+everything else stay the same
