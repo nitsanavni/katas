@@ -1,4 +1,5 @@
 @./gilded_rose.py
 
 just do this:
-dup update_item word for word update_brie
+in the loop, surround update_item call with if name is brie, both branches call update_item
+
