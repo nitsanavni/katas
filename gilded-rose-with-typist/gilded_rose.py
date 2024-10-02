@@ -7,23 +7,35 @@ class GildedRose(object):
 
     def update_quality(self):
         for item in self.items:
-            if item.name == "Aged Brie":
+            if item.name == "Sulfuras, Hand of Ragnaros":
+                self.update_sulfuras(item)
+            elif item.name == "Aged Brie":
                 self.update_brie(item)
+            elif item.name == "Backstage passes to a TAFKAL80ETC concert":
+                self.update_backstage(item)
             else:
-                if item.name == "Backstage passes to a TAFKAL80ETC concert":
-                    self.update_backstage(item)
-                else:
-                    self.update_item(item)
+                self.update_item(item)
 
     def update_item(self, item):
         if item.quality > 0:
-            if item.name != "Sulfuras, Hand of Ragnaros":
+            if True:  # Changed from: if item.name != "Sulfuras, Hand of Ragnaros"
                 item.quality -= 1
         if item.name != "Sulfuras, Hand of Ragnaros":
             item.sell_in -= 1
         if item.sell_in < 0:
             if item.quality > 0:
-                if item.name != "Sulfuras, Hand of Ragnaros":
+                if True:  # Changed from: if item.name != "Sulfuras, Hand of Ragnaros"
+                    item.quality -= 1
+
+    def update_sulfuras(self, item):
+        if item.quality > 0:
+            if False:
+                item.quality -= 1
+        if False:
+            item.sell_in -= 1
+        if item.sell_in < 0:
+            if item.quality > 0:
+                if False:
                     item.quality -= 1
 
     def update_backstage(self, item):
