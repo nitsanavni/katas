@@ -7,6 +7,21 @@ import random
 random.seed(8264)
 
 
+def alternative_score(score):
+    if score == 0:
+        return "0"
+
+    ret = ""
+
+    start = 2
+    while score > 0:
+        start = int(math.log2(score))
+        ret += str(start) if start < 10 else chr(start + 87)
+        score -= 2**start
+
+    return ret
+
+
 class Board:
     def __init__(self):
         self.down = lambda: self.move(self.collapse_down)
@@ -59,11 +74,11 @@ class Board:
             self.board[i::4] = collapse(self.board[i::4][::-1])[::-1]
 
     def __str__(self):
-        log_2_score = math.log2(self.score) if self.score > 0 else 0
+        log_2_score = math.log2(self.score + 1) if self.score > 0 else 0
         d = " game over" if self.done() else ""
         return (
-            f"{log_2_score:.3f}{d}"
-            + "\n"
+            f"{log_2_score:.3f}{d}\n"
+            + f"{alternative_score(self.score+1)}\n"
             + "\n".join(
                 ["|" + "".join(self.board[i : i + 4]) + "|" for i in range(0, 16, 4)]
             )
@@ -71,6 +86,39 @@ class Board:
 
     def sum(self):
         return sum([(int(c) + 1) for c in self.board if c != " "])
+
+
+def test_alternative_score():
+    """
+    0 -> 0
+    1 -> 0
+    2 -> 1
+    3 -> 10
+    4 -> 2
+    5 -> 20
+    6 -> 21
+    7 -> 210
+    8 -> 3
+    9 -> 30
+    1000 -> 987653
+    1200 -> a754
+    1400 -> a86543
+    1600 -> a96
+    1800 -> a983
+    2000 -> a98764
+    2200 -> b743
+    2400 -> b865
+    """
+
+    verify(
+        "\n".join(
+            [
+                f"{i} -> {alternative_score(i)}"
+                for i in (list(range(10)) + list(range(1000, 2500, 200)))
+            ]
+        ),
+        options=Options().inline(),
+    )
 
 
 import keyboard
@@ -220,36 +268,42 @@ def test_collapse_right():
 def test_collapse_down():
     """
     0.000
+    0
     |    |
     |  0 |
     |    |
     |    |
     ------
-    0.000
+    1.000
+    1
     |    |
     |    |
     | 0  |
     |  0 |
     ------
-    1.000
+    1.585
+    10
     |    |
     |    |
     |0   |
     | 00 |
     ------
-    1.585
+    2.000
+    2
     |    |
     | 0  |
     |    |
     |000 |
     ------
-    2.000
+    2.322
+    20
     |   0|
     |    |
     |    |
     |010 |
     ------
-    2.322
+    2.585
+    21
     |    |
     |    |
     |0   |
@@ -270,6 +324,7 @@ def test_collapse_down():
 def test_board():
     """
     0.000
+    0
     |    |
     |0   |
     |    |

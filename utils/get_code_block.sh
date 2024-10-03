@@ -33,6 +33,8 @@ if [[ $input == *\`\`\`* ]]; then
         fi
     done
 
+    # rm last newline
+    code_block=$(echo -e "$code_block" | sed '$ s/.$//')
     # Output the first code block found, removing trailing newlines
     echo -e "$code_block"
 else
