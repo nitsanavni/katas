@@ -3,4 +3,4 @@
 @!./test.sh
 
 new requirement:
-7 -> "seven"
+divisible by 7 -> "seven"
