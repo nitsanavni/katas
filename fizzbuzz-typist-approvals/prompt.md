@@ -1,6 +1,4 @@
-@./fizzbuzz_requirements.md
-@!./test_fizzbuzz.py
-@./test_fizzbuzz.py.approved
-@!./test.sh
+@./auto-commit.sh
 
-fix the test by fixing the approved file
+let's use gpt-4o-mini
+chat -m gpt-4o-mini
