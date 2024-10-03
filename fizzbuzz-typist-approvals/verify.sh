@@ -6,5 +6,8 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+# Create an approved version file
+touch "$1.approved"
+
 # Execute the given command and compare its output to the approved version
 diff <($1) "$1.approved"

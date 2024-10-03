@@ -1,5 +1,5 @@
 @!./auto-commit.sh
 @./verify.sh
 
-in verify.sh:
-start by touch $1.approved
+let's write test_fizzbuzz.py
+it just prints some lines to stdout
