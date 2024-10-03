@@ -1,4 +1,4 @@
 @!./auto-commit.sh
+@./test_fizzbuzz.py
 
-let's write test_fizzbuzz.py
-it just prints some lines to stdout
+add shebang to fizzbuzz.py
