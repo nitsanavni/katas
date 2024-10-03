@@ -1,3 +1,5 @@
 @!./auto-commit.sh
+@./verify.sh
 
-make sure chat knows it's writing a commit message
+in verify.sh:
+start by touch $1.approved
