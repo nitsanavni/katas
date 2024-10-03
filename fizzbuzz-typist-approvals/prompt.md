@@ -3,4 +3,4 @@
 @./test_fizzbuzz.py.approved
 @!./test.sh
 
-update approved file
+only update the approved file
