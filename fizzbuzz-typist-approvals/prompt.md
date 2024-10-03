@@ -2,4 +2,8 @@
 @./test_fizzbuzz.py.approved
 @!./test.sh
 
-fix
+add fizzbuzz_requirements.md
+
+divisible by 3: fizz
+divisible by 5: buzz
+divisible by 7: seven
