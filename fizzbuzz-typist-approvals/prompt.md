@@ -3,6 +3,4 @@
 @./test_fizzbuzz.py.approved
 @!./test.sh
 
-in the requirements add:
-default is n
-multiple conditions: concat
+update approved file
