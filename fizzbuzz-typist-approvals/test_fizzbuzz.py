@@ -9,6 +9,8 @@ def fizzbuzz(n):
             print("Fizz")
         elif i % 5 == 0:
             print("Buzz")
+        elif i % 7 == 0:
+            print("seven")
         else:
             print(i)
 
