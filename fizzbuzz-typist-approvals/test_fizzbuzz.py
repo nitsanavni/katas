@@ -5,7 +5,7 @@ def fizzbuzz(n):
     for i in range(1, n + 1):
         if i % 3 == 0 and i % 5 == 0:
             print("FizzBuzz")
-        elif i == 7:
+        elif i % 7 == 0:
             print("seven")
         elif i % 3 == 0:
             print("Fizz")
