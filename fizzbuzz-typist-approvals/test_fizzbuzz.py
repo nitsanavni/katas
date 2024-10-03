@@ -14,5 +14,5 @@ def fizzbuzz(n):
 
 
 if __name__ == "__main__":
-    # Example: print FizzBuzz sequence up to 15
-    fizzbuzz(15)
+    # Example: print FizzBuzz sequence up to 35
+    fizzbuzz(35)

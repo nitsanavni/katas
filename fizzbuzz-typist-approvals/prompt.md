@@ -3,7 +3,4 @@
 @./test_fizzbuzz.py.approved
 @!./test.sh
 
-only change relevant files
-
-only do this:
-have the test go up to 35
+fix the test by fixing the approved file
