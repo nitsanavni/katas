@@ -1,3 +1,3 @@
 @!./auto-commit.sh
 
-suggestions?
+make sure chat knows it's writing a commit message
