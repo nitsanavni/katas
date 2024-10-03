@@ -1,6 +1,5 @@
-@!./auto-commit.sh
 @./test_fizzbuzz.py
 @./verify.sh
+@!./test.sh
 
-let's add test.sh:
-./verify.sh ./test_fizzbuzz.py
+write the approved file
