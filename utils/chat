@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # TODOs
-# - `chat -f function-def.json -f func2.json PROMT`: to use function calling
+# - `chat -f function-def.json -f func2.json PROMPT`: to use function calling
 # - `chat -e PROMPT`: execute commands on host in a loop
 # - stream the responses, when tty
 #   we should probably port to python first, see https://cookbook.openai.com/examples/how_to_stream_completions
@@ -21,10 +21,10 @@ API_URL="https://api.openai.com/v1/chat/completions"
 CONTINUE=false
 SHOW_CONVERSATION=false
 
-while getopts ":3cs" opt; do
+while getopts ":csm:" opt; do
     case $opt in
-    3)
-        MODEL="gpt-3.5-turbo"
+    m)
+        MODEL="$OPTARG"
         ;;
     c)
         CONTINUE=true
