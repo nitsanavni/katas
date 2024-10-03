@@ -1,4 +1,6 @@
 @./test_fizzbuzz.py
+@./test_fizzbuzz.py.approved
 @!./test.sh
 
-write the approved file
+new requirement:
+7 -> "seven"
