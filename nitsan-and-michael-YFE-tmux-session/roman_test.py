@@ -1,6 +1,6 @@
 def arabic_to_roman(arabic_number):
     if arabic_number > 1000:
-        return "MM"
+        return "M" + arabic_to_roman(arabic_number - 1000)
     return "M"
 
 
