@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 def fizzbuzz(n):
     """Prints the FizzBuzz sequence up to a number n."""
     for i in range(1, n + 1):
