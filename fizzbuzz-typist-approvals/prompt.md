@@ -1,4 +1,6 @@
 @!./auto-commit.sh
 @./test_fizzbuzz.py
+@./verify.sh
 
-add shebang to fizzbuzz.py
+let's add test.sh:
+./verify.sh ./test_fizzbuzz.py
