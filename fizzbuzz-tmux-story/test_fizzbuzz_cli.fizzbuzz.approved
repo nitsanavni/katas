@@ -1,3 +1,11 @@
 $seq 12 20 | ./fizzbuzz 3 Fizz 5 Buzz
-./fizzbuzz: line 21: ${!((i+1))}: bad substitution
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
 $

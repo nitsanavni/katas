@@ -3,8 +3,11 @@ base_cmd: "bash --norc --noprofile"
 story:
   - send: "export PS1='$ ' && clear"
   - send: "seq 12 20 | ./fizzbuzz 3 Fizz 5 Buzz"
+  - wait-for-output: "FizzBuzz"
   - capture: fizzbuzz
   - send: "seq 10 | ./fizzbuzz 4 Hello"
+  - wait-for-output: "10"
   - capture: hello
-  - send: "seq 110 120 | ./fizzbuzz 3 Fizz 5 Buzz 7 Whizz"
+  - send: "seq 100 110 | ./fizzbuzz 3 Fizz 5 Buzz 7 Whizz"
+  - wait-for-output: "FizzBuzzWhizz"
   - capture: fizzbuzzwhizz

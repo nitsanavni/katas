@@ -1,5 +1,22 @@
 $seq 12 20 | ./fizzbuzz 3 Fizz 5 Buzz
-./fizzbuzz: line 21: ${!((i+1))}: bad substitution
+Fizz
+13
+14
+FizzBuzz
+16
+17
+Fizz
+19
+Buzz
 $seq 10 | ./fizzbuzz 4 Hello
-./fizzbuzz: line 21: ${!((i+1))}: bad substitution
+1
+2
+3
+Hello
+5
+6
+7
+Hello
+9
+10
 $
