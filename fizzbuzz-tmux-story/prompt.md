@@ -1,5 +1,6 @@
 @./README.md
+@./fizzbuzz
 @./test.yml
 @./test_fizzbuzz_cli.fizzbuzz.approved
 
-please write the fizzbuzz cli app
+adapt the script `fizzbuzz` to be able to handle arbitrary number of arguments pairs

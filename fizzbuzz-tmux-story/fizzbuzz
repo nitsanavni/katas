@@ -1,27 +1,33 @@
 #!/bin/bash
 
-# FizzBuzz script
-# Usage: ./fizzbuzz <divisor1> <string1> <divisor2> <string2>
+# Enhanced FizzBuzz script to handle multiple divisor/string pairs
+# Usage: ./fizzbuzz <divisor1> <string1> [<divisor2> <string2> ... ]
 
-divisor1="$1"
-string1="$2"
-divisor2="$3"
-string2="$4"
+# Function to process the number according to pairs
+process_number() {
+    local number=$1
+    local output=""
 
-while read number; do
-    output=""
-    
-    if (( number % divisor1 == 0 )); then
-        output+="$string1"
-    fi
+    shift  # Shift to move past the number
 
-    if (( number % divisor2 == 0 )); then
-        output+="$string2"
-    fi
+    while [ $# -gt 1 ]; do
+        local divisor=$1
+        local string=$2
+
+        if (( number % divisor == 0 )); then
+            output+="$string"
+        fi
+        
+        shift 2  # Move past the current divisor and string pair
+    done
 
     if [ -z "$output" ]; then
         echo "$number"
     else
         echo "$output"
     fi
+}
+
+while read number; do
+    process_number "$number" "$@"
 done
