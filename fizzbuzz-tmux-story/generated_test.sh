@@ -11,10 +11,12 @@ any_failure=0
 
 # Send the command: export PS1='$ ' && clear
 tmux send-keys -t test_fizzbuzz_cli 'export PS1='$ ' && clear' Enter
-# Send the command: seq 10 | ./fizzbuzz 3 Fizz 5 Buzz
-tmux send-keys -t test_fizzbuzz_cli 'seq 10 | ./fizzbuzz 3 Fizz 5 Buzz' Enter
-# Wait for 1 second(s) before next action
-sleep 1
+# Send the command: seq 15 | ./fizzbuzz 3 Fizz 5 Buzz
+tmux send-keys -t test_fizzbuzz_cli 'seq 15 | ./fizzbuzz 3 Fizz 5 Buzz' Enter
+# Wait for the specific output: FizzBuzz
+while ! tmux capture-pane -t test_fizzbuzz_cli -p | grep -q "FizzBuzz"; do
+    sleep 0.1  # Poll every 100ms until the output is found
+done
 # Capture the output in test_fizzbuzz_cli.fizzbuzz.received
 tmux capture-pane -t test_fizzbuzz_cli -p | sed '/^$/d' > test_fizzbuzz_cli.fizzbuzz.received
 
