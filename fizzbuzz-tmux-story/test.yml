@@ -1,12 +1,7 @@
-name: "Test Bash Print"
+name: "Test FizzBuzz CLI"
 base_cmd: "bash --norc --noprofile"
 story:
   - send: "export PS1='$ ' && clear"
-  - send: "echo 'Hello, world!'"
-  - capture: "hello"
-  - send: "echo $((2**10))"
-  - wait-for-output: "1024"
-  - send: "echo 'Goodbye, world!'"
+  - send: "seq 10 | ./fizzbuzz 3 Fizz 5 Buzz"
+  - wait-for-output: "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz"
   - send-no-enter: "exit"
-  - capture: "goodbye"
-  - sleep: 1
