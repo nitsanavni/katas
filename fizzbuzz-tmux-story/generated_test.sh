@@ -13,6 +13,8 @@ any_failure=0
 tmux send-keys -t test_fizzbuzz_cli 'export PS1='$ ' && clear' Enter
 # Send the command: seq 10 | ./fizzbuzz 3 Fizz 5 Buzz
 tmux send-keys -t test_fizzbuzz_cli 'seq 10 | ./fizzbuzz 3 Fizz 5 Buzz' Enter
+# Wait for 1 second(s) before next action
+sleep 1
 # Capture the output in test_fizzbuzz_cli.fizzbuzz.received
 tmux capture-pane -t test_fizzbuzz_cli -p | sed '/^$/d' > test_fizzbuzz_cli.fizzbuzz.received
 

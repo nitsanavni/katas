@@ -3,4 +3,5 @@ base_cmd: "bash --norc --noprofile"
 story:
   - send: "export PS1='$ ' && clear"
   - send: "seq 10 | ./fizzbuzz 3 Fizz 5 Buzz"
+  - sleep: 1
   - capture: "fizzbuzz"
