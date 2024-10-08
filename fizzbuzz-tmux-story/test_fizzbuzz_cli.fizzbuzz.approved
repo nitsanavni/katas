@@ -1,4 +1,4 @@
-$seq 15 | ./fizzbuzz 3 Fizz 5 Buzz
+$seq 15 | ./fizzbuzz 3 Fizz 5 Buzz 7 Whizz
 1
 2
 Fizz

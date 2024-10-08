@@ -2,6 +2,6 @@ name: "Test FizzBuzz CLI"
 base_cmd: "bash --norc --noprofile"
 story:
   - send: "export PS1='$ ' && clear"
-  - send: "seq 15 | ./fizzbuzz 3 Fizz 5 Buzz"
+  - send: "seq 15 | ./fizzbuzz 3 Fizz 5 Buzz 7 Whizz"
   - wait-for-output: "FizzBuzz"
   - capture: "fizzbuzz"
