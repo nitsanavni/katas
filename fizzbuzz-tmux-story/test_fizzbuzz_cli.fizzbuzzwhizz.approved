@@ -1,7 +1,7 @@
 $seq 12 20 | ./fizzbuzz 3 Fizz 5 Buzz
-bash: ./fizzbuzz: No such file or directory
+./fizzbuzz: line 21: ${!((i+1))}: bad substitution
 $seq 10 | ./fizzbuzz 4 Hello
-bash: ./fizzbuzz: No such file or directory
+./fizzbuzz: line 21: ${!((i+1))}: bad substitution
 $seq 110 120 | ./fizzbuzz 3 Fizz 5 Buzz 7 Whizz
-bash: ./fizzbuzz: No such file or directory
+./fizzbuzz: line 21: ${!((i+1))}: bad substitution
 $

@@ -1,6 +1,4 @@
 @./README.md
 @./test.yml
 
-only change this file: test.yml
-adapt test.yml to match reqs from README.md
-
+please write the cli app `fizzbuzz` as described in the README.md file

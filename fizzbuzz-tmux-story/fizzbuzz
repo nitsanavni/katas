@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Function to determine if a number is divisible by a given divisor
+is_divisible() {
+    local number=$1
+    local divisor=$2
+    if [[ $(($number % $divisor)) -eq 0 ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Read input numbers from standard input
+while read number; do
+    output=""
+
+    # Iterate over the arguments in pairs (divisor and word)
+    for (( i=1; i<=$#; i+=2 )); do
+        divisor=${!i}
+        word=${!((i+1))}
+        if is_divisible "$number" "$divisor"; then
+            output+="$word"
+        fi
+    done
+
+    # Fallback to the number if no words were added
+    if [ -z "$output" ]; then
+        output=$number
+    fi
+
+    echo "$output"
+done
