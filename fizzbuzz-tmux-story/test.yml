@@ -1,0 +1,12 @@
+name: "Test Bash Print"
+base_cmd: "bash --norc --noprofile"
+story:
+  - send: "export PS1='$ ' && clear"
+  - send: "echo 'Hello, world!'"
+  - capture: "hello"
+  - send: "echo $((2**10))"
+  - wait-for-output: "1024"
+  - send: "echo 'Goodbye, world!'"
+  - send-no-enter: "exit"
+  - capture: "goodbye"
+  - sleep: 1
