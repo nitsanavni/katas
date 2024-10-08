@@ -1,4 +1,12 @@
 @./README.md
+@./fizzbuzz
 @./test.yml
+@./test_fizzbuzz_cli.fizzbuzz.approved
+@./test_fizzbuzz_cli.hello.approved
+@./test_fizzbuzz_cli.fizzbuzzwhizz.approved
 
-please write the cli app `fizzbuzz` as described in the README.md file
+
+only change this file: 
+fizzbuzz
+
+do this: fix the issue

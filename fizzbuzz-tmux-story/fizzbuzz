@@ -18,7 +18,8 @@ while read number; do
     # Iterate over the arguments in pairs (divisor and word)
     for (( i=1; i<=$#; i+=2 )); do
         divisor=${!i}
-        word=${!((i+1))}
+        word_index=$((i+1))
+        word=${!word_index}
         if is_divisible "$number" "$divisor"; then
             output+="$word"
         fi
