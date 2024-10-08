@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# FizzBuzz script
+# Usage: ./fizzbuzz <divisor1> <string1> <divisor2> <string2>
+
+divisor1="$1"
+string1="$2"
+divisor2="$3"
+string2="$4"
+
+while read number; do
+    output=""
+    
+    if (( number % divisor1 == 0 )); then
+        output+="$string1"
+    fi
+
+    if (( number % divisor2 == 0 )); then
+        output+="$string2"
+    fi
+
+    if [ -z "$output" ]; then
+        echo "$number"
+    else
+        echo "$output"
+    fi
+done

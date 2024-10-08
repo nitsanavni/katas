@@ -1,4 +1,5 @@
 @./README.md
 @./test.yml
+@./test_fizzbuzz_cli.fizzbuzz.approved
 
-let's adapt the test to the requirements from the README.md
+please write the fizzbuzz cli app
