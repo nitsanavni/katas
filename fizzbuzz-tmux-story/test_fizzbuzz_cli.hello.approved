@@ -1,0 +1,5 @@
+$seq 12 20 | ./fizzbuzz 3 Fizz 5 Buzz
+bash: ./fizzbuzz: No such file or directory
+$seq 10 | ./fizzbuzz 4 Hello
+bash: ./fizzbuzz: No such file or directory
+$

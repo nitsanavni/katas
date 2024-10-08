@@ -2,6 +2,9 @@ name: "Test FizzBuzz CLI"
 base_cmd: "bash --norc --noprofile"
 story:
   - send: "export PS1='$ ' && clear"
-  - send: "seq 10 | ./fizzbuzz 3 Fizz 5 Buzz"
+  - send: "seq 12 20 | ./fizzbuzz 3 Fizz 5 Buzz"
+  - capture: fizzbuzz
   - send: "seq 10 | ./fizzbuzz 4 Hello"
-  - send: "seq 10 | ./fizzbuzz 3 Fizz 5 Buzz 7 Whizz"
+  - capture: hello
+  - send: "seq 110 120 | ./fizzbuzz 3 Fizz 5 Buzz 7 Whizz"
+  - capture: fizzbuzzwhizz
