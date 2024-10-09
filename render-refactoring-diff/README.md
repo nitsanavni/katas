@@ -23,3 +23,6 @@ Hello, please [-render-]{+show+} this diff.
 
 Hello, please $${\textbf{\color{red}-render-}}$$ this $${\textbf{\color{green}+show+}}$$ diff.
 
+Hello, please $${\textsf{\textbf{\color{red}render}}}$$ this $${\textsf{\textbf{\color{green}show}}}$$ diff.
+
+
