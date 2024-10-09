@@ -19,4 +19,7 @@ Hello, please [-render-]{+show+} this diff.
 Hello, please [-render-]{+show+} this diff.
 ```
 
-<span style="color: #859900;">Hello, please </span><span style="color: #dc322f;">render</span><span style="color: #859900;"> this diff.</span>
+<code style="color: #859900;">Hello, please </code><code style="color: #dc322f;">render</code><code style="color: #859900;"> this diff.</code>
+
+Hello, please $${\textbf{\color{red}-render-}}$$ this $${\textbf{\color{green}+show+}}$$ diff.
+
