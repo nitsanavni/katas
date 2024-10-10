@@ -1,6 +1,6 @@
 Render Refactoring Diff
 
-Credit: example problem from @isidore.
+Credit: example problem from @isidore. https://github.com/LearnWithLlew/TddWithChatGPT
 
 Render a word-diff, similar to `git diff --word-diff`, example:
 
