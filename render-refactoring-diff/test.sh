@@ -1,7 +1,10 @@
 original="first line
-hello"
+hello my world!
+third line"
+
 changed="first line
-world!"
+hello our world!
+third line"
 
 diff_with_header() {
 	git diff --word-diff --no-index <(echo -e "$1") <(echo -e "$2")
@@ -11,4 +14,9 @@ scrub_header() {
 	grep @@ -A 100 | grep -v @@
 }
 
-diff_with_header "$original" "$changed" | scrub_header | python git_diff_to_html.py > diff.html && open diff.html
+
+input_word_diff() {
+	diff_with_header "$original" "$changed" | scrub_header
+}
+
+input_word_diff | python git_diff_to_html.py > diff.html && open diff.html
