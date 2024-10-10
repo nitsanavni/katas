@@ -12,7 +12,6 @@ scrub_header() {
 	grep @@ -A 100 | grep -v @@
 }
 
-
 input_word_diff() {
 	diff_with_header "$original" "$changed" | scrub_header
 }
