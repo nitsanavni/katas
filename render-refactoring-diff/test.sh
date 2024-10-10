@@ -2,9 +2,7 @@ original="first line
 hello my world!
 third line"
 
-changed="first line
-hello our world!
-third line"
+changed=$(echo "$original" | sed 's/my/our/')
 
 diff_with_header() {
 	git diff --word-diff --no-index <(echo -e "$1") <(echo -e "$2")
