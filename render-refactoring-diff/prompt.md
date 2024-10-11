@@ -1,5 +1,3 @@
-@./test.sh
-@./diff.html
-@./diff.yml
+@./model_to_html.py
 
-let's write `model_to_html.py` going from the `diff.yml` to `diff.html`
+change the script to take the yml from stdin and output the html to stdout
