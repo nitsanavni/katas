@@ -1,67 +1,72 @@
-import difflib
 import sys
+import difflib
 import yaml
 
 
-def generate_word_diff(file1, file2):
-    # Read the files
-    with open(file1, 'r') as f1, open(file2, 'r') as f2:
-        lines1 = f1.readlines()
-        lines2 = f2.readlines()
+def get_word_diffs(file1_lines, file2_lines):
+    # Tokenize lines into words and generate differences using difflib
+    differ = difflib.Differ()
+    diff = differ.compare(file1_lines, file2_lines)
+    return list(diff)
 
-    # A list to store the diff result
-    diff_result = []
 
-    # Create a differ object
-    d = difflib.Differ()
+def process_diffs(diffs):
+    result = []
+    for line in diffs:
+        if line.startswith("  "):
+            result.append(line[2:])  # unchanged parts
+        else:
+            parts = []
+            current = line[2:]
+            if line.startswith("- "):
+                parts.append({'d': current})  # deleted parts
+            elif line.startswith("+ "):
+                parts.append({'a': current})  # added parts
+            if parts:
+                result.append(parts)
+    return result
 
-    # Iterate over line pairs from both files
-    for line1, line2 in zip(lines1, lines2):
-        words1 = line1.split()
-        words2 = line2.split()
 
-        # Generate differences using the differ object
-        line_diff = list(d.compare(words1, words2))
-        diff_line = []
+def line_diff_yaml(file1_lines, file2_lines):
+    diffs = []
+    for line1, line2 in zip(file1_lines, file2_lines):
+        if line1 == line2:
+            diffs.append(line1.rstrip('\n'))
+        else:
+            s = difflib.SequenceMatcher(None, line1, line2)
+            line_result = []
+            for tag, i1, i2, j1, j2 in s.get_opcodes():
+                if tag == 'equal':
+                    line_result.append(line1[i1:i2])
+                elif tag == 'replace':
+                    line_result.append({'d': line1[i1:i2]})
+                    line_result.append({'a': line2[j1:j2]})
+                elif tag == 'delete':
+                    line_result.append({'d': line1[i1:i2]})
+                elif tag == 'insert':
+                    line_result.append({'a': line2[j1:j2]})
+            diffs.append(line_result)
+    return diffs
 
-        # Process each word/part in the line_diff
-        for part in line_diff:
-            code = part[0]
-            word = part[2:]
 
-            if code == ' ':
-                # Unchanged word
-                diff_line.append(word + ' ')
-            elif code == '-':
-                # Deleted word
-                diff_line.append({'d': word})
-            elif code == '+':
-                # Added word
-                diff_line.append({'a': word})
+def main():
+    if len(sys.argv) != 3:
+        print("Usage: python word_diff.py file1.txt file2.txt")
+        sys.exit(1)
 
-        # Remove the trailing space for the last unchanged word
-        if diff_line and isinstance(diff_line[-1], str):
-            diff_line[-1] = diff_line[-1].rstrip()
+    file1_path, file2_path = sys.argv[1], sys.argv[2]
 
-        # Append the diff line to the result
-        diff_result.append(diff_line)
+    with open(file1_path, 'r') as file1, open(file2_path, 'r') as file2:
+        file1_lines = file1.readlines()
+        file2_lines = file2.readlines()
 
-    # Handle case when file2 has more lines than file1
-    for remaining_line in lines2[len(lines1):]:
-        diff_result.append([{'a': remaining_line.rstrip()}])
+    # Use the updated function to get the diffs
+    word_diffs = line_diff_yaml(file1_lines, file2_lines)
 
-    # Handle case when file1 has more lines than file2
-    for remaining_line in lines1[len(lines2):]:
-        diff_result.append([{'d': remaining_line.rstrip()}])
-
-    # Print the diff result as a YAML document
-    print(yaml.dump(diff_result, default_flow_style=False))
+    yaml_output = yaml.dump(word_diffs, allow_unicode=True,
+                            default_flow_style=False, sort_keys=False)
+    print(yaml_output)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python word_diff.py <file1> <file2>")
-        sys.exit(1)
-
-    file1, file2 = sys.argv[1], sys.argv[2]
-    generate_word_diff(file1, file2)
+    main()
