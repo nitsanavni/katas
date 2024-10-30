@@ -1,5 +1,12 @@
 ./find_mutations_in_line.py
 
-line is a line from a python file
+let's add a mutation, instead of the stub mutation
+we will identify a line of code that has an integer somewhere
+the mutation is to increment that integer
 
-extract the condition is_comment, and early return
+e.g.
+print(1)
+becomes
+print(2)
+
+
