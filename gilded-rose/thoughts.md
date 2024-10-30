@@ -7,3 +7,4 @@
 - `python test_gilded_rose.py | verify -t gr -d d.sh`
 - vi +5s/world/noob/ +wq copy-of-test.md
 - C-z from vi, do stuff on cli, then `fg`, back to vi
+- .!echorun chat
