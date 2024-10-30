@@ -1,0 +1,79 @@
+15
+Incremented 0 to 1
+                if item.quality > 1:
+
+---
+17
+Incremented 1 to 2
+                        item.quality = item.quality - 2
+
+---
+19
+Incremented 50 to 51
+                if item.quality < 51:
+
+---
+20
+Incremented 1 to 2
+                    item.quality = item.quality + 2
+
+---
+25
+Incremented 11 to 12
+                        if item.sell_in < 12:
+
+---
+26
+Incremented 50 to 51
+                            if item.quality < 51:
+
+---
+27
+Incremented 1 to 2
+                                item.quality = item.quality + 2
+
+---
+28
+Incremented 6 to 7
+                        if item.sell_in < 7:
+
+---
+29
+Incremented 50 to 51
+                            if item.quality < 51:
+
+---
+30
+Incremented 1 to 2
+                                item.quality = item.quality + 2
+
+---
+32
+Incremented 1 to 2
+                item.sell_in = item.sell_in - 2
+
+---
+33
+Incremented 0 to 1
+            if item.sell_in < 1:
+
+---
+39
+Incremented 0 to 1
+                        if item.quality > 1:
+
+---
+41
+Incremented 1 to 2
+                                item.quality = item.quality - 2
+
+---
+45
+Incremented 50 to 51
+                    if item.quality < 51:
+
+---
+46
+Incremented 1 to 2
+                        item.quality = item.quality + 2
+
