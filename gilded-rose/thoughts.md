@@ -9,3 +9,4 @@
 - C-z from vi, do stuff on cli, then `fg`, back to vi
 - .!echorun chat
 - how to copy to clipboard in vim?
+  - workaround is tmux copy mode
