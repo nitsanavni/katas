@@ -1,0 +1,9 @@
+- lynx browser -> github -> download the kata code
+- in tmux: <prefix>": split pane
+- in tmux <prefix>cmd+up/down: resize pane
+- <prefix>up/down switch panes
+- `ls *.py *.approved | entr -c ./test.sh`
+- `ls *.py | entr -c black -l 79 .`
+- `python test_gilded_rose.py | verify -t gr -d d.sh`
+- vi +5s/world/noob/ +wq copy-of-test.md
+- C-z from vi, do stuff on cli, then `fg`, back to vi
