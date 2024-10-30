@@ -1,6 +1,6 @@
-# suggest_mutations.py
-
 import argparse
+
+from find_mutations_in_line import find_mutations
 
 
 def parsearg_filepath():
@@ -14,8 +14,27 @@ def parsearg_filepath():
     return args.filepath
 
 
+def read_lines(file):
+    with open(file) as f:
+        return f.readlines()
+
+
 def main():
     file = parsearg_filepath()
+    lines = read_lines(file)
+    mutations = [
+        (line_number, description, vi_cmd)
+        for line_number, line in enumerate(lines, start=1)
+        for description, vi_cmd in find_mutations(line)
+    ]
+    print(
+        "\n---\n".join(
+            [
+                f"{line_number}\n{description}\n{vi_cmd}"
+                for (line_number, description, vi_cmd) in mutations
+            ]
+        )
+    )
 
 
 if __name__ == "__main__":

@@ -10,3 +10,5 @@
 - .!echorun chat
 - how to copy to clipboard in vim?
   - workaround is tmux copy mode
+- vim tab / spaces
+  - also, when hitting enter, should keep alignment
