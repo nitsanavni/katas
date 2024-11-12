@@ -23,7 +23,7 @@ def main(stdscr):
             counter += 1
         elif key == curses.KEY_DOWN:
             counter -= 1
-        stdscr.addstr(1, width // 2 - 5, f"Counter: {counter}")
+        stdscr.addstr(1, width // 2 - 5, f"{counter}")
 
         # Timer (controlled by SPACE)
         if key == ord(" "):  # Toggle timer with SPACE
@@ -31,19 +31,15 @@ def main(stdscr):
             if timer_active:
                 start_time = time.time()
 
-        elapsed_time = (
-            time.time() - start_time if start_time and timer_active else 0
-        )
+        elapsed_time = time.time() - start_time if start_time and timer_active else 0
         if elapsed_time < 1:
             timer_str = f"{int(elapsed_time // 60):02}:{int(elapsed_time % 60):02}:{int((elapsed_time * 100) % 100):02}"
         elif elapsed_time < 2:
             timer_str = f"{int(elapsed_time // 60):02}:{int(elapsed_time % 60):02}:{int((elapsed_time * 10) % 10)}"
         else:
-            timer_str = (
-                f"{int(elapsed_time // 60):02}:{int(elapsed_time % 60):02}"
-            )
+            timer_str = f"{int(elapsed_time // 60):02}:{int(elapsed_time % 60):02}"
 
-        stdscr.addstr(2, width // 2 - 5, f"Timer: {timer_str}")
+        stdscr.addstr(2, width // 2 - 5, timer_str)
 
         # BPM (Shift key to record beat)
         if key == ord(
@@ -58,15 +54,14 @@ def main(stdscr):
             # Calculate intervals
             if len(beat_times) > 1:
                 intervals = [
-                    beat_times[i] - beat_times[i - 1]
-                    for i in range(1, len(beat_times))
+                    beat_times[i] - beat_times[i - 1] for i in range(1, len(beat_times))
                 ]
                 avg_interval = sum(intervals) / len(intervals)
                 bpm = 60 / avg_interval
             else:
                 bpm = 0
 
-        bpm_str = f"BPM: {int(bpm):d}" if bpm > 0 else "BPM: --"
+        bpm_str = f"{int(bpm):d}" if bpm > 0 else "--"
         stdscr.addstr(3, width // 2 - 5, bpm_str)
 
         # Refresh display
