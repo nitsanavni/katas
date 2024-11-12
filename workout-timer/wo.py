@@ -31,13 +31,17 @@ def main(stdscr):
             if timer_active:
                 start_time = time.time()
 
-        elapsed_time = time.time() - start_time if start_time and timer_active else 0
+        elapsed_time = (
+            time.time() - start_time if start_time and timer_active else 0
+        )
         if elapsed_time < 1:
             timer_str = f"{int(elapsed_time // 60):02}:{int(elapsed_time % 60):02}:{int((elapsed_time * 100) % 100):02}"
         elif elapsed_time < 2:
             timer_str = f"{int(elapsed_time // 60):02}:{int(elapsed_time % 60):02}:{int((elapsed_time * 10) % 10)}"
         else:
-            timer_str = f"{int(elapsed_time // 60):02}:{int(elapsed_time % 60):02}"
+            timer_str = (
+                f"{int(elapsed_time // 60):02}:{int(elapsed_time % 60):02}"
+            )
 
         stdscr.addstr(2, width // 2 - 5, f"Timer: {timer_str}")
 
@@ -46,13 +50,16 @@ def main(stdscr):
             "\t"
         ):  # Shift not detected directly in curses, using TAB as proxy
             current_time = time.time()
-            beat_times = [
-                bt for bt in beat_times if current_time - bt <= 3
-            ]  # Filter for last 3 seconds
+            # Keep only the last 4 beats
             beat_times.append(current_time)
+            if len(beat_times) > 4:
+                beat_times.pop(0)
+
+            # Calculate intervals
             if len(beat_times) > 1:
                 intervals = [
-                    beat_times[i] - beat_times[i - 1] for i in range(1, len(beat_times))
+                    beat_times[i] - beat_times[i - 1]
+                    for i in range(1, len(beat_times))
                 ]
                 avg_interval = sum(intervals) / len(intervals)
                 bpm = 60 / avg_interval
