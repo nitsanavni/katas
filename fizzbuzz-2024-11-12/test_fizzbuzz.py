@@ -1,8 +1,8 @@
-from approvaltests import verify, Options
+from approvaltests import verify_all, Options
 from approvaltests.reporters.generic_diff_reporter import GenericDiffReporter
 
 
-def diff_reporter():
+def d():
     return GenericDiffReporter.create("d.sh")
 
 
@@ -18,7 +18,9 @@ def fizzbuzz(n):
 
 
 def test_fizzbuzz():
-    verify(
-        "\n".join([f"{i} -> {fizzbuzz(i)}" for i in range(1, 16)]),
-        options=Options().with_reporter(diff_reporter()),
+    verify_all(
+        None,
+        range(1, 17),
+        lambda n: f"{n} -> {fizzbuzz(n)}",
+        options=Options().with_reporter(d()),
     )
