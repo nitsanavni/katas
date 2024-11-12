@@ -20,7 +20,7 @@ def fizzbuzz(n):
 def test_fizzbuzz():
     verify_all(
         None,
-        range(1, 17),
+        range(1, 18),
         lambda n: f"{n} -> {fizzbuzz(n)}",
         options=Options().with_reporter(d()),
     )
