@@ -4,7 +4,5 @@ base_cmd: bun app.js
 
 story:
 
-  - sleep: 1
-
   - capture: 1st-frame
 
