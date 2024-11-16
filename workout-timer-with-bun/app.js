@@ -42,6 +42,7 @@ function handleKeypress(data) {
 	} else if (key === 'b') {
 		bpmTimestamps.push(now);
 	} else if (key === 'q') {
+		restoreCursor();
 		process.exit();
 	}
 
@@ -54,6 +55,10 @@ function tick() {
 		stopwatchTime += 1;
 	}
 	updateDisplay();
+}
+
+function restoreCursor() {
+	process.stdout.write('\u001B[?25h'); // ANSI escape code to show the cursor
 }
 
 process.stdin.setRawMode(true);

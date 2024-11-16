@@ -1,0 +1,4 @@
+- general: clear the terminal screen on init, and restore on exit
+- general: restore the cursor on exit, is disappears after exit
+- stopwatch: change the formatting to mm:ss starting from 00:02 (two seconds in)
+- bpm: something is weird now, the number changes even if not registering a beat; the number should only change when click 'b'
