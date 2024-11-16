@@ -6,3 +6,8 @@ story:
 
   - capture: 1st-frame
 
+  - send-keys: Up
+
+  - sleep: 1
+
+  - capture: counter-2
