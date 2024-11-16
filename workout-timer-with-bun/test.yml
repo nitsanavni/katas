@@ -9,6 +9,4 @@ story:
   - send-keys: Up
   - send-keys: Up
 
-  - sleep: 1
-
   - capture: counter-2
