@@ -10,7 +10,8 @@ function formatTime(time) {
   let minutes = Math.floor(time / 6000);
   let seconds = Math.floor((time % 6000) / 100);
   let centiseconds = time % 100;
-  return time < 6000
+
+  return time < 200
     ? `${minutes}:${seconds.toString().padStart(2, "0")}:${centiseconds.toString().padStart(2, "0")}`
     : `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
