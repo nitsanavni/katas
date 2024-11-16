@@ -1,5 +1,5 @@
 ./app.js
 
 
-- general: restore the cursor on exit, is disappears after exit
+- stopwatch: change the formatting to mm:ss starting from 00:02 (two seconds in)
 

@@ -1,4 +1,4 @@
-changes required: Implement cursor restoration on program exit.
+changes required: Modify the `formatTime` function to display the time in `mm:ss` format starting from 00:02.
 
 ### File: `./app.js`
 
@@ -12,12 +12,9 @@ let bpmTimestamps = [];
 let lastInputTime = Date.now();
 
 function formatTime(time) {
-	let minutes = Math.floor(time / 6000);
-	let seconds = Math.floor((time % 6000) / 100);
-	let centiseconds = time % 100;
-	return time < 6000
-		? `${minutes}:${seconds.toString().padStart(2, '0')}:${centiseconds.toString().padStart(2, '0')}`
-		: `${minutes}:${seconds.toString().padStart(2, '0')}`;
+	let minutes = Math.floor((time + 200) / 6000);  // Add 200 to start from 00:02
+	let seconds = Math.floor(((time + 200) % 6000) / 100);
+	return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
 function calculateBPM() {
@@ -71,5 +68,4 @@ process.stdin.on('data', handleKeypress);
 
 setInterval(tick, 10);
 updateDisplay();
-
 ```
