@@ -1,0 +1,10 @@
+name: test app
+
+base_cmd: bun app.js
+
+story:
+
+  - sleep: 1
+
+  - capture: hello
+
