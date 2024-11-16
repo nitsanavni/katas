@@ -10,3 +10,9 @@ story:
   - send-keys: Up
 
   - capture: counter-2
+
+  - send-no-enter: "b"
+  - sleep: 1
+  - send-no-enter: "b"
+
+  - capture: bpm
