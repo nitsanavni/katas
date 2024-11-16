@@ -6,5 +6,5 @@ story:
 
   - sleep: 1
 
-  - capture: hello
+  - capture: 1st-frame
 
