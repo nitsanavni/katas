@@ -7,6 +7,7 @@ story:
   - capture: 1st-frame
 
   - send-keys: Up
+  - send-keys: Up
 
   - sleep: 1
 
