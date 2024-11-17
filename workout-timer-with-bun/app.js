@@ -4,7 +4,6 @@ let counter = 0;
 let stopwatchTime = 0;
 let stopwatchRunning = false;
 let bpmTimestamps = [];
-let lastInputTime = Date.now();
 
 function formatTime(time) {
   let minutes = Math.floor(time / 6000);
@@ -53,7 +52,6 @@ function handleKeypress(data) {
     process.exit();
   }
 
-  lastInputTime = now;
   updateDisplay();
 }
 
