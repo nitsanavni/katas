@@ -2,4 +2,4 @@ from approvaltests import verify
 
 
 def test_fizzbuzz():
-    verify("1 -> 1")
+    verify(f"{1} -> {fizzbuzz(1)}")
