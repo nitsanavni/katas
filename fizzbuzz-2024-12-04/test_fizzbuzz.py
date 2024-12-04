@@ -6,4 +6,4 @@ def fizzbuzz(number):
 
 
 def test_fizzbuzz():
-    verify(f"{1} -> {fizzbuzz(1)}")
+    verify("\n".join([f"{n} -> {fizzbuzz(n)}" for n in [1]]))
