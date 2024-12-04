@@ -2,7 +2,7 @@ from approvaltests import verify
 
 
 def fizzbuzz(number):
-    pass
+    return 1
 
 
 def test_fizzbuzz():
